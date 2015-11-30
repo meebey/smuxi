@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 16:54+0200\n"
-"PO-Revision-Date: 2015-06-12 16:55+0200\n"
+"POT-Creation-Date: 2015-09-02 16:38+0200\n"
+"PO-Revision-Date: 2015-09-02 16:22+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -45,12 +45,12 @@ msgstr "Połączenie się nie powiodło. Powód: {0}"
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
 #, csharp-format
 msgid "Connecting to {0}..."
-msgstr "Łączenie z {0}..."
+msgstr "Łączenie z {0}…"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr "Ponowne łączenie {0}..."
+msgstr "Ponowne łączenie {0}…"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
 msgid "not connected"

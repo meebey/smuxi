@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:01+0100\n"
-"PO-Revision-Date: 2013-12-11 16:07+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"POT-Creation-Date: 2015-05-03 12:33+0200\n"
+"PO-Revision-Date: 2015-05-14 21:36+0000\n"
+"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,276 +18,306 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:212
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
 msgid "The Server has shut down"
-msgstr ""
+msgstr "Sunucu kapatıldı"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:215
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
 msgid ""
 "Another client logged in with the same resource, you have been disconnected"
-msgstr ""
+msgstr "Başka bir istemci aynı kaynakla oturum açtı, bağlantınız kesildi"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:233
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:209
 msgid ""
 "Authentication failed, either username does not exist or invalid password"
-msgstr ""
+msgstr "Kimlik doğrulama başarısız oldu, kullanıcı adı mevcut değil ya da parola yanlış"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:237
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
 msgid ""
 "if you want to create an account with the specified user and password, type "
 "/register now"
-msgstr ""
+msgstr "belirtilen kullanıcı adı ve parola ile hesap oluşturmak istiyorsanız şimdi /register yazın"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:359
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
+msgid ""
+"This engine has native Facebook support, you should be using it instead of "
+"connecting to facebook with xmpp"
+msgstr "Bu motorda zaten yerleşik Facebook desteği bulunuyor, xmpp ile facebook bağlantısı kurmak yerine onu kullanmalısınız"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
 msgid "not connected"
-msgstr ""
+msgstr "bağlantı yok"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:818
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:819
 #, csharp-format
 msgid "Could not find contact {0}"
-msgstr ""
+msgstr "{0} kişisi bulunamadı"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:824
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:825
 #, csharp-format
 msgid "Contact {0} has {1} known resources"
-msgstr ""
+msgstr "{0} kişisi bilinen {1} kaynağa sahip"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:828
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
 #, csharp-format
 msgid "{0} is not a known resource"
-msgstr ""
+msgstr "{0} bilinen bir kaynak değil"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:836
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
 #, csharp-format
 msgid "Contact's Jid: {0}"
-msgstr ""
+msgstr "Kişi'ye ait Jid: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:840
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
 msgid "You have a mutual subscription with this contact"
-msgstr ""
+msgstr "Bu kişiyle ortak bir aboneliğiniz var"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:843
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:844
 msgid ""
 "You have no subscription with this contact and this contact is not "
 "subscribed to you"
-msgstr ""
+msgstr "Bu kişiye aboneliğiniz yok ve bu kişi size abone değil"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:846
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
 msgid ""
 "You are subscribed to this contact, but the contact is not subcribed to you"
-msgstr ""
+msgstr "Bu kişiye abonesiniz ancak bu kişi size abone değil"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:849
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
 msgid ""
 "You are not subscribed to this contact, but the contact is subcribed to you"
-msgstr ""
+msgstr "Bu kişiye abone değilsiniz ancak bu kişi size abone"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:945
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
 #, csharp-format
 msgid "Invalid Contact command: {0}"
-msgstr ""
+msgstr "Geçersiz Kişi komutu: {0}"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:956
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:957
 #, csharp-format
 msgid "{0} Commands"
-msgstr ""
+msgstr "{0} Komutları"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:981
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:982
 #, csharp-format
 msgid "Advanced {0} Commands"
-msgstr ""
+msgstr "Gelişmiş {0} Komutları"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1016
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1017
 #, csharp-format
 msgid "Invalid port: {0}"
-msgstr ""
+msgstr "Geçersiz port: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1051
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1052
 #, csharp-format
 msgid "Priority for Available is: {0}"
-msgstr ""
+msgstr "Uygun için öncelik: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1054
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
 #, csharp-format
 msgid "Priority for Away is: {0}"
-msgstr ""
+msgstr "Uzakta için öncelik: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1062
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
 #, csharp-format
 msgid ""
 "Invalid Priority: {0} (valid priorities are between -128 and 127 inclusive)"
-msgstr ""
+msgstr "Geçersiz Öncelik: {0} (geçerli öncelikler -128 ile 127 - dahil - arası)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
+#, csharp-format
+msgid "{0}{1} is available"
+msgstr "{0}{1} uygun"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1637
+#, csharp-format
+msgid "{0}{1} is away"
+msgstr "{0}{1} uzakta"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1641
 #, csharp-format
-msgid "{0}{1} is available"
-msgstr ""
+msgid "{0}{1} is extended away"
+msgstr "{0}{1} uzun süredir uzakta"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1645
 #, csharp-format
-msgid "{0}{1} is away"
-msgstr ""
+msgid "{0}{1} wishes not to be disturbed"
+msgstr "{0}{1} rahatsız edilmek istemiyor"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1649
 #, csharp-format
-msgid "{0}{1} is extended away"
-msgstr ""
-
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1653
-#, csharp-format
-msgid "{0}{1} wishes not to be disturbed"
-msgstr ""
-
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1657
-#, csharp-format
 msgid "{0}{1} wants to chat"
-msgstr ""
+msgstr "{0}{1} sohbet etmek istiyor"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1664
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1656
 #, csharp-format
 msgid "{0}{1} is offline"
-msgstr ""
+msgstr "{0}{1} çevrimdışı"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1670
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1662
 #, csharp-format
 msgid ""
 "Automatically allowed {0} to subscribe to you, since you are already asking "
 "to subscribe"
-msgstr ""
+msgstr "{0} kişisinin size abone olmasına, zaten sizin de abonelik isteğiniz olduğu için kendiliğinden izin verildi"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1674
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1666
 #, csharp-format
 msgid "{0}{1} wishes to subscribe to you"
-msgstr ""
+msgstr "{0}{1} size abone olmak istiyor"
 
 #. you can now see their presences
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1682
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1674
 #, csharp-format
 msgid "{0}{1} allowed you to subscribe"
-msgstr ""
+msgstr "{0}{1} abone olmanıza izin verdi"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1689
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1681
 #, csharp-format
 msgid ""
 "Automatically removed {0}'s subscription to your presences after losing the "
 "subscription to theirs"
-msgstr ""
+msgstr "{0} kişisinin bulunmalarınıza aboneliği, siz o kişiye aboneliğinizi kaybedince kendiliğinden kaldırıldı"
 
 #. you cannot (anymore?) see their presences
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1696
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1688
 #, csharp-format
 msgid "{0}{1} denied/removed your subscription"
-msgstr ""
+msgstr "{0}{1} aboneliğinizi reddetti/kaldırdı"
 
 #. you might still be able to see their presences
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1701
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1693
 #, csharp-format
 msgid "{0}{1} unsubscribed from you"
-msgstr ""
+msgstr "{0}{1} size aboneliğini iptal etti"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1705
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1697
 #, csharp-format
 msgid "received a malformed error message: {0}"
-msgstr ""
+msgstr "kusurlu bir hata mesajı alındı: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1712
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1704
 #, csharp-format
 msgid "{0}{1}'s server could not be found"
-msgstr ""
+msgstr "{0}{1} kişisinin sunucusu bulunamadı"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1715
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1707
 #, csharp-format
 msgid "{0}{1} is already using your requested resource"
-msgstr ""
+msgstr "{0}{1} zaten talep ettiğiniz kaynağı kullanıyor"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1722
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1744
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1758
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1714
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1736
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1750
 #, csharp-format
 msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
-msgstr ""
+msgstr "{0}, {1}, {2}{3} için henüz kullanışlı bir hata mesajı yok"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1735
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1727
 #, csharp-format
 msgid "You do not have permission to access {0}{1}"
-msgstr ""
+msgstr "{0}{1} kişisine erişim için izniniz yok"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1785
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1777
 #, csharp-format
 msgid "{0} days"
-msgstr ""
+msgstr "{0} gün"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1791
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1783
 #, csharp-format
 msgid "{0} hours"
-msgstr ""
+msgstr "{0} saat"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1795
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1787
 #, csharp-format
 msgid "{0} minutes"
-msgstr ""
+msgstr "{0} dakika"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1798
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1790
 #, csharp-format
 msgid "{0} seconds"
-msgstr ""
+msgstr "{0} saniye"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1810
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1802
 #, csharp-format
 msgid " since {0} ({1})"
-msgstr ""
+msgstr "{0} ({1}) süresince"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1888
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1887
 #, csharp-format
 msgid "An unknown groupchat error occurred: {0}"
-msgstr ""
+msgstr "Bilinmeyen bir toplu sohbet hatası oluştu: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1894
+#, csharp-format
+msgid "Server of groupchat \"{0}\" not found."
+msgstr "\"{0}\" toplu sohbetinin sunucusu bulunamadı."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
+#, csharp-format
+msgid "Muc service is not available for \"{0}\""
+msgstr "\"{0}\" için Muc hizmeti mevcut değil"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
 #, csharp-format
-msgid "An unhandled groupchat error occurred: {0}"
-msgstr ""
+msgid "You do not have permission to join \"{0}\""
+msgstr "\"{0}\" katılımı için izniniz yok"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1906
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1910
 #, csharp-format
-msgid "Error in Groupchat {0}: {1}"
-msgstr ""
+msgid "An unhandled groupchat error occurred: {0}"
+msgstr "Öngörülmemiş bir toplu sohbet hatası oluştu: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2277
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2096
+#, csharp-format
+msgid ""
+"Received a presence update from {0}, but there's no corresponding chat "
+"window"
+msgstr "{0} kişisinden bir bulunma güncellemesi alındı, ancak karşılık gelen bir sohbet penceresi yok"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2120
+#, csharp-format
+msgid ""
+"Received a groupchat message from {0} but there's no corresponding chat "
+"window: {1}"
+msgstr "{0} kişisinden bir toplu sohbet mesajı alındı ancak karşılık gelen bir sohbet penceresi yok: {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
 #, csharp-format
 msgid "You have been invited to {2} by {0} because {1}"
-msgstr ""
+msgstr "{0} tarafından {2} odasına davet edildiniz çünkü {1}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2283
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2403
 #, csharp-format
 msgid "You have been invited to {1} by {0}"
-msgstr ""
+msgstr "{0} tarafından {1} odasına davet edildiniz"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2304
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2424
 msgid "Accept invite (join room)"
-msgstr ""
+msgstr "Daveti kabul et (odaya katıl)"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2471
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2562
 #, csharp-format
 msgid "Reconnecting to {0}"
-msgstr ""
+msgstr "{0} ile yeniden bağlantı kuruluyor"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2485
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2576
 #, csharp-format
 msgid "Reconnecting to {0} in {1} seconds"
-msgstr ""
+msgstr "{0} ile {1} saniye içinde yeniden bağlantı kuruluyor"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2515
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2606
 #, csharp-format
 msgid "Error: {0}"
-msgstr ""
+msgstr "Hata: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2527
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2618
 msgid "Authenticated"
-msgstr ""
+msgstr "Kimlik doğrulandı"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2574
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2669
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
-msgstr ""
+msgstr "{0}:{1} vekil sunucusu kullanılıyor"

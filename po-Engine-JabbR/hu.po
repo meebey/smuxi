@@ -1,0 +1,59 @@
+# Hungarian translation for smuxi.
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the smuxi package.
+#
+# Balázs Úr <urbalazs@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-17 11:44+0000\n"
+"PO-Revision-Date: 2015-07-17 19:06+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <openscope at gmail dot com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:103
+msgid "JabbR Commands"
+msgstr "JabbR parancsok"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:136
+#, csharp-format
+msgid "Joining room failed. Reason: {0}"
+msgstr "A szobához csatlakozás sikertelen. Ok: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:162
+#, csharp-format
+msgid "Sending message failed. Reason: {0}"
+msgstr "Az üzenet küldése sikertelen. Ok: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:230
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Kapcsolat meghiúsult! Ok: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
+#, csharp-format
+msgid "Connecting to {0}..."
+msgstr "Kapcsolódás ehhez: {0}…"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
+#, csharp-format
+msgid "Reconnecting to {0}..."
+msgstr "Újrakapcsolódás ehhez: {0}…"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
+msgid "not connected"
+msgstr "nincs kapcsolódva"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
+#, csharp-format
+msgid "Retrieving chat information failed. Reason: {0}"
+msgstr "A csevegés-információk lekérése sikertelen. Ok: {0}"
+

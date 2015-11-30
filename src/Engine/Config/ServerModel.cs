@@ -32,6 +32,7 @@ namespace Smuxi.Engine
     {
         public bool UseEncryption { get; set; }
         public bool ValidateServerCertificate { get; set; }
+        public string ClientCertificateFilename { get; set; }
         public string Protocol { get; set; }
         public string Hostname { get; set; }
         public int Port { get; set; }
@@ -100,6 +101,9 @@ namespace Smuxi.Engine
                         ValidateServerCertificate = (bool)e.Value;
                         foundValidation = true;
                         break;
+                    case "ClientCertificateFilename":
+                        ClientCertificateFilename = (string) e.Value;
+                        break;
                 }
             }
             if (foundServerID == false) {
@@ -131,6 +135,12 @@ namespace Smuxi.Engine
             }
             if (Realname != null) {
                 info.AddValue("_Realname", Realname);
+            }
+            // HACK: skip ClientCertificateFilename if it has no value as it
+            // breaks older ServerModel implementations that relied on automatic
+            // serialization which was the case in < 0.8.11
+            if (String.IsNullOrEmpty(ClientCertificateFilename)) {
+                info.AddValue("ClientCertificateFilename", ClientCertificateFilename);
             }
             info.AddValue("_Protocol", Protocol);
             info.AddValue("_Hostname", Hostname);
@@ -175,6 +185,7 @@ namespace Smuxi.Engine
             UseEncryption = (bool) config[ConfigKeyPrefix + "UseEncryption"];
             ValidateServerCertificate =
                 (bool) config[ConfigKeyPrefix + "ValidateServerCertificate"];
+            ClientCertificateFilename = (string) config[ConfigKeyPrefix + "ClientCertificateFilename"];
             if (config[ConfigKeyPrefix + "OnStartupConnect"] != null) {
                 OnStartupConnect = (bool) config[ConfigKeyPrefix + "OnStartupConnect"];
             }
@@ -196,6 +207,8 @@ namespace Smuxi.Engine
             config[ConfigKeyPrefix + "UseEncryption"] = UseEncryption;
             config[ConfigKeyPrefix + "ValidateServerCertificate"] =
                 ValidateServerCertificate;
+            config[ConfigKeyPrefix + "ClientCertificateFilename"] =
+                ClientCertificateFilename;
             config[ConfigKeyPrefix + "OnStartupConnect"] = OnStartupConnect;
             config[ConfigKeyPrefix + "OnConnectCommands"] = OnConnectCommands;
         }

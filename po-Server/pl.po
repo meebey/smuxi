@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 17:29+0200\n"
-"PO-Revision-Date: 2015-06-12 17:30+0200\n"
+"POT-Creation-Date: 2015-09-02 16:40+0200\n"
+"PO-Revision-Date: 2015-09-02 16:31+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -58,7 +58,7 @@ msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
 msgstr ""
 "Optymalizuje bufory wiadomości i kończy działanie (prawidłowe wartości: "
-"\"none\", \"defrag\", \"index\", \"all\")"
+"„none”, „defrag”, „index”, „all”)"
 
 #: ../src/Server/Main.cs:140
 msgid "Show this help"
@@ -79,7 +79,7 @@ msgstr "Wyświetla wersję"
 #: ../src/Server/Main.cs:165
 #, csharp-format
 msgid "Unknown option: '{0}'"
-msgstr "Nieznana opcja: \"{0}\""
+msgstr "Nieznana opcja: „{0}”"
 
 #: ../src/Server/Main.cs:192
 #, csharp-format
@@ -91,12 +91,12 @@ msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a "
 "time."
 msgstr ""
-"Najwyżej jedno polecenie \"--add-user\", \"--modify-user\" i \"--delete-user"
-"\" może być użyte w tym samym czasie."
+"Najwyżej jedno polecenie „--add-user”, „--modify-user” i „--delete-user” "
+"może być użyte w tym samym czasie."
 
 #: ../src/Server/Main.cs:246
 msgid "You must specify a username with the --username option."
-msgstr "Należy podać nazwę użytkownika za pomocą opcji \"--username\"."
+msgstr "Należy podać nazwę użytkownika za pomocą opcji „--username”."
 
 #: ../src/Server/Main.cs:252
 msgid "Username must not be empty."
@@ -104,7 +104,7 @@ msgstr "Nazwa użytkownika nie może być pusta."
 
 #: ../src/Server/Main.cs:262
 msgid "You must specify a password with the --password option."
-msgstr "Należy podać hasło za pomocą opcji \"--password\"."
+msgstr "Należy podać hasło za pomocą opcji „--password”."
 
 #: ../src/Server/Main.cs:268
 msgid "Password must not be empty."
@@ -116,23 +116,23 @@ msgid ""
 "Invalid optimization value passed to --optimize-message-buffer, valid values "
 "are: {0}"
 msgstr ""
-"Przekazano nieprawidłową wartość optymalizacji do \"--optimize-message-buffer"
-"\", prawidłowe wartości: {0}"
+"Przekazano nieprawidłową wartość optymalizacji do „--optimize-message-"
+"buffer”, prawidłowe wartości: {0}"
 
 #: ../src/Server/Main.cs:307
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
-msgstr "Pomyślnie dodano użytkownika \"{0}\" do serwera."
+msgstr "Pomyślnie dodano użytkownika „{0}” do serwera."
 
 #: ../src/Server/Main.cs:316
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
-msgstr "Pomyślnie zmodyfikowano użytkownika \"{0}\"."
+msgstr "Pomyślnie zmodyfikowano użytkownika „{0}”."
 
 #: ../src/Server/Main.cs:325
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
-msgstr "Pomyślnie usunięto użytkownika \"{0}\" z serwera."
+msgstr "Pomyślnie usunięto użytkownika „{0}” z serwera."
 
 #: ../src/Server/Main.cs:332
 msgid "Users:"

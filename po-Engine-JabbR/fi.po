@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Kalle Kaitala <cobrian@cobrian.net>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:00+0100\n"
-"PO-Revision-Date: 2013-12-11 16:07+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"POT-Creation-Date: 2015-05-03 12:32+0200\n"
+"PO-Revision-Date: 2015-05-03 12:51+0000\n"
+"Last-Translator: Kalle Kaitala <cobrian@cobrian.net>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/smuxi/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,38 +20,38 @@ msgstr ""
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:103
 msgid "JabbR Commands"
-msgstr ""
+msgstr "JabbR-komennot"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:136
 #, csharp-format
 msgid "Joining room failed. Reason: {0}"
-msgstr ""
+msgstr "Huoneeseen liittyminen epäonnistui. Syy: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:162
 #, csharp-format
 msgid "Sending message failed. Reason: {0}"
-msgstr ""
+msgstr "Viestin lähetys epäonnistui. Syy: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:230
 #, csharp-format
 msgid "Connection failed! Reason: {0}"
-msgstr ""
+msgstr "Yhteys epäonnistui! Syy: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
 #, csharp-format
 msgid "Connecting to {0}..."
-msgstr ""
+msgstr "Yhdistetään kohteeseen {0}..."
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:340
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr ""
+msgstr "Yhdistetään uudelleen kohteeseen {0}..."
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:433
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
 msgid "not connected"
-msgstr ""
+msgstr "ei yhteydessä"
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:577
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
 #, csharp-format
 msgid "Retrieving chat information failed. Reason: {0}"
-msgstr ""
+msgstr "Keskustelutiedon haku epäonnistui. Syy: {0}"

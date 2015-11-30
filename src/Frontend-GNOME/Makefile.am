@@ -5,6 +5,7 @@ man_MANS = smuxi-frontend-gnome.1
 ICON_NAME = smuxi-frontend-gnome
 ICON_NAME_PNG = $(ICON_NAME).png
 ICON_SVG = $(ICON_NAME).svg
+ICON_XPM = $(ICON_NAME).xpm
 GROUP_CHAT_ICON_NAME = smuxi-group-chat
 PERSON_CHAT_ICON_NAME = smuxi-person-chat
 ICON_16 = $(top_builddir)/images/16/$(ICON_NAME_PNG)
@@ -97,6 +98,8 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_DESKTOPAPPLICATIONS) $(BINARIES)
 
 $(ICON_SVG):
 	$(INSTALL) -m644 $(top_srcdir)/images/icon.svg $@
+$(ICON_XPM):
+	$(INSTALL) -m644 $(top_srcdir)/images/icon.xpm $@
 $(ICON_16):
 	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_16x16.png $@
 $(ICON_22):
@@ -192,6 +195,7 @@ FILES = \
 DATA_FILES = \
 	$(DESKTOP_FILE) \
 	$(ICON_SVG) \
+	$(ICON_XPM) \
 	$(ICON_16) \
 	$(ICON_22) \
 	$(ICON_24) \

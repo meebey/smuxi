@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 17:10+0200\n"
-"PO-Revision-Date: 2015-06-12 17:15+0200\n"
+"POT-Creation-Date: 2015-09-02 16:38+0200\n"
+"PO-Revision-Date: 2015-09-02 16:24+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -43,7 +43,7 @@ msgstr "Używanie pośrednika: {0}:{1}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:217
 msgid "Connecting to Twitter..."
-msgstr "Łączenie z serwisem Twitter..."
+msgstr "Łączenie z serwisem Twitter…"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:259
 msgid "Twitter authorization required."
@@ -55,7 +55,7 @@ msgid ""
 "Please open the following URL and click \"Allow\" to allow Smuxi to connect "
 "to your Twitter account: {0}"
 msgstr ""
-"Proszę otworzyć poniższy adres URL i kliknąć przycisk \"Zezwól\", aby "
+"Proszę otworzyć poniższy adres URL i kliknąć przycisk „Zezwól”, aby "
 "umożliwić programowi Smuxi łączenie się z kontem w serwisie Twitter: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:282
@@ -83,7 +83,7 @@ msgstr "Połączenie się nie powiodło. Powód: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:317
 msgid "Fetching user details from Twitter, please wait..."
-msgstr "Pobieranie danych użytkownika z serwisu Twitter, proszę czekać..."
+msgstr "Pobieranie danych użytkownika z serwisu Twitter, proszę czekać…"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:324
 msgid "Finished fetching user details."
@@ -100,7 +100,7 @@ msgstr ""
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:381
 msgid "Fetching friends from Twitter, please wait..."
-msgstr "Pobieranie listy znajomych z serwisu Twitter, proszę czekać..."
+msgstr "Pobieranie listy znajomych z serwisu Twitter, proszę czekać…"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:390
 msgid "Finished fetching friends."
@@ -136,7 +136,7 @@ msgid ""
 "account."
 msgstr ""
 "Proszę ponowić przez zamknięcie tej karty i ponowne połączenie z kontem "
-"\"{0}\" serwisu Twitter."
+"„{0}” serwisu Twitter."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
 msgid "Migrated Twitter account from basic auth to OAuth."
@@ -148,25 +148,24 @@ msgstr ""
 #, csharp-format
 msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
 msgstr ""
-"Pomyślnie upoważniono konto \"{0}\" serwisu Twitter do użycia w programie "
-"Smuxi"
+"Pomyślnie upoważniono konto „{0}” serwisu Twitter do użycia w programie Smuxi"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:902
 #, csharp-format
 msgid "Could not update status - Reason: {0}"
-msgstr "Nie można zaktualizować stanu - powód: {0}"
+msgstr "Nie można zaktualizować stanu — powód: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:913
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
 msgstr ""
-"Nie można wysłać wiadomości - nie podano celu. Proszę użyć /msg $pseudonim "
+"Nie można wysłać wiadomości — nie podano celu. Proszę użyć: /msg $pseudonim "
 "wiadomość"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:930
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1025
 #, csharp-format
 msgid "Could not send message - Reason: {0}"
-msgstr "Nie można wysłać wiadomości - powód: {0}"
+msgstr "Nie można wysłać wiadomości — powód: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:950
 msgid "Other timelines"
@@ -174,12 +173,12 @@ msgstr "Inne osie czasu"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1008
 msgid "Could not send message - the specified user does not exist."
-msgstr "Nie można wysłać wiadomości - podany użytkownik nie istnieje."
+msgstr "Nie można wysłać wiadomości — podany użytkownik nie istnieje."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1122
 #, csharp-format
 msgid "Search {0}"
-msgstr "Wyszukiwanie {0}"
+msgstr "Wyszukiwanie „{0}”"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
 #, csharp-format

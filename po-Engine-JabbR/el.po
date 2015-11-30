@@ -1,0 +1,59 @@
+# Greek translation for smuxi.
+# Copyright (C) 2015 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Dimitris Spingos <dmtrs32@gmail.com>, 2015.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-10 11:41+0000\n"
+"PO-Revision-Date: 2015-07-19 13:03+0300\n"
+"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"Language-Team: team.lists@gnome.gr\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:103
+msgid "JabbR Commands"
+msgstr "Εντολές JabbR"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:136
+#, csharp-format
+msgid "Joining room failed. Reason: {0}"
+msgstr "Αποτυχία σύνδεσης με αίθουσα. Αιτία: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:162
+#, csharp-format
+msgid "Sending message failed. Reason: {0}"
+msgstr "Αποτυχία αποστολής μηνύματος. Αιτία: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:230
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Αποτυχία σύνδεσης: Αιτία: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
+#, csharp-format
+msgid "Connecting to {0}..."
+msgstr "Συνδέεται με το {0}..."
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
+#, csharp-format
+msgid "Reconnecting to {0}..."
+msgstr "Επανασυνδέεται με το {0}..."
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
+msgid "not connected"
+msgstr "δεν συνδέθηκε"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
+#, csharp-format
+msgid "Retrieving chat information failed. Reason: {0}"
+msgstr "Αποτυχία ανάκτησης πληροφοριών συνομιλίας. Αιτία:{0}"

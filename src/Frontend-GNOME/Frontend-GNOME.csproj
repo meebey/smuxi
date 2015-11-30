@@ -24,7 +24,7 @@
     <Execution>
       <Execution clr-version="Net_2_0" />
     </Execution>
-    <Commandlineparameters>--debug</Commandlineparameters>
+    <Commandlineparameters>--debug --new-instance</Commandlineparameters>
     <EnvironmentVariables>
       <EnvironmentVariables>
         <Variable name="MONO_TRACE_LISTENER" value="Console.Out" />

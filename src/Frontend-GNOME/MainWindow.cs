@@ -225,10 +225,10 @@ namespace Smuxi.Frontend.Gnome
             entryScrolledWindow.ShadowType = Gtk.ShadowType.EtchedIn;
             entryScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
             entryScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
-                // predict and set useful heigth
-                int lineWidth, lineHeigth;
+                // predict and set useful height
+                int lineWidth, lineHeight;
                 using (var layout = Entry.CreatePangoLayout("Qp")) {
-                    layout.GetPixelSize(out lineHeigth, out lineHeigth);
+                    layout.GetPixelSize(out lineWidth, out lineHeight);
                 }
                 var it = Entry.Buffer.StartIter;
                 int newLines = 1;
@@ -242,7 +242,7 @@ namespace Smuxi.Frontend.Gnome
                 newLines = Math.Min(newLines, 3);
                 // use text heigth + a bit extra
                 var bestSize = new Gtk.Requisition() {
-                    Height = (lineHeigth * newLines) + 5
+                    Height = (lineHeight * newLines) + 5
                 };
                 args.Requisition = bestSize;
             };
@@ -394,8 +394,11 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(e);
 
-            WindowWidth = e.Width;
-            CheckLayout();
+            var widthChanged = WindowWidth != e.Width;
+            if (widthChanged) {
+                WindowWidth = e.Width;
+                CheckLayout();
+            }
             return base.OnConfigureEvent(e);
         }
 

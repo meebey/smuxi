@@ -1,0 +1,1390 @@
+# Hungarian translation for smuxi.
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the smuxi package.
+#
+# Balázs Úr <urbalazs@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-17 17:47+0000\n"
+"PO-Revision-Date: 2015-07-18 15:39+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <openscope at gmail dot com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:1
+msgid "Smuxi Preferences"
+msgstr "Smuxi beállításai"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:2
+msgid ""
+"The nickname to use. You can specify extra nicknames (separated by spaces) "
+"which will be used as fallbacks when the first choice is not available. By "
+"default $nick_ and $nick__ will be used as fallbacks."
+msgstr ""
+"A használandó becenév. Megadhat további beceneveket (szóközzel elválasztva), "
+"amelyek tartalékként lesznek használva, ha az elsőnek választott nem érhető "
+"el. Alapértelmezetten $nick_ és $nick__ lesz használva tartalékként."
+
+#: ../glade/smuxi-frontend-gnome.glade.h:3
+msgid "Nickname(s):"
+msgstr "Becenevek:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:4
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
+msgid "Username:"
+msgstr "Felhasználónév:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:5
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
+msgid "Realname:"
+msgstr "Valódi név:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:6
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
+msgid "Encoding:"
+msgstr "Kódolás:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:7
+msgid "Automatically convert UTF-8 characters"
+msgstr "UTF-8 karakterek automatikus átalakítása"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:8
+msgid "<b>General</b>"
+msgstr "<b>Általános</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:9
+msgid "Type:"
+msgstr "Típus:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:10
+msgid "Host:"
+msgstr "Gép:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:11
+msgid "Password:"
+msgstr "Jelszó:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:12
+msgid "Port:"
+msgstr "Port:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:13
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
+msgid "Show Password"
+msgstr "Jelszó megjelenítése"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:14
+msgid "<b>Network Proxy</b>"
+msgstr "<b>Hálózati proxy</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:15
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
+msgid "On Connect Commands:"
+msgstr "Kapcsolódáskori parancsok:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:16
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
+msgid "On Startup Commands:"
+msgstr "Indításkori parancsok:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:17
+msgid "<b>Global Commands</b>"
+msgstr "<b>Globális parancsok</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:18
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
+msgid "C_onnection"
+msgstr "_Kapcsolat"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:19
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
+msgid "Timestamp Format:"
+msgstr "Időbélyeg formátum:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:20
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
+msgid "Buffer Lines:"
+msgstr "Puffersorok:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:21
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
+msgid "Engine Buffer Lines:"
+msgstr "Motor puffersorok:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:22
+msgid ""
+"ss = seconds\n"
+"mm = minutes\n"
+"hh = hours (01 - 12)\n"
+"HH = hours (00 - 23)\n"
+"tt = AM/PM\n"
+"\n"
+"dd = day\n"
+"MM = month\n"
+"yy/yyyy = year"
+msgstr ""
+"ss = másodperc\n"
+"mm = perc\n"
+"hh = óra (01 - 12)\n"
+"HH = óra (00 - 23)\n"
+"tt = DE/DU\n"
+"\n"
+"dd = nap\n"
+"MM = hónap\n"
+"yy/yyyy = év"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:31
+msgid "Persistency Type:"
+msgstr "Tartóssági típus:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:32
+msgid "Volatile Buffer Lines:"
+msgstr "Illékony puffersorok:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:33
+msgid "Persistent Buffer Lines:"
+msgstr "Tartós puffersorok:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:34
+msgid "<b>Message Buffer</b>"
+msgstr "<b>Üzenetpuffer</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:35
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
+msgid "Strip Colors"
+msgstr "Színek leszedése"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:36
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
+msgid "Strip Formattings"
+msgstr "Formázások leszedése"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:37
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
+msgid "Strip UTF-8"
+msgstr "UTF-8 leszedése"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:38
+msgid "Show Advanced Settings"
+msgstr "Speciális beállítások megjelenítése"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:39
+msgid "<b>Advanced</b>"
+msgstr "<b>Speciális</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:40
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
+msgid "General"
+msgstr "Általános"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:41
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
+msgid "Top"
+msgstr "Fent"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:42
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
+msgid "Bottom"
+msgstr "Lent"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:43
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
+msgid "Left"
+msgstr "Balra"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:44
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
+msgid "Right"
+msgstr "Jobbra"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:45
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
+msgid "None"
+msgstr "Nincs"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:46
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
+msgid "<b> Tabs Position </b>"
+msgstr "<b>Lapok elhelyezkedése</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
+msgid "Highlight"
+msgstr "Kiemelés"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:48
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
+msgid "Activity"
+msgstr "Tevékenység"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:49
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
+msgid "No Activity"
+msgstr "Nincs tevékenység"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:50
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
+msgid "Join/Part/Mode"
+msgstr "Csatlakozás/Kilépés/Mód"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:51
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
+msgid "<b> Tab Colors </b>"
+msgstr "<b>Lap színei</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:52
+msgid "Automatically switch to newly opened person chats"
+msgstr "Automatikus váltás az újonnan megnyitott személyes csevegésekre"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:53
+msgid "Automatically switch to newly opened group chats"
+msgstr "Automatikus váltás az újonnan megnyitott csoportos csevegésekre"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:54
+msgid "Tree"
+msgstr "Fa"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
+msgid "Completion Character:"
+msgstr "Kiegészítési karakter:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:56
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
+msgid "Command Character:"
+msgstr "Parancs karakter:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:57
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
+msgid "Command History Size:"
+msgstr "Parancselőzmények mérete:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
+msgid "Bash-Style Completion"
+msgstr "Bash-stílusú kiegészítés"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:59
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
+msgid "<b> Entry Field </b>"
+msgstr "<b>Bejegyzésmező</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:60
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
+msgid "Input"
+msgstr "Bemenet"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
+msgid "Nick Colors"
+msgstr "Becenév színek"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:62
+msgid "<b> Person List Position </b>"
+msgstr "<b>Személylista elhelyezkedése</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:63
+msgid "Override"
+msgstr "Felülbírálás"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:64
+msgid "<b> Font </b>"
+msgstr "<b>Betűkészlet</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:65
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
+msgid "<b> Topic Position </b>"
+msgstr "<b>Téma elhelyezkedése</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:66
+msgid "Foreground"
+msgstr "Előtér"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:67
+msgid "Background"
+msgstr "Háttér"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:68
+msgid "<b> Color </b>"
+msgstr "<b>Szín</b>"
+
+#. This is a setting for character based line wrapping vs word based when showing messages
+#: ../glade/smuxi-frontend-gnome.glade.h:70
+msgid "_Wrap Mode:"
+msgstr "_Tördelési mód:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:71
+msgid "<b> Chat </b>"
+msgstr "<b>Csevegés</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:72
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
+msgid "Highlight words:"
+msgstr "Szavak kiemelése:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
+msgid "Beep on highlight"
+msgstr "Sípolás kiemeléskor"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:74
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
+msgid "<b> Highlighting </b>"
+msgstr "<b>Kiemelés</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:75
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
+msgid "Output"
+msgstr "Kimenet"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:76
+msgid "Enable"
+msgstr "Engedélyezés"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:77
+msgid "Show always"
+msgstr "Mindig jelenjen meg"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:78
+msgid "Show when window is minimized"
+msgstr "Akkor jelenjen meg, ha az ablak minimalizálva van"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:79
+msgid "Show when window is closed"
+msgstr "Akkor jelenjen meg, ha az ablak be van zárva"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:80
+msgid "<b> Notification Area Icon </b>"
+msgstr "<b>Értesítési terület ikon</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:81
+msgid "Show Smuxi in the messaging menu"
+msgstr "Smuxi megjelenítése az üzenetküldési menüben"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:82
+msgid "<b>Messaging Menu</b>"
+msgstr "<b>Üzenetküldési menü</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:83
+msgid "Show notification popups"
+msgstr "Felugró értesítések megjelenítése"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:84
+msgid "<b>Notification Popups</b>"
+msgstr "<b>Felugró értesítések</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:85
+msgid "Notification"
+msgstr "Értesítés"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:86
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
+msgid "_Interface"
+msgstr "_Felület"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
+msgid "_Servers"
+msgstr "_Kiszolgálók"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:88
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
+msgid "_Filters"
+msgstr "_Szűrők"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:89
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:90
+msgid "Log Filtered Messages"
+msgstr "Szűrt üzenetek naplózása"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:91
+msgid "_Logging"
+msgstr "_Naplózás"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:92
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
+msgid "Smuxi - Server"
+msgstr "Smuxi - kiszolgáló"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
+msgid "Automatically connect to server at startup"
+msgstr "Automatikus kapcsolódás a kiszolgálóhoz indításkor"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:94
+msgid "Protocol:"
+msgstr "Protokoll:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:95
+msgid "Network:"
+msgstr "Hálózat:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:96
+msgid "Hostname:"
+msgstr "Gépnév:"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
+msgid "Smuxi"
+msgstr "Smuxi"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:2
+msgid "IRC Chat"
+msgstr "IRC csevegés"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:3
+msgid "Smuxi IRC Client"
+msgstr "Smuxi IRC-kliens"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:4
+msgid "Chat with other people on IRC"
+msgstr "Csevegés más emberekkel IRC csatornán"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:5
+msgid ""
+"chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;"
+"jabbr;"
+msgstr ""
+"csevegés;üzenetküldés;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;camp"
+"fire;jabbr;"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:2
+msgid "Chat with other people on IRC, Twitter, Jabber and Campfire"
+msgstr "Csevegés más emberekkel IRC, Twitter, Jabber és Campfire csatornákon"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:3
+msgid ""
+"Smuxi is an open-source, distributed and user-friendly chat client for IRC, "
+"Twitter, Jabber/XMPP, Campfire and SignalR's JabbR."
+msgstr ""
+"A Smuxi egy nyílt forrású, elosztott és felhasználóbarát csevegőkliens IRC, "
+"Twitter, Jabber/XMPP, Campfire és SignalR's JabbR protokollokhoz."
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:4
+msgid ""
+"Inspired by the combination of screen and irssi, Smuxi has a detachable "
+"server (or like a \"normal\" client) that stays connected when you aren't, "
+"and can allow multiple Smuxi frontends to be connected and in sync. This is "
+"similar to screen+irssi or IRC bouncers, but more elegant and powerful."
+msgstr ""
+"A screen és az irssi kombinációja által ihletve a Smuxi egy olyan "
+"leválasztható kiszolgálóval (vagy mint egy „normál” kliens) rendelkezik, "
+"amely akkor is kapcsolatban marad, amikor ön nem, és lehetővé teszi több "
+"Smuxi előtétprogramnak, hogy kapcsolatban és szinkronban legyenek. Ez hasonló "
+"a screen+irssi együtteséhez vagy az IRC-kidobókhoz, de elegánsabb és "
+"hatékonyabb."
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:5
+msgid "The main window showing an IRC channel"
+msgstr "Egy IRC-csatornát megjelenítő főablak"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:66
+msgid "translator-credits"
+msgstr "Úr Balázs <urbalazs@gmail.com>, 2015."
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:79
+msgid "Smuxi Website"
+msgstr "A Smuxi weboldala"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:46
+msgid "Oops, I did it again..."
+msgstr "Hoppá, újra megtettem…"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:59
+msgid "Smuxi crashed because an unhandled exception was thrown!"
+msgstr "A Smuxi összeomlott, mert egy lekezeletlen kivételt dobtak!"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:63
+msgid "Here is the stacktrace, please report this bug!"
+msgstr "Itt a veremkiíratás, kérjük jelentse ezt a hibát!"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:83
+msgid "_Report Bug"
+msgstr "_Hiba jelentése"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:61
+msgid "Engine not found."
+msgstr "A motor nem található."
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:77
+msgid "Engine Manager"
+msgstr "Motorkezelő"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:96
+msgid "Select which Smuxi engine you want to connect to"
+msgstr "Válassza ki, hogy mely Smuxi-motorhoz szeretne kapcsolódni"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:102
+msgid "Engine:"
+msgstr "Motor:"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:113
+msgid "Use Low Bandwidth Mode"
+msgstr "Alacsony sávszélességű mód használata"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:137
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:197
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:382
+msgid "Local Engine"
+msgstr "Helyi motor"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:189
+msgid "Please select an engine!"
+msgstr "Válasszon egy motort!"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:212
+#, csharp-format
+msgid ""
+"Your frontend is not compatible with the engine!\n"
+"Engine Version: {0} Frontend Version: {1}\n"
+"Engine Protocol: {2} Frontend Protocol: {3}"
+msgstr ""
+"Az előtétprogramja nem kompatibilis ezzel a motorral!\n"
+"Motorverzió: {0} Előtétprogram verziója: {1}\n"
+"Motorprotokoll: {2} Előtétprogram protokollja: {3}"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:245
+msgid "An error occurred while connecting to the engine!"
+msgstr "Hiba történt a motorhoz kapcsolódás közben!"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:246
+#, csharp-format
+msgid "Engine URL: {0}"
+msgstr "Motor URL: {0}"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:249
+#, csharp-format
+msgid "Error: {0}"
+msgstr "Hiba: {0}"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:319
+#, csharp-format
+msgid "Are you sure you want to delete the engine \"{0}\"?"
+msgstr "Biztosan törölni akarja a(z) „{0}” motort?"
+
+#: ../src/Frontend-GNOME/Entry.cs:485
+#, csharp-format
+msgid "You are going to paste {0} lines. Do you want to continue?"
+msgstr "{0} sort fog beilleszteni. Szeretné folytatni?"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Frontend-GNOME/Entry.cs:602
+msgid "Frontend Commands"
+msgstr "Előtétprogram parancsok"
+
+#: ../src/Frontend-GNOME/Main.cs:49
+msgid "Enable debug output"
+msgstr "Hibakeresési kimenet engedélyezése"
+
+#: ../src/Frontend-GNOME/Main.cs:56
+msgid "Show this help"
+msgstr "Ezen súgó megjelenítése"
+
+#: ../src/Frontend-GNOME/Main.cs:60
+msgid "Options:"
+msgstr "Kapcsolók:"
+
+#: ../src/Frontend-GNOME/Main.cs:67
+msgid "Connect to engine"
+msgstr "Kapcsolódás motorhoz"
+
+#: ../src/Frontend-GNOME/Main.cs:74
+msgid "Opens the specified link in Smuxi"
+msgstr "Megnyitja a megadott hivatkozást a Smuxi programban"
+
+#: ../src/Frontend-GNOME/Main.cs:81
+msgid "Starts a new Smuxi instance and ignores an existing one"
+msgstr "Elindít egy új Smuxi példányt, és figyelmen kívül hagyja a meglévőt"
+
+#: ../src/Frontend-GNOME/Main.cs:109
+msgid "Passing link to already running Smuxi instance..."
+msgstr "Hivatkozás átadása a már futó Smuxi példánynak…"
+
+#: ../src/Frontend-GNOME/Main.cs:117
+msgid "Bringing already running Smuxi instance to foreground..."
+msgstr "A már futó Smuxi példány előtérbe hozása…"
+
+#: ../src/Frontend-GNOME/MainWindow.cs:374
+#, csharp-format
+msgid "{0} Users"
+msgstr "{0} felhasználó"
+
+#: ../src/Frontend-GNOME/NotImplementedMessageDialog.cs:40
+msgid "Sorry, not implemented yet!"
+msgstr "Elnézést, még nincs megvalósítva!"
+
+#. fill ListStore
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:179
+msgid "Character"
+msgstr "Karakter"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:180
+msgid "Word"
+msgstr "Szó"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:187
+msgid ""
+"This setting specifies if Smuxi should store chat messages in memory "
+"(volatile) or to disk (persistent).\n"
+"For persistent you can choose between Db4o, an object database or SQLite, a "
+"relational database.\n"
+"The Db4o backend has known issues like high memory and CPU usage and can "
+"even lead to crashes and thus it is deprecated.\n"
+"The SQLite backend has no known performance or stability issues and is the "
+"recommended setting."
+msgstr ""
+"Ez a beállítás azt határozza meg, hogy a Smuxi a csevegési üzeneteket a "
+"memóriában (illékony) vagy a lemezen (tartós) tárolja.\n"
+"A tartós tároláshoz választhat a Db4o, egy objektum-adatbázis, vagy az "
+"SQLite, egy relációs adatbázis közül.\n"
+"A Db4o háttérprogramnak vannak ismert hibái, mint például magas memória és "
+"processzorhasználat, valamint összeomlásokhoz is vezethet, és emiatt elavult."
+"\n"
+"Az SQLite háttérprogramnak nincs ismert teljesítménybeli vagy stabilitási "
+"problémája, és ez a javasolt beállítás."
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:208
+msgid "Persistent: SQLite (Recommended)"
+msgstr "Tartós: SQLite (ajánlott)"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:212
+msgid "Persistent: Db4o (Deprecated)"
+msgstr "Tartós: Db4o (elavult)"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:216
+msgid "Persistent (Preview)"
+msgstr "Tartós (előnézet)"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:219
+msgid "Volatile"
+msgstr "Illékony"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:242
+msgid "No Proxy"
+msgstr "Nincs proxy"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:244
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:340
+msgid "System Default"
+msgstr "Rendszer alapértelmezése"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:258
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:134
+msgid "Connection"
+msgstr "Kapcsolat"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:262
+msgid "Interface"
+msgstr "Felület"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:266
+msgid "Servers"
+msgstr "Kiszolgálók"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:273
+msgid "Filters"
+msgstr "Szűrők"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:277
+msgid "Logging"
+msgstr "Naplózás"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:696
+msgid "Nicknames(s) field must not be empty."
+msgstr "A becenevek mező nem lehet üres."
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:892
+#, csharp-format
+msgid "Invalid highlight regex: '{0}'. Reason: {1}"
+msgstr "Érvénytelen kiemelési reguláris kifejezés: „{0}”. Ok: {1}"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:100
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:265
+msgid "Name"
+msgstr "Név"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:86
+msgid "Topic"
+msgstr "Téma"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:115
+msgid ""
+"Searching for group chats without a filter is not recommended.  This may "
+"take a while, or may not work at all.\n"
+"Do you wish to continue?"
+msgstr ""
+"Szűrő nélkül nem ajánlott csoportos csevegéseket keresni. Ez eltarthat egy "
+"ideig, vagy egyáltalán nem működhet.\n"
+"Szeretné folytatni?"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:156
+msgid "Error while fetching the list of group chats from the server."
+msgstr "Hiba a csoportos csevegések listájának lekérésekor a kiszolgálóról."
+
+#: ../src/Frontend-GNOME/Frontend.cs:388
+msgid "Disconnected from engine."
+msgstr "Kapcsolat bontva a motorral."
+
+#: ../src/Frontend-GNOME/Frontend.cs:431
+#, csharp-format
+msgid "Reconnecting to engine... (attempt {0})"
+msgstr "Újrakapcsolódás a motorhoz… ({0} kísérlet)"
+
+#: ../src/Frontend-GNOME/Frontend.cs:542
+#, csharp-format
+msgid "Cause: {0}"
+msgstr "Indok: {0}"
+
+#: ../src/Frontend-GNOME/Frontend.cs:675
+msgid ""
+"The frontend has lost the connection to the server.\n"
+"Do you want to reconnect now?"
+msgstr ""
+"Az előtétprogram elvesztette a kapcsolatot a kiszolgálóval.\n"
+"Szeretne most újrakapcsolódni?"
+
+#: ../src/Frontend-GNOME/Frontend.cs:694
+msgid ""
+"Reconnecting to the server has failed.\n"
+"Do you want to try again?"
+msgstr ""
+"Az újrakapcsolódás a kiszolgálóhoz sikertelen.\n"
+"Szeretné megpróbálni újra?"
+
+#: ../src/Frontend-GNOME/Frontend.cs:1008
+msgid ""
+"The server has lost the connection to the frontend.\n"
+"Do you want to reconnect now?"
+msgstr ""
+"A kiszolgáló elvesztette a kapcsolatot az előtétprogrammal.\n"
+"Szeretne most újrakapcsolódni?"
+
+#: ../src/Frontend-GNOME/NotifyManager.cs:338
+msgid "Show"
+msgstr "Megjelenítés"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:58
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:233
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:70
+msgid "Protocol"
+msgstr "Protokoll"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:59
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:71
+msgid "Hostname"
+msgstr "Gépnév"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:162
+msgid "Unable to load server: "
+msgstr "Nem lehet betölteni a kiszolgálót: "
+
+#: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:239
+msgid "Person / Private"
+msgstr "Személyes / Magánjellegű"
+
+#: ../src/Frontend-GNOME/ChatTypeWidget.cs:55
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:240
+msgid "Group / Public"
+msgstr "Csoportos / Nyilvános"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:65
+msgid "Engine Assistant - Smuxi"
+msgstr "Motor asszisztens - Smuxi"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:87
+msgid "Add Smuxi Engine"
+msgstr "Smuxi-motor hozzáadása"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:89
+msgid "Edit Smuxi Engine"
+msgstr "Smuxi-motor szerkesztése"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:198
+msgid "Credentials"
+msgstr "Hitelesítési adatok"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:278
+msgid "Now you can use the Smuxi Engine"
+msgstr "Most már használhatja a Smuxi-motort"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:281
+msgid "Thank you"
+msgstr "Köszönjük"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:298
+msgid ""
+"An engine with this name already exists! Please specify a different one."
+msgstr "Egy motor már létezik ezzel a névvel! Adjon meg egy másik nevet."
+
+#: ../src/Frontend-GNOME/Views/JoinWidget.cs:89
+msgid "Enter which chat to join"
+msgstr "Adja meg, hogy mely csevegéshez csatlakozik"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
+msgid "About Smuxi"
+msgstr "A Smuxi névjegye"
+
+#. TODO: add cmd+, accelerator
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
+msgid "Preferences"
+msgstr "Beállítások"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:263
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
+msgid "Unable to add server: "
+msgstr "Nem lehet hozzáadni a kiszolgálót: "
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:384
+msgid ""
+"Switching to local engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr ""
+"A helyi motorra való átváltás bontani fogja a kapcsolatot a jelenlegi "
+"motorral!\n"
+"Biztosan ezt szeretné tenni?"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:428
+msgid ""
+"Switching the remote engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr ""
+"A távoli motorra való átváltás bontani fogja a kapcsolatot a jelenlegi "
+"motorral!\n"
+"Biztosan ezt szeretné tenni?"
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:412
+#, csharp-format
+msgid "Day changed from {0} to {1}"
+msgstr "Nap megváltoztatva: {0} -> {1}"
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:416
+#, csharp-format
+msgid "Day changed to {0}"
+msgstr "Nap megváltoztatva: {0}"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:120
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:130
+#, csharp-format
+msgid "Invalid filter regex: '{0}'. Reason: {1}"
+msgstr "Érvénytelen szűrő reguláris kifejezés: „{0}”. Ok: {1}"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
+msgid "Are you sure you want to delete the selected filter?"
+msgstr "Biztosan törölni szeretné a kijelölt szűrőt?"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:241
+msgid "Protocol / Server"
+msgstr "Protokoll / Kiszolgáló"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:248
+msgid "Chat Type"
+msgstr "Csevegéstípus"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:281
+msgid "Normal"
+msgstr "Normál"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:282
+msgid "Event"
+msgstr "Esemény"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:289
+msgid "Type"
+msgstr "Típus"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:314
+msgid "Pattern"
+msgstr "Minta"
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:557
+msgid "Low Bandwidth Mode is active: no messages synced."
+msgstr "Az alacsony sávszélességű mód aktív: nincsenek szinkronizált üzenetek."
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:859
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
+msgid "Show _Menubar"
+msgstr "_Menüsor megjelenítése"
+
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:321
+#, csharp-format
+msgid "Retrieving user list for {0}..."
+msgstr "Felhasználólista lekérése ehhez: {0}…"
+
+#. TRANSLATOR: this string will be appended to the one above
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:349
+msgid "done."
+msgstr "kész."
+
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:127
+msgid "Reconnect"
+msgstr "Újrakapcsolódás"
+
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:174
+msgid ""
+"Closing the protocol chat will also close all open chats connected to it!\n"
+"Are you sure you want to do this?"
+msgstr ""
+"A protokollcsevegés bezárása be fog zárni minden hozzá kapcsolódott nyitott "
+"csevegést is!\n"
+"Biztosan ezt szeretné tenni?"
+
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:189
+msgid "Are you sure you want to delete the selected server?"
+msgstr "Biztosan törölni szeretné a kijelölt kiszolgálót?"
+
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:245
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:279
+msgid "Unable to edit server: "
+msgstr "Nem lehet szerkeszteni a kiszolgálót: "
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:24
+msgid "Find"
+msgstr "Keresés"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:44
+msgid "_Search for:"
+msgstr "_Keresés erre:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:73
+msgid "_Match Case"
+msgstr "Kis- és _nagybetű"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:85
+msgid "Search _Backwards"
+msgstr "Keresés _visszafelé"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:97
+msgid "_Wrap Around"
+msgstr "Keresés _elölről"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:110
+msgid "Use _Regular Expressions"
+msgstr "_Reguláris kifejezések használata"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:23
+msgid "Smuxi - Find Group Chat"
+msgstr "Smuxi - csoportos csevegés keresése"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:73
+msgid "_Name:"
+msgstr "_Név:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs:69
+msgid "Join"
+msgstr "Csatlakozás"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:56
+msgid "_Smuxi"
+msgstr "Smu_xi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:59
+msgid "_Server"
+msgstr "_Kiszolgáló"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:62
+msgid "_Chat"
+msgstr "_Csevegés"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:64
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:65
+msgid "_Engine"
+msgstr "_Motor"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:67
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:68
+msgid "_View"
+msgstr "_Nézet"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:70
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:71
+msgid "_Help"
+msgstr "_Súgó"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:75
+msgid "Connect"
+msgstr "Kapcsolódás"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:77
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:79
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
+msgid "Open Log"
+msgstr "Napló megnyitása"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:88
+msgid "_Preferences"
+msgstr "_Beállítások"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:90
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:91
+msgid "_Quit"
+msgstr "_Kilépés"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
+msgid "_Connect"
+msgstr "_Kapcsolódás"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:96
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:97
+msgid "_Add"
+msgstr "_Hozzáadás"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:99
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
+msgid "_Manage"
+msgstr "_Kezelés"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:102
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
+msgid "_Open / Join Chat"
+msgstr "_Megnyitás / csatlakozás csevegéshez"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:105
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
+msgid "_Find Group Chat"
+msgstr "_Csoportos csevegés keresése"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:108
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:109
+msgid "C_lear All Activity"
+msgstr "Minden _tevékenység törlése"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:111
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:112
+msgid "_Next Chat"
+msgstr "_Következő csevegés"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:114
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:115
+msgid "_Previous Chat"
+msgstr "_Előző csevegés"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
+msgid "_Close"
+msgstr "_Bezárás"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
+msgid "_Use Local Engine"
+msgstr "_Helyi motor használata"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:123
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:124
+msgid "_Add Remote Engine"
+msgstr "_Távoli motor hozzáadása"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
+msgid "Switch Remote Engine"
+msgstr "Távoli motor átváltása"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
+msgid "_Caret Mode"
+msgstr "K_urzor mód"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:132
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:133
+msgid "_Browse Mode"
+msgstr "_Böngészés mód"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
+msgid "Show _Statusbar"
+msgstr "Á_llapotsor megjelenítése"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
+msgid "_Fullscreen"
+msgstr "_Teljes képernyő"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
+msgid "_About"
+msgstr "_Névjegy"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:150
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:152
+msgid "Find Group Chat"
+msgstr "Csoportos csevegés keresése"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:154
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:155
+msgid "_Website"
+msgstr "_Weboldal"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:158
+msgid "Show _Toolbar"
+msgstr "_Eszköztár megjelenítése"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
+msgid "Smuxi - Connect"
+msgstr "Smuxi - kapcsolódás"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:206
+msgid "Smuxi - Preferences"
+msgstr "Smuxi - beállítások"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
+msgid "Nicknames:"
+msgstr "Becenevek:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
+msgid "Tabs"
+msgstr "Lapok"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
+msgid "<b> User List Position </b>"
+msgstr "<b>Felhasználólista elhelyezkedése</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1441
+msgid "<b> Channel </b>"
+msgstr "<b>Csatorna</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1652
+msgid "<b>Channel Filters</b>"
+msgstr "<b>Csatornaszűrők</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1669
+msgid "<b>User Filters</b>"
+msgstr "<b>Felhasználószűrők</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:42
+msgid "Use _SSH Tunnel"
+msgstr "_SSH-alagút használata"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:56
+msgid ""
+"<span size=\"small\">Enables the use of SSH for the connection.  This has a "
+"small performance impact, but is more secure and required when using NAT or "
+"port-based firewalls</span>"
+msgstr ""
+"<span size=\"small\">Engedélyezi az SSH használatát a kapcsolatnál. Ennek van "
+"egy kis teljesítménybeli hatása, de biztonságosabb és NAT vagy port-alapú "
+"tűzfalak használatakor szükséges</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
+msgid "SSH _Host:"
+msgstr "SS_H gép:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:146
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgstr ""
+"<span size=\"small\">Az SSH-kiszolgáló DNS vagy IP-címe és portja</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:159
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:183
+msgid "_Port:"
+msgstr "_Port:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:186
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgstr ""
+"<span size=\"small\">Az Smuxi-kiszolgáló DNS vagy IP-címe és portja</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:199
+msgid "_Smuxi Host:"
+msgstr "_Smuxi gép:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:52
+msgid "_SSH Username: (optional)"
+msgstr "_SSH felhasználónév: (opcionális)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:75
+msgid ""
+"<span size=\"small\">Username which will be used to log into the SSH server</"
+"span>"
+msgstr ""
+"<span size=\"small\">Az a felhasználónév, amely az SSH-kiszolgálóra való "
+"belépéshez lesz használva</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:95
+msgid "_SSH Password: (optional)"
+msgstr "_SSH jelszó: (opcionális)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
+msgid ""
+"<span size=\"small\">Password which will be used to log into the SSH server. "
+"The password is optional if SSH key authorization is used (see below).</span>"
+msgstr ""
+"<span size=\"small\">Az a jelszó, amely az SSH-kiszolgálóra való belépéshez "
+"lesz használva. A jelszó nem kötelező, ha SSH-kulcs alapú hitelesítés van "
+"használatban (lásd lent).</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:140
+msgid "_SSH Keyfile: (optional)"
+msgstr "_SSH kulcsfájl: (opcionális)"
+
+#. Container child vbox17.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:148
+msgid "Select a File"
+msgstr "Válasszon egy fájlt"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:161
+msgid ""
+"<span size=\"small\">SSH private keyfile which will be used to log into the "
+"SSH server</span>"
+msgstr ""
+"<span size=\"small\">A személyes SSH kulcsfájl, amely az SSH-kiszolgálóra "
+"való belépéshez lesz használva</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:181
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:242
+msgid "_Username:"
+msgstr "_Felhasználónév:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:204
+msgid ""
+"<span size=\"small\">Username which will be used to log into the Smuxi "
+"server</span>"
+msgstr ""
+"<span size=\"small\">Az a felhasználónév, amely az Smuxi-kiszolgálóra való "
+"belépéshez lesz használva</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:224
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:116
+msgid "_Password:"
+msgstr "_Jelszó:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:248
+msgid "<span size=\"small\">Password of the user</span>"
+msgstr "<span size=\"small\">A felhasználó jelszava</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:268
+msgid "_Verify Password:"
+msgstr "Jelszó _megerősítése:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:292
+msgid "<span size=\"small\">Repeat the password for verification</span>"
+msgstr "<span size=\"small\">Ismételje meg a jelszót az ellenőrzéshez</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs:19
+msgid ""
+"Welcome to the Smuxi Engine Configuration Assistant.\n"
+"You need to enter some information before you can use the engine.\n"
+"\n"
+"Click \"Forward\" to begin."
+msgstr ""
+"Üdvözli a Smuxi-motor beállító asszisztense.\n"
+"Meg kell adnia néhány információt, mielőtt használni tudná a motort.\n"
+"\n"
+"A kezdéshez kattintson a „Tovább” gombra."
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
+msgid "_Engine Name:"
+msgstr "_Motor neve:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:59
+msgid "<span size=\"small\">Profile name of the new engine</span>"
+msgstr "<span size=\"small\">Az új motor profilneve</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:80
+msgid "_Default Engine:"
+msgstr "_Alapértelmezett motor:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:91
+msgid "Use as new default engine"
+msgstr "Használat új alapértelmezett motorként"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:104
+msgid ""
+"<span size=\"small\">If enabled, the current engine will be the default next "
+"time Smuxi is started</span>"
+msgstr ""
+"<span size=\"small\">Ha engedélyezve van, akkor a jelenlegi motor lesz az "
+"alapértelmezett a Smuxi következő indításakor</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
+msgid "Smuxi - Open Chat"
+msgstr "Smuxi - csevegés megnyitása"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:63
+msgid "_Type:"
+msgstr "_Típus:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:58
+msgid "_Hostname:"
+msgstr "_Gépnév:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:79
+msgid "_Network:"
+msgstr "_Hálózat:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:105
+msgid "Nickname:"
+msgstr "Becenév:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:252
+msgid "_Protocol:"
+msgstr "_Protokoll:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:276
+msgid "Use Encryption"
+msgstr "Titkosítás használata"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:288
+msgid "Validate Server Certificate"
+msgstr "Kiszolgáló tanúsítványának ellenőrzése"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:308
+msgid "_On Connect Commands:"
+msgstr "_Kapcsolódáskori parancsok:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
+msgid "_Ignore Commands"
+msgstr "_Parancsok mellőzése"
+
+

@@ -36,20 +36,12 @@ if ENABLE_FRONTEND_GNOME_XMPP
 PO_FRONTEND_GNOME_XMPP = po-Frontend-GNOME-XMPP
 endif
 
-ACLOCAL_AMFLAGS = -I .
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 EXTRA_DIST =	install-sh \
-		expansions.m4 \
-		mono.m4 \
-		programs.m4 \
-		HACKING \
+		HACKING.md \
 		LICENSE \
-		README.md \
-		CREDITS \
-		PROFILING \
-		FEATURES \
-		BUGS \
-		TODO
+		README.md
 
 # HACK: distclean in po/ does not work for some reason
 DISTCLEANFILES = \
@@ -94,7 +86,7 @@ update-pot:
 	done
 
 update-transifex:
-	tx pull -f -l ca,cs,da,de,en_GB,es,fa,fi,fr,hr,ko,nb_NO,pl,pt_BR,ru,sk,sv,te,tr,ur,zh_CN
+	tx pull -f -l ca,cs,da,de,en_GB,es,fa,fi,fr,hr,ko,lt,nb_NO,pl,pt_BR,ru,sk,sv,te,tr,ur,zh_CN
 
 mail-po: update-po
 	for PODIR in $(PODIRS); do \

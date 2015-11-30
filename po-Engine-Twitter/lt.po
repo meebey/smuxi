@@ -1,0 +1,200 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Moo, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-03 12:32+0200\n"
+"PO-Revision-Date: 2015-05-26 10:00+0000\n"
+"Last-Translator: Moo\n"
+"Language-Team: Lithuanian (http://www.transifex.com/projects/p/smuxi/language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
+msgid "Home Timeline"
+msgstr "Pradžios Laiko Skalė"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:136
+msgid "Replies & Mentions"
+msgstr "Atsakymai ir Paminėjimai"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:147
+msgid "Direct Messages"
+msgstr "Tiesioginiai Pranešimai"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:195
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Naudojamas įgaliotasis serveris: {0}:{1}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:217
+msgid "Connecting to Twitter..."
+msgstr "Jungiamasi prie Twitter..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:259
+msgid "Twitter authorization required."
+msgstr "Reikalinga Twitter prieigos teisė."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:266
+#, csharp-format
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr "Prašome atidaryti sekantį URL ir spustelėti \"Leisti\", kad leistumėte Smuxi prisijungti prie savo Twitter paskyros: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:282
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr "Kai leisite programai Smuxi prieigą prie savo Twitter paskyros, Twitter pateiks PIN."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:289
+msgid "Please type: /pin PIN_FROM_TWITTER"
+msgstr "Prašome įvesti: /pin PIN_IŠ_TWITTER"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:297
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:359
+msgid "Connection failed!"
+msgstr "Ryšys nepavyko!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:302
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:363
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Ryšys nepavyko! Priežastis: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:317
+msgid "Fetching user details from Twitter, please wait..."
+msgstr "Gaunama išsamesnė vartotojo informacija iš Twitter, prašome palaukti..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:324
+msgid "Finished fetching user details."
+msgstr "Išsamesnės vartotojo informacijos gavimas užbaigtas."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:330
+msgid "Successfully connected to Twitter."
+msgstr "Sėkmingai prisijungta prie Twitter."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:348
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr "Nepavyko gauti išsamesnės vartotojo informacijos iš Twitter. Priežastis:"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:381
+msgid "Fetching friends from Twitter, please wait..."
+msgstr "Gaunami draugai iš Twitter, prašome palaukti..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:390
+msgid "Finished fetching friends."
+msgstr "Draugų gavimas užbaigtas."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:394
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr "Nepavyko gauti draugų iš Twitter. Priežastis:"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:738
+msgid "Twitter Commands"
+msgstr "Twitter Komandos"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:787
+msgid "No pending authorization request!"
+msgstr "Nėra laukiamų tapatybės patvirtinimo užklausų!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:808
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr "Nepavyko patvirtinti tapatybės su Twitter: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr "Twitter nepriėmė jūsų PIN. Ar jūs teisingai jį įvedėte?"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:824
+#, csharp-format
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr "Prašome bandyti dar kartą, užveriant šią kortelę ir iš naujo jungiantis prie Twitter \"{0}\" paskyros."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
+msgid "Migrated Twitter account from basic auth to OAuth."
+msgstr "Twitter paskyra perkelta iš pagrindinio auth į OAuth."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr "Sėkmingai patvirtinta Twitter paskyros \"{0}\" tapatybė programai Smuxi"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:902
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Nepavyko atnaujinti būsenos - Priežastis: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:913
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr "Negalima siųsti pranešimo - nenurodytas adresatas. Naudokite: /msg $slapyvardis pranešimas"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:930
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1025
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "Nepavyko išsiųsti pranešimo - Priežastis: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:950
+msgid "Other timelines"
+msgstr "Kitos laiko skalės"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1008
+msgid "Could not send message - the specified user does not exist."
+msgstr "Nepavyko išsiųsti pranešimo - nurodyto vartotojo nėra."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1122
+#, csharp-format
+msgid "Search {0}"
+msgstr "Ieškoti {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
+#, csharp-format
+msgid "Successfully deleted tweet {0}."
+msgstr "Tauškalas {0} sėkmingai ištrintas."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1277
+#, csharp-format
+msgid "Successfully favorited tweet {0}."
+msgstr "Tauškalas {0} sėkmingai pažymėtas mėgstamu."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1309
+#, csharp-format
+msgid "Successfully unfavorited tweet {0}."
+msgstr "Tauškalas {0} sėkmingai pažymėtas kaip daugiau nebemėgstamas."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1371
+#, csharp-format
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+"{0}"
+msgstr "Įvyko klaida, gaunant iš Twitter draugų laiko juostą. Priežastis: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
+#, csharp-format
+msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
+msgstr "Įvyko klaida, gaunant iš Twitter atsakymus. Priežastis: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1589
+#, csharp-format
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: {0}"
+msgstr "Įvyko klaida, gaunant iš Twitter tiesioginius pranešimus. Priežastis: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1972
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr "Twitter neišsiuntė galiojančio atsakymo, jie, turbūt, perkrauti"

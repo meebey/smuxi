@@ -343,6 +343,9 @@ namespace Smuxi.Frontend.Gnome
             foreach (EncodingInfo encInfo in Encoding.GetEncodings()) {
                 try {
                     Encoding enc = Encoding.GetEncoding(encInfo.CodePage);
+                    if (enc == null || enc.EncodingName == null) {
+                        continue;
+                    }
                     string encodingName = enc.EncodingName.ToUpper();
 
                     if (!enc.IsSingleByte && enc != Encoding.UTF8) {

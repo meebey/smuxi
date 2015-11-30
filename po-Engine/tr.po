@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Umut Albayrak <umutmuh@gmail.com>, 2011
+# Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
+# U, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 16:58+0100\n"
-"PO-Revision-Date: 2013-12-05 18:50+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"POT-Creation-Date: 2015-05-03 12:30+0200\n"
+"PO-Revision-Date: 2015-02-07 18:15+0000\n"
+"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,254 +21,274 @@ msgstr ""
 
 #: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
-msgstr ""
+msgstr "Ağ bağlantısı yok"
 
-#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:295
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
 #, csharp-format
 msgid "Optimizing: {0}..."
-msgstr ""
+msgstr "{0} en uygun duruma getiriliyor..."
 
-#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:313
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
 #, csharp-format
 msgid "Failed to optimize: {0}. Reason: {1}"
-msgstr ""
+msgstr "{0} en uygun duruma getirilemedi. Neden: {1}"
 
-#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:347
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:315
 msgid ""
 "Your chat history is no longer available because of an error but will be "
 "preserved from now on."
-msgstr ""
+msgstr "Sohbet geçmişiniz bir hata nedeniyle artık kullanılabilir değil ancak şu andan itibaren tutulacaktır."
 
-#: ../src/Engine/Messages/MessageBuilder.cs:782
+#: ../src/Engine/Messages/MessageBuilder.cs:771
 #, csharp-format
 msgid "{0} is typing..."
-msgstr ""
+msgstr "{0} yazıyor..."
 
-#: ../src/Engine/Messages/MessageBuilder.cs:788
+#: ../src/Engine/Messages/MessageBuilder.cs:777
 #, csharp-format
 msgid "{0} has stopped typing..."
-msgstr ""
+msgstr "{0} yazmayı bıraktı..."
 
-#: ../src/Engine/Messages/MessageBuilder.cs:831
+#: ../src/Engine/Messages/MessageBuilder.cs:820
 #, csharp-format
 msgid "{0} is away"
-msgstr ""
+msgstr "{0} uzakta"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:837
+#: ../src/Engine/Messages/MessageBuilder.cs:826
 #, csharp-format
 msgid "{0} is offline"
-msgstr ""
+msgstr "{0} çevrimdışı"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:843
+#: ../src/Engine/Messages/MessageBuilder.cs:832
 #, csharp-format
 msgid "{0} is online"
-msgstr ""
+msgstr "{0} çevrimiçi"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:170
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:162
+msgid "not connected"
+msgstr "bağlantı yok"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:193
 msgid "Not connected to server"
-msgstr "Sunucuya bağlanılamadı"
+msgstr "Sunucuyla bağlantı yok"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:178
-#: ../src/Engine/Session.cs:998
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
+#: ../src/Engine/Session.cs:1067
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr ""
+msgstr "{0} komutu için yetersiz parametre"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:212
 #, csharp-format
 msgid "Connected to {0}"
-msgstr ""
+msgstr "{0} ile bağlantı kuruldu"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:219
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:242
 #, csharp-format
 msgid "Disconnected from {0}"
-msgstr ""
+msgstr "{0} ile bağlantı kesildi"
 
-#: ../src/Engine/Session.cs:237
+#: ../src/Engine/Session.cs:247
 #, csharp-format
 msgid "Automatically connecting to {0}..."
-msgstr ""
+msgstr "{0} ile kendiliğinden bağlantı kuruluyor..."
 
-#: ../src/Engine/Session.cs:268
+#: ../src/Engine/Session.cs:278
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
-msgstr ""
+msgstr "{0} ile kendiliğinden bağlantı başarısız oldu!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:471
+#: ../src/Engine/Session.cs:505
 msgid "Engine Commands"
-msgstr ""
+msgstr "Motor Komutları"
 
-#: ../src/Engine/Session.cs:599
+#: ../src/Engine/Session.cs:634
 msgid "Connect failed!"
-msgstr ""
+msgstr "Bağlantı başarısız oldu!"
 
-#: ../src/Engine/Session.cs:622
+#: ../src/Engine/Session.cs:657
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr ""
+msgstr "Bağlantı kesilmesi başarısız oldu - {0} sunucusu bulunamadı."
 
-#: ../src/Engine/Session.cs:664
+#: ../src/Engine/Session.cs:699
 msgid "Reconnect failed!"
-msgstr ""
-
-#: ../src/Engine/Session.cs:688
-msgid "Configuration reloaded"
-msgstr ""
-
-#: ../src/Engine/Session.cs:692
-msgid "Configuration saved"
-msgstr ""
+msgstr "Yeniden bağlantı başarısız oldu!"
 
 #: ../src/Engine/Session.cs:723
-msgid "Invalid key/value format."
-msgstr ""
+msgid "Configuration reloaded"
+msgstr "Yapılandırma yeniden yüklendi"
 
-#: ../src/Engine/Session.cs:733
+#: ../src/Engine/Session.cs:727
+msgid "Configuration saved"
+msgstr "Yapılandırma kaydedildi"
+
+#: ../src/Engine/Session.cs:754
+msgid "Invalid key/value format."
+msgstr "Geçersiz anahtar/değer biçimi."
+
+#: ../src/Engine/Session.cs:778
 #, csharp-format
 msgid "Invalid config key: '{0}'"
-msgstr ""
+msgstr "Geçersiz yapılandırma anahtarı: '{0}'"
 
-#: ../src/Engine/Session.cs:743 ../src/Engine/Session.cs:749
+#: ../src/Engine/Session.cs:794 ../src/Engine/Session.cs:800
 #, csharp-format
 msgid "Could not convert config value: '{0}' to type: {1}"
-msgstr ""
+msgstr "'{0}' yapılandırma değeri {1} türüne dönüştürülemedi"
 
-#: ../src/Engine/Session.cs:758
+#: ../src/Engine/Session.cs:814
+#, csharp-format
+msgid ""
+"Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
+msgstr "Geçersiz yapılandırma kaldırma anahtarı: '{0}'. Geçerli kaldırma anahtarları: MessagePatterns/{{Kimlik}}."
+
+#: ../src/Engine/Session.cs:827
+#, csharp-format
+msgid "Message pattern with ID: '{0}' does not exist."
+msgstr "'{0}' kimlikli ileti kalıbı mevcut değil."
+
+#: ../src/Engine/Session.cs:834
+#, csharp-format
+msgid "Message pattern with ID: '{0}' removed."
+msgstr "'{0}' kimlikli ileti kalıbı kaldırıldı."
+
+#: ../src/Engine/Session.cs:842
 msgid "Invalid parameter for config; use load, save, get or set."
-msgstr ""
+msgstr "Yapılandırma için geçersiz parametre; load, save, get ya da set parametrelerini kullanın."
 
-#: ../src/Engine/Session.cs:850
+#: ../src/Engine/Session.cs:919
 msgid "Invalid parameter for network; use list, switch, or close"
-msgstr ""
+msgstr "Ağ için geçersiz parametre; list, switch ya da close parametrelerini kullanın"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:880
+#: ../src/Engine/Session.cs:949
 msgid "Connected Networks"
-msgstr ""
+msgstr "Bağlantı Kurulmuş Ağlar"
 
-#: ../src/Engine/Session.cs:885 ../src/Engine/Session.cs:909
+#: ../src/Engine/Session.cs:954 ../src/Engine/Session.cs:978
 msgid "Network"
-msgstr ""
+msgstr "Ağ"
 
-#: ../src/Engine/Session.cs:886
+#: ../src/Engine/Session.cs:955
 msgid "Protocol"
-msgstr ""
+msgstr "Protokol"
 
-#: ../src/Engine/Session.cs:887
+#: ../src/Engine/Session.cs:956
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
-#: ../src/Engine/Session.cs:888
+#: ../src/Engine/Session.cs:957
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #. TRANSLATOR: no connected networks
 #. TRANSLATOR: no available networks
-#: ../src/Engine/Session.cs:894 ../src/Engine/Session.cs:915
+#: ../src/Engine/Session.cs:963 ../src/Engine/Session.cs:984
 msgid "None"
-msgstr ""
+msgstr "Yok"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:901
+#: ../src/Engine/Session.cs:970
 msgid "Available Networks"
-msgstr ""
+msgstr "Kullanılabilir Ağlar"
 
-#: ../src/Engine/Session.cs:929
+#: ../src/Engine/Session.cs:998
 #, csharp-format
 msgid "Network close failed - could not find network: {0}"
-msgstr ""
+msgstr "Ağ sonlandırma başarısız oldu - {0} ağı bulunamadı"
 
-#: ../src/Engine/Session.cs:973
+#: ../src/Engine/Session.cs:1042
 #, csharp-format
 msgid "Network switch failed - could not find network: {0}"
-msgstr ""
+msgstr "Ağ değişimi başarısız oldu - {0} ağı bulunamadı"
 
-#: ../src/Engine/Session.cs:991
+#: ../src/Engine/Session.cs:1060
 msgid "Not connected to any network"
-msgstr ""
+msgstr "Hiçbir ağla bağlantı yok"
 
-#: ../src/Engine/Session.cs:1245
+#: ../src/Engine/Session.cs:1317
 #, csharp-format
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr ""
+msgstr "Sohbet geçmişine yazım işlemi başarısız oldu. Sohbet geçmişiniz tutulmayacak. Neden: {0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1446
+#: ../src/Engine/Session.cs:1550
 msgid "Connect failed."
-msgstr ""
+msgstr "Bağlantı başarısız oldu."
 
-#: ../src/Engine/Session.cs:1460
+#: ../src/Engine/Session.cs:1564
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
-msgstr ""
+msgstr "{0} protokolü için bir protokol yönetici bulunamadı"
 
-#: ../src/Engine/Session.cs:1734
+#: ../src/Engine/Session.cs:1896
 msgid "Welcome to Smuxi"
-msgstr "Smuxi'ye hoşgeldiniz"
+msgstr "Smuxi'ye hoş geldiniz"
 
-#: ../src/Engine/Session.cs:1741
+#: ../src/Engine/Session.cs:1903
 msgid "Type /help to get a list of available commands."
-msgstr "Yazılabilecek komutlar için /help yazın"
+msgstr "Kullanılabilir komutlar listesi için /help yazın."
 
-#: ../src/Engine/Session.cs:1747
+#: ../src/Engine/Session.cs:1909
 msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
 "the extended command list."
-msgstr ""
+msgstr "Bir bağlantı kurmanızın ardından kullanılabilir komutlar listesi değişecektir. Genişletilmiş komut listesini görmek için yeni açılmış bağlantı sekmesine gidin /help komutunu tekrar kullanın."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
-msgstr ""
+msgstr "Kullanıcı adı boş bırakılamaz."
 
 #: ../src/Engine/Config/UserListController.cs:127
 msgid "Password must not be empty."
-msgstr ""
+msgstr "Parola boş bırakılamaz."
 
 #: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr ""
+msgstr "\"{0}\" kullanıcısı mevcut değil."
 
 #: ../src/Engine/Config/UserListController.cs:145
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr ""
+msgstr "\"{0}\" kullanıcısı zaten mevcut."
 
 #: ../src/Engine/Config/ServerListController.cs:118
 msgid "Network must not be empty."
-msgstr ""
+msgstr "Ağ boş bırakılamaz."
 
 #: ../src/Engine/Config/ServerListController.cs:138
 msgid "Server hostname must not be empty."
-msgstr ""
+msgstr "Sunucu host adı boş bırakılamaz."
 
 #: ../src/Engine/Config/ServerListController.cs:141
 msgid "Server hostname contains invalid characters (newline)."
-msgstr ""
+msgstr "Sunucu host adı geçersiz karakter içeriyor (yenisatır)."
 
 #: ../src/Engine/Config/ServerListController.cs:148
 #, csharp-format
 msgid "Server ID '{0}' already exists."
-msgstr ""
+msgstr "Sunucu kimliği '{0}' zaten mevcut."
 
-#: ../src/Engine/Chats/ChatModel.cs:108
+#: ../src/Engine/Chats/ChatModel.cs:109
 #, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr ""
+msgstr "Sohbet geçmişi yüklemesi başarısız oldu. Sohbet geçmişiniz tutulmayacak. Neden: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:305
+#: ../src/Engine/Chats/ChatModel.cs:311
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
-msgstr ""
+msgstr "Yazım için sohbet geçmişinin açılması başarısız oldu. Sohbet geçmişiniz tutulmayacak. Neden: {0}"

@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography.X509Certificates;
@@ -2584,6 +2585,41 @@ namespace Smuxi.Engine
             if (server != null) {
                 _IrcClient.UseSsl = server.UseEncryption;
                 _IrcClient.ValidateServerCertificate = server.ValidateServerCertificate;
+                if (String.IsNullOrEmpty(server.ClientCertificateFilename)) {
+                    _IrcClient.SslClientCertificate = null;
+                } else {
+                    var certFile = server.ClientCertificateFilename;
+                    if (!Path.IsPathRooted(certFile)) {
+                        var configPath = Environment.GetFolderPath(
+                            Environment.SpecialFolder.ApplicationData
+                        );
+                        configPath = Path.Combine(configPath, "smuxi");
+                        var certPath = Path.Combine(configPath, "certs");
+                        certFile = Path.Combine(certPath, certFile);
+                    }
+                    var certType = X509Certificate2.GetCertContentType(certFile);
+                    if (certType != X509ContentType.Unknown) {
+                        var cert = new X509Certificate2();
+                        cert.Import(certFile, "", X509KeyStorageFlags.PersistKeySet);
+                        if (cert.PublicKey == null) {
+#if LOG4NET
+                            _Logger.ErrorFormat(
+                                "ApplyConfig(): client certificate {0} does " +
+                                "not contain a public key!", certFile
+                            );
+#endif
+                        }
+                        if (cert.PrivateKey == null) {
+#if LOG4NET
+                            _Logger.ErrorFormat(
+                                "ApplyConfig(): client certificate {0} does " +
+                                "not contain a private key!", certFile
+                            );
+#endif
+                        }
+                        _IrcClient.SslClientCertificate = cert;
+                    }
+                }
             }
         }
 

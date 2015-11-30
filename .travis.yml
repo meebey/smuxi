@@ -20,6 +20,7 @@ script:
     - xbuild /p:Warn=0 src/smuxi.sln
     - nunit-console bin/release/smuxi-common-tests.dll
     - nunit-console bin/release/smuxi-engine-tests.dll || true
+    - nunit-console bin/release/smuxi-frontend-tests.dll
     - nunit-console bin/release/smuxi-frontend-gnome-tests.dll
     - nunit-console bin/release/smuxi-frontend-stfl-tests.dll
     - chronic make clean && chronic make distcheck MCS=/usr/bin/dmcs

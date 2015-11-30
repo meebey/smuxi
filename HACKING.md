@@ -1,0 +1,107 @@
+Hacking HowTo
+=============
+
+https://smuxi.im/documentation/hacking/
+
+Git Commit Message Style
+==========================
+
+http://chris.beams.io/posts/git-commit/
+
+Coding Style
+============
+
+```cs
+using System;
+using System.IO;
+using ThirdPartyNamespaces;
+using MyOwnNamespaces;
+
+namespace Smuxi.Frontend.Gnome
+{
+    public class GroupChatView : ChatView
+    {
+        // fields before auto properties
+        int f_SomeField;
+        string f_AnotherField;
+        public int SomeAutoProperty { get; set; }
+
+        // properties before ctors
+        public int SomeManualProperty {
+            get {
+                return f_SomeField;
+            }
+            set {
+                f_SomeField = value;
+            }
+        }
+
+        // events before ctors
+        public event EventHandler<EventArgs> StatusChanged;
+
+        // ctors before methods
+        public ChatView()
+        {
+        }
+
+        public ChatView(int someParameter, string anotherParameter) :
+                   base(someParameter, anotherParameter)
+        {
+            SomeAutoProperty = someParameter;
+            f_AnotherField = anotherParameter;
+        }
+
+        public void SomePublicMethod()
+        {
+            // avoid nesting
+            if (f_SomeField != 0) {
+                return;
+            }
+
+            DoSomething();
+
+            var res = MethodCallWithLotsOfParameterThatDontFitInASingleLine(
+                f_SomeField,
+                f_AnotherField,
+                String.Format(
+                    "Some String with {0}",
+                    SomeAutoProperty
+                )
+            );
+
+            switch (res) {
+                case "Foo":
+                    // code of Foo case
+                    break;
+                case "Bar":
+                    // code of Bar case
+                    break;
+            }
+        }
+
+        // do not specify default access modifiers (private for methods)
+        void DoSomething()
+        {
+            try {
+                using (var hardStuff = GetSomethingHard()) {
+                    // this is too hard, can't deal with it
+                }
+            } catch (InvalidOperationException) {
+            }
+
+            // do not use if (!something) with a else case, instead do:
+            if (something) {
+                // something is true case
+            } else {
+                // something is false case
+            }
+
+            // fluent style
+            var msg = CreateMessageBuilder().
+                AppendEventPrefix().
+                AppendFormat("Test message").
+                ToMessage();
+            AddMessage(msg);
+        }
+    }
+}

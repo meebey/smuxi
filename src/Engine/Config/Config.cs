@@ -248,6 +248,7 @@ namespace Smuxi.Engine
 
             prefix = "Engine/Users/DEFAULT/Interface/";
             Get(prefix+"ShowAdvancedSettings", false);
+            Get(prefix+"ShowActivityCounter", true);
 
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/";
             Get(prefix+"TimestampFormat", "HH:mm");
@@ -471,6 +472,7 @@ namespace Smuxi.Engine
                 if (String.IsNullOrEmpty(realname)) {
                     realname = "Your Name";
                 }
+                realname = "Your Name";
                 LoadUserEntry(user, "Connection/Realname", realname);
                 LoadUserEntry(user, "Connection/Encoding", String.Empty);
 
@@ -507,6 +509,7 @@ namespace Smuxi.Engine
                 }
 
                 LoadUserEntry(user, "Interface/ShowAdvancedSettings", null);
+                LoadUserEntry(user, "Interface/ShowActivityCounter", null);
                 LoadUserEntry(user, "Interface/Notebook/TimestampFormat", null);
                 LoadUserEntry(user, "Interface/Notebook/TabPosition", null);
                 LoadUserEntry(user, "Interface/Notebook/BufferLines", null);
@@ -614,6 +617,7 @@ namespace Smuxi.Engine
                     LoadEntry(sprefix+"Password", String.Empty);
                     LoadEntry(sprefix+"UseEncryption", false);
                     LoadEntry(sprefix+"ValidateServerCertificate", false);
+                    LoadEntry(sprefix+"ClientCertificateFilename", String.Empty);
                     LoadEntry(sprefix+"OnStartupConnect", false);
                     string[] commands = GetList(sprefix + "OnConnectCommands");
                     if (commands == null) {

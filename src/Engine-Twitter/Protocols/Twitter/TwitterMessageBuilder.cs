@@ -42,18 +42,26 @@ namespace Smuxi.Engine
             TimeStamp = status.CreatedDate.ToUniversalTime();
             AppendSenderPrefix(sender, isHighlight);
 
-            // LAME: Twitter lies in the truncated field and says it's not
-            // truncated while it is, thus always use retweet_status if
-            // available
+            if (status.RetweetedStatus == null && status.QuotedStatus == null) {
+                AppendMessage(status.Text);
+            }
             if (status.RetweetedStatus != null) {
-                var text = String.Format(
+                var rtMsg = String.Format(
                     "RT @{0}: {1}",
                     status.RetweetedStatus.User.ScreenName,
                     status.RetweetedStatus.Text
                 );
-                AppendMessage(text);
-            } else {
+                AppendMessage(rtMsg);
+            }
+            if (status.QuotedStatus != null) {
+                var qtMsg = String.Format(
+                    "QT @{0}: {1}",
+                    status.QuotedStatus.User.ScreenName,
+                    status.QuotedStatus.Text
+                );
                 AppendMessage(status.Text);
+                AppendSpace();
+                AppendMessage(qtMsg);
             }
             return this;
         }

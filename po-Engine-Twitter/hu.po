@@ -1,0 +1,212 @@
+# Hungarian translation for smuxi.
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the smuxi package.
+#
+# Balázs Úr <urbalazs@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-17 11:45+0000\n"
+"PO-Revision-Date: 2015-07-17 19:37+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <openscope at gmail dot com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
+msgid "Home Timeline"
+msgstr "Saját idővonal"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:136
+msgid "Replies & Mentions"
+msgstr "Válaszok és említések"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:147
+msgid "Direct Messages"
+msgstr "Közvetlen üzenetek"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:195
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Proxy használata: {0}:{1}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:217
+msgid "Connecting to Twitter..."
+msgstr "Kapcsolódás a Twitterhez…"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:259
+msgid "Twitter authorization required."
+msgstr "Twitter felhatalmazás szükséges."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:266
+#, csharp-format
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr ""
+"Nyissa meg a következő URL-t, és kattintson az „Engedélyezés” gombra, hogy "
+"lehetővé tegye a Smuxi számára a Twitter-fiókjához való kapcsolódást: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:282
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr ""
+"Ha lehetővé tette a Smuxi számára a Twitter-fiókjához való hozzáférést, akkor "
+"a Twitter egy PIN-kódot fog biztosítani."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:289
+msgid "Please type: /pin PIN_FROM_TWITTER"
+msgstr "Gépelje be: /pin TWITTER_PIN"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:297
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:359
+msgid "Connection failed!"
+msgstr "Kapcsolat meghiúsult!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:302
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:363
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Kapcsolat meghiúsult! Ok: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:317
+msgid "Fetching user details from Twitter, please wait..."
+msgstr "Felhasználói részletek lekérése a Twitterről, kérem várjon…"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:324
+msgid "Finished fetching user details."
+msgstr "A felhasználói részletek lekérése befejeződött."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:330
+msgid "Successfully connected to Twitter."
+msgstr "Sikeresen kapcsolódott a Twitterhez."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:348
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr "Nem sikerült a felhasználói részletek lekérése a Twitterről. Ok: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:381
+msgid "Fetching friends from Twitter, please wait..."
+msgstr "Ismerősök lekérése a Twitterről, kérem várjon…"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:390
+msgid "Finished fetching friends."
+msgstr "Az ismerősök lekérése befejeződött."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:394
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr "Nem sikerült az ismerősök lekérése a Twitterről. Ok: "
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:738
+msgid "Twitter Commands"
+msgstr "Twitter parancsok"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:787
+msgid "No pending authorization request!"
+msgstr "Nincs függőben lévő felhatalmazási kérés!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:808
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr "Nem sikerült felhatalmazni a Twittert: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr "A Twitter nem fogadta el a PIN-kódot. Helyesen írta be?"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:824
+#, csharp-format
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr ""
+"Próbálja újra ezen lap bezárásával, és kapcsolódjon újra a(z) „{0}” "
+"Twitter-fiókhoz."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
+msgid "Migrated Twitter account from basic auth to OAuth."
+msgstr "A Twitter-fiók átállítva alap hitelesítésről OAuth hitelesítésre."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr "A(z) „{0}” Twitter-fiók sikeresen felhatalmazva a Smuxi számára"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:902
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Nem sikerült frissíteni az állapotot - ok: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:913
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr ""
+"Nem lehet elküldeni az üzenetet - nincs cél megadva. Így használja: /msg "
+"$nick üzenet"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:930
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1025
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "Nem sikerült elküldeni az üzenetet - ok: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:950
+msgid "Other timelines"
+msgstr "Egyéb idővonalak"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1008
+msgid "Could not send message - the specified user does not exist."
+msgstr ""
+"Nem sikerült elküldeni az üzenetet - a megadott felhasználó nem létezik."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1122
+#, csharp-format
+msgid "Search {0}"
+msgstr "{0} keresése"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
+#, csharp-format
+msgid "Successfully deleted tweet {0}."
+msgstr "A következő tweet sikeresen törölve: {0}."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1277
+#, csharp-format
+msgid "Successfully favorited tweet {0}."
+msgstr "A következő tweet sikeresen megjelölve kedvencként: {0}."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1309
+#, csharp-format
+msgid "Successfully unfavorited tweet {0}."
+msgstr "A következő tweet sikeresen eltávolítva a kedvencek közül: {0}."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1371
+#, csharp-format
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+"{0}"
+msgstr ""
+"Hiba történt az ismerősök idővonalának lekérésekor a Twitterről. Ok: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
+#, csharp-format
+msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
+msgstr "Hiba történt a válaszok lekérésekor a Twitterről. Ok: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1589
+#, csharp-format
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: {0}"
+msgstr "Hiba történt a közvetlen üzenetek lekérésekor a Twitterről. Ok: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1972
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr "A Twitter nem küldött érvényes választ, valószínűleg túlterheltek"
+
