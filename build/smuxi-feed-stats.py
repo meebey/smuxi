@@ -100,7 +100,7 @@ def parse_log():
             elif "/" in agent_res["vendor"]:
                 commithash = agent_res["vendor"].split("/")[-1]
                 try:
-                    agent_res["vendor"] = subprocess.check_output(["git", "describe", "%s"%commithash]).strip("\n")
+                    agent_res["vendor"] = subprocess.check_output(["git", "describe", "%s"%commithash], stderr=subprocess.STDOUT).strip("\n")
                 except subprocess.CalledProcessError:
                     agent_res["vendor"] = "Unknown (%s)"%commithash
                     
