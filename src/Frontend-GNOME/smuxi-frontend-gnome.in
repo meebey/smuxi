@@ -5,12 +5,16 @@
 MONO_TLS_SESSION_CACHE_TIMEOUT=0
 export MONO_TLS_SESSION_CACHE_TIMEOUT
 
-# HACK: forcibly disabled SGen, as it has a known SEGV bug related to the
-# Mono.Data.Sqlite binding that does not happen with the boehm GC, see:
-# https://smuxi.im/issues/show/1062
-MONO_ENV_OPTIONS="$(echo $MONO_ENV_OPTIONS | sed s/--gc=sgen//)"
-MONO_ENV_OPTIONS="--gc=boehm $MONO_ENV_OPTIONS"
-export MONO_ENV_OPTIONS
+# Mono >= 4 SEGVs with Boehm as GC during startup
+# see https://bugzilla.opensuse.org/show_bug.cgi?id=955080
+if ! mono -V | grep -q -F "version 4."; then
+    # HACK: forcibly disabled SGen, as it has a known SEGV bug related to the
+    # Mono.Data.Sqlite binding that does not happen with the boehm GC, see:
+    # https://smuxi.im/issues/show/1062
+    MONO_ENV_OPTIONS="$(echo $MONO_ENV_OPTIONS | sed s/--gc=sgen//)"
+    MONO_ENV_OPTIONS="--gc=boehm $MONO_ENV_OPTIONS"
+    export MONO_ENV_OPTIONS
+fi
 
 # Smuxi uses an IPC channel for the single application instance feature and it
 # also allows to pass links from commandline to an existing Smuxi instance. This
