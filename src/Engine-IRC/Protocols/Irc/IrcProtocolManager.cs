@@ -453,6 +453,16 @@ namespace Smuxi.Engine
                 builder.AppendEventPrefix();
                 builder.AppendText(_("Connection failed! Reason: "));
                 builder.AppendText(ex.Message);
+                if (ex.InnerException is IOException &&
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.GetType().FullName == "Mono.Security.Protocol.Tls.TlsException") {
+                    // this is a CA / certificate issue
+                    builder.AppendSpace();
+                    builder.AppendUrl(
+                        "https://smuxi.im/faq/troubleshooting/linux-tls/",
+                        "[" + _("Open Smuxi FAQ for help") + "]"
+                    );
+                }
                 Session.AddMessageToChat(Chat, builder.ToMessage());
                 throw;
             }
