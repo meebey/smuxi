@@ -1,3 +1,9 @@
+smuxi (2:1.1+master-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Mirco Bauer <meebey@debian.org>  Wed, 16 Dec 2015 18:05:11 +0100
+
 smuxi (2:1.0+dev-1) unstable; urgency=medium
 
   * New upstream release
