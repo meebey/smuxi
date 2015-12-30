@@ -155,7 +155,7 @@ SHAMROCK_EXPAND_LIBDIR
 SHAMROCK_CHECK_MONO_MODULE(2.8)
 SHAMROCK_FIND_MONO_RUNTIME
 SHAMROCK_FIND_MONO_2_0_COMPILER_OR_HIGHER
-SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 	System
 	System.Core
 	System.Data
@@ -206,11 +206,17 @@ fi
 if test "$MCS_BASENAME" = "dmcs"; then
 	CLI_RUNTIME=4.0
 fi
+if test "$MCS_BASENAME" = "mcs"; then
+	CLI_RUNTIME=4.5
+fi
 if test "$CLI_RUNTIME" = "2.0"; then
 	XBUILD_FLAGS="/toolsversion:3.5 /p:TargetFrameworkVersion=v3.5 /property:DefineConstants=MONO_3_5"
 fi
 if test "$CLI_RUNTIME" = "4.0"; then
 	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.0 /property:DefineConstants=MONO_4_0"
+fi
+if test "$CLI_RUNTIME" = "4.5"; then
+	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.5 /property:DefineConstants=MONO_4_5"
 fi
 AC_SUBST(XBUILD_FLAGS)
 
@@ -405,7 +411,7 @@ if test "x$ENABLE_ENGINE_IRC" != "xno"; then
 	if test ! -f "$srcdir/lib/SmartIrc4net/SmartIrc4net.csproj"; then
 		AC_MSG_ERROR([lib/SmartIrc4net is empty!])
 	fi
-	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+	SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 		System
 		Mono.Posix
 	])
@@ -433,7 +439,7 @@ if test "x$ENABLE_ENGINE_XMPP" != "xno"; then
 	if test ! -f "$srcdir/lib/agsxmpp/agsxmpp/agsxmpp.csproj"; then
 		AC_MSG_ERROR([lib/agsxmpp is empty!])
 	fi
-	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+	SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 		System
 		System.Core
 		Mono.Posix
@@ -470,7 +476,7 @@ if test "x$ENABLE_ENGINE_TWITTER" != "xno"; then
 	if test ! -f "$srcdir/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj"; then
 		AC_MSG_ERROR([lib/Newtonsoft.Json is empty!])
 	fi
-	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+	SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 		System
 		System.Core
 		System.Data
@@ -483,7 +489,7 @@ if test "x$ENABLE_ENGINE_TWITTER" != "xno"; then
 	if test ! -f "$srcdir/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj"; then
 		AC_MSG_ERROR([lib/Twitterizer is empty!])
 	fi
-	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+	SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 		System
 		System.Configuration
 		System.Core
@@ -537,7 +543,7 @@ if test "x$ENABLE_ENGINE_JABBR" != "xno"; then
 	if test ! -f "$srcdir/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj"; then
 		AC_MSG_ERROR([lib/Newtonsoft.Json is empty!])
 	fi
-	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+	SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 		System
 		System.Core
 		System.Data
@@ -550,7 +556,7 @@ if test "x$ENABLE_ENGINE_JABBR" != "xno"; then
 	if test ! -f "$srcdir/lib/SignalR/src/Microsoft.AspNet.SignalR.Client/Microsoft.AspNet.SignalR.Client.csproj"; then
 		AC_MSG_ERROR([lib/SignalR is empty!])
 	fi
-	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+	SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 		System
 		System.Core
 	])
@@ -558,7 +564,7 @@ if test "x$ENABLE_ENGINE_JABBR" != "xno"; then
 	if test ! -f "$srcdir/lib/JabbR/JabbR.Client/JabbR.Client.csproj"; then
 		AC_MSG_ERROR([lib/JabbR is empty!])
 	fi
-	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+	SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 		System
 		System.Core
 		System.Data
@@ -601,7 +607,7 @@ if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
 		AC_MSG_RESULT(no)
 	fi
 	
-	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+	SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 		System.Drawing
 	])
 	
@@ -662,7 +668,7 @@ AC_ARG_ENABLE([frontend-swf],
 	ENABLE_FRONTEND_SWF=no
 )
 if test "x$ENABLE_FRONTEND_SWF" != "xno"; then
-	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+	SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 		System.Windows.Forms
 	])
 fi
