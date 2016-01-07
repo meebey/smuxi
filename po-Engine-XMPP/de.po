@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=smuxi&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2015-09-01 10:49+0000\n"
-"PO-Revision-Date: 2016-01-07 21:16+0100\n"
+"PO-Revision-Date: 2016-01-07 21:55+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -199,7 +199,7 @@ msgid ""
 "Automatically removed {0}'s subscription to your presences after losing the "
 "subscription to theirs"
 msgstr ""
-"Automatisch {0}s Abonnement zu Ihren Präsenzen storniert, nachdem das "
+"Automatisch {0}s Abonnement zu Ihren Anwesenheiten storniert, nachdem das "
 "Abonnement zu seinen verloren ging"
 
 #. you cannot (anymore?) see their presences
@@ -296,6 +296,8 @@ msgstr "Ein unbehandelter Gruppenchat-Fehler ist aufgetreten: {0}"
 msgid ""
 "Received a presence update from {0}, but there's no corresponding chat window"
 msgstr ""
+"Eine Anwesenheitsaktualisierung von {0} wurde empfangen, aber es gibt kein "
+"zugehöriges Chat-Fenster"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2120
 #, csharp-format
@@ -303,6 +305,8 @@ msgid ""
 "Received a groupchat message from {0} but there's no corresponding chat "
 "window: {1}"
 msgstr ""
+"Eine Gruppenchat-Nachricht von {0} wurde empfangen, aber es gibt kein "
+"zugehöriges Chat-Fenster: {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
 #, csharp-format
