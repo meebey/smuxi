@@ -1,25 +1,28 @@
-# SOME DESCRIPTIVE TITLE.
+# German translation for smuxi-Engine.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# 
+# This file is distributed under the same license as the smuxi package.
+#
 # Translators:
-# Bianca Mix <heavydemon@freenet.de>, 2011-2013
-# JB, 2014
-# Mirco Bauer <meebey@gmail.com>, 2013,2015
-# Wasilis Mandratzis-Walz, 2015
+# Bianca Mix <heavydemon@freenet.de>, 2011-2013.
+# JB, 2014.
+# Mirco Bauer <meebey@gmail.com>, 2013, 2015.
+# Wasilis Mandratzis-Walz, 2015.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2016.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-03 12:30+0200\n"
-"PO-Revision-Date: 2015-06-28 15:44+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/smuxi/language/de/)\n"
+"PO-Revision-Date: 2016-01-08 14:18+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
@@ -28,7 +31,7 @@ msgstr "Keine Netzwerkverbindungen"
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
 #, csharp-format
 msgid "Optimizing: {0}..."
-msgstr "Optimiere: {0}..."
+msgstr "Wird optimiert: {0} …"
 
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
 #, csharp-format
@@ -36,20 +39,18 @@ msgid "Failed to optimize: {0}. Reason: {1}"
 msgstr "Optimierung fehlgeschlagen: {0}. Grund: {1}"
 
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:315
-msgid ""
-"Your chat history is no longer available because of an error but will be "
-"preserved from now on."
-msgstr "Ihr Gesprächsverlauf ist auf Grund eines Fehlers nicht länger verfügbar, er wird aber von fortan vorgehalten."
+msgid "Your chat history is no longer available because of an error but will be preserved from now on."
+msgstr "Ihr Gesprächsverlauf ist auf Grund eines Fehlers nicht mehr verfügbar, er wird aber von nun an vorgehalten."
 
 #: ../src/Engine/Messages/MessageBuilder.cs:771
 #, csharp-format
 msgid "{0} is typing..."
-msgstr "{0} tippt..."
+msgstr "{0} tippt …"
 
 #: ../src/Engine/Messages/MessageBuilder.cs:777
 #, csharp-format
 msgid "{0} has stopped typing..."
-msgstr "{0} hat aufgehört zu tippen..."
+msgstr "{0} hat aufgehört zu tippen …"
 
 #: ../src/Engine/Messages/MessageBuilder.cs:820
 #, csharp-format
@@ -74,11 +75,10 @@ msgstr "Nicht verbunden"
 msgid "Not connected to server"
 msgstr "Nicht mit dem Server verbunden"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
-#: ../src/Engine/Session.cs:1067
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:201 ../src/Engine/Session.cs:1067
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr "Nicht genügend Parameter für den Befehl: {0}"
+msgstr "Nicht genügend Parameter für den Befehl {0}"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:212
 #, csharp-format
@@ -93,7 +93,7 @@ msgstr "Getrennt von {0}"
 #: ../src/Engine/Session.cs:247
 #, csharp-format
 msgid "Automatically connecting to {0}..."
-msgstr "Verbinde automatisch zu {0}..."
+msgstr "Automatische Verbindung zu {0} …"
 
 #: ../src/Engine/Session.cs:278
 #, csharp-format
@@ -104,7 +104,7 @@ msgstr "Automatische Verbindung zu {0} ist fehlgeschlagen!"
 #. list of commands below
 #: ../src/Engine/Session.cs:505
 msgid "Engine Commands"
-msgstr "Engine Befehle"
+msgstr "Engine-Befehle"
 
 #: ../src/Engine/Session.cs:634
 msgid "Connect failed!"
@@ -113,7 +113,7 @@ msgstr "Verbindung ist fehlgeschlagen!"
 #: ../src/Engine/Session.cs:657
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr "Die Trennung ist fehlgeschlagen - konnte den Server {0} nicht finden"
+msgstr "Die Trennung ist fehlgeschlagen - Server {0} konnte nicht gefunden werden"
 
 #: ../src/Engine/Session.cs:699
 msgid "Reconnect failed!"
@@ -121,7 +121,7 @@ msgstr "Wiederverbinden ist fehlgeschlagen!"
 
 #: ../src/Engine/Session.cs:723
 msgid "Configuration reloaded"
-msgstr "Konfiguration wurde erneuert"
+msgstr "Konfiguration wurde erneut geladen"
 
 #: ../src/Engine/Session.cs:727
 msgid "Configuration saved"
@@ -134,28 +134,27 @@ msgstr "Ungültiges Schlüssel-/Wertformat."
 #: ../src/Engine/Session.cs:778
 #, csharp-format
 msgid "Invalid config key: '{0}'"
-msgstr "Ungültiger Konfigurationsschlüssel: '{0}'"
+msgstr "Ungültiger Konfigurationsschlüssel: »{0}«"
 
 #: ../src/Engine/Session.cs:794 ../src/Engine/Session.cs:800
 #, csharp-format
 msgid "Could not convert config value: '{0}' to type: {1}"
-msgstr "Konfigurationswert konnte nicht umgewandelt werden: '{0}' zu {1}"
+msgstr "Konfigurationswert konnte nicht umgewandelt werden: »{0}« zu {1}"
 
 #: ../src/Engine/Session.cs:814
 #, csharp-format
-msgid ""
-"Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
-msgstr "Ungültiger Schlüssel zum Entfernen: '{0}'. Gültige Schlüssel zum Entfernen: MessagePatterns/{{ID}}."
+msgid "Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
+msgstr "Ungültiger Schlüssel zum Entfernen: »{0}«. Gültige Schlüssel zum Entfernen: MessagePatterns/{{ID}}."
 
 #: ../src/Engine/Session.cs:827
 #, csharp-format
 msgid "Message pattern with ID: '{0}' does not exist."
-msgstr "Nachrichten Muster mit ID: '{0}' ist nicht vorhanden."
+msgstr "Nachrichtenmuster mit ID: »{0}« ist nicht vorhanden."
 
 #: ../src/Engine/Session.cs:834
 #, csharp-format
 msgid "Message pattern with ID: '{0}' removed."
-msgstr "Nachrichten Muster mit ID: '{0}' wurde entfernt"
+msgstr "Nachrichtenmuster mit ID: »{0}« wurde entfernt"
 
 #: ../src/Engine/Session.cs:842
 msgid "Invalid parameter for config; use load, save, get or set."
@@ -163,7 +162,7 @@ msgstr "Ungültiger Konfigurationsparameter; benutzen Sie load, save, get oder s
 
 #: ../src/Engine/Session.cs:919
 msgid "Invalid parameter for network; use list, switch, or close"
-msgstr "Ungültiger Parameter für \"network\", verwenden Sie \"list\", \"switch\" oder \"close\""
+msgstr "Ungültiger Parameter für »network«, verwenden Sie »list«, »switch« oder »close«"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
@@ -215,10 +214,8 @@ msgstr "Zu keinem Netzwerk verbunden"
 
 #: ../src/Engine/Session.cs:1317
 #, csharp-format
-msgid ""
-"Failed to write to chat history. Your chat history will not be preserved. "
-"Reason: {0}"
-msgstr "Schreiben des Gesprächverlaufs fehlgeschlagen. Ihr Gesprächsverlauf wird nicht vorgehalten. Grund: {0}"
+msgid "Failed to write to chat history. Your chat history will not be preserved. Reason: {0}"
+msgstr "Schreiben des Gesprächsverlaufs fehlgeschlagen. Ihr Gesprächsverlauf wird nicht vorgehalten. Grund: {0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
@@ -240,11 +237,8 @@ msgid "Type /help to get a list of available commands."
 msgstr "Geben Sie /help ein, um eine Liste der verfügbaren Befehle zu erhalten."
 
 #: ../src/Engine/Session.cs:1909
-msgid ""
-"After you have made a connection the list of available commands changes. Go "
-"to the newly opened connection tab and use the /help command again to see "
-"the extended command list."
-msgstr "Nachdem Sie eine Verbindung aufgebaut haben, verändert sich die Liste der verfügbaren Kommandos. Gehen Sie zum neu geöffneten Verbindungsreiter und benutzen sie den Befehl /help erneut, um die erweiterte Kommandoliste zu sehen"
+msgid "After you have made a connection the list of available commands changes. Go to the newly opened connection tab and use the /help command again to see the extended command list."
+msgstr "Nachdem Sie eine Verbindung aufgebaut haben, verändert sich die Liste der verfügbaren Befehle. Gehen Sie zum neu geöffneten Verbindungsreiter und geben Sie den Befehl /help erneut ein, um die erweiterte Befehlsliste zu sehen."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
@@ -257,12 +251,12 @@ msgstr "Passwort darf nicht leer sein."
 #: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr "Benutzer \"{0}\" ist nicht vorhanden."
+msgstr "Benutzer »{0}« ist nicht vorhanden."
 
 #: ../src/Engine/Config/UserListController.cs:145
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr "Benutzer \"{0}\" ist bereits vorhanden."
+msgstr "Benutzer »{0}« ist bereits vorhanden."
 
 #: ../src/Engine/Config/ServerListController.cs:118
 msgid "Network must not be empty."
@@ -279,18 +273,14 @@ msgstr "Hostname des Servers enthält unzulässige Zeichen (neue Zeile)."
 #: ../src/Engine/Config/ServerListController.cs:148
 #, csharp-format
 msgid "Server ID '{0}' already exists."
-msgstr "Die Server ID {0} ist bereits vorhanden."
+msgstr "Die Server-ID »{0}« ist bereits vorhanden."
 
 #: ../src/Engine/Chats/ChatModel.cs:109
 #, csharp-format
-msgid ""
-"Failed to load chat history. Your chat history will not be preserved. "
-"Reason: {0}"
-msgstr "Laden des Gesprächverlaufs fehlgeschlagen. Ihr Gesprächsverlauf wird nicht vorgehalten. Grund: {0}"
+msgid "Failed to load chat history. Your chat history will not be preserved. Reason: {0}"
+msgstr "Laden des Gesprächsverlaufs fehlgeschlagen. Ihr Gesprächsverlauf wird nicht vorgehalten. Grund: {0}"
 
 #: ../src/Engine/Chats/ChatModel.cs:311
 #, csharp-format
-msgid ""
-"Failed to open chat history for writing. Your chat history will not be "
-"preserved. Reason: {0}"
-msgstr "Öffnen des Gesprächverlaufs zum Schreiben fehlgeschlagen. Ihr Gesprächsverlauf wird nicht vorgehalten. Grund: {0}"
+msgid "Failed to open chat history for writing. Your chat history will not be preserved. Reason: {0}"
+msgstr "Öffnen des Gesprächsverlaufs zum Schreiben fehlgeschlagen. Ihr Gesprächsverlauf wird nicht vorgehalten. Grund: {0}"
