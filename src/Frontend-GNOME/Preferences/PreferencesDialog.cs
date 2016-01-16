@@ -383,6 +383,9 @@ namespace Smuxi.Frontend.Gnome
                     }
                     store.AppendValues(normalizedBodyName + " - " + encodingName, enc.BodyName.ToUpper());
                 } catch (NotSupportedException) {
+                } catch (ArgumentException) {
+                    // HACK: workaround bug in Mono's Encoding.GetEncoding()
+                    // implementation, see: https://smuxi.im/issues/show/1082
                 }
             }
             cb.Model = store;
