@@ -199,9 +199,9 @@ fi
 AC_SUBST(CSC_FLAGS)
 
 MCS_BASENAME=$(basename $MCS)
-CLI_RUNTIME=
+CLI_RUNTIME=4.5
 if test "$MCS_BASENAME" = "gmcs"; then
-	CLI_RUNTIME=2.0
+	CLI_RUNTIME=3.5
 fi
 if test "$MCS_BASENAME" = "dmcs"; then
 	CLI_RUNTIME=4.0
@@ -209,7 +209,21 @@ fi
 if test "$MCS_BASENAME" = "mcs"; then
 	CLI_RUNTIME=4.5
 fi
-if test "$CLI_RUNTIME" = "2.0"; then
+if test "$CLI_RUNTIME" = "4.5"; then
+	if test ! -e "$($PKG_CONFIG --variable=libdir mono)/mono/4.5/mscorlib.dll" -a \
+			! -e "$($PKG_CONFIG --variable=prefix mono)/lib/mono/4.5/mscorlib.dll"; then
+		# Mono without 4.5 support -> downgrade to 4.0
+		CLI_RUNTIME=4.0
+	fi
+fi
+if test "$CLI_RUNTIME" = "4.0"; then
+	if test ! -e "$($PKG_CONFIG --variable=libdir mono)/mono/4.0/mscorlib.dll" -a \
+		    ! -e "$($PKG_CONFIG --variable=prefix mono)/lib/mono/4.0/mscorlib.dll"; then
+		# Mono without 4.0 support -> downgrade to 3.5
+		CLI_RUNTIME=3.5
+	fi
+fi
+if test "$CLI_RUNTIME" = "3.5"; then
 	XBUILD_FLAGS="/toolsversion:3.5 /p:TargetFrameworkVersion=v3.5 /property:DefineConstants=MONO_3_5"
 fi
 if test "$CLI_RUNTIME" = "4.0"; then
