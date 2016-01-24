@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-11-15 22:20+0000\n"
-"PO-Revision-Date: 2015-11-12 01:49+0200\n"
+"POT-Creation-Date: 2016-01-08 14:34+0000\n"
+"PO-Revision-Date: 2016-01-08 22:23+0200\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/projects/p/smuxi/"
 "language/lt/)\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.8.5\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:1
 msgid "Smuxi Preferences"
@@ -122,7 +122,7 @@ msgstr "Buferio Eilutės:"
 #: ../glade/smuxi-frontend-gnome.glade.h:21
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
 msgid "Engine Buffer Lines:"
-msgstr "Varikliuko Buferio Eilutės:"
+msgstr "Modulio Buferio Eilutės:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:22
 msgid ""
@@ -522,19 +522,19 @@ msgstr "P_ranešti Apie Klaidą"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:61
 msgid "Engine not found."
-msgstr "Varikliukas nerastas."
+msgstr "Modulis nerastas."
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:77
 msgid "Engine Manager"
-msgstr "Varikliukų Tvarkytuvė"
+msgstr "Modulių Tvarkytuvė"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:96
 msgid "Select which Smuxi engine you want to connect to"
-msgstr "Pasirinkite prie kurio Smuxi varikliuko norite prisijungti"
+msgstr "Pasirinkite prie kurio Smuxi modulio norite prisijungti"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:102
 msgid "Engine:"
-msgstr "Varikliukas:"
+msgstr "Modulis:"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:113
 msgid "Use Low Bandwidth Mode"
@@ -544,11 +544,11 @@ msgstr "Naudoti Žemos Siuntimo Spartos Veikseną"
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:197
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:382
 msgid "Local Engine"
-msgstr "Vietinis Varikliukas"
+msgstr "Vietinis modulis"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:189
 msgid "Please select an engine!"
-msgstr "Prašome pasirinkti varikliuką!"
+msgstr "Prašome pasirinkti modulį!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:212
 #, csharp-format
@@ -557,18 +557,18 @@ msgid ""
 "Engine Version: {0} Frontend Version: {1}\n"
 "Engine Protocol: {2} Frontend Protocol: {3}"
 msgstr ""
-"Jūsų vartotojo sąsaja nesuderinama su varikliuku!\n"
-"Varikliuko Versija: {0} Vartotojo Sąsajos Versija: {1}\n"
-"Varikliuko Protokolas: {2} Vartotojo Sąsajos Protokolas: {3}"
+"Jūsų vartotojo sąsaja nesuderinama su moduliu!\n"
+"Modulio Versija: {0} Vartotojo Sąsajos Versija: {1}\n"
+"Modulio Protokolas: {2} Vartotojo Sąsajos Protokolas: {3}"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:245
 msgid "An error occurred while connecting to the engine!"
-msgstr "Jungiantis prie varikliuko, įvyko klaida!"
+msgstr "Jungiantis prie modulio, įvyko klaida!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:246
 #, csharp-format
 msgid "Engine URL: {0}"
-msgstr "Varikliuko URL: {0}"
+msgstr "Modulio URL: {0}"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:249
 #, csharp-format
@@ -578,7 +578,7 @@ msgstr "Klaida: {0}"
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:319
 #, csharp-format
 msgid "Are you sure you want to delete the engine \"{0}\"?"
-msgstr "Ar tikrai norite ištrinti varikliuką \"{0}\"?"
+msgstr "Ar tikrai norite ištrinti modulį \"{0}\"?"
 
 #: ../src/Frontend-GNOME/Entry.cs:485
 #, csharp-format
@@ -601,11 +601,11 @@ msgstr "Rodyti šią pagalbą"
 
 #: ../src/Frontend-GNOME/Main.cs:60
 msgid "Options:"
-msgstr "Parinktys:"
+msgstr "Parametrai:"
 
 #: ../src/Frontend-GNOME/Main.cs:67
 msgid "Connect to engine"
-msgstr "Prisijungti prie varikliuko"
+msgstr "Prisijungti prie modulio"
 
 #: ../src/Frontend-GNOME/Main.cs:74
 msgid "Opens the specified link in Smuxi"
@@ -742,12 +742,12 @@ msgstr "Klaida, gaunant grupės pokalbių sąrašą iš serverio."
 
 #: ../src/Frontend-GNOME/Frontend.cs:388
 msgid "Disconnected from engine."
-msgstr "Atsijungta nuo varikliuko."
+msgstr "Atsijungta nuo modulio."
 
 #: ../src/Frontend-GNOME/Frontend.cs:431
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
-msgstr "Iš naujo jungiamasi prie varikliuko... (bandymas {0})"
+msgstr "Iš naujo jungiamasi prie modulio... (bandymas {0})"
 
 #: ../src/Frontend-GNOME/Frontend.cs:542
 #, csharp-format
@@ -809,15 +809,15 @@ msgstr "Grupė / Viešas"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:65
 msgid "Engine Assistant - Smuxi"
-msgstr "Varikliukų Pagelbiklis - Smuxi"
+msgstr "Modulių Pagelbiklis - Smuxi"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:87
 msgid "Add Smuxi Engine"
-msgstr "Pridėti Smuxi Varikliuką"
+msgstr "Pridėti Smuxi Modulį"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:89
 msgid "Edit Smuxi Engine"
-msgstr "Redaguoti Smuxi Varikliuką"
+msgstr "Redaguoti Smuxi modulį"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:198
 msgid "Credentials"
@@ -825,7 +825,7 @@ msgstr "Kredencialai"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:278
 msgid "Now you can use the Smuxi Engine"
-msgstr "Dabar galite naudoti Smuxi Varikliuką"
+msgstr "Dabar galite naudoti Smuxi modulį"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:281
 msgid "Thank you"
@@ -834,8 +834,7 @@ msgstr "Ačiū"
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:298
 msgid ""
 "An engine with this name already exists! Please specify a different one."
-msgstr ""
-"Varikliukas tokiu pavadinimu jau yra! Prašome nurodyti kitą pavadinimą."
+msgstr "Modulis tokiu pavadinimu jau yra! Prašome nurodyti kitą pavadinimą."
 
 #: ../src/Frontend-GNOME/Views/JoinWidget.cs:89
 msgid "Enter which chat to join"
@@ -860,7 +859,7 @@ msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Persijungimas į vietinį varikliuką, atjungs jus nuo dabartinio varikliuko!\n"
+"Persijungimas į vietinį modulį, atjungs jus nuo dabartinio modulio!\n"
 "Ar tikrai norite tai padaryti?"
 
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:429
@@ -868,8 +867,7 @@ msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Persijungimas į nuotolinį varikliuką, atjungs jus nuo dabartinio "
-"varikliuko!\n"
+"Persijungimas į nuotolinį modulį, atjungs jus nuo dabartinio modulio!\n"
 "Ar tikrai norite tai padaryti?"
 
 #: ../src/Frontend-GNOME/Views/MessageTextView.cs:412
@@ -1014,7 +1012,7 @@ msgstr "P_okalbiai"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:64
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:65
 msgid "_Engine"
-msgstr "_Varikliukas"
+msgstr "_Modulis"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:67
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:68
@@ -1096,17 +1094,17 @@ msgstr "_Uždaryti"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
 msgid "_Use Local Engine"
-msgstr "_Naudoti Vietinį Varikliuką"
+msgstr "_Naudoti Vietinį Modulį"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:123
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:124
 msgid "_Add Remote Engine"
-msgstr "_Pridėti Nuotolinį Varikliuką"
+msgstr "_Pridėti Nuotolinį Modulį"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
 msgid "Switch Remote Engine"
-msgstr "Perjungti Nuotolinį Varikliuką"
+msgstr "Perjungti Nuotolinį Modulį"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
@@ -1299,7 +1297,7 @@ msgid ""
 "\n"
 "Click \"Forward\" to begin."
 msgstr ""
-"Sveiki atvykę į Smuxi Varikliukų Konfigūracijos Pagelbiklį.\n"
+"Sveiki atvykę į Smuxi Modulių Konfigūracijos Pagelbiklį.\n"
 "Prieš tai, kuomet galėsite naudotis varikliuku, turite įvesti kai kurią "
 "informaciją.\n"
 "\n"
@@ -1307,19 +1305,19 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
 msgid "_Engine Name:"
-msgstr "_Varikliuko Pavadinimas:"
+msgstr "_Modulio Pavadinimas:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:59
 msgid "<span size=\"small\">Profile name of the new engine</span>"
-msgstr "<span size=\"small\">Naujo varikliuko profilio pavadinimas</span>"
+msgstr "<span size=\"small\">Naujo modulio profilio pavadinimas</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:80
 msgid "_Default Engine:"
-msgstr "_Numatytasis Varikliukas:"
+msgstr "_Numatytasis modulis:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:91
 msgid "Use as new default engine"
-msgstr "Naudoti kaip naująjį numatytąjį varikliuką"
+msgstr "Naudoti kaip naująjį numatytąjį modulį"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:104
 msgid ""
@@ -1327,7 +1325,7 @@ msgid ""
 "time Smuxi is started</span>"
 msgstr ""
 "<span size=\"small\">Jei įjungta, kitą kartą paleidus Smuxi, dabartinis "
-"varikliukas taps numatytuoju</span>"
+"modulis taps numatytuoju</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
 msgid "Smuxi - Open Chat"
