@@ -514,8 +514,10 @@ namespace Smuxi.Frontend.Gnome
             log4net.Core.LoggerManager.Shutdown();
 #endif
 
-            Gtk.Application.Quit();
-            
+            if (IsGtkInitialized && InGtkApplicationRun) {
+                Gtk.Application.Quit();
+            }
+
             Environment.Exit(0);
         }
 
