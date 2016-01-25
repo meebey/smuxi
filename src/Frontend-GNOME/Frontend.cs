@@ -1044,6 +1044,7 @@ namespace Smuxi.Frontend.Gnome
                         Quit();
                     });
                 });
+                signal_thread.IsBackground = true;
                 signal_thread.Start();
             }
         }
