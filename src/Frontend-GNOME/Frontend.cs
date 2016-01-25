@@ -465,7 +465,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
 
             // only save windows size when we are not in the engine manager dialog
-            if (_MainWindow.Visible) {
+            if (_MainWindow != null && _MainWindow.Visible) {
                 // save window size
                 int width, heigth;
                 if (_MainWindow.IsMaximized) {
