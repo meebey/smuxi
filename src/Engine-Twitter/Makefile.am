@@ -4,7 +4,8 @@ ASSEMBLY_FILENAME = $(ASSEMBLY_NAME).dll
 ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
 #ASSEMBLY_PC = $(top_srcdir)/$(PACKAGE_NAME).pc
 
-SOURCES =	$(top_srcdir)/src/AssemblyVersion.cs \
+SOURCES = \
+		../AssemblyVersion.cs \
 		AssemblyInfo.cs \
 		Protocols/Twitter/TwitterProtocolManager.cs \
 		Protocols/Twitter/TwitterMessageBuilder.cs \

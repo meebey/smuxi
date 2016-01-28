@@ -4,7 +4,7 @@ ASSEMBLY_FILENAME = $(ASSEMBLY_NAME).dll
 ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
 
 SOURCES = \
-	$(top_srcdir)/src/AssemblyVersion.cs \
+	../AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	TwitterGroupChatView.cs
 
