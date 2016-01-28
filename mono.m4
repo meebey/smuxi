@@ -10,6 +10,9 @@ AC_DEFUN([SHAMROCK_FIND_MONO_2_0_COMPILER],
 
 AC_DEFUN([SHAMROCK_FIND_MONO_2_0_COMPILER_OR_HIGHER],
 [
+    if pkg-config --atleast-version=4.0 mono; then
+        SHAMROCK_FIND_PROGRAM(MCS, mcs)
+    fi
     if pkg-config --atleast-version=2.8 mono; then
         SHAMROCK_FIND_PROGRAM(MCS, dmcs)
     fi
@@ -39,31 +42,25 @@ AC_DEFUN([SHAMROCK_CHECK_MONO_MODULE_NOBAIL],
 	AC_SUBST(HAVE_MONO_MODULE)
 ])
 
-AC_DEFUN([_SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES],
+AC_DEFUN([SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES],
 [
-	for asm in $(echo "$*" | cut -d, -f2- | sed 's/\,/ /g')
-	do
-		AC_MSG_CHECKING([for Mono $1 GAC for $asm.dll])
-		if test \
-			-e "$($PKG_CONFIG --variable=libdir mono)/mono/$1/$asm.dll" -o \
-			-e "$($PKG_CONFIG --variable=prefix mono)/lib/mono/$1/$asm.dll"; \
-			then \
-			AC_MSG_RESULT([found])
-		else
-			AC_MSG_RESULT([not found])
-			AC_MSG_ERROR([missing reqired Mono $1 assembly: $asm.dll])
-		fi
-	done
+    CLR_VERSIONS="2.0 3.5 4.0 4.5"
+    for ASM in $(echo "$*" | cut -d, -f2- | sed 's/\,/ /g'); do
+        AC_MSG_CHECKING([Mono GAC for $ASM.dll])
+        found=0
+        for CLR_VER in $CLR_VERSIONS; do
+            if test \
+                -e "$($PKG_CONFIG --variable=libdir mono)/mono/$CLR_VER/$ASM.dll" -o \
+                -e "$($PKG_CONFIG --variable=prefix mono)/lib/mono/$CLR_VER/$ASM.dll"; then
+                found=1
+            fi
+        done
+        if test "x$found" = "x1"; then
+            AC_MSG_RESULT([found])
+        else
+            AC_MSG_RESULT([not found])
+            AC_MSG_ERROR([missing required Mono assembly: $ASM.dll])
+        fi
+    done
 ])
-
-AC_DEFUN([SHAMROCK_CHECK_MONO_1_0_GAC_ASSEMBLIES],
-[
-	_SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES(1.0, $*)
-])
-
-AC_DEFUN([SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES],
-[
-	_SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES(2.0, $*)
-])
-
 
