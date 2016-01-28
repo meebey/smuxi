@@ -71,7 +71,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES)
 
 FILES = \
 	NotImplementedMessageDialog.cs \
-	$(top_srcdir)/src/AssemblyVersion.cs \
+	../AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	MainWindow.Designer.cs \
 	MainWindow.cs \

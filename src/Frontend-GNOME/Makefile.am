@@ -117,7 +117,7 @@ $(top_builddir)/images/256/$(PERSON_CHAT_ICON_NAME).png:
 	$(INSTALL) -D -m644 $(top_srcdir)/images/person-chat_256x256.png $@
 
 FILES = \
-	$(top_srcdir)/src/AssemblyVersion.cs \
+	../AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	AboutDialog.cs \
 	CrashDialog.cs \
@@ -202,12 +202,12 @@ DATA_FILES = \
 
 RESOURCES = \
 	gtk-gui/gui.stetic \
-	$(top_srcdir)/glade/smuxi-frontend-gnome.glade \
-	$(top_srcdir)/images/icon_256x256.png \
-	$(top_srcdir)/images/group-chat_256x256.png \
-	$(top_srcdir)/images/person-chat_256x256.png \
-	$(top_srcdir)/images/protocol-chat_256x256.png \
-	$(top_srcdir)/images/session-chat_256x256.png 
+	$(top_builddir)/glade/smuxi-frontend-gnome.glade \
+	$(top_builddir)/images/icon_256x256.png \
+	$(top_builddir)/images/group-chat_256x256.png \
+	$(top_builddir)/images/person-chat_256x256.png \
+	$(top_builddir)/images/protocol-chat_256x256.png \
+	$(top_builddir)/images/session-chat_256x256.png
 
 EXTRAS = \
 	smuxi-frontend-gnome.in \

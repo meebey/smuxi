@@ -7,7 +7,7 @@ ASSEMBLY_CONFIG = $(TARGET_DIR)/$(ASSEMBLY_CONFIG_SOURCE)
 ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
 
 SOURCES = \
-	$(top_srcdir)/src/AssemblyVersion.cs \
+	../AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	Main.cs
 
