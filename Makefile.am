@@ -230,12 +230,8 @@ LINUX_STATIC_FILES = \
 	$(BUILD_DIR)/JabbR.Client.dll
 
 dist-win32:
-	if [ -x /usr/bin/dmcs ]; then \
-		COMPILER_OVERRIDE="MCS=/usr/bin/dmcs"; \
-		echo COMPILER_OVERRIDE="$$COMPILER_OVERRIDE"; \
-	fi; \
 	DIST_VERSION=$$(git describe); \
-	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-messaging-menu --without-notify --without-dbus \
+	./autogen.sh --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
 	  --with-vendor-package-version="dist-win32 $$DIST_VERSION"
 	$(MAKE)
@@ -251,12 +247,8 @@ dist-win32:
 	makensis $(top_srcdir)/src/smuxi-win32.nsis
 
 dist-osx:
-	if [ -x /usr/bin/dmcs ]; then \
-		COMPILER_OVERRIDE="MCS=/usr/bin/dmcs"; \
-		echo COMPILER_OVERRIDE="$$COMPILER_OVERRIDE"; \
-	fi; \
 	DIST_VERSION=$$(git describe); \
-	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-messaging-menu --without-notify --without-dbus \
+	./autogen.sh --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
 	  --with-vendor-package-version="dist-osx $$DIST_VERSION"
 	$(MAKE)

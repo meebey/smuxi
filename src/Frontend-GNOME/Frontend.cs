@@ -465,7 +465,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
 
             // only save windows size when we are not in the engine manager dialog
-            if (_MainWindow.Visible) {
+            if (_MainWindow != null && _MainWindow.Visible) {
                 // save window size
                 int width, heigth;
                 if (_MainWindow.IsMaximized) {
@@ -514,8 +514,10 @@ namespace Smuxi.Frontend.Gnome
             log4net.Core.LoggerManager.Shutdown();
 #endif
 
-            Gtk.Application.Quit();
-            
+            if (IsGtkInitialized && InGtkApplicationRun) {
+                Gtk.Application.Quit();
+            }
+
             Environment.Exit(0);
         }
 
@@ -1042,6 +1044,7 @@ namespace Smuxi.Frontend.Gnome
                         Quit();
                     });
                 });
+                signal_thread.IsBackground = true;
                 signal_thread.Start();
             }
         }

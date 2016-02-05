@@ -367,7 +367,7 @@ namespace Smuxi.Frontend.Gnome
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                per.ID
+                                per.ID + " " + per.ID
                             )
                         );
                     } catch (Exception ex) {

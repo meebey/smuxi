@@ -1792,7 +1792,7 @@ namespace Smuxi.Engine
         public void CommandWhoIs(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
-                _IrcClient.RfcWhois(cd.DataArray[1]);
+                _IrcClient.RfcWhois(cd.Parameter);
             } else {
                 if (cd.Chat is PersonChatModel) {
                     var pchat = (PersonChatModel) cd.Chat;

@@ -85,7 +85,7 @@ LINUX_PKGCONFIG = \
 all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
 FILES = \
-	$(top_srcdir)/src/AssemblyVersion.cs \
+	../AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	IrcGroupChatView.cs \
 	IrcPersonChatView.cs \
