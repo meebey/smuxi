@@ -1920,6 +1920,7 @@ namespace Smuxi.Engine
             if (pres.Error == null) {
                 Session.AddMessageToChat(NetworkChat, msg);
                 Session.RemoveChat(chat);
+                return;
             }
             // is there an action we can do silently?
             switch (pres.Error.Type) {
