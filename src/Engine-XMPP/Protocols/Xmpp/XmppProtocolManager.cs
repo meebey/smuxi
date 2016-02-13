@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2016 Mirco Bauer <meebey@meebey.net>
  * Copyright (c) 2011 Tuukka Hastrup <Tuukka.Hastrup@iki.fi>
  * Copyright (c) 2013-2014 Oliver Schneider <smuxi@oli-obk.de>
  *
@@ -1916,25 +1916,15 @@ namespace Smuxi.Engine
 
         void OnGroupChatPresenceError(XmppGroupChatModel chat, Presence pres)
         {
-            var msg = CreateGroupChatPresenceErrorMessage(pres);
-            if (pres.Error == null) {
-                Session.AddMessageToChat(NetworkChat, msg);
-                Session.RemoveChat(chat);
+            if (pres.Error != null &&
+                pres.Error.Type == ErrorType.cancel &&
+                pres.Error.Condition == ErrorCondition.Conflict) {
+                // nickname already in use; autorejoin with _ appended
+                JoinRoom(chat.ID, chat.OwnNickname + "_", chat.Password);
                 return;
             }
-            // is there an action we can do silently?
-            switch (pres.Error.Type) {
-                case ErrorType.cancel:
-                    switch (pres.Error.Condition) {
-                        case ErrorCondition.Conflict:
-                            // nickname already in use
-                            // autorejoin with _ appended to nickname
-                            JoinRoom(chat.ID, chat.OwnNickname + "_", chat.Password);
-                            return;
-                    }
-                    break;
-            }
 
+            var msg = CreateGroupChatPresenceErrorMessage(pres);
             Session.AddMessageToChat(NetworkChat, msg);
             Session.RemoveChat(chat);
         }
