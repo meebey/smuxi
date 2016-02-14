@@ -1380,6 +1380,10 @@ namespace Smuxi.Engine
                     SendPrivateMessage(person, jid.Bare, text);
                 } else {
                     foreach (var res in resources) {
+                        if (String.IsNullOrEmpty(res.Name)) {
+                            // don't send messages to empty resources
+                            continue;
+                        }
                         Jid j = new Jid(jid);
                         j.Resource = res.Name;
                         SendPrivateMessage(person, j, text);
