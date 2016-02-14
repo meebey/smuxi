@@ -1329,7 +1329,7 @@ namespace Smuxi.Engine
                 if (chat.ChatType == ChatType.Person) {
                     var _person = (chat as PersonChatModel).Person as PersonModel;
                     XmppPersonModel person = GetOrCreateContact(_person.ID, _person.IdentityName);
-                    SendPrivateMessage(person, text);
+                    SendPrivateMessage(person, _person.ID, text);
                 } else if (chat.ChatType == ChatType.Group) {
                     JabberClient.Send(new Message(chat.ID, XmppMessageType.groupchat, text));
                     return; // don't show now. the message will be echoed back if it's sent successfully
@@ -1349,7 +1349,7 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        void SendPrivateMessage(XmppPersonModel person, Jid jid, string text)
+        void _SendPrivateMessage(XmppPersonModel person, Jid jid, string text)
         {
             var mesg = new Message(jid, XmppMessageType.chat, text);
             XmppResourceModel res;
@@ -1362,27 +1362,38 @@ namespace Smuxi.Engine
             JabberClient.Send(mesg);
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void SendPrivateMessage(XmppPersonModel person, string text)
         {
-            Jid jid = person.Jid;
+            SendPrivateMessage(person, null, text);
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        void SendPrivateMessage(XmppPersonModel person, Jid jid, string text)
+        {
+            if (jid == null) {
+                jid = person.Jid;
+            }
             if ((jid.Server == "gmail.com") ||
                 (jid.Server == "googlemail.com")) {
                 // don't send to all high prio resources or to specific resources
                 // because gtalk clones any message to all resources anyway
-                SendPrivateMessage(person, jid.Bare, text);
+                _SendPrivateMessage(person, jid.Bare, text);
             } else if (!String.IsNullOrEmpty(jid.Resource)) {
-                SendPrivateMessage(person, jid, text);
+                _SendPrivateMessage(person, jid, text);
             } else {
                 var resources = person.GetResourcesWithHighestPriority();
                 if (resources.Count == 0) {
                     // no connected resource, send to bare jid
-                    SendPrivateMessage(person, jid.Bare, text);
+                    _SendPrivateMessage(person, jid.Bare, text);
                 } else {
                     foreach (var res in resources) {
+                        if (String.IsNullOrEmpty(res.Name)) {
+                            // don't send messages to empty resources
+                            continue;
+                        }
                         Jid j = new Jid(jid);
                         j.Resource = res.Name;
-                        SendPrivateMessage(person, j, text);
+                        _SendPrivateMessage(person, j, text);
                     }
                 }
             }
