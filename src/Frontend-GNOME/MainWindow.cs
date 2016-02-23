@@ -647,7 +647,7 @@ namespace Smuxi.Frontend.Gnome
         {
             var chats = ChatViewManager.Chats;
             var totalChatCount = chats.Count;
-            var syncedChatCount = chats.Select(x => x.IsSynced).Count();
+            var syncedChatCount = chats.Count(x => x.IsSynced);
             var fraction = (double) syncedChatCount / totalChatCount;
             if (totalChatCount == 0) {
                 // x / 0d -> Infinity
