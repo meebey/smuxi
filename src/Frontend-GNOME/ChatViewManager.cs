@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013, 2015-2016 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -38,7 +38,6 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private List<ChatView> f_Chats = new List<ChatView>();
-        public  IList<ChatView> SyncedChats { get; private set; }
         private Notebook       f_Notebook;
         ChatTreeView TreeView { get; set; }
         private UserConfig     f_Config;
@@ -110,7 +109,6 @@ namespace Smuxi.Frontend.Gnome
             f_Notebook = notebook;
             TreeView = treeView;
             TreeView.Selection.Changed += OnTreeViewSelectionChanged;
-            SyncedChats = new List<ChatView>();
             SyncManager = new ChatViewSyncManager();
             SyncManager.ChatAdded += OnChatAdded;
             SyncManager.ChatSynced += OnChatSynced;
@@ -143,7 +141,6 @@ namespace Smuxi.Frontend.Gnome
             TreeView.Remove(chatView);
             f_Chats.Remove(chatView);
             SyncManager.Remove(chat);
-            SyncedChats.Remove(chatView);
 
             if (ChatRemoved != null) {
                 ChatRemoved(this, new ChatViewManagerChatRemovedEventArgs(chatView));
@@ -175,7 +172,6 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            SyncedChats.Remove(chatView);
             chatView.Disable();
         }
 
@@ -228,7 +224,6 @@ namespace Smuxi.Frontend.Gnome
             }
 
             f_Config = null;
-            SyncedChats.Clear();
             SyncManager.Clear();
         }
 
@@ -360,7 +355,6 @@ namespace Smuxi.Frontend.Gnome
 
                 chatView.ScrollToEnd();
 
-                SyncedChats.Add(chatView);
                 if (ChatSynced != null) {
                     ChatSynced(this, new ChatViewManagerChatSyncedEventArgs(chatView));
                 }

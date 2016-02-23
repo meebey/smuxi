@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2016 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -44,7 +44,7 @@ namespace Smuxi.Frontend.Gnome
         private   bool               _HasActivity;
         public    int                ActivityCount { get; private set; }
         private   bool               _HasEvent;
-        private   bool               _IsSynced;
+        public bool IsSynced { get; private set; }
         private   Gtk.TextMark       _EndMark;
         private   Gtk.Menu           _TabMenu;
         private   Gtk.Label          _TabLabel;
@@ -497,7 +497,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            _IsSynced = false;
+            IsSynced = false;
         }
         
         public virtual void Sync()
@@ -587,7 +587,7 @@ namespace Smuxi.Frontend.Gnome
             OnStatusChanged(EventArgs.Empty);
 
             SyncedMessages = null;
-            _IsSynced = true;
+            IsSynced = true;
         }
         
         public virtual void UpdateLastSeenMessage()
@@ -732,7 +732,7 @@ namespace Smuxi.Frontend.Gnome
             var signalCounter = false;
             if (!IsActive) {
                 // the chat isn't active, thus we need to signal the event/msg counter
-                if (_IsSynced) {
+                if (IsSynced) {
                     signalCounter = true;
                 } else {
                     // we are still syncing and since Smuxi 0.13 we know what msg
@@ -763,7 +763,7 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void OnMessageTextViewMessageHighlighted(object sender, MessageTextViewMessageHighlightedEventArgs e)
         {
-            if (_IsSynced) {
+            if (IsSynced) {
                 bool isActiveChat = IsActive;
 
                 if (Frontend.UseLowBandwidthMode && !isActiveChat) {
@@ -819,7 +819,7 @@ namespace Smuxi.Frontend.Gnome
                 // elsewhere) and the chat is was already synced, as during sync we
                 // would get insane from all beeping caused by the old highlights
                 if (!Frontend.MainWindow.HasToplevelFocus &&
-                    _IsSynced &&
+                    IsSynced &&
                     Frontend.UserConfig["Sound/BeepOnHighlight"] != null &&
                     (bool) Frontend.UserConfig["Sound/BeepOnHighlight"]) {
 #if LOG4NET
