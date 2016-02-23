@@ -654,6 +654,10 @@ namespace Smuxi.Frontend.Gnome
             } else if (fraction > 1) {
                 fraction = 1;
             }
+            if (totalChatCount == 0) {
+                // x / 0d -> Infinity
+                fraction = 0;
+            }
             ProgressBar.Fraction = fraction;
             ProgressBar.Text = String.Format("{0} / {1}",
                                               syncedChatCount,
