@@ -647,7 +647,14 @@ namespace Smuxi.Frontend.Gnome
         {
             var totalChatCount = ChatViewManager.Chats.Count;
             var syncedChatCount =  ChatViewManager.SyncedChats.Count;
-            ProgressBar.Fraction = (double)syncedChatCount / totalChatCount;
+            var fraction = (double) syncedChatCount / totalChatCount;
+            // clamp value to avoid Gtk-CRITICAL assert failed messages
+            if (fraction < 0) {
+                fraction = 0;
+            } else if (fraction > 1) {
+                fraction = 1;
+            }
+            ProgressBar.Fraction = fraction;
             ProgressBar.Text = String.Format("{0} / {1}",
                                               syncedChatCount,
                                               totalChatCount);
