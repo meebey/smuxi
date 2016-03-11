@@ -1,0 +1,1507 @@
+# 'smuxi/po-Frontend-GNOME/
+# Slovenian translation for smuxi.
+# Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+#
+# Matej Urbančič <mateju@svn.gnome.org>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-03-11 21:41+0000\n"
+"PO-Revision-Date: 2016-03-11 22:58+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.8.4\n"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:1
+msgid "Smuxi Preferences"
+msgstr "Možnosti Smuxi"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:2
+msgid ""
+"The nickname to use. You can specify extra nicknames (separated by spaces) "
+"which will be used as fallbacks when the first choice is not available. By "
+"default $nick_ and $nick__ will be used as fallbacks."
+msgstr ""
+
+#: ../glade/smuxi-frontend-gnome.glade.h:3
+#, fuzzy
+msgid "Nickname(s):"
+msgstr "_Vzdevek"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:4
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
+#, fuzzy
+msgid "Username:"
+msgstr "Uporabniško ime:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:5
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
+#, fuzzy
+msgid "Realname:"
+msgstr "Uporabnika @REALNAME@"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:6
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
+#, fuzzy
+msgid "Encoding:"
+msgstr "Kodiranje:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:7
+#, fuzzy
+msgid "Automatically convert UTF-8 characters"
+msgstr "Pretvorba iz nabora znakov '%s' v UTF-8 ni uspela"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:8
+#, fuzzy
+msgid "<b>General</b>"
+msgstr "<b>Splošno</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:9
+#, fuzzy
+msgid "Type:"
+msgstr "Vrsta:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:10
+#, fuzzy
+msgid "Host:"
+msgstr "Gostitelj:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:11
+#, fuzzy
+msgid "Password:"
+msgstr "Geslo:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:12
+#, fuzzy
+msgid "Port:"
+msgstr "Vrata:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:13
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
+#, fuzzy
+msgid "Show Password"
+msgstr "Pokaži geslo"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:14
+#, fuzzy
+msgid "<b>Network Proxy</b>"
+msgstr "<b>Zakasnitev omrežja:</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:15
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
+#, fuzzy
+msgid "On Connect Commands:"
+msgstr "Ukazi:\n"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:16
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
+#, fuzzy
+msgid "On Startup Commands:"
+msgstr "Zagon:\n"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:17
+#, fuzzy
+msgid "<b>Global Commands</b>"
+msgstr "<b>%%</b> :"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:18
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
+#, fuzzy
+msgid "C_onnection"
+msgstr "P_ovezava"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:19
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
+#, fuzzy
+msgid "Timestamp Format:"
+msgstr ""
+"Neveljaven zapis časovnega žiga '%s' (zapis mora biti v obliki YYYY-MM-DD HH:"
+"MM:SS[.ms])"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:20
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
+#, fuzzy
+msgid "Buffer Lines:"
+msgstr "Črte"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:21
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
+#, fuzzy
+msgid "Engine Buffer Lines:"
+msgstr "Medpomnilnik"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:22
+msgid ""
+"ss = seconds\n"
+"mm = minutes\n"
+"hh = hours (01 - 12)\n"
+"HH = hours (00 - 23)\n"
+"tt = AM/PM\n"
+"\n"
+"dd = day\n"
+"MM = month\n"
+"yy/yyyy = year"
+msgstr ""
+
+#: ../glade/smuxi-frontend-gnome.glade.h:31
+#, fuzzy
+msgid "Persistency Type:"
+msgstr "po vrsti"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:32
+#, fuzzy
+msgid "Volatile Buffer Lines:"
+msgstr "Črte"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:33
+#, fuzzy
+msgid "Persistent Buffer Lines:"
+msgstr "Črte"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:34
+#, fuzzy
+msgid "<b>Message Buffer</b>"
+msgstr "<b>%%</b> :"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:35
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
+#, fuzzy
+msgid "Strip Colors"
+msgstr "Zamik trakov"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:36
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
+#, fuzzy
+msgid "Strip Formattings"
+msgstr "Zamik trakov"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:37
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
+#, fuzzy
+msgid "Strip UTF-8"
+msgstr "Zamik trakov"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:38
+#, fuzzy
+msgid "Show Advanced Settings"
+msgstr "Prilagodi napredne nastavitve GNOME 3"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:39
+#, fuzzy
+msgid "<b>Advanced</b>"
+msgstr "<b>Napredne možnosti<b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:40
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
+#, fuzzy
+msgid "General"
+msgstr "Splošno"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:41
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
+#, fuzzy
+msgid "Top"
+msgstr "Vrhnji"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:42
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
+#, fuzzy
+msgid "Bottom"
+msgstr "Spodnji"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:43
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
+#, fuzzy
+msgid "Left"
+msgstr "Leva"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:44
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
+#, fuzzy
+msgid "Right"
+msgstr "Desna"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:45
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
+#, fuzzy
+msgid "None"
+msgstr "brez"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:46
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
+#, fuzzy
+msgid "<b> Tabs Position </b>"
+msgstr "<b>%%</b> :"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
+#, fuzzy
+msgid "Highlight"
+msgstr "Poudari"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:48
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
+#, fuzzy
+msgid "Activity"
+msgstr ""
+"Zaženi gitg z dejavnostjo uveljavljanja (okrajšava za --activity commit)"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:49
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
+#, fuzzy
+msgid "No Activity"
+msgstr "Zadnja dejavnost:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:50
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
+#, fuzzy
+msgid "Join/Part/Mode"
+msgstr "_Pridruži se"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:51
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
+#, fuzzy
+msgid "<b> Tab Colors </b>"
+msgstr "<b>Barve</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:52
+msgid "Automatically switch to newly opened person chats"
+msgstr ""
+
+#: ../glade/smuxi-frontend-gnome.glade.h:53
+msgid "Automatically switch to newly opened group chats"
+msgstr ""
+
+#: ../glade/smuxi-frontend-gnome.glade.h:54
+#, fuzzy
+msgid "Tree"
+msgstr "Drevo"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
+#, fuzzy
+msgid "Completion Character:"
+msgstr "Najmanjše število znakov za dopolnjevanje:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:56
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
+#, fuzzy
+msgid "Command Character:"
+msgstr "Ukaz"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:57
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
+#, fuzzy
+msgid "Command History Size:"
+msgstr "Pokaži zgodovino ukazne vrstice"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
+#, fuzzy
+msgid "Bash-Style Completion"
+msgstr "_Bash"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:59
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
+#, fuzzy
+msgid "<b> Entry Field </b>"
+msgstr "<b>Lastnosti polja</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:60
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
+#, fuzzy
+msgid "Input"
+msgstr "Vhod"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
+#, fuzzy
+msgid "Nick Colors"
+msgstr "Vzdevek"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:62
+msgid "<b> Person List Position </b>"
+msgstr ""
+
+#: ../glade/smuxi-frontend-gnome.glade.h:63
+#, fuzzy
+msgid "Override"
+msgstr "_Iz polja prepisa"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:64
+#, fuzzy
+msgid "<b> Font </b>"
+msgstr "%B"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:65
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
+#, fuzzy
+msgid "<b> Topic Position </b>"
+msgstr "<b>%%</b> :"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:66
+#, fuzzy
+msgid "Foreground"
+msgstr "Pisava"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:67
+#, fuzzy
+msgid "Background"
+msgstr "Ozadje"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:68
+#, fuzzy
+msgid "<b> Color </b>"
+msgstr "<b>%%</b> :"
+
+#. This is a setting for character based line wrapping vs word based when showing messages
+#: ../glade/smuxi-frontend-gnome.glade.h:70
+#, fuzzy
+msgid "_Wrap Mode:"
+msgstr "način preloma"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:71
+#, fuzzy
+msgid "<b> Chat </b>"
+msgstr "<b>%%</b> :"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:72
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
+#, fuzzy
+msgid "Highlight words:"
+msgstr "_Poudari napačno črkovane besede"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
+#, fuzzy
+msgid "Beep on highlight"
+msgstr "Poudari"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:74
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
+#, fuzzy
+msgid "<b> Highlighting </b>"
+msgstr "<b>%%</b> :"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:75
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
+#, fuzzy
+msgid "Output"
+msgstr "Rezultati_analize"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:76
+#, fuzzy
+msgid "Enable"
+msgstr "Omogoči"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:77
+#, fuzzy
+msgid "Show always"
+msgstr "Vedno pokaži kazalko besedilnega polja"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:78
+#, fuzzy
+msgid "Show when window is minimized"
+msgstr "Pri skrčenju okna programa pokaži ikono v sistemski vrstici"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:79
+#, fuzzy
+msgid "Show when window is closed"
+msgstr "Kadar je pokrov prenosnika zaprt"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:80
+#, fuzzy
+msgid "<b> Notification Area Icon </b>"
+msgstr "Omogoči ikono v obvestilnem področju."
+
+#: ../glade/smuxi-frontend-gnome.glade.h:81
+#, fuzzy
+msgid "Show Smuxi in the messaging menu"
+msgstr "Pokaži hipno sporočanje"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:82
+#, fuzzy
+msgid "<b>Messaging Menu</b>"
+msgstr "<b>Razporeditev menija Nautilusa</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:83
+#, fuzzy
+msgid "Show notification popups"
+msgstr "Pokaži pojavna obvestila"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:84
+#, fuzzy
+msgid "<b>Notification Popups</b>"
+msgstr "<b>Obvestilo o prispevku<b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:85
+#, fuzzy
+msgid "Notification"
+msgstr "Obvestilo"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:86
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
+#, fuzzy
+msgid "_Interface"
+msgstr "Vmesnik"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
+#, fuzzy
+msgid "_Servers"
+msgstr "Strežniki ključev"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:88
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
+#, fuzzy
+msgid "_Filters"
+msgstr "Filtri"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:89
+#, fuzzy
+msgid "Enabled"
+msgstr "Onemogočeno"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:90
+#, fuzzy
+msgid "Log Filtered Messages"
+msgstr "Filtrirano"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:91
+#, fuzzy
+msgid "_Logging"
+msgstr "Prijavljanje v {0}."
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
+msgid "Smuxi"
+msgstr ""
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:2
+#, fuzzy
+msgid "IRC Chat"
+msgstr "IRC;Internet;Klepet;Sobe;"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:3
+#, fuzzy
+msgid "Smuxi IRC Client"
+msgstr "IRC"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:4
+#, fuzzy
+msgid "Chat with other people on IRC"
+msgstr "IRC;Internet;Klepet;Sobe;"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:5
+msgid ""
+"chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;"
+"jabbr;"
+msgstr ""
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:2
+msgid "Chat with other people on IRC, Twitter, Jabber and Campfire"
+msgstr ""
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:3
+msgid ""
+"Smuxi is an open-source, distributed and user-friendly chat client for IRC, "
+"Twitter, Jabber/XMPP, Campfire and SignalR's JabbR."
+msgstr ""
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:4
+msgid ""
+"Inspired by the combination of screen and irssi, Smuxi has a detachable "
+"server (or like a \"normal\" client) that stays connected when you aren't, "
+"and can allow multiple Smuxi frontends to be connected and in sync. This is "
+"similar to screen+irssi or IRC bouncers, but more elegant and powerful."
+msgstr ""
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:5
+msgid "The main window showing an IRC channel"
+msgstr ""
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:66
+#, fuzzy
+msgid "translator-credits"
+msgstr "Matej Urbančič <mateju@svn.gnome.org>"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:79
+#, fuzzy
+msgid "Smuxi Website"
+msgstr "na spletni strani"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:46
+msgid "Oops, I did it again..."
+msgstr ""
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:59
+msgid "Smuxi crashed because an unhandled exception was thrown!"
+msgstr ""
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:63
+#, fuzzy
+msgid "Here is the stacktrace, please report this bug!"
+msgstr "Pošljite sporočilo o napaki razvijalcem programa."
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:83
+#, fuzzy
+msgid "_Report Bug"
+msgstr "Pošlji poročilo o hrošču v prevodu"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:61
+#, fuzzy
+msgid "Engine not found."
+msgstr "Ni najdenega programnika predstavnosti."
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:77
+#, fuzzy
+msgid "Engine Manager"
+msgstr "_Programnik:"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:96
+msgid "Select which Smuxi engine you want to connect to"
+msgstr ""
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:102
+#, fuzzy
+msgid "Engine:"
+msgstr "_Programnik:"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:113
+#, fuzzy
+msgid "Use Low Bandwidth Mode"
+msgstr "Uporabljen način paranoja"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:137
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:197
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:382
+#, fuzzy
+msgid "Local Engine"
+msgstr "_Programnik:"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:189
+#, fuzzy
+msgid "Please select an engine!"
+msgstr "Izberite datoteko ..."
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:212
+#, csharp-format
+msgid ""
+"Your frontend is not compatible with the engine!\n"
+"Engine Version: {0} Frontend Version: {1}\n"
+"Engine Protocol: {2} Frontend Protocol: {3}"
+msgstr ""
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:245
+#, fuzzy
+msgid "An error occurred while connecting to the engine!"
+msgstr "Med nalaganjem imenika je prišlo do napake"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:246
+#, fuzzy, csharp-format
+msgid "Engine URL: {0}"
+msgstr "_Spletni naslov:"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:249
+#, fuzzy, csharp-format
+msgid "Error: {0}"
+msgstr "Napišite poročilo o hrošču s to napako: {0}"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:319
+#, fuzzy, csharp-format
+msgid "Are you sure you want to delete the engine \"{0}\"?"
+msgstr "Ali ste prepričani, da želite izbrisati nalogo '{0}'?"
+
+#: ../src/Frontend-GNOME/Entry.cs:485
+#, csharp-format
+msgid "You are going to paste {0} lines. Do you want to continue?"
+msgstr ""
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Frontend-GNOME/Entry.cs:602
+#, fuzzy
+msgid "Frontend Commands"
+msgstr "Osprednji program"
+
+#: ../src/Frontend-GNOME/Main.cs:49
+#, fuzzy
+msgid "Enable debug output"
+msgstr "Omogoči odvod razhroščevanja"
+
+#: ../src/Frontend-GNOME/Main.cs:56
+#, fuzzy
+msgid "Show this help"
+msgstr "Pokaži možnosti pomoči"
+
+#: ../src/Frontend-GNOME/Main.cs:60
+#, fuzzy
+msgid "Options:"
+msgstr "Možnosti:"
+
+#: ../src/Frontend-GNOME/Main.cs:67
+#, fuzzy
+msgid "Connect to engine"
+msgstr "Poveži"
+
+#: ../src/Frontend-GNOME/Main.cs:74
+msgid "Opens the specified link in Smuxi"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:81
+msgid "Starts a new Smuxi instance and ignores an existing one"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:109
+msgid "Passing link to already running Smuxi instance..."
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:117
+msgid "Bringing already running Smuxi instance to foreground..."
+msgstr ""
+
+#: ../src/Frontend-GNOME/MainWindow.cs:374
+#, fuzzy, csharp-format
+msgid "{0} Users"
+msgstr "Uporabniki"
+
+#: ../src/Frontend-GNOME/NotImplementedMessageDialog.cs:40
+msgid "Sorry, not implemented yet!"
+msgstr ""
+
+#. fill ListStore
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:179
+#, fuzzy
+msgid "Character"
+msgstr "Znak"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:180
+#, fuzzy
+msgid "Word"
+msgstr "Beseda"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:187
+msgid ""
+"This setting specifies if Smuxi should store chat messages in memory "
+"(volatile) or to disk (persistent).\n"
+"For persistent you can choose between Db4o, an object database or SQLite, a "
+"relational database.\n"
+"The Db4o backend has known issues like high memory and CPU usage and can "
+"even lead to crashes and thus it is deprecated.\n"
+"The SQLite backend has no known performance or stability issues and is the "
+"recommended setting."
+msgstr ""
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:208
+#, fuzzy
+msgid "Persistent: SQLite (Recommended)"
+msgstr "StartTLS (priporočeno)"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:212
+#, fuzzy
+msgid "Persistent: Db4o (Deprecated)"
+msgstr "[Opuščeno]"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:216
+#, fuzzy
+msgid "Persistent (Preview)"
+msgstr "_Predogled: "
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:219
+msgid "Volatile"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:242
+#, fuzzy
+msgid "No Proxy"
+msgstr "Posredniški strežnik"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:244
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:340
+#, fuzzy
+msgid "System Default"
+msgstr "Sistemsko privzete jezikovne nastavitve"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:258
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:134
+#, fuzzy
+msgid "Connection"
+msgstr "Povezava"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:262
+#, fuzzy
+msgid "Interface"
+msgstr "Vmesnik"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:266
+#, fuzzy
+msgid "Servers"
+msgstr "Razpoložljivi predstavni strežniki"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:273
+#, fuzzy
+msgid "Filters"
+msgstr "Filtri"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:277
+#, fuzzy
+msgid "Logging"
+msgstr "Prijavljanje v {0}."
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:699
+#, fuzzy
+msgid "Nicknames(s) field must not be empty."
+msgstr "Telo sporočila je prazno, vendar je v polju glave podpis '(%s)'"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:895
+#, csharp-format
+msgid "Invalid highlight regex: '{0}'. Reason: {1}"
+msgstr ""
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:100
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:265
+#, fuzzy
+msgid "Name"
+msgstr "Ime"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:86
+#, fuzzy
+msgid "Topic"
+msgstr "Najdena je dokumentacija pomoči, ne pa tudi pomoč za iskano vsebino"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:115
+msgid ""
+"Searching for group chats without a filter is not recommended.  This may "
+"take a while, or may not work at all.\n"
+"Do you wish to continue?"
+msgstr ""
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:156
+msgid "Error while fetching the list of group chats from the server."
+msgstr ""
+
+#: ../src/Frontend-GNOME/Frontend.cs:388
+#, fuzzy
+msgid "Disconnected from engine."
+msgstr "Povezava s souporabo glasbe je bila prekinjena"
+
+#: ../src/Frontend-GNOME/Frontend.cs:431
+#, csharp-format
+msgid "Reconnecting to engine... (attempt {0})"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Frontend.cs:542
+#, fuzzy, csharp-format
+msgid "Cause: {0}"
+msgstr "0"
+
+#: ../src/Frontend-GNOME/Frontend.cs:675
+msgid ""
+"The frontend has lost the connection to the server.\n"
+"Do you want to reconnect now?"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Frontend.cs:694
+msgid ""
+"Reconnecting to the server has failed.\n"
+"Do you want to try again?"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Frontend.cs:1008
+msgid ""
+"The server has lost the connection to the frontend.\n"
+"Do you want to reconnect now?"
+msgstr ""
+
+#: ../src/Frontend-GNOME/NotifyManager.cs:338
+#, fuzzy
+msgid "Show"
+msgstr "Pokaži"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:58
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:233
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:70
+#, fuzzy
+msgid "Protocol"
+msgstr "Protokol"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:59
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:71
+#, fuzzy
+msgid "Hostname"
+msgstr "Ime gostitelja"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:162
+#, fuzzy
+msgid "Unable to load server: "
+msgstr "Mesta ni mogoče naložiti"
+
+#: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:239
+#, fuzzy
+msgid "Person / Private"
+msgstr "Z_asebno"
+
+#: ../src/Frontend-GNOME/ChatTypeWidget.cs:55
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:240
+#, fuzzy
+msgid "Group / Public"
+msgstr "Skupina"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:65
+#, fuzzy
+msgid "Engine Assistant - Smuxi"
+msgstr "_Pomočnik:"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:87
+#, fuzzy
+msgid "Add Smuxi Engine"
+msgstr "_Programnik:"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:89
+#, fuzzy
+msgid "Edit Smuxi Engine"
+msgstr "_Programnik:"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:198
+#, fuzzy
+msgid "Credentials"
+msgstr "Ni mogoče shraniti novih poveril v predpomnilnik: %k"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:278
+msgid "Now you can use the Smuxi Engine"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:281
+#, fuzzy
+msgid "Thank you"
+msgstr ""
+"Zahvaljujemo se vam za izbor sistema %s.\n"
+"Upamo, da vam bo delo z njim v veselje."
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:298
+msgid ""
+"An engine with this name already exists! Please specify a different one."
+msgstr ""
+
+#: ../src/Frontend-GNOME/Views/JoinWidget.cs:89
+#, fuzzy
+msgid "Enter which chat to join"
+msgstr "Pridruži se klepetalnici"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
+msgid "About Smuxi"
+msgstr "&O programu"
+
+#. TODO: add cmd+, accelerator
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
+msgid "Preferences"
+msgstr "Možnosti"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:264
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
+#, fuzzy
+msgid "Unable to add server: "
+msgstr "Prekinitev povezave s strežnikom je spodletela."
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:385
+msgid ""
+"Switching to local engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:429
+msgid ""
+"Switching the remote engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:412
+#, fuzzy, csharp-format
+msgid "Day changed from {0} to {1}"
+msgstr "{0}> {1} {2} {0} - {1} {3}"
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:416
+#, fuzzy, csharp-format
+msgid "Day changed to {0}"
+msgstr "Dan"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:120
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:130
+#, csharp-format
+msgid "Invalid filter regex: '{0}'. Reason: {1}"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
+#, fuzzy
+msgid "Are you sure you want to delete the selected filter?"
+msgstr "Ali ste prepričani, da želite izbrisati seznam stikov?"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:241
+#, fuzzy
+msgid "Protocol / Server"
+msgstr "Protokol"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:248
+#, fuzzy
+msgid "Chat Type"
+msgstr "Klepetanje"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:281
+#, fuzzy
+msgid "Normal"
+msgstr "običajna"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:282
+msgid "Event"
+msgstr "Dogodek"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:289
+msgid "Type"
+msgstr "Vrsta"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:314
+msgid "Pattern"
+msgstr "Vzorec"
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:557
+msgid "Low Bandwidth Mode is active: no messages synced."
+msgstr ""
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:859
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
+#, fuzzy
+msgid "Show _Menubar"
+msgstr "Pokaži _menijsko vrstico"
+
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:321
+#, fuzzy, csharp-format
+msgid "Retrieving user list for {0}..."
+msgstr "Pridobivanje seznama map za »%s«"
+
+#. TRANSLATOR: this string will be appended to the one above
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:349
+#, fuzzy
+msgid "done."
+msgstr "Končano."
+
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:127
+#, fuzzy
+msgid "Reconnect"
+msgstr "Ponovno _poveži"
+
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:174
+msgid ""
+"Closing the protocol chat will also close all open chats connected to it!\n"
+"Are you sure you want to do this?"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:189
+#, fuzzy
+msgid "Are you sure you want to delete the selected server?"
+msgstr "Ali ste prepričani, da želite izbrisati sezname stikov?"
+
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:245
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:279
+#, fuzzy
+msgid "Unable to edit server: "
+msgstr "Ni mogoče urediti skripta."
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:24
+msgid "Find"
+msgstr "Najdi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:44
+#, fuzzy
+msgid "_Search for:"
+msgstr "Iskanje ..."
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:73
+#, fuzzy
+msgid "_Match Case"
+msgstr "_Upoštevaj velikost črk"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:85
+#, fuzzy
+msgid "Search _Backwards"
+msgstr "Poišči _nazaj"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:97
+#, fuzzy
+msgid "_Wrap Around"
+msgstr "_Prelomi vrstice"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:110
+#, fuzzy
+msgid "Use _Regular Expressions"
+msgstr "&Logični izraz"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:23
+#, fuzzy
+msgid "Smuxi - Find Group Chat"
+msgstr "Ni mogoče najti skupine GDM '%s'. Dejanje je prekinjeno!"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:73
+msgid "_Name:"
+msgstr "_Ime:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs:69
+#, fuzzy
+msgid "Join"
+msgstr "Pridruži se"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:56
+msgid "_Smuxi"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:59
+msgid "_Server"
+msgstr "_Strežnik"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:62
+#, fuzzy
+msgid "_Chat"
+msgstr "Klepetanje"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:64
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:65
+msgid "_Engine"
+msgstr "_Programnik"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:67
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:68
+msgid "_View"
+msgstr "Po_gled"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:70
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:71
+msgid "_Help"
+msgstr "Pomo_č"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:75
+msgid "Connect"
+msgstr "Poveži"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:77
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:79
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
+#, fuzzy
+msgid "Open Log"
+msgstr "%s: Ni mogoče odpreti dnevniške datoteke za prikaz %s!"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:88
+#, fuzzy
+msgid "_Preferences"
+msgstr "_Preferences"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:90
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:91
+msgid "_Quit"
+msgstr "_Končaj"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
+msgid "_Connect"
+msgstr "_Poveži"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:96
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:97
+msgid "_Add"
+msgstr "_Dodaj"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:99
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
+#, fuzzy
+msgid "_Manage"
+msgstr "/_Uredi profile ..."
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:102
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
+#, fuzzy
+msgid "_Open / Join Chat"
+msgstr "Pridruži se klepetalnici"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:105
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
+#, fuzzy
+msgid "_Find Group Chat"
+msgstr "Skupina"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:108
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:109
+#, fuzzy
+msgid "C_lear All Activity"
+msgstr "_Počisti vse"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:111
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:112
+#, fuzzy
+msgid "_Next Chat"
+msgstr "Klepetanje"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:114
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:115
+#, fuzzy
+msgid "_Previous Chat"
+msgstr "Izgovori in z brajico izpiši predhodno sporočilo iz klepetalnice."
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
+#, fuzzy
+msgid "_Close"
+msgstr "_Zapri"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
+#, fuzzy
+msgid "_Use Local Engine"
+msgstr "Uporabi le krajevno preskušanje vsiljene pošte"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:123
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:124
+#, fuzzy
+msgid "_Add Remote Engine"
+msgstr "Dodaj oddaljeno skladišče"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
+#, fuzzy
+msgid "Switch Remote Engine"
+msgstr "Oddaljeno"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
+#, fuzzy
+msgid "_Caret Mode"
+msgstr "Način _kazalke"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:132
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:133
+#, fuzzy
+msgid "_Browse Mode"
+msgstr "Načina brskanja"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
+#, fuzzy
+msgid "Show _Statusbar"
+msgstr "Pokaži vrstico stanja"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
+#, fuzzy
+msgid "_Fullscreen"
+msgstr "_Celozaslonski način"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
+#, fuzzy
+msgid "_About"
+msgstr "_O programu"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:150
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:152
+#, fuzzy
+msgid "Find Group Chat"
+msgstr "Skupina"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:154
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:155
+#, fuzzy
+msgid "_Website"
+msgstr "_Spletišče"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:158
+#, fuzzy
+msgid "Show _Toolbar"
+msgstr "Pokaži orodno vrstico"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
+#, fuzzy
+msgid "Smuxi - Connect"
+msgstr "Poveži kot"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:206
+#, fuzzy
+msgid "Smuxi - Preferences"
+msgstr "Možnosti ..."
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
+msgid "Nicknames:"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
+#, fuzzy
+msgid "Tabs"
+msgstr "Zavihki"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
+#, fuzzy
+msgid "<b> User List Position </b>"
+msgstr "<b>Izvedi kot uporabnik</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1441
+#, fuzzy
+msgid "<b> Channel </b>"
+msgstr "<b>%%</b> :"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1652
+#, fuzzy
+msgid "<b>Channel Filters</b>"
+msgstr "<b>%%</b> :"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1669
+#, fuzzy
+msgid "<b>User Filters</b>"
+msgstr "<b>Izvedi kot uporabnik</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:42
+#, fuzzy
+msgid "Use _SSH Tunnel"
+msgstr "most / nad | predor"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:56
+msgid ""
+"<span size=\"small\">Enables the use of SSH for the connection.  This has a "
+"small performance impact, but is more secure and required when using NAT or "
+"port-based firewalls</span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
+#, fuzzy
+msgid "SSH _Host:"
+msgstr ""
+"souporaba;izmenjava;ssh;gostitelj;ime;oddaljeno;namizje;bluetooth;obex;"
+"predstavnost;zvok;audio;slika;video;fotografije;filmi;strežnik;izrisovanje;"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:146
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:159
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:183
+#, fuzzy
+msgid "_Port:"
+msgstr "_Vrata:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:186
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:199
+#, fuzzy
+msgid "_Smuxi Host:"
+msgstr "Gostitelj:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:52
+#, fuzzy
+msgid "_SSH Username: (optional)"
+msgstr "Uporabniško ime:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:75
+msgid ""
+"<span size=\"small\">Username which will be used to log into the SSH server</"
+"span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:95
+#, fuzzy
+msgid "_SSH Password: (optional)"
+msgstr "dodatno"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
+msgid ""
+"<span size=\"small\">Password which will be used to log into the SSH server. "
+"The password is optional if SSH key authorization is used (see below).</span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:140
+#, fuzzy
+msgid "_SSH Keyfile: (optional)"
+msgstr "dodatno"
+
+#. Container child vbox17.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:148
+#, fuzzy
+msgid "Select a File"
+msgstr "Izbor datoteke"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:161
+msgid ""
+"<span size=\"small\">SSH private keyfile which will be used to log into the "
+"SSH server</span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:181
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:242
+#, fuzzy
+msgid "_Username:"
+msgstr "_Uporabniško ime:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:204
+msgid ""
+"<span size=\"small\">Username which will be used to log into the Smuxi "
+"server</span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:224
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:116
+#, fuzzy
+msgid "_Password:"
+msgstr "_Geslo:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:248
+msgid "<span size=\"small\">Password of the user</span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:268
+#, fuzzy
+msgid "_Verify Password:"
+msgstr "_Overi novo geslo"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:292
+msgid "<span size=\"small\">Repeat the password for verification</span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs:19
+msgid ""
+"Welcome to the Smuxi Engine Configuration Assistant.\n"
+"You need to enter some information before you can use the engine.\n"
+"\n"
+"Click \"Forward\" to begin."
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
+#, fuzzy
+msgid "_Engine Name:"
+msgstr "Ime programnika tem"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:59
+msgid "<span size=\"small\">Profile name of the new engine</span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:80
+#, fuzzy
+msgid "_Default Engine:"
+msgstr "Privzeti programnik predvajalnika"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:91
+#, fuzzy
+msgid "Use as new default engine"
+msgstr "Privzeti programnik predvajalnika"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:104
+msgid ""
+"<span size=\"small\">If enabled, the current engine will be the default next "
+"time Smuxi is started</span>"
+msgstr ""
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
+#, fuzzy
+msgid "Smuxi - Open Chat"
+msgstr "_Video klepet:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:63
+#, fuzzy
+msgid "_Type:"
+msgstr "Vrs_ta:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
+#, fuzzy
+msgid "Smuxi - Server"
+msgstr "Strežnik"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:58
+#, fuzzy
+msgid "_Hostname:"
+msgstr "_Ime gostitelja"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:79
+#, fuzzy
+msgid "_Network:"
+msgstr "_Omrežje"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:105
+#, fuzzy
+msgid "Nickname:"
+msgstr "_Vzdevek"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:252
+#, fuzzy
+msgid "_Protocol:"
+msgstr "Protokol"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
+#, fuzzy
+msgid "Automatically connect to server at startup"
+msgstr "Poveži s strežnikom"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:276
+#, fuzzy
+msgid "Use Encryption"
+msgstr "Brez šifriranja"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:288
+#, fuzzy
+msgid "Validate Server Certificate"
+msgstr "Potrdi _veljavnost ..."
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:308
+#, fuzzy
+msgid "_On Connect Commands:"
+msgstr "Ukazi:\n"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
+#, fuzzy
+msgid "_Ignore Commands"
+msgstr "Prezri"
