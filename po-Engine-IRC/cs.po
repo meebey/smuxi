@@ -1,31 +1,35 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # RavuAlHemio <ondra.hosek@gmail.com>, 2013
+# Marek Černocký <marek@manet.cz>, 2016.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:31+0200\n"
-"PO-Revision-Date: 2013-11-20 11:27+0000\n"
-"Last-Translator: RavuAlHemio <ondra.hosek@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-05-22 19:45+0000\n"
+"PO-Revision-Date: 2016-03-17 07:12+0100\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:255
 #, csharp-format
 msgid "{0} invites you to {1}"
-msgstr "{0} Vás zve do {1}"
+msgstr "{0} vás zve do {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:279
 msgid "Accept invite (join room)"
-msgstr "Přijmout pozvánku (vstoupit do místnosti)"
+msgstr "Přijmout pozvání (vstoupit do místnosti)"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:307
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1770
@@ -45,22 +49,22 @@ msgstr "nepřipojen"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:379
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
-msgstr "Používám proxy: {0}:{1}"
+msgstr "Používá se proxy: {0}:{1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:386
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
-msgstr "Připojování k {0} port {1}..."
+msgstr "Připojuje se k serveru {0} na portu {1}…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:400
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:541
 #, csharp-format
 msgid "Connection to {0} established"
-msgstr "Spojení s {0} navázáno"
+msgstr "Spojení se serverem {0} je navázáno"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:409
 msgid "Logging in..."
-msgstr "Přihlašování..."
+msgstr "Přihlašuje se…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:449
 msgid "Connection failed!"
@@ -72,21 +76,21 @@ msgstr "Připojení selhalo! Příčina: "
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:466
 msgid "Disconnecting..."
-msgstr "Odpojování..."
+msgstr "Odpojuje se…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:471
 #, csharp-format
 msgid "Disconnecting from {0}..."
-msgstr "Odpojování od {0}..."
+msgstr "Odpojuje se od serveru {0}…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:478
 #, csharp-format
 msgid "Disconnected from {0}"
-msgstr "Odpojeno od {0}"
+msgstr "Odpojeno od serveru {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:484
 msgid "Connection closed"
-msgstr "Spojení ukončeno"
+msgstr "Spojení bylo ukončeno"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:493
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:568
@@ -95,12 +99,12 @@ msgstr "Nepřipojeno"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:527
 msgid "Reconnecting..."
-msgstr "Opětovné připojování..."
+msgstr "Opětovně se připojuje…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:535
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr "Opětovné připojování k {0}..."
+msgstr "Opětovně se připojuje k serveru {0}…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:554
 msgid "Reconnect Error"
@@ -109,7 +113,7 @@ msgstr "Chyba při opětovném připojování"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:948
 #, csharp-format
 msgid "Sleeping for {0} milliseconds"
-msgstr "Spím {0} milisekund"
+msgstr "Uspáno na {0} milisekund"
 
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
@@ -127,17 +131,18 @@ msgstr "Neplatný port: {0}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1210
 #, csharp-format
 msgid "Queuing joins: {0}"
-msgstr "Zařazování vstoupení do fronty: {0}"
+msgstr "Vstup se zařazuje do fronty: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1231
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
-msgstr "Již jste v kanálu: {0}. Pro přepnutí na tento kanál zadejte /window {0}."
+msgstr ""
+"Již jste v místnosti: {0}. Pro přepnutí na tuto místnost zadejte /window {0}."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1265
 #, csharp-format
 msgid "Active joins: {0} - Queued joins: {1}"
-msgstr "Aktivní vstupy: {0} - Fronta se vstupy: {1}"
+msgstr "Aktivní vstupy: {0} – Vstupy ve frontě: {1}"
 
 #. TRANSLATORS: final message will look like this:
 #. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
@@ -145,7 +150,7 @@ msgstr "Aktivní vstupy: {0} - Fronta se vstupy: {1}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1319
 #, csharp-format
 msgid "Joining: {0}"
-msgstr "Vstupuji do: {0}"
+msgstr "Vstupuje se do místnosti: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1291
 msgid "Remaining"
@@ -163,7 +168,7 @@ msgstr "vstupy ve frontě: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1751
 msgid "IRC Op"
-msgstr "IRC Op"
+msgstr "Operátor IRC"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1753
 msgid "Owner"
@@ -171,15 +176,15 @@ msgstr "Majitel"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1755
 msgid "ChanAdmin"
-msgstr "Administrátor kanálu"
+msgstr "Správce místnosti"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1757
 msgid "Op"
-msgstr "Op"
+msgstr "Operátor"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1759
 msgid "Halfop"
-msgstr "Půl-op"
+msgstr "Částečný operátor"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1761
 msgid "Voice"
@@ -188,51 +193,51 @@ msgstr "Hlas"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1824
 #, csharp-format
 msgid "Topic for {0}: {1}"
-msgstr "Téma {0}: {1}"
+msgstr "Téma pro místnost {0}: {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1826
 #, csharp-format
 msgid "No topic set for {0}"
-msgstr "{0} nemá nastaveno téma"
+msgstr "Místnost {0} nemá nastavené žádné téma"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1991
 msgid "ban"
-msgstr "ban"
+msgstr "zákaz"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2002
 msgid "No bans in channel"
-msgstr "V kanálu nejsou žádné bany"
+msgstr "V místnosti nikdo nemá zákaz"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2039
 msgid "ban exception"
-msgstr "výjimka z banů"
+msgstr "výjimka ze zákazů"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2050
 msgid "No ban exceptions in channel"
-msgstr "V kanále nejsou žádné výjimky z banů"
+msgstr "V místnosti nejsou žádné výjimky ze zákazů"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2087
 msgid "invite exception"
-msgstr "výjimka zvaní"
+msgstr "výjimka z pozvánek"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2098
 msgid "No invite exceptions in channel"
-msgstr "V kanále nejsou žádné výjimky zvaní"
+msgstr "V místnosti nejsou žádné výjimky z pozvánek"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2212
 #, csharp-format
 msgid "Your user mode is {0}"
-msgstr "Váš režim uživatele je {0}"
+msgstr "Váš uživatelský režim je {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2238
 #, csharp-format
 msgid "{0} is already on {1}"
-msgstr "{0} je již v {1}"
+msgstr "{0} je již v místnosti {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2246
 #, csharp-format
 msgid "Inviting {0} to {1}"
-msgstr "Zvu {0} do {1}"
+msgstr "{0} je zván do místnosti {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2269
 msgid "Users"
@@ -241,7 +246,7 @@ msgstr "Uživatelé"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2320
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
-msgstr "Celkem {0} uživatelů [{1} opů, {2} hlasových, {3} normálních]"
+msgstr "Celkem {0} uživatelů [{1} operátorů, {2} hlasových, {3} normálních]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2458
 msgid "Connection error! Reason: "
@@ -254,18 +259,20 @@ msgstr "Pro příkaz {0} nebyl zadán dostatek parametrů"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2479
 msgid "Not connected to server"
-msgstr "Nepřipojen k serveru"
+msgstr "Nepřipojeno k serveru"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2688
 #, csharp-format
 msgid "{0}: No such nick/channel"
-msgstr "{0}: Neznámá přezdívka/kanál"
+msgstr "{0}: Taková přezdívka/místnost neexistuje"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2807
 #, csharp-format
 msgid ""
 "Increased send delay to {0}ms to avoid being flooded off the server again."
-msgstr "Aby nedošlo opět k zahlcení serveru, bylo zvýšeno zpoždění odeslání na {0} ms."
+msgstr ""
+"Aby nedošlo opět k zahlcení serveru, bylo zvýšeno zpoždění odesílání na {0} "
+"ms."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2822
 #, csharp-format
@@ -274,11 +281,11 @@ msgstr "Přezdívka {0} se již používá"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2838
 msgid "Cannot join to channel:"
-msgstr "Nelze vstoupit do kanálu:"
+msgstr "Nelze vstoupit do místnosti:"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2840
 msgid "You are banned"
-msgstr "Dostal jste ban"
+msgstr "Dostali jste zákaz"
 
 #. TRANSLATOR: {0}: nickname, {1}: ident@host,
 #. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
@@ -287,85 +294,87 @@ msgstr "Dostal jste ban"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2923
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
-msgstr "{0} [{1}] požádal o CTCP {2} od {3}: {4}"
+msgstr "{0} [{1}] požádal o CTCP {2} od uživatele {3}: {4}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2950
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
-msgstr "Odpověď CTCP PING od {0}: {1} sekund"
+msgstr "Odpověď CTCP PING od uživatele {0}: {1} s"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2959
 #, csharp-format
 msgid "CTCP {0} reply from {1}: {2}"
-msgstr "CTCP {0} odpověď od {1}: {2}"
+msgstr "Odpověď CTCP {0} od uživatele {1}: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3207
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3210
 #, csharp-format
 msgid "{0} [{1}] has joined {2}"
-msgstr "{0} [{1}] vstoupil do {2}"
+msgstr "{0} [{1}] vstoupil do místnosti {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3349
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3355
 #, csharp-format
 msgid "{0} [{1}] has left {2}"
-msgstr "{0} [{1}] odešel z {2}"
+msgstr "{0} [{1}] opustil místnost {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3374
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3380
 #, csharp-format
 msgid "You were kicked from {0} by {1}"
-msgstr "Byl jste vykopnut z {0} uživatelem {1}"
+msgstr "Byli jste vykopnuti z místnosti {0} uživatelem {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3382
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3388
 #, csharp-format
 msgid "{0} was kicked from {1} by {2}"
-msgstr "{0} byl vykopnut z {1} uživatelem {2}"
+msgstr "{0} byl vykopnut z místnosti {1} uživatelem {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3400
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3432
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3406
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3438
 #, csharp-format
 msgid "You're now known as {0}"
 msgstr "Nyní jste znám jako {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3435
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3441
 #, csharp-format
 msgid "{0} is now known as {1}"
 msgstr "{0} je nyní znám jako {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3469
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3475
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
 msgstr "{0} změnil téma {1} na: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3629
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3635
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
 msgstr "Změna režimu [{0}] uživatele {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3660
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3666
 #, csharp-format
 msgid "mode/{0} [{1}] by {2}"
-msgstr "režim/{0} [{1}] od {2}"
+msgstr "režim/{0} [{1}] od uživatele {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3696
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3702
 #, csharp-format
 msgid "{0} [{1}] has quit"
 msgstr "{0} [{1}] se odpojil"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3786
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3801
 #, csharp-format
 msgid ""
 "Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
 "seconds..."
-msgstr "Spojení s {0} na portu {1} selhalo (pokus {2}); další pokus za {3} vteřin..."
+msgstr ""
+"Připojení k serveru {0} na portu {1} selhalo (pokus {2}); další pokus za {3} "
+"s…"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3836
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3851
 #, csharp-format
 msgid "{0} is away: {1}"
 msgstr "{0} je pryč: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3846
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3861
 msgid "You are no longer marked as being away"
 msgstr "Nadále nebudete označován, že jste pryč"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3856
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3871
 msgid "You have been marked as being away"
 msgstr "Byl jste označen, že jste pryč"
