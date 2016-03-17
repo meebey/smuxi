@@ -1,45 +1,49 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # RavuAlHemio <ondra.hosek@gmail.com>, 2013
+# Marek Černocký <marek@manet.cz>, 2016.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:31+0200\n"
-"PO-Revision-Date: 2013-12-06 13:58+0000\n"
-"Last-Translator: RavuAlHemio <ondra.hosek@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-08-23 11:09+0000\n"
+"PO-Revision-Date: 2016-03-17 06:34+0100\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
 msgid "Connecting to campfire... "
-msgstr "Připojuji se s campfire..."
+msgstr "Připojuje se ke Campfire…"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:166
 msgid "Connected to campfire"
-msgstr "Připojen ke campfire"
+msgstr "Připojeno ke Campfire"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:200
 msgid "Campfire Commands"
-msgstr "Příkazy campfire"
+msgstr "Příkazy Campfire"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:262
 msgid "Upload"
-msgstr "Upload"
+msgstr "Nahrávání"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:263
 #, csharp-format
 msgid "'{0}' ({1} B) {2}"
-msgstr "'{0}' ({1} B) {2}"
+msgstr "„{0}“ ({1} B) {2}"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:367
 #, csharp-format
@@ -49,41 +53,46 @@ msgstr "Odeslání zprávy se nezdařilo: {0}"
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:383
 #, csharp-format
 msgid "has uploaded '{0}' ({1} B) {2}"
-msgstr "uploadoval '{0}' ({1} B) {2}"
+msgstr "nahrál „{0}“ ({1} B) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:415
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:420
 #, csharp-format
 msgid "has joined {0}"
-msgstr "vstoupil do {0}"
+msgstr "vstoupil do místnosti {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:424
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:429
 #, csharp-format
 msgid "has left {0}"
-msgstr "odešel z {0}"
+msgstr "opustil místnost {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:432
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:437
 #, csharp-format
 msgid "has locked {0}"
-msgstr "uzamkl {0}"
+msgstr "uzamkl místnost {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
 #, csharp-format
 msgid "has unlocked {0}"
-msgstr "odemkl {0}"
+msgstr "odemkl místnost {0}"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:446
 msgid "has changed the topic"
 msgstr "změnil téma"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:451
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:458
+#, csharp-format
+msgid "has pasted a tweet by {0}: {1}"
+msgstr "vložil příspěvek uživatele {0}: {1}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:465
 msgid "has performed an unknown action"
 msgstr "provedl neznámou činnost"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:492
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:504
 #, csharp-format
 msgid "Error reading from stream: {0}"
-msgstr "Chyba při čtení z proudu: {0}"
+msgstr "Chyba při čtení z datového proudu: {0}"
