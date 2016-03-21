@@ -837,6 +837,10 @@ namespace Smuxi.Engine
                             CommandCtcp(command);
                             handled = true;
                             break;
+                        case "oper":
+                            CommandOper(command);
+                            handled = true;
+                            break;
                         // commands which only work on channels or queries
                         case "me":
                             CommandMe(command);
@@ -1068,6 +1072,7 @@ namespace Smuxi.Engine
             "finger nick",
             "mode [target] [new-mode]",
             "away [away-message]",
+            "oper username password",
             "kick nick(s) [reason]",
             "kickban/kb nick(s) [reason]",
             "ban [mask]",
@@ -1672,6 +1677,15 @@ namespace Smuxi.Engine
             } else {
                 SetPresenceStatus(PresenceStatus.Online, null);
             }
+        }
+
+        public void CommandOper(CommandModel cd)
+        {
+            if (cd.DataArray.Length < 3) {
+                _NotEnoughParameters(cd);
+                return;
+            }
+            _IrcClient.RfcOper(cd.DataArray[1], cd.DataArray[2]);
         }
         
         public void CommandCtcp(CommandModel cd)
