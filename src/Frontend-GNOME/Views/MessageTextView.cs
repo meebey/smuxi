@@ -306,11 +306,9 @@ namespace Smuxi.Frontend.Gnome
             }
 
             int width, height;
-            int widthPango, heightPango;
             int descent;
             using (var layout = CreatePangoLayout(null)) {
                 layout.GetPixelSize(out width, out height);
-                layout.GetSize(out widthPango, out heightPango);
                 descent = layout.Context.GetMetrics(layout.FontDescription, null).Descent;
             }
 
