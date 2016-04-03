@@ -165,6 +165,7 @@
     <Compile Include="Views\Tags\PersonTag.cs" />
     <Compile Include="Views\ChatTreeView.cs" />
     <Compile Include="Views\Tags\EmojiTag.cs" />
+    <Compile Include="Views\Tags\MessageTag.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">

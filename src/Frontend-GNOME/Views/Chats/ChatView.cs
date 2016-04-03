@@ -562,11 +562,12 @@ namespace Smuxi.Frontend.Gnome
                     // GTK+ in between for blocking the GUI thread less
                     foreach (MessageModel msg in SyncedMessages) {
                         AddMessage(msg);
-                        if (msg.TimeStamp <= SyncedLastSeenMessage) {
-                            // let the user know at which position new messages start
-                            _OutputMessageTextView.UpdateMarkerline();
-                        }
                     }
+                }
+                var lastSeenMessage = SyncedLastSeenMessage;
+                if (lastSeenMessage != DateTime.MinValue) {
+                    // let the user know at which position new messages start
+                    _OutputMessageTextView.UpdateMarkerline(lastSeenMessage);
                 }
             }
 

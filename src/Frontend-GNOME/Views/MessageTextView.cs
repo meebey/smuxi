@@ -44,6 +44,9 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.TextTagTable _MessageTextTagTable;
         private MessageModel _LastMessage;
         private bool         _ShowTimestamps;
+        // TODO: use list that limits of the number of items and discards the oldest entry
+        // a circle buffer
+        List<MessageModel> Messages { get; set; }
         private bool         _ShowHighlight;
         private bool         _ShowMarkerline;
         private bool         _AtLinkTag;
@@ -160,6 +163,7 @@ namespace Smuxi.Frontend.Gnome
 
             _MessageTextTagTable = BuildTagTable();
             _ThemeSettings = new ThemeSettings();
+            Messages = new List<MessageModel>();
 
             EmojiCache = new IconCache("emoji");
             Buffer = new Gtk.TextBuffer(_MessageTextTagTable);
@@ -482,11 +486,15 @@ namespace Smuxi.Frontend.Gnome
                 buffer.ApplyTag(PersonTag, msgStartIter, nickEndIter);
                 buffer.ApplyTag(personTag, msgStartIter, nickEndIter);
             }
-            buffer.DeleteMark(startMark);
-            buffer.DeleteMark(msgStartMark);
             if (addLinebreak) {
                 buffer.Insert(ref iter, "\n");
             }
+            var msgTag = new MessageTag(startMark, msg);
+            _MessageTextTagTable.Add(msgTag);
+            startIter = buffer.GetIterAtMark(startMark);
+            buffer.ApplyTag(msgTag, startIter, iter);
+            //buffer.DeleteMark(startMark);
+            buffer.DeleteMark(msgStartMark);
 
             CheckBufferSize();
 
@@ -625,6 +633,76 @@ namespace Smuxi.Frontend.Gnome
             }
 
             _MarkerlineBufferPosition = Buffer.EndIter.Offset - 1;
+            QueueDraw();
+        }
+
+        public void UpdateMarkerline(DateTime timestamp)
+        {
+            Trace.Call(timestamp);
+
+            MessageTag foundTag = null;
+            _MessageTextTagTable.Foreach(tag => {
+                if (!(tag is MessageTag) || foundTag != null) {
+                    return;
+                }
+
+                var msgTag = (MessageTag) tag;
+                if (msgTag.Message.TimeStamp == timestamp) {
+                    foundTag = msgTag;
+                }
+            });
+            if (foundTag == null) {
+                // tag not found
+                return;
+            }
+
+            var buffer = Buffer;
+            var msg_begin_iter = buffer.GetIterAtMark(foundTag.BeginMark);
+            var msg_end_iter = msg_begin_iter;
+            // move to end of tag
+            if (!msg_end_iter.ForwardToTagToggle(foundTag)) {
+                // tag end not found
+                return;
+            }
+
+            _MarkerlineBufferPosition = msg_end_iter.Offset - 1;
+            QueueDraw();
+        }
+
+        public void UpdateMarkerline(MessageModel msg)
+        {
+            Trace.Call(msg);
+
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            MessageTag foundTag = null;
+            _MessageTextTagTable.Foreach(tag => {
+                if (!(tag is MessageTag) || foundTag != null) {
+                    return;
+                }
+
+                var msgTag = (MessageTag) tag;
+                if (msgTag.Message == msg) {
+                    foundTag = msgTag;
+                }
+            });
+            if (foundTag == null) {
+                // tag not found
+                return;
+            }
+
+            var buffer = Buffer;
+            var msg_begin_iter = buffer.GetIterAtMark(foundTag.BeginMark);
+            var msg_end_iter = msg_begin_iter;
+            // move to end of tag
+            if (!msg_end_iter.ForwardToTagToggle(foundTag)) {
+                // tag end not found
+                return;
+            }
+
+            _MarkerlineBufferPosition = msg_end_iter.Offset - 1;
             QueueDraw();
         }
 
@@ -947,7 +1025,11 @@ namespace Smuxi.Frontend.Gnome
                          tagName.StartsWith("bg_color:"))) {
                         continue;
                     }
-                    if (tag.IndentSet || tag is LinkTag || tag is PersonTag || tag is EmojiTag) {
+                    if (tag.IndentSet ||
+                        tag is LinkTag ||
+                        tag is PersonTag ||
+                        tag is EmojiTag ||
+                        tag is MessageTag) {
                         buffer.RemoveTag(tag, start_iter, end_iter);
                         _MessageTextTagTable.Remove(tag);
                         tag.Dispose();
