@@ -1,90 +1,92 @@
 # Translation of smuxi-frontend-gnome-irc messages to Portuguese
 # Copyright (C) 2010 the smuxi's copyright holder
 # This file is distributed under the same license as the smuxi-frontend-gnome-irc package.
-#
 # Américo Monteiro <a_monteiro@netcabo.pt>, 2010.
+# Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi-frontend-gnome-irc \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-11 11:55+0200\n"
-"PO-Revision-Date: 2010-07-15 01:56+0100\n"
-"Last-Translator: Américo Monteiro <a_monteiro@netcabo.pt>\n"
-"Language-Team: Portuguese <traduz@debianpt.org>\n"
+"Project-Id-Version: smuxi-frontend-gnome-irc\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-05-22 19:47+0000\n"
+"PO-Revision-Date: 2015-11-17 10:15+0100\n"
+"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
+"Language-Team: Pedro Albuquerque\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:340
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:390
+msgid "Query"
+msgstr "Consultar"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
 msgid "Op"
 msgstr "Dar Op"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:344
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
 msgid "Deop"
 msgstr "Retirar Op"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:348
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
 msgid "Voice"
-msgstr "Dar Voz"
+msgstr "Dar voz"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:352
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
 msgid "Devoice"
-msgstr "Retirar Voz"
+msgstr "Retirar voz"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:356
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
 msgid "Kick"
 msgstr "Expulsar"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:360
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:416
 msgid "Kick + Ban"
 msgstr "Expulsar + Banir"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:364
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:420
 msgid "Ban"
 msgstr "Banir"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:368
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:424
 msgid "Unban"
-msgstr "Retirar dos Banidos"
+msgstr "Retirar dos banidos"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:374
-msgid "Query"
-msgstr "Questionar"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:378
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:92
 msgid "Whois"
 msgstr "Quem é"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:382
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:65
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:434
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:96
 msgid "CTCP"
 msgstr "CTCP"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:391
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:72
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:443
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:103
 msgid "Invite to"
 msgstr "Convidar para"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:72
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:73
 msgid "Ping"
 msgstr "Ping"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:77
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:78
 msgid "Version"
 msgstr "Versão"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:82
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:83
 msgid "Time"
 msgstr "Hora"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:87
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:88
 msgid "Finger"
-msgstr "Finger"
+msgstr "Apontar"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:92
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:93
 msgid "Userinfo"
 msgstr "Informação do utilizador"
