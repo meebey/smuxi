@@ -1,22 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Matías Bellone, 2013-2014
 # Ricardo A. Hermosilla Carrillo <inactive+rahermosillac@transifex.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:30+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-06-30 06:58+0000\n"
 "PO-Revision-Date: 2014-03-16 15:56+0000\n"
 "Last-Translator: Matías Bellone\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/smuxi/language/es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/smuxi/language/"
+"es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Engine/FrontendManager.cs:218
@@ -37,7 +39,9 @@ msgstr "Falló la optimización: {0}. Razón: {1}"
 msgid ""
 "Your chat history is no longer available because of an error but will be "
 "preserved from now on."
-msgstr "Su historial de chat no está disponible debido a un error, pero será preservado desde ahora en adelante."
+msgstr ""
+"Su historial de chat no está disponible debido a un error, pero será "
+"preservado desde ahora en adelante."
 
 #: ../src/Engine/Messages/MessageBuilder.cs:771
 #, csharp-format
@@ -127,12 +131,12 @@ msgstr "Se guardó la configuración"
 
 #: ../src/Engine/Session.cs:754
 msgid "Invalid key/value format."
-msgstr "Formato de clave/valor inválido."
+msgstr "Formato de clave/valor no válido."
 
 #: ../src/Engine/Session.cs:778
 #, csharp-format
 msgid "Invalid config key: '{0}'"
-msgstr "Clave de configuración inválido: «{0}»"
+msgstr "Clave de configuración no válido: «{0}»"
 
 #: ../src/Engine/Session.cs:794 ../src/Engine/Session.cs:800
 #, csharp-format
@@ -143,7 +147,9 @@ msgstr "Fallo al convertir el valor de configuración «{0}» al tipo {1}"
 #, csharp-format
 msgid ""
 "Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
-msgstr "Clave de eliminación inválida en la configuración: «{0}». Claves de eliminación válidas: MessagePatterns/{{ID}}."
+msgstr ""
+"Clave de eliminación inválida en la configuración: «{0}». Claves de "
+"eliminación válidas: MessagePatterns/{{ID}}."
 
 #: ../src/Engine/Session.cs:827
 #, csharp-format
@@ -157,11 +163,12 @@ msgstr "Se eliminó el patrón de mensaje con ID «{0}»."
 
 #: ../src/Engine/Session.cs:842
 msgid "Invalid parameter for config; use load, save, get or set."
-msgstr "Parámetro inválido para la configuración: utilice load, save, get o set."
+msgstr ""
+"Parámetro no válido para la configuración: utilice load, save, get o set."
 
 #: ../src/Engine/Session.cs:919
 msgid "Invalid parameter for network; use list, switch, or close"
-msgstr "Parámetro inválido para la red; utilice list, switch o close"
+msgstr "Parámetro no válido para la red; utilice list, switch o close"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
@@ -216,7 +223,9 @@ msgstr "No conectado a ninguna red"
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr "Falló la escritura de su historial de chat. Su historial no será preservado. Razón: {0}"
+msgstr ""
+"Falló la escritura de su historial de chat. Su historial no será preservado. "
+"Razón: {0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
@@ -242,7 +251,10 @@ msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
 "the extended command list."
-msgstr "Después de establecer una conexión, cambia la lista de órdenes disponibles. Diríjase a la pestaña de conexión recién establecida y utilice la orden /help para ver una lista extendida."
+msgstr ""
+"Después de establecer una conexión, cambia la lista de órdenes disponibles. "
+"Diríjase a la pestaña de conexión recién establecida y utilice la orden /"
+"help para ver una lista extendida."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
@@ -272,23 +284,28 @@ msgstr "El dominio del servidor no debe estar vacío."
 
 #: ../src/Engine/Config/ServerListController.cs:141
 msgid "Server hostname contains invalid characters (newline)."
-msgstr "El dominio del servidor contiene caracteres inválidos (salto de línea)."
+msgstr ""
+"El dominio del servidor contiene caracteres no válidos (salto de línea)."
 
 #: ../src/Engine/Config/ServerListController.cs:148
 #, csharp-format
 msgid "Server ID '{0}' already exists."
 msgstr "El ID de servidor «{0}» ya existe."
 
-#: ../src/Engine/Chats/ChatModel.cs:109
+#: ../src/Engine/Chats/ChatModel.cs:106
 #, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr "Falló la carga del historial de chat. Su historial no será preservado. Razón: {0}"
+msgstr ""
+"Falló la carga del historial de chat. Su historial no será preservado. "
+"Razón: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:311
+#: ../src/Engine/Chats/ChatModel.cs:322
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
-msgstr "Falló la apertura del historial de chat para escritura. Su historial no será preservado. Razón: {0}"
+msgstr ""
+"Falló la apertura del historial de chat para escritura. Su historial no será "
+"preservado. Razón: {0}"
