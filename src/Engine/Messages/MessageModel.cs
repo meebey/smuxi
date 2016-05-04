@@ -132,6 +132,11 @@ namespace Smuxi.Engine
             f_TimeStamp    = sr.ReadDateTime();
             f_MessageParts = sr.ReadList<MessagePartModel>();
             f_MessageType  = (MessageType) sr.ReadInt32();
+
+            // backward compatibility with engines < 1.1
+            if (sr.PeekChar() != -1) {
+                ID = sr.ReadString();
+            }
         }
 
         protected virtual void GetObjectData(SerializationWriter sw)
@@ -144,6 +149,7 @@ namespace Smuxi.Engine
             sw.Write(f_TimeStamp);
             sw.Write(f_MessageParts);
             sw.Write((Int32) f_MessageType);
+            sw.Write(ID);
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
