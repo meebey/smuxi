@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using Twitterizer;
 using Twitterizer.Core;
 using Smuxi.Common;
+using System.Threading.Tasks;
 
 namespace Smuxi.Engine
 {
@@ -307,7 +308,7 @@ namespace Smuxi.Engine
             }
 
             // twitter is sometimes pretty slow, so fetch this in the background
-            ThreadPool.QueueUserWorkItem(delegate {
+            Task.Factory.StartNew(delegate {
                 try {
                     // FIXME: replace with AutoResetEvent
                     while (!HasTokens) {
@@ -366,7 +367,7 @@ namespace Smuxi.Engine
                     Session.AddMessageToChat(Chat, msg);
                 }
             });
-            ThreadPool.QueueUserWorkItem(delegate {
+            Task.Factory.StartNew(delegate {
                 try {
                     // FIXME: replace with AutoResetEvent
                     // f_TwitterUser needed for proper self detection in the

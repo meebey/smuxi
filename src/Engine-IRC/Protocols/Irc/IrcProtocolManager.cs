@@ -33,6 +33,7 @@ using System.Linq;
 using Meebey.SmartIrc4net;
 using Smuxi.Common;
 using IrcProxyType = Meebey.SmartIrc4net.ProxyType;
+using System.Threading.Tasks;
 
 namespace Smuxi.Engine
 {
@@ -1444,7 +1445,7 @@ namespace Smuxi.Engine
                     } else {
                         // HACK: lower probability of sync race condition swallowing
                         // messages, see: https://www.smuxi.org/issues/show/634
-                        ThreadPool.QueueUserWorkItem(delegate {
+                        Task.Factory.StartNew(()=> {
                             Thread.Sleep(1000);
                             Session.SyncChat(chat);
                         });
@@ -3111,7 +3112,7 @@ namespace Smuxi.Engine
                 Session.AddMessageToChat(chat, msg);
                 // HACK: lower probability of sync race condition swallowing
                 // messages, see: https://www.smuxi.org/issues/show/634
-                ThreadPool.QueueUserWorkItem(delegate {
+                Task.Factory.StartNew(()=> {
                     Thread.Sleep(1000);
                     Session.SyncChat(chat);
                 });
@@ -3156,7 +3157,7 @@ namespace Smuxi.Engine
                 Session.AddMessageToChat(chat, msg);
                 // HACK: lower probability of sync race condition swallowing
                 // messages, see: https://www.smuxi.org/issues/show/634
-                ThreadPool.QueueUserWorkItem(delegate {
+                Task.Factory.StartNew(()=> {
                     Thread.Sleep(1000);
                     Session.SyncChat(chat);
                 });
