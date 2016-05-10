@@ -432,7 +432,8 @@ namespace Smuxi.Engine
                 if (highLightWord.StartsWith("/") && highLightWord.EndsWith("/")) {
                     // This is a regex, so just build a regex out of the string.
                     regex = new Regex(
-                        highLightWord.Substring(1, highLightWord.Length - 2)
+                        highLightWord.Substring(1, highLightWord.Length - 2),
+                        RegexOptions.IgnoreCase
                     );
                 } else {
                     // Plain text - make a regex that matches the word as long as it's separated properly.

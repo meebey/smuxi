@@ -29,13 +29,14 @@ SetCompressor lzma
 !define PRODUCT_NAME "Smuxi"
 !define PRODUCT_VERSION "@VERSION@@DEV_VERSION_SUFFIX@"
 !define PRODUCT_PUBLISHER "Mirco Bauer <meebey@meebey.net>"
-!define PRODUCT_WEB_SITE "http://www.smuxi.org"
+!define PRODUCT_WEB_SITE "https://smuxi.im"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\smuxi-frontend-gnome.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 !define DOTNET_VERSION "4.0"
 !define GTKSHARP_PRODUCT_GUID "{3CB70B01-4BC8-4C0F-B28F-7C6E33F913CC}"
 !define GTKSHARP_VERSION "2.12.22"
+!define MONO_VERSION "4.2"
 
 ############################
 # MUI 1.67 compatible mode #
@@ -213,6 +214,27 @@ FunctionEnd
         Abort "Installation cancelled by user."
 
     End:
+!macroend
+
+!macro CheckMono
+    DetailPrint "Checking your Mono version..."
+
+    Var /GLOBAL MONO_FOUND_VERSION
+    ReadRegStr $MONO_FOUND_VERSION HKLM \
+              "SOFTWARE\Mono" "Version"
+
+    Var /GLOBAL MONO_FOUND_INSTALLDIR
+    ReadRegStr $MONO_FOUND_INSTALLDIR HKLM \
+              "SOFTWARE\Mono" "SdkInstallRoot"
+
+    ${If} $MONO_FOUND_VERSION != ""
+        DetailPrint "Found Mono $MONO_FOUND_VERSION in $MONO_FOUND_INSTALLDIR"
+    ${EndIf}
+
+    Var /GLOBAL MONO_EXE
+    # WTF: StrCpy can't append and there is no other way to append a string to a
+    # variable in NSIS
+    StrCpy $MONO_EXE "$MONO_FOUND_INSTALLDIRbin\mono.exe"
 !macroend
 
 # DotNET and MSI version checking macro.
@@ -499,6 +521,7 @@ Section "Main" SEC01
   !insertmacro CheckXPServicePack
   !insertmacro CheckDotNET "${DOTNET_VERSION}"
   !insertmacro CheckGtkSharp ${GTKSHARP_VERSION}
+  !insertmacro CheckMono
 
   SetShellVarContext all
   SetOutPath "$INSTDIR"
@@ -506,6 +529,11 @@ Section "Main" SEC01
   CreateDirectory "$SMPROGRAMS\Smuxi"
   CreateShortCut "$SMPROGRAMS\Smuxi\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
   CreateShortCut "$DESKTOP\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
+
+  ${If} $MONO_FOUND_VERSION != ""
+    CreateShortCut "$SMPROGRAMS\Smuxi\Smuxi (Mono).lnk" "$MONO_EXE" "$\"$INSTDIR\smuxi-frontend-gnome.exe$\"" "$INSTDIR\smuxi-frontend-gnome.exe"
+    CreateShortCut "$DESKTOP\Smuxi (Mono).lnk" "$MONO_EXE" "$\"$INSTDIR\smuxi-frontend-gnome.exe$\"" "$INSTDIR\smuxi-frontend-gnome.exe"
+  ${EndIf}
 
   # remove obsolete libraries for upgrades from Smuxi < 0.8.10.2
   Delete "$INSTDIR\zlib1.dll"
@@ -638,9 +666,11 @@ Section Uninstall
   RMDir /r "$INSTDIR\icons"
 
   Delete "$DESKTOP\Smuxi.lnk"
+  Delete "$DESKTOP\Smuxi (Mono).lnk"
   Delete "$SMPROGRAMS\Smuxi\Uninstall.lnk"
   Delete "$SMPROGRAMS\Smuxi\Website.lnk"
   Delete "$SMPROGRAMS\Smuxi\Smuxi.lnk"
+  Delete "$SMPROGRAMS\Smuxi\Smuxi (Mono).lnk"
 
   RMDir "$SMPROGRAMS\Smuxi"
   RMDir "$INSTDIR"
