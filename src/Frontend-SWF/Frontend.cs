@@ -186,6 +186,8 @@ namespace Smuxi.Frontend.Swf
             _Session = new Engine.Session(Engine.Engine.Config,
                                           Engine.Engine.ProtocolManagerFactory,
                                           "local");
+            _Session.ExecuteOnStartupCommands();
+            _Session.ProcessAutoConnect();
             _Session.RegisterFrontendUI(_MainWindow.UI);
             _UserConfig = _Session.UserConfig;
             ConnectEngineToGUI();

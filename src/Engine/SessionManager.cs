@@ -77,7 +77,10 @@ namespace Smuxi.Engine
 #if LOG4NET
                 _Logger.Debug("Creating Session for User "+user);
 #endif
-                _Sessions.Add(user, new Session(_Config, _ProtocolManagerFactory, user));
+                var session = new Session(_Config, _ProtocolManagerFactory, user);
+                session.ExecuteOnStartupCommands();
+                session.ProcessAutoConnect();
+                _Sessions.Add(user, session);
             }
         }
         

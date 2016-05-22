@@ -58,6 +58,7 @@ namespace Smuxi.Engine
         DateTime NewsFeedLastModified { get; set; }
         TimeSpan NewsFeedUpdateInterval { get; set; }
         TimeSpan NewsFeedRetryInterval { get; set; }
+        bool IsFirstNewsFeedEntry { get; set; }
         internal MessageBuilderSettings MessageBuilderSettings { get; private set; }
 
         public event EventHandler<GroupChatPersonAddedEventArgs> GroupChatPersonAdded;
@@ -173,8 +174,85 @@ namespace Smuxi.Engine
             SeenNewsFeedIds = new List<string>();
             NewsFeedUpdateInterval = TimeSpan.FromHours(12);
             NewsFeedRetryInterval = TimeSpan.FromMinutes(5);
+            IsFirstNewsFeedEntry = true;
             NewsFeedTimer = new Timer(delegate { UpdateNewsFeed(); }, null,
                                       TimeSpan.Zero, NewsFeedUpdateInterval);
+        }
+
+        public void ExecuteOnStartupCommands()
+        {
+            foreach (string command in (string[]) _UserConfig["OnStartupCommands"]) {
+                if (command.Length == 0) {
+                    continue;
+                }
+                var cd = new CommandModel(null, _SessionChat,
+                    (string)_UserConfig["Interface/Entry/CommandCharacter"],
+                    command);
+                var handled = Command(cd);
+                if (!handled) {
+#if LOG4NET
+                    f_Logger.Error("ExecuteOnStartupCommands(): command unknown: " + command);
+#endif
+                    var builder = CreateMessageBuilder().
+                        AppendEventPrefix().
+                        AppendErrorText("unknown command: {0}", command);
+                    AddMessageToChat(_SessionChat, builder.ToMessage(), true);
+                }
+            }
+        }
+
+        public void ProcessAutoConnect()
+        {
+            var serverCon = new ServerListController(_UserConfig);
+            IList<ServerModel> servers = serverCon.GetServerList();
+            foreach (ServerModel server in servers) {
+                if (!server.OnStartupConnect) {
+                    continue;
+                }
+
+                var msg = String.Format(
+                    _("Automatically connecting to {0}..."),
+                    String.Format("{0}/{1} ({2}:{3})", server.Protocol,
+                        server.Network, server.Hostname, server.Port)
+                );
+#if LOG4NET
+                f_Logger.Info(msg);
+#endif
+                var builder = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendText(msg);
+                AddMessageToChat(_SessionChat, builder.ToMessage(), true);
+
+                var srv = server;
+                // run connects in background threads as they block
+                ThreadPool.QueueUserWorkItem(delegate {
+                    bool isError = false;
+                    try {
+                        IProtocolManager protocolManager = Connect(srv, null);
+
+                        // if the connect command was correct, we should be
+                        // able to get the chat model
+                        if (protocolManager.Chat == null) {
+                            isError = true;
+                        }
+                    } catch (Exception ex) {
+#if LOG4NET
+                        f_Logger.Error("ProcessAutoConnect(): Exception during "+
+                            "automatic connect: ", ex);
+#endif
+                        isError = true;
+                    }
+                    if (isError) {
+                        builder = CreateMessageBuilder();
+                        builder.AppendEventPrefix();
+                        builder.AppendErrorText(
+                            _("Automatic connect to {0} failed!"),
+                            srv.Hostname + ":" + srv.Port
+                        );
+                        AddMessageToChat(_SessionChat, builder.ToMessage(), true);
+                    }
+                });
+            }
         }
 
         public IProtocolManager NextProtocolManager(IProtocolManager currentProtocolManager)
@@ -221,75 +299,6 @@ namespace Smuxi.Engine
             FrontendManager fm = new FrontendManager(this, ui);
             lock (_FrontendManagers) {
                 _FrontendManagers[uri] = fm;
-            }
-            
-            // if this is the first frontend, we process OnStartupCommands
-            if (!_OnStartupCommandsProcessed) {
-                _OnStartupCommandsProcessed = true;
-
-                foreach (string command in (string[])_UserConfig["OnStartupCommands"]) {
-                    if (command.Length == 0) {
-                        continue;
-                    }
-                    CommandModel cd = new CommandModel(fm, _SessionChat,
-                        (string)_UserConfig["Interface/Entry/CommandCharacter"],
-                        command);
-                    bool handled;
-                    handled = Command(cd);
-                    if (!handled) {
-                        if (fm.CurrentProtocolManager != null) {
-                            fm.CurrentProtocolManager.Command(cd);
-                        }
-                    }
-                }
-                
-                // process server specific connects/commands
-                ServerListController serverCon = new ServerListController(_UserConfig);
-                IList<ServerModel> servers = serverCon.GetServerList();
-                foreach (ServerModel server in servers) {
-                    if (!server.OnStartupConnect) {
-                        continue;
-                    }
-
-                    var msg = String.Format(
-                        _("Automatically connecting to {0}..."),
-                        String.Format("{0}/{1} ({2}:{3})", server.Protocol,
-                                      server.Network, server.Hostname, server.Port)
-                    );
-#if LOG4NET
-                    f_Logger.Info(msg);
-#endif
-                    fm.SetStatus(msg);
-
-                    var srv = server;
-                    // run connects in background threads as they block
-                    ThreadPool.QueueUserWorkItem(delegate {
-                        bool isError = false;
-                        try {
-                            IProtocolManager protocolManager = Connect(srv, fm);
-
-                            // if the connect command was correct, we should be
-                            // able to get the chat model
-                            if (protocolManager.Chat == null) {
-                                isError = true;
-                            }
-                        } catch (Exception ex) {
-#if LOG4NET
-                            f_Logger.Error("RegisterFrontendUI(): Exception during "+
-                                           "automatic connect: ", ex);
-#endif
-                            isError = true;
-                        }
-                        if (isError) {
-                            var builder = CreateMessageBuilder();
-                            builder.AppendErrorText(
-                                _("Automatic connect to {0} failed!"),
-                                srv.Hostname + ":" + srv.Port
-                            );
-                            fm.AddMessageToChat(_SessionChat, builder.ToMessage());
-                        }
-                    });
-                }
             }
         }
         
@@ -1497,9 +1506,6 @@ namespace Smuxi.Engine
             if (String.IsNullOrEmpty(server.Protocol)) {
                 throw new ArgumentNullException("server.Protocol");
             }
-            if (frontendManager == null) {
-                throw new ArgumentNullException("frontendManager");
-            }
 
             IProtocolManager protocolManager = CreateProtocolManager(
                 server.Protocol
@@ -1533,7 +1539,7 @@ namespace Smuxi.Engine
                                     protocolManager.Command(cd);
                                 } catch (Exception ex) {
 #if LOG4NET
-                                    f_Logger.Error("Command in Connected event: Exception", ex);
+                                    f_Logger.Error("Connect(): Command in Connected event: Exception", ex);
 #endif
                                     var msg = CreateMessageBuilder().
                                         AppendErrorText("Command '{0}' failed. Reason: {1} ({2})",
@@ -1544,7 +1550,7 @@ namespace Smuxi.Engine
                             }
                         } catch (Exception ex) {
 #if LOG4NET
-                            f_Logger.Error("Connected event: Exception", ex);
+                            f_Logger.Error("Connect(): Connected event: Exception", ex);
 #endif
                         }
                     });
@@ -1929,9 +1935,6 @@ namespace Smuxi.Engine
             builder.AppendText(text);
             builder.AppendText(Environment.NewLine);
 
-            builder.AppendText(Environment.NewLine);
-
-            builder.AppendHeader("Smuxi News");
             AddMessageToChat(_SessionChat,builder.ToMessage());
         }
 
@@ -1970,6 +1973,12 @@ namespace Smuxi.Engine
                     SeenNewsFeedIds.Add(entry.Id);
 
                     var msg = new FeedMessageBuilder();
+                    if (IsFirstNewsFeedEntry) {
+                        IsFirstNewsFeedEntry = false;
+                        msg.AppendText("\n");
+                        msg.AppendHeader("Smuxi News");
+                        msg.AppendText("\n");
+                    }
                     msg.Append(entry);
                     if (!msg.IsEmpty) {
                         msg.AppendText("\n");

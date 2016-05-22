@@ -327,9 +327,6 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm, server);
 
-            if (fm == null) {
-                throw new ArgumentNullException("fm");
-            }
             if (server == null) {
                 throw new ArgumentNullException("server");
             }

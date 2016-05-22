@@ -277,6 +277,8 @@ namespace Smuxi.Frontend.Gnome
                 _LocalSession = new Engine.Session(Engine.Engine.Config,
                                                    Engine.Engine.ProtocolManagerFactory,
                                                    "local");
+                _LocalSession.ExecuteOnStartupCommands();
+                _LocalSession.ProcessAutoConnect();
             }
             EngineAssemblyVersion = Engine.Engine.AssemblyVersion;
             EngineProtocolVersion = Engine.Engine.ProtocolVersion;

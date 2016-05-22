@@ -104,6 +104,8 @@ namespace Smuxi.FrontendTest
                 session = new Engine.Session(Engine.Engine.Config,
                                              Engine.Engine.ProtocolManagerFactory,
                                              "local");
+                session.ExecuteOnStartupCommands();
+                session.ProcessAutoConnect();
                 session.RegisterFrontendUI(ui);
             } else {
                 // remote engine

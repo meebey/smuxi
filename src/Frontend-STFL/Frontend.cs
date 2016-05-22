@@ -177,6 +177,8 @@ namespace Smuxi.Frontend.Stfl
                                          Engine.Engine.ProtocolManagerFactory,
                                          "local");
             Session = _LocalSession;
+            Session.ExecuteOnStartupCommands();
+            Session.ProcessAutoConnect();
             Session.RegisterFrontendUI(_MainWindow.UI);
             _UserConfig = Session.UserConfig;
             ConnectEngineToGUI();
