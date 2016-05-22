@@ -55,7 +55,8 @@ debian/
 -------
 
 The debian/ directory contains upstream packaging used for the daily development
-builds for Ubuntu and Debian found on [launchpad][].
+builds for Ubuntu and Debian found on [launchpad][] (which you can subscribe to
+via `sudo add-apt-repository -y ppa:meebey/smuxi-daily && sudo apt update`).
 The official (downstream) Debian packaging can be found on [here][].
 
   [launchpad]: https://launchpad.net/~meebey/+archive/smuxi-daily
