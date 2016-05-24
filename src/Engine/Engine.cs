@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2016 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -133,7 +133,16 @@ namespace Smuxi.Engine
             }
             _ProtocolManagerFactory = new ProtocolManagerFactory();
             _ProtocolManagerFactory.LoadAllProtocolManagers(location);
-            
+        }
+
+        public static void InitSessionManager()
+        {
+            if (_SessionManager != null) {
+                return;
+            }
+            if (_Config == null || _ProtocolManagerFactory == null) {
+                throw new InvalidOperationException("Init() must be called first!");
+            }
             _SessionManager = new SessionManager(_Config, _ProtocolManagerFactory);
         }
 

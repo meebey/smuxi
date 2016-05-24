@@ -54,6 +54,7 @@ namespace Smuxi.Server
         public static void Init(string[] args)
         {
             Engine.Engine.Init();
+            Engine.Engine.InitSessionManager();
             string channel = (string)Engine.Engine.Config["Server/Channel"];
             string formatter = (string)Engine.Engine.Config["Server/Formatter"];
             string host = (string)Engine.Engine.Config["Server/Host"];
