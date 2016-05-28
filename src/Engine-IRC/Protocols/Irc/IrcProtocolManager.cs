@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2016 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -3290,39 +3290,43 @@ namespace Smuxi.Engine
                 if (user.TrimEnd(' ').Length == 0) {
                     continue;
                 }
-                string username = user;
-                
-                switch (user[0]) {
-                    case '@':
-                    case '+':
-                    // RFC VIOLATION
-                    // some IRC network do this and break our nice smuxi...
-                    case '&':
-                    case '%':
-                    case '~':
-                    case '!':
-                    case '.':
-                        username = user.Substring(1);
-                        break;
-                }
-                
-                var groupPerson = CreateGroupPerson(username);
-                switch (user[0]) {
-                    case '~':
-                        groupPerson.IsOwner = true;
-                        break;
-                    case '&':
-                        groupPerson.IsChannelAdmin = true;
-                        break;
-                    case '@':
-                        groupPerson.IsOp = true;
-                        break;
-                    case '%':
-                        groupPerson.IsHalfop = true;
-                        break;
-                    case '+':
-                        groupPerson.IsVoice = true;
-                        break;
+                string nick = user;
+                var modePrefixes = new List<char>();
+                bool checkNextChar;
+                // this has to be a loop since there could be multiple prefixes (NAMESX):
+                // :irc.poop.nl 353 meebey3 @ #gtk# :meebey3 FHaag1 shana knocte ~@meebey stsundermann antonius Bertrand
+                do {
+                    checkNextChar = false;
+                    foreach (var kvp in _IrcClient.ServerProperties.ChannelPrivilegeModesPrefixes) {
+                        if (nick[0] == kvp.Value) {
+                            // first char of the nick is a mode prefix, thus strip it
+                            modePrefixes.Add(nick[0]);
+                            nick = nick.Substring(1);
+                            checkNextChar = true;
+                            break;
+                        }
+                    }
+                } while (checkNextChar);
+
+                var groupPerson = CreateGroupPerson(nick);
+                foreach (char modePrefix in modePrefixes) {
+                    switch (modePrefix) {
+                        case '~':
+                            groupPerson.IsOwner = true;
+                            break;
+                        case '&':
+                            groupPerson.IsChannelAdmin = true;
+                            break;
+                        case '@':
+                            groupPerson.IsOp = true;
+                            break;
+                        case '%':
+                            groupPerson.IsHalfop = true;
+                            break;
+                        case '+':
+                            groupPerson.IsVoice = true;
+                            break;
+                    }
                 }
 
                 // HACK: replace existing value in case we get duplicate nicks
