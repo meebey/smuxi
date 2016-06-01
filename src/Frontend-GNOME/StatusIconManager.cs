@@ -161,9 +161,10 @@ namespace Smuxi.Frontend.Gnome
             );
             preferencesItem.Activated += delegate {
                 try {
-                    PreferencesDialog dialog = new PreferencesDialog(f_MainWindow);
-                    dialog.CurrentPage = PreferencesDialog.Page.Interface;
-                    dialog.CurrentInterfacePage = PreferencesDialog.InterfacePage.Notification;
+                    var builder = new Gtk.Builder(null, "PreferencesDialog2.ui", null);
+                    var widget = (Gtk.Widget) builder.GetObject("PreferencesDialog");
+                    var dialog = new PreferencesDialog(f_MainWindow, builder, widget.Handle);
+                    dialog.Show();
                 } catch (Exception ex) {
                     Frontend.ShowException(ex);
                 }

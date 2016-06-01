@@ -18,7 +18,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
-#if GTK_BUILDER
 using System;
 using System.IO;
 using System.Threading;
@@ -47,18 +46,19 @@ namespace Smuxi.Frontend.Gnome
         [UI("CustomFontColorRadioButton")] Gtk.RadioButton f_CustomFontColorRadioButton;
         [UI("ForegroundColorButton")] Gtk.ColorButton f_ForegroundColorButton;
         [UI("BackgroundColorButton")] Gtk.ColorButton f_BackgroundColorButton;
-        [UI("ProxySwitch")] Gtk.Switch f_ProxySwitch;
+        [UI("ProxySwitch")] Gtk.CheckButton f_ProxySwitch;
         [UI("ProxyTypeComboBox")] Gtk.ComboBox f_ProxyTypeComboBox;
         [UI("ProxyHostEntry")] Gtk.Entry f_ProxyHostEntry;
         [UI("ProxyPortSpinButton")] Gtk.SpinButton f_ProxyPortSpinButton;
         [UI("ProxyUsernameEntry")] Gtk.Entry f_ProxyUsernameEntry;
         [UI("ProxyPasswordEntry")] Gtk.Entry f_ProxyPasswordEntry;
         [UI("ProxyShowPasswordCheckButton")] Gtk.CheckButton f_ProxyShowPasswordCheckButton;
-        [UI("LoggingSwitch")] Gtk.Switch f_LoggingSwitch;
+        [UI("LoggingSwitch")] Gtk.CheckButton f_LoggingSwitch;
         [UI("LoggingOpenButton")] Gtk.Button f_LoggingOpenButton;
         [UI("LoggingLogFilteredMessagesCheckButton")] Gtk.CheckButton f_LoggingLogFilteredMessagesCheckButton;
         [UI("ShowColorsCheckButton")] Gtk.CheckButton f_ShowColorsCheckButton;
         [UI("ShowFormattingsCheckButton")] Gtk.CheckButton f_ShowFormattingsCheckButton;
+        [UI("InternalSettingsToolbar")] Gtk.Toolbar f_InternalSettingsToolbar;
         Dictionary<string, string> ConfigKeyToWidgetNameMap { get; set; }
         new Gtk.Window Parent { get; set; }
         Gtk.Builder Builder { get; set; }
@@ -138,6 +138,9 @@ namespace Smuxi.Frontend.Gnome
             Builder.Autoconnect(this);
             f_CategoryNotebook.ShowTabs = false;
             f_ConnectionToggleButton.Active = true;
+            // not implemented
+            f_InternalSettingsToolbar.NoShowAll = true;
+            f_InternalSettingsToolbar.Visible = false;
 
             // Filters
             FilterListWidget = new FilterListWidget(parent, Frontend.UserConfig);
@@ -275,24 +278,6 @@ namespace Smuxi.Frontend.Gnome
             f_ShowColorsCheckButton.Active = !(bool) conf["Interface/Notebook/StripColors"];
             f_ShowFormattingsCheckButton.Active = !(bool) conf["Interface/Notebook/StripFormattings"];
 
-            switch ((string) conf["Interface/Notebook/TabPosition"]) {
-                case "top":
-                    ((Gtk.RadioButton) Builder.GetObject("TabPositionRadioButtonTop")).Active = true;
-                    break;
-                case "bottom":
-                    ((Gtk.RadioButton) Builder.GetObject("TabPositionRadioButtonBottom")).Active = true;
-                    break;
-                case "left":
-                    ((Gtk.RadioButton) Builder.GetObject("TabPositionRadioButtonLeft")).Active = true;
-                    break;
-                case "right":
-                    ((Gtk.RadioButton) Builder.GetObject("TabPositionRadioButtonRight")).Active = true;
-                    break;
-                case "none":
-                    ((Gtk.RadioButton) Builder.GetObject("TabPositionRadioButtonNone")).Active = true;
-                    break;
-            }
-
             var fontButton = (Gtk.FontButton) Builder.GetObject("FontButton");
             var fontFamily = (string) conf["Interface/Chat/FontFamily"];
             var fontStyle = (string) conf["Interface/Chat/FontStyle"];
@@ -354,9 +339,11 @@ namespace Smuxi.Frontend.Gnome
                 } else if (widget is Gtk.CheckButton) {
                     var checkButton = (Gtk.CheckButton) widget;
                     checkButton.Active = (bool) confValue;
+#if GTK_SHARP_3
                 } else if (widget is Gtk.Switch) {
                     var @switch = (Gtk.Switch) widget;
                     @switch.Active = (bool) confValue;
+#endif
                 } else if (widget is Gtk.TextView) {
                     var textView = (Gtk.TextView) widget;
                     if (confValue is string[]) {
@@ -394,20 +381,6 @@ namespace Smuxi.Frontend.Gnome
             conf["Interface/Notebook/StripColors"] = !f_ShowColorsCheckButton.Active;
             conf["Interface/Notebook/StripFormattings"] = !f_ShowFormattingsCheckButton.Active;
 
-            string tab_position = null;
-            if (((Gtk.RadioButton) Builder.GetObject("TabPositionRadioButtonTop")).Active) {
-                tab_position = "top";
-            } else if (((Gtk.RadioButton) Builder.GetObject("TabPositionRadioButtonBottom")).Active) {
-                tab_position = "bottom";
-            } else if (((Gtk.RadioButton) Builder.GetObject("TabPositionRadioButtonLeft")).Active) {
-                tab_position = "left";
-            } else if (((Gtk.RadioButton) Builder.GetObject("TabPositionRadioButtonRight")).Active) {
-                tab_position = "right";
-            } else if (((Gtk.RadioButton) Builder.GetObject("TabPositionRadioButtonNone")).Active) {
-                tab_position = "none";
-            }
-            conf["Interface/Notebook/TabPosition"] = tab_position;
-
             if (f_CustomFontRadioButton.Active) {
                 string fontName = f_FontButton.FontName;
                 Pango.FontDescription fontDescription = Pango.FontDescription.FromString(fontName);
@@ -441,11 +414,13 @@ namespace Smuxi.Frontend.Gnome
                     if (confValue is bool) {
                         conf[confKey] = checkButton.Active;
                     }
+#if GTK_SHARP_3
                 } else if (widget is Gtk.Switch) {
                     var @switch = (Gtk.Switch) widget;
                     if (confValue is bool) {
                         conf[confKey] = @switch.Active;
                     }
+#endif
                 } else if (widget is Gtk.TextView) {
                     var textView = (Gtk.TextView) widget;
                     if (confValue is string[]) {
@@ -601,4 +576,3 @@ namespace Smuxi.Frontend.Gnome
         }
     }
 }
-#endif

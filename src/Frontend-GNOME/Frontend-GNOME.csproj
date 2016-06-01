@@ -92,8 +92,8 @@
       <LogicalName>session-chat_256x256.png</LogicalName>
       <Link>images\session-chat_256x256.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interfaces\PreferencesDialog3.ui">
-      <LogicalName>PreferencesDialog3.ui</LogicalName>
+    <EmbeddedResource Include="Interfaces\PreferencesDialog2.ui">
+      <LogicalName>PreferencesDialog2.ui</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -111,7 +111,6 @@
     <Compile Include="SplashScreenWindow.cs" />
     <Compile Include="ChatViewManager.cs" />
     <Compile Include="Preferences\ServerListView.cs" />
-    <Compile Include="Preferences\PreferencesDialog.cs" />
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="QuickConnectDialog.cs" />
     <Compile Include="SteticPreferencesDialog.cs" />
