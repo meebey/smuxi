@@ -169,6 +169,8 @@
     <Compile Include="Views\ChatTreeView.cs" />
     <Compile Include="Views\Tags\EmojiTag.cs" />
     <Compile Include="Views\PreferencesDialog.cs" />
+    <Compile Include="GtkBuilder.cs" />
+    <Compile Include="GtkSharpBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">
