@@ -1,13 +1,7 @@
 /*
- * $Id: PreferencesDialog.cs 142 2007-01-02 22:19:08Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/PreferencesDialog.cs $
- * $Rev: 142 $
- * $Author: meebey $
- * $Date: 2007-01-02 23:19:08 +0100 (Tue, 02 Jan 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008, 2010, 2012-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008, 2010, 2012-2013, 2016 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -52,12 +46,6 @@ namespace Smuxi.Frontend.Gnome
         Gtk.ToolButton _EditButton;
         [UI("RemoveServerToolButton")]
         Gtk.ToolButton _RemoveButton;
-        [UI("ServersAddButton")]
-        private Gtk.Button               _AddButton;
-        [UI("ServersEditButton")]
-        private Gtk.Button               _EditButton;
-        [UI("ServersRemoveButton")]
-        private Gtk.Button               _RemoveButton;
 #endregion
         
         public ServerListView(Gtk.Window parent)
@@ -70,23 +58,23 @@ namespace Smuxi.Frontend.Gnome
 
             _Parent = parent;
 
-            var builder = new Gtk.Builder(null, "ServerListWidget.ui", null);
-            builder.Autoconnect(this);
-            Add((Gtk.Widget) builder.GetObject("ServerListBox"));
-
+            Build();
             Init();
             ShowAll();
+        }
+
+        void Build()
+        {
+            global::Stetic.BinContainer.Attach(this);
+            var builder = new Gtk.Builder(null, "ServerListWidget.ui", null);
+            builder.Autoconnect(this);
+            var box = (Gtk.Widget) builder.GetObject("ServerListBox");
+            Add(box);
         }
 
         void Init()
         {
             _Controller = new ServerListController(Frontend.UserConfig);
-
-#if GLADE_SHARP
-            _AddButton.Clicked += new EventHandler(OnAddButtonClicked);
-            _EditButton.Clicked += new EventHandler(OnEditButtonClicked);
-            _RemoveButton.Clicked += new EventHandler(OnRemoveButtonClicked);
-#endif
 
             _TreeView.AppendColumn(_("Protocol"), new Gtk.CellRendererText(), "text", 1); 
             _TreeView.AppendColumn(_("Hostname"), new Gtk.CellRendererText(), "text", 2); 
@@ -154,9 +142,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
             
-            var builder = new Gtk.Builder(null, "ServerDialog.ui", null);
-            var widget = (Gtk.Widget) builder.GetObject("ServerDialog");
-            var dialog = new ServerDialog(_Parent, builder, widget.Handle, null,
+            var dialog = new ServerDialog(_Parent, null,
                                           Frontend.Session.GetSupportedProtocols(),
                                           _Controller.GetNetworks());
             try {
@@ -184,9 +170,7 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("server");
             }
             
-            var builder = new Gtk.Builder(null, "ServerDialog.ui", null);
-            var widget = (Gtk.Widget) builder.GetObject("ServerDialog");
-            var dialog = new ServerDialog(_Parent, builder, widget.Handle, server,
+            var dialog = new ServerDialog(_Parent, server,
                                           Frontend.Session.GetSupportedProtocols(),
                                           _Controller.GetNetworks());
             int res = dialog.Run();
