@@ -609,7 +609,7 @@ AC_ARG_ENABLE([frontend-gnome],
 )
 if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
 	PKG_CHECK_MODULES([GLIB_SHARP_20], [glib-sharp-2.0 >= 2.8])
-	PKG_CHECK_MODULES([GTK_SHARP_20], [gtk-sharp-2.0 >= 2.8])
+	PKG_CHECK_MODULES([GTK_SHARP_20], [gtk-sharp-2.0 >= 2.12.39])
 	PKG_CHECK_MODULES([GLADE_SHARP_20], [glade-sharp-2.0 >= 2.8])
 	
 	AC_MSG_CHECKING([for gtk-sharp version >= 2.10])
