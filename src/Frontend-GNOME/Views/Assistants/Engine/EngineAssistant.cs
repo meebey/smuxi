@@ -224,12 +224,18 @@ namespace Smuxi.Frontend.Gnome
             // OpenSSH doesn't support passing passwords via command line
             f_CredentialsWidget.SshPasswordVBox.Visible = IsPutty;
 
-            // Plink always requires a SSH username
             if (IsPutty) {
+                // Plink always requires a SSH username, thus
                 // remove the (optional) portion from the label
                 f_CredentialsWidget.SshUsernameLabel.Text = Regex.Replace(
                     f_CredentialsWidget.SshUsernameLabel.Text, @"\(.*?\)", ""
                 );
+
+                // PuTTY/Plink does not support OpenSSH key files but .ppk
+                var filter = new Gtk.FileFilter();
+                filter.Name = "PuTTY/Plink key files (*.ppk)";
+                filter.AddPattern("*.ppk");
+                f_CredentialsWidget.SshKeyfileChooserButton.AddFilter(filter);
             }
 
             if (f_EngineName != null) {
