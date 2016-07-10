@@ -257,8 +257,12 @@ namespace Smuxi.Frontend.Gnome
         {
             bool useSsh = f_ConnectionWidget.UseSshTunnelCheckButton.Active;
             f_CredentialsWidget.SshUsernameEntry.Sensitive = useSsh;
+            f_CredentialsWidget.SshPasswordEntry.Sensitive = useSsh;
+            f_CredentialsWidget.SshKeyfileChooserButton.Sensitive = useSsh;
             if (!useSsh) {
                 f_CredentialsWidget.SshUsernameEntry.Text = String.Empty;
+                f_CredentialsWidget.SshPasswordEntry.Text = String.Empty;
+                f_CredentialsWidget.SshKeyfileChooserButton.UnselectAll();
             }
 
             bool isComplete = true;
