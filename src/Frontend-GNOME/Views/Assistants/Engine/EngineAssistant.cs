@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using Smuxi.Common;
 using Smuxi.Engine;
 using IOPath = System.IO.Path;
@@ -37,6 +38,7 @@ namespace Smuxi.Frontend.Gnome
         private int                              f_NamePage;
         private EngineAssistantConnectionWidget  f_ConnectionWidget;
         private EngineAssistantCredentialsWidget f_CredentialsWidget;
+        bool IsPutty { get; set; }
 
         public EngineAssistant(Gtk.Window parent, FrontendConfig config) :
                           this(parent, config, null)
@@ -63,6 +65,7 @@ namespace Smuxi.Frontend.Gnome
             SetDefaultSize(640, 480);
             SetPosition(Gtk.WindowPosition.CenterAlways);
             Title = _("Engine Assistant - Smuxi");
+            IsPutty = File.Exists("plink.exe");
 
             Apply += OnApply;
 
@@ -219,7 +222,15 @@ namespace Smuxi.Frontend.Gnome
 
             // HACK: only show the SSH password field if plink is present as
             // OpenSSH doesn't support passing passwords via command line
-            f_CredentialsWidget.SshPasswordVBox.Visible = File.Exists("plink.exe");
+            f_CredentialsWidget.SshPasswordVBox.Visible = IsPutty;
+
+            // Plink always requires a SSH username
+            if (IsPutty) {
+                // remove the (optional) portion from the label
+                f_CredentialsWidget.SshUsernameLabel.Text = Regex.Replace(
+                    f_CredentialsWidget.SshUsernameLabel.Text, @"\(.*?\)", ""
+                );
+            }
 
             if (f_EngineName != null) {
                 f_CredentialsWidget.SshUsernameEntry.Text = (string)
@@ -272,6 +283,10 @@ namespace Smuxi.Frontend.Gnome
             }
             if (f_CredentialsWidget.PasswordEntry.Text !=
                 f_CredentialsWidget.VerifyPasswordEntry.Text) {
+                isComplete = false;
+            }
+            // Putty always requires a username
+            if (IsPutty && f_CredentialsWidget.SshUsernameEntry.Text.Trim().Length == 0) {
                 isComplete = false;
             }
             SetPageComplete(f_CredentialsWidget, isComplete);
