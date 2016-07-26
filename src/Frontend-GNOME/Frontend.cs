@@ -626,6 +626,32 @@ namespace Smuxi.Frontend.Gnome
             }
             _InCrashHandler = true;
 
+            // we are using a remote engine, we are not running on Mono and an
+            // IConvertible issue happened
+            if (!Frontend.IsLocalEngine &&
+                Type.GetType("Mono.Runtime") == null &&
+                ex is InvalidCastException &&
+                ex.Message.Contains("IConvertible")) {
+                var msg = _(
+                    "A fatal error has been detected because of a protocol incompatibility with the smuxi-server!\n\n" +
+                    "Please install Mono on the frontend side so it matches the smuxi-server.\n\n" +
+                    "More details about this issue can be found here:\n" +
+                    "https://smuxi.im/issues/show/589"
+                );
+                var dialog = new Gtk.MessageDialog(
+                    parent,
+                    Gtk.DialogFlags.Modal,
+                    Gtk.MessageType.Error,
+                    Gtk.ButtonsType.Close,
+                    true,
+                    msg
+                );
+                dialog.Run();
+                dialog.Destroy();
+                Quit();
+                return;
+            }
+
             CrashDialog cd = new CrashDialog(parent, ex);
             cd.Run();
             cd.Destroy();
