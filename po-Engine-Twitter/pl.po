@@ -1,28 +1,24 @@
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Aviary.pl
-# Jeśli masz jakiekolwiek uwagi odnoszące się do tłumaczenia lub chcesz
-# pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
-# gnomepl@aviary.pl
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Polish translation for smuxi.
+# Copyright © 2012-2016 the smuxi authors.
+# This file is distributed under the same license as the smuxi package.
 # <okwell@gmail.com>, 2012.
-# Piotr Drąg <piotrdrag@gmail.com>, 2015.
-# Aviary.pl <gnomepl@aviary.pl>, 2015.
+# Piotr Drąg <piotrdrag@gmail.com>, 2015-2016.
+# Aviary.pl <community-poland@mozilla.org>, 2015-2016.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 16:38+0200\n"
-"PO-Revision-Date: 2015-09-02 16:24+0200\n"
+"POT-Creation-Date: 2016-08-21 16:53+0200\n"
+"PO-Revision-Date: 2016-08-21 16:38+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <gnomepl@aviary.pl>\n"
+"Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Poedit-Language: Polish\n"
-"X-Poedit-Country: Poland\n"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
 msgid "Home Timeline"
@@ -30,7 +26,7 @@ msgstr "Główna oś czasu"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:136
 msgid "Replies & Mentions"
-msgstr "Odpowiedzi i wzmianki"
+msgstr "Odpowiedzi i wzmianki"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:147
 msgid "Direct Messages"
@@ -43,7 +39,7 @@ msgstr "Używanie pośrednika: {0}:{1}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:217
 msgid "Connecting to Twitter..."
-msgstr "Łączenie z serwisem Twitter…"
+msgstr "Łączenie z serwisem Twitter…"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:259
 msgid "Twitter authorization required."
@@ -55,8 +51,8 @@ msgid ""
 "Please open the following URL and click \"Allow\" to allow Smuxi to connect "
 "to your Twitter account: {0}"
 msgstr ""
-"Proszę otworzyć poniższy adres URL i kliknąć przycisk „Zezwól”, aby "
-"umożliwić programowi Smuxi łączenie się z kontem w serwisie Twitter: {0}"
+"Proszę otworzyć poniższy adres URL i kliknąć przycisk „Zezwól”, aby "
+"umożliwić programowi Smuxi łączenie się z kontem w serwisie Twitter: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:282
 msgid ""
@@ -83,7 +79,7 @@ msgstr "Połączenie się nie powiodło. Powód: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:317
 msgid "Fetching user details from Twitter, please wait..."
-msgstr "Pobieranie danych użytkownika z serwisu Twitter, proszę czekać…"
+msgstr "Pobieranie danych użytkownika z serwisu Twitter, proszę czekać…"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:324
 msgid "Finished fetching user details."
@@ -91,16 +87,16 @@ msgstr "Ukończono pobieranie danych użytkownika."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:330
 msgid "Successfully connected to Twitter."
-msgstr "Pomyślnie połączono z serwisem Twitter."
+msgstr "Pomyślnie połączono z serwisem Twitter."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:348
 msgid "Failed to fetch user details from Twitter. Reason: "
 msgstr ""
-"Pobranie danych użytkownika z serwisu Twittera się nie powiodło. Powód: "
+"Pobranie danych użytkownika z serwisu Twittera się nie powiodło. Powód: "
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:381
 msgid "Fetching friends from Twitter, please wait..."
-msgstr "Pobieranie listy znajomych z serwisu Twitter, proszę czekać…"
+msgstr "Pobieranie listy znajomych z serwisu Twitter, proszę czekać…"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:390
 msgid "Finished fetching friends."
@@ -108,7 +104,7 @@ msgstr "Ukończono pobieranie listy znajomych."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:394
 msgid "Failed to fetch friends from Twitter. Reason: "
-msgstr "Pobranie listy znajomych z serwisu Twitter się nie powiodło. Powód: "
+msgstr "Pobranie listy znajomych z serwisu Twitter się nie powiodło. Powód: "
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
@@ -123,7 +119,7 @@ msgstr "Brak oczekujących żądań upoważnienia"
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:808
 #, csharp-format
 msgid "Failed to authorize with Twitter: {0}"
-msgstr "Upoważnienie w serwisie Twitter się nie powiodło: {0}"
+msgstr "Upoważnienie w serwisie Twitter się nie powiodło: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
 msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
@@ -135,20 +131,20 @@ msgid ""
 "Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
 "account."
 msgstr ""
-"Proszę ponowić przez zamknięcie tej karty i ponowne połączenie z kontem "
+"Proszę ponowić przez zamknięcie tej karty i ponowne połączenie z kontem "
 "„{0}” serwisu Twitter."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
 msgid "Migrated Twitter account from basic auth to OAuth."
 msgstr ""
-"Przeniesiono konto serwisu Twitter z podstawowego upoważniania do mechanizmu "
+"Przeniesiono konto serwisu Twitter z podstawowego upoważniania do mechanizmu "
 "OAuth."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
 #, csharp-format
 msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
 msgstr ""
-"Pomyślnie upoważniono konto „{0}” serwisu Twitter do użycia w programie Smuxi"
+"Pomyślnie upoważniono konto „{0}” serwisu Twitter do użycia w programie Smuxi"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:902
 #, csharp-format
@@ -193,7 +189,7 @@ msgstr "Pomyślnie dodano tweet {0} do ulubionych."
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1309
 #, csharp-format
 msgid "Successfully unfavorited tweet {0}."
-msgstr "Pomyślnie usunięto tweet {0} z ulubionych."
+msgstr "Pomyślnie usunięto tweet {0} z ulubionych."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1371
 #, csharp-format
@@ -201,21 +197,21 @@ msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
 "{0}"
 msgstr ""
-"Wystąpił błąd podczas pobierania osi czasu znajomych z serwisu Twitter. "
+"Wystąpił błąd podczas pobierania osi czasu znajomych z serwisu Twitter. "
 "Powód: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
 #, csharp-format
 msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
 msgstr ""
-"Wystąpił błąd podczas pobierania odpowiedzi z serwisu Twitter. Powód: {0}"
+"Wystąpił błąd podczas pobierania odpowiedzi z serwisu Twitter. Powód: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1589
 #, csharp-format
 msgid ""
 "An error occurred while fetching direct messages from Twitter. Reason: {0}"
 msgstr ""
-"Wystąpił błąd podczas pobierania prywatnych wiadomości z serwisu Twitter. "
+"Wystąpił błąd podczas pobierania prywatnych wiadomości z serwisu Twitter. "
 "Powód: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1972

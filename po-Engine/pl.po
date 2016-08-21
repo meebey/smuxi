@@ -1,29 +1,25 @@
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Aviary.pl
-# Jeśli masz jakiekolwiek uwagi odnoszące się do tłumaczenia lub chcesz
-# pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
-# gnomepl@aviary.pl
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Polish translation for smuxi.
+# Copyright © 2012-2016 the smuxi authors.
+# This file is distributed under the same license as the smuxi package.
 # <lukasznaw@gmail.com>, 2012.
 # <okwell@gmail.com>, 2012.
-# Piotr Drąg <piotrdrag@gmail.com>, 2015.
-# Aviary.pl <gnomepl@aviary.pl>, 2015.
+# Piotr Drąg <piotrdrag@gmail.com>, 2015-2016.
+# Aviary.pl <community-poland@mozilla.org>, 2015-2016.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 16:39+0200\n"
-"PO-Revision-Date: 2015-09-02 16:20+0200\n"
+"POT-Creation-Date: 2016-08-21 16:54+0200\n"
+"PO-Revision-Date: 2016-08-21 16:37+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <gnomepl@aviary.pl>\n"
+"Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Poedit-Language: Polish\n"
-"X-Poedit-Country: Poland\n"
 
 #: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
@@ -44,7 +40,7 @@ msgid ""
 "Your chat history is no longer available because of an error but will be "
 "preserved from now on."
 msgstr ""
-"Historia rozmów nie jest już dostępna z powodu błędu, ale od teraz będzie "
+"Historia rozmów nie jest już dostępna z powodu błędu, ale od teraz będzie "
 "zachowywana."
 
 #: ../src/Engine/Messages/MessageBuilder.cs:771
@@ -57,20 +53,20 @@ msgstr "Użytkownik {0} pisze…"
 msgid "{0} has stopped typing..."
 msgstr "Użytkownik {0} przestał pisać…"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:820
+#: ../src/Engine/Messages/MessageBuilder.cs:822
 #, csharp-format
 msgid "{0} is away"
 msgstr "Użytkownik {0} jest nieobecny"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:826
+#: ../src/Engine/Messages/MessageBuilder.cs:828
 #, csharp-format
 msgid "{0} is offline"
-msgstr "Użytkownik {0} jest w trybie offline"
+msgstr "Użytkownik {0} jest w trybie offline"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:832
+#: ../src/Engine/Messages/MessageBuilder.cs:834
 #, csharp-format
 msgid "{0} is online"
-msgstr "Użytkownik {0} jest w trybie online"
+msgstr "Użytkownik {0} jest w trybie online"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:162
 msgid "not connected"
@@ -78,7 +74,7 @@ msgstr "nie połączono"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:193
 msgid "Not connected to server"
-msgstr "Nie połączono z serwerem"
+msgstr "Nie połączono z serwerem"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
 #: ../src/Engine/Session.cs:1067
@@ -89,22 +85,22 @@ msgstr "Za mało parametrów dla polecenia {0}"
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:212
 #, csharp-format
 msgid "Connected to {0}"
-msgstr "Połączono z {0}"
+msgstr "Połączono z {0}"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:242
 #, csharp-format
 msgid "Disconnected from {0}"
-msgstr "Rozłączono z {0}"
+msgstr "Rozłączono z {0}"
 
 #: ../src/Engine/Session.cs:247
 #, csharp-format
 msgid "Automatically connecting to {0}..."
-msgstr "Automatyczne łączenie z {0}…"
+msgstr "Automatyczne łączenie z {0}…"
 
 #: ../src/Engine/Session.cs:278
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
-msgstr "Automatyczne łączenie z {0} się nie powiodło"
+msgstr "Automatyczne łączenie z {0} się nie powiodło"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
@@ -158,12 +154,12 @@ msgstr ""
 #: ../src/Engine/Session.cs:827
 #, csharp-format
 msgid "Message pattern with ID: '{0}' does not exist."
-msgstr "Wzór wiadomości o identyfikatorze: „{0}” nie istnieje."
+msgstr "Wzór wiadomości o identyfikatorze: „{0}” nie istnieje."
 
 #: ../src/Engine/Session.cs:834
 #, csharp-format
 msgid "Message pattern with ID: '{0}' removed."
-msgstr "Usunięto wzór wiadomości o identyfikatorze: „{0}”."
+msgstr "Usunięto wzór wiadomości o identyfikatorze: „{0}”."
 
 #: ../src/Engine/Session.cs:842
 msgid "Invalid parameter for config; use load, save, get or set."
@@ -223,7 +219,7 @@ msgstr "Zmiana sieci się nie powiodła — nie można odnaleźć sieci: {0}"
 
 #: ../src/Engine/Session.cs:1060
 msgid "Not connected to any network"
-msgstr "Nie połączono z żadną siecią"
+msgstr "Nie połączono z żadną siecią"
 
 #: ../src/Engine/Session.cs:1317
 #, csharp-format
@@ -247,7 +243,7 @@ msgstr "Nie odnaleziono menedżera protokołu dla: {0}"
 
 #: ../src/Engine/Session.cs:1896
 msgid "Welcome to Smuxi"
-msgstr "Witamy w programie Smuxi"
+msgstr "Witamy w programie Smuxi"
 
 #: ../src/Engine/Session.cs:1903
 msgid "Type /help to get a list of available commands."
@@ -260,7 +256,7 @@ msgid ""
 "the extended command list."
 msgstr ""
 "Po połączeniu lista dostępnych poleceń się zmienia. Można przejść do nowo "
-"otwartej karty połączenia i użyć polecenia /help jeszcze raz, aby zobaczyć "
+"otwartej karty połączenia i użyć polecenia /help jeszcze raz, aby zobaczyć "
 "rozszerzoną listę poleceń."
 
 #: ../src/Engine/Config/UserListController.cs:117
