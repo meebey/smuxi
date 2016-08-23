@@ -20,15 +20,15 @@ msgstr ""
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:390
 msgid "Query"
-msgstr "Soukromý rozhovor"
+msgstr "Soukromý pokec"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
 msgid "Op"
-msgstr "Op"
+msgstr "Operátor"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
 msgid "Deop"
-msgstr "Odebrat op"
+msgstr "Odebrat operátora"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
 msgid "Voice"
@@ -44,15 +44,15 @@ msgstr "Vykopnout"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:416
 msgid "Kick + Ban"
-msgstr "Vykopnout + Ban"
+msgstr "Vykopnout + zákaz"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:420
 msgid "Ban"
-msgstr "Ban"
+msgstr "Zákaz"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:424
 msgid "Unban"
-msgstr "Zrušit ban"
+msgstr "Zrušit zákaz"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:92
@@ -67,7 +67,7 @@ msgstr "CTCP"
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:443
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:103
 msgid "Invite to"
-msgstr "Pozvat na"
+msgstr "Pozvat do"
 
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:73
 msgid "Ping"

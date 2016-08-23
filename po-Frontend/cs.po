@@ -62,7 +62,7 @@ msgstr "Klient SSH musí být buď OpenSSH (ssh) nebo Plink (plink.exe, nikoli p
 msgid ""
 "The local SSH forwarding port {0} is already in use. Is there an old SSH "
 "tunnel still active?"
-msgstr "Místní forwarding SSH port {0} se již používá. Není stále aktivní dřívější tunel SSH?"
+msgstr "Místní předávání portu SSH {0} se již používá. Není stále aktivní dřívější tunel SSH?"
 
 #: ../src/Frontend/SshTunnelManager.cs:211
 #, csharp-format
@@ -76,7 +76,16 @@ msgid ""
 "{3}\n"
 "Program Output:\n"
 "{4}\n"
-msgstr "Nastavení tunelu SSH selhalo (exit code: {0})\n\nProgram SSH: {1}\nParametry SSH: {2}\n\nChyba programu:\n{3}\nVýstup programu:\n{4}\n"
+msgstr ""
+"Nastavení tunelu SSH selhalo (návratový kód: {0})\n"
+"\n"
+"Program SSH: {1}\n"
+"Parametry SSH: {2}\n"
+"\n"
+"Chyba programu:\n"
+"{3}\n"
+"Výstup programu:\n"
+"{4}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:332
 #: ../src/Frontend/SshTunnelManager.cs:481
@@ -99,11 +108,19 @@ msgid ""
 "{2}\n"
 "Program Output:\n"
 "{3}\n"
-msgstr "Nenalezeno číslo verze OpenSSH (exit code: {0})\n\nProgram SSH: {1}\n\nChyba programu:\n{2}\nVýstup programu:\n{3}\n"
+msgstr ""
+"Nenalezeno číslo verze OpenSSH (návratový kód: {0})\n"
+"\n"
+"Program SSH: {1}\n"
+"\n"
+"Chyba programu:\n"
+"{2}\n"
+"Výstup programu:\n"
+"{3}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:472
 msgid "PuTTY / Plink requires a username to be set."
-msgstr "PuTTY / Plink potřebuje mít nastavené uživatelské jméno."
+msgstr "PuTTY / Plink potřebuje mít nastavené uživatelské jméno."
 
 #: ../src/Frontend/SshTunnelManager.cs:560
 #, csharp-format
@@ -116,4 +133,13 @@ msgid ""
 "{2}\n"
 "Program Output:\n"
 "{3}\n"
-msgstr "Číslo verze programu Plink nenalezeno (kód ukončení: {0})\n\nProgram SSH: {1}\n\nChyba programu:\n{2}\n\nVýstup programu:\n{3}\n"
+msgstr ""
+"Číslo verze programu Plink nenalezeno (návratový kód: {0})\n"
+"\n"
+"Program SSH: {1}\n"
+"\n"
+"Chyba programu:\n"
+"{2}\n"
+"\n"
+"Výstup programu:\n"
+"{3}\n"

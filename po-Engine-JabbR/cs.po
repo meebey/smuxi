@@ -59,4 +59,4 @@ msgstr "nepřipojeno"
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
 #, csharp-format
 msgid "Retrieving chat information failed. Reason: {0}"
-msgstr "Nezdařilo se získat informace o diskuzi. Příčina: {0}"
+msgstr "Nezdařilo se získat informace o pokecu. Příčina: {0}"

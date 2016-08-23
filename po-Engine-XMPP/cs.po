@@ -165,7 +165,7 @@ msgstr "{0}{1} nechce být vyrušen"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1649
 #, csharp-format
 msgid "{0}{1} wants to chat"
-msgstr "{0}{1} by rád diskutoval"
+msgstr "{0}{1} by rád pokecal"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1656
 #, csharp-format
@@ -269,17 +269,17 @@ msgstr "od {0} ({1})"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1887
 #, csharp-format
 msgid "An unknown groupchat error occurred: {0}"
-msgstr "Nastala neznámá chyba skupinové diskuze: {0}"
+msgstr "Nastala neznámá chyba skupinového pokecu: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1894
 #, csharp-format
 msgid "Server of groupchat \"{0}\" not found."
-msgstr "Server skupinového diskuze „{0}“ nebyl nalezen."
+msgstr "Server skupinového pokecu „{0}“ nebyl nalezen."
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
 #, csharp-format
 msgid "MUC service is not available for \"{0}\""
-msgstr "Služba víceuživatelských diskuzí není na „{0}“ k dispozici"
+msgstr "Služba víceuživatelských pokecu není na „{0}“ k dispozici"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
 #, csharp-format
@@ -289,15 +289,15 @@ msgstr "Nemáte oprávnění připojit se k „{0}“"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1910
 #, csharp-format
 msgid "An unhandled groupchat error occurred: {0}"
-msgstr "Nastala neošetřená chyba skupinového diskuze: {0}"
+msgstr "Nastala neošetřená chyba skupinového pokecu: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2096
 #, csharp-format
 msgid ""
 "Received a presence update from {0}, but there's no corresponding chat window"
 msgstr ""
-"Od {0} byla obdržena aktualizace o přítomnosti, ale náležící diskuznímu "
-"oknu, které neexistuje"
+"Od {0} byla obdržena aktualizace o přítomnosti, ale náležící oknu "
+"s pokecem, které neexistuje"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2120
 #, csharp-format
@@ -305,8 +305,8 @@ msgid ""
 "Received a groupchat message from {0} but there's no corresponding chat "
 "window: {1}"
 msgstr ""
-"Od {0} byla obdržena zpráva ze skupinové diskuze, ale náležící diskuznímu "
-"oknu, které neexistuje: {1}"
+"Od {0} byla obdržena zpráva ze skupinového pokecu, ale náležící oknu s "
+"pokecem, které neexistuje: {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
 #, csharp-format

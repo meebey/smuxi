@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:247
 msgid "Query"
-msgstr "Soukromý rozhovor"
+msgstr "Soukromý pokec"
 
 #: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:255
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
