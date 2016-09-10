@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-21 16:53+0200\n"
-"PO-Revision-Date: 2016-08-21 16:33+0200\n"
+"POT-Creation-Date: 2016-09-10 06:04+0200\n"
+"PO-Revision-Date: 2016-09-10 06:05+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -48,8 +48,8 @@ msgid ""
 "This engine has native Facebook support, you should be using it instead of "
 "connecting to Facebook with XMPP"
 msgstr ""
-"Ten mechanizm posiada natywną obsługę serwisu Facebook, należy jej używać "
-"zamiast łączenia przez protokół XMPP"
+"Ten mechanizm ma natywną obsługę serwisu Facebook, należy jej używać zamiast "
+"łączenia przez protokół XMPP"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
 msgid "not connected"
@@ -63,7 +63,7 @@ msgstr "Nie można odnaleźć kontaktu {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:825
 #, csharp-format
 msgid "Contact {0} has {1} known resources"
-msgstr "Znane zasoby posiadane przez kontakt {0}: {1}"
+msgstr "Znane zasoby kontaktu {0}: {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
 #, csharp-format
@@ -226,7 +226,7 @@ msgstr "Użytkownik {0}{1} już używa zażądanego zasobu"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1750
 #, csharp-format
 msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
-msgstr "Obecnie nie ma przydatnego komunikatu błędu dla {0}, {1}, {2}{3}"
+msgstr "Obecnie nie ma przydatnego komunikatu o błędzie dla {0}, {1}, {2}{3}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1727
 #, csharp-format
