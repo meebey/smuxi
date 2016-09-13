@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Diego Garcia Mendoza <diegogarciamendoza@gmail.com>, 2015
 # Matías Bellone, 2013-2014
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-06-30 07:01+0000\n"
+"POT-Creation-Date: 2015-10-14 16:52+0000\n"
 "PO-Revision-Date: 2015-07-14 \n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish <gnome-es-list@gnome.org>\n"
@@ -442,28 +442,6 @@ msgstr "Registrar mensajes filtrados"
 msgid "_Logging"
 msgstr "_Registros"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:92
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
-msgid "Smuxi - Server"
-msgstr "Smuxi - Servidor"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:93
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
-msgid "Automatically connect to server at startup"
-msgstr "Conectar automáticamente al servidor al iniciar"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:94
-msgid "Protocol:"
-msgstr "Protocolo:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:95
-msgid "Network:"
-msgstr "Red:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:96
-msgid "Hostname:"
-msgstr "Nombre del equipo:"
-
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
 msgid "Smuxi"
@@ -490,7 +468,6 @@ msgstr ""
 "jabbr;"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:2
-#| msgid "Chat with other people on IRC"
 msgid "Chat with other people on IRC, Twitter, Jabber and Campfire"
 msgstr "Charla con otras personas en IRC, Twitter, Jabber and Campfire"
 
@@ -630,7 +607,6 @@ msgid "Options:"
 msgstr "Opciones:"
 
 #: ../src/Frontend-GNOME/Main.cs:67
-#| msgid "Disconnected from engine."
 msgid "Connect to engine"
 msgstr "Conectar al motor"
 
@@ -643,7 +619,6 @@ msgid "Starts a new Smuxi instance and ignores an existing one"
 msgstr "Inicia una instancia nueva de Smuxi e ignora las existentes"
 
 #: ../src/Frontend-GNOME/Main.cs:109
-#| msgid "Bringing already running Smuxi instance to foreground..."
 msgid "Passing link to already running Smuxi instance..."
 msgstr "Pasando enlace a una instancia de Smuxi que ya está en ejecución..."
 
@@ -879,12 +854,12 @@ msgstr "Sobre Smuxi"
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:263
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:264
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
 msgid "Unable to add server: "
 msgstr "No se pudo agregar el servidor: "
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:384
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:385
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -892,7 +867,7 @@ msgstr ""
 "¡Cambiar al motor local lo desconectará del motor actual!\n"
 "¿Seguro que desea continuar?"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:428
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:429
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -1361,6 +1336,10 @@ msgstr "Smuxi - Chat abierto"
 msgid "_Type:"
 msgstr "_Tipo:"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
+msgid "Smuxi - Server"
+msgstr "Smuxi - Servidor"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:58
 msgid "_Hostname:"
 msgstr "Nombre del _equipo:"
@@ -1377,6 +1356,10 @@ msgstr "Apodo:"
 msgid "_Protocol:"
 msgstr "_Protocolo:"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
+msgid "Automatically connect to server at startup"
+msgstr "Conectar automáticamente al servidor al iniciar"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:276
 msgid "Use Encryption"
 msgstr "Usar cifrado"
@@ -1392,3 +1375,12 @@ msgstr "_Órdenes al conectar:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
 msgid "_Ignore Commands"
 msgstr "_Ignorar órdenes"
+
+#~ msgid "Protocol:"
+#~ msgstr "Protocolo:"
+
+#~ msgid "Network:"
+#~ msgstr "Red:"
+
+#~ msgid "Hostname:"
+#~ msgstr "Nombre del equipo:"
