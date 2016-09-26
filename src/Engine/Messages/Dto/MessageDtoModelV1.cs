@@ -48,7 +48,7 @@ namespace Smuxi.Engine.Dto
             }
         }
 
-        public MessageModel ToMessage()
+        public virtual MessageModel ToMessage()
         {
             var msg = new MessageModel() {
                 MessageType = this.MessageType,

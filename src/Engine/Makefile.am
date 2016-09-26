@@ -43,7 +43,7 @@ PROGRAMFILES = \
 
 LINUX_PKGCONFIG = \
 	$(ENGINE_PC)  
-	
+
 all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
 FILES = \
@@ -77,6 +77,7 @@ FILES = \
 	Messages/ImageMessagePartModel.cs \
 	Messages/MessageType.cs \
 	Messages/Dto/MessageDtoModelV1.cs \
+	Messages/Dto/MessageDtoModelV2.cs \
 	Chats/ChatType.cs \
 	Chats/ChatModel.cs \
 	Chats/GroupChatModel.cs \

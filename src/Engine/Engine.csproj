@@ -114,6 +114,7 @@
     <Compile Include="MessageBuffers\JsonMessageBuffer.cs" />
     <Compile Include="Messages\Dto\MessageDtoModelV1.cs" />
     <Compile Include="MessageBuffers\SqliteMessageBuffer.cs" />
+    <Compile Include="Messages\Dto\MessageDtoModelV2.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
