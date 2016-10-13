@@ -55,6 +55,7 @@ namespace Smuxi.Common
 
         void CheckQueue()
         {
+            var action = default(Action);
             lock (ActionQueue) {
                 if (ActionQueue.Count == 0) {
                     return;
@@ -64,18 +65,18 @@ namespace Smuxi.Common
                     return;
                 }
 
-                var action = ActionQueue.Dequeue();
-                Interlocked.Increment(ref ActiveWorkers);
-
-                ThreadPool.QueueUserWorkItem(delegate {
-                    try {
-                        action();
-                    } finally {
-                        Interlocked.Decrement(ref ActiveWorkers);
-                        CheckQueue();
-                    }
-                });
+                action = ActionQueue.Dequeue();
             }
+            Interlocked.Increment(ref ActiveWorkers);
+
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    action();
+                } finally {
+                    Interlocked.Decrement(ref ActiveWorkers);
+                    CheckQueue();
+                }
+            });
         }
     }
 }
