@@ -79,8 +79,8 @@ namespace Smuxi.Frontend
                          Math.Round(duration) + " ms");
 #endif
 
-            OnChatAdded(chatModel, chatId, chatType, chatPosition,
-                        protocolManager, protocolManagerType);
+            RaiseChatAdded(chatModel, chatId, chatType, chatPosition,
+                           protocolManager, protocolManagerType);
         }
 
         /// <remarks>
@@ -290,10 +290,10 @@ namespace Smuxi.Frontend
             }
         }
 
-        void OnChatAdded(ChatModel chatModel, string chatId,
-                         ChatType chatType, int chatPosition,
-                         IProtocolManager protocolManager,
-                         Type protocolManagerType)
+        void RaiseChatAdded(ChatModel chatModel, string chatId,
+                            ChatType chatType, int chatPosition,
+                            IProtocolManager protocolManager,
+                            Type protocolManagerType)
         {
             if (ChatAdded != null) {
                 ChatAdded(this,
