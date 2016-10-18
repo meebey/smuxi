@@ -195,10 +195,8 @@ namespace Smuxi.Frontend.Swf
                 }
                 font = new Font(FontFamily.GenericMonospace, defaultSize.Value);
             } else {
-                string fontWeigth = null;
                 if (fontStyle.Contains(" ")) {
                     int pos = fontStyle.IndexOf(" ");
-                    fontWeigth = fontStyle.Substring(0, pos);
                     fontStyle = fontStyle.Substring(pos + 1);
                 }
                 FontStyle style = (FontStyle) Enum.Parse(typeof(FontStyle), fontStyle);
@@ -437,6 +435,7 @@ namespace Smuxi.Frontend.Swf
                 if (Text.IndexOf("\n") != -1) {
                     // seems to be a paste, so let's break it apart
                     string[] msgParts = Text.Split(new char[] {'\n'});
+                    /* TODO?
                     if (msgParts.Length > 3) {
                     	string msg = String.Format(_("You are going to paste {0} lines, do you want to continue?"),
                     							   msgParts.Length);
@@ -453,8 +452,9 @@ namespace Smuxi.Frontend.Swf
     	            		Text = String.Empty;
     	            		return;
     					}
-                        */
+
                 	}
+                    */
                 	foreach (string msg in msgParts) {
     		            ExecuteCommand(msg);
                 	}
