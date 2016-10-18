@@ -176,24 +176,10 @@ namespace Smuxi.Engine
             crc.ComputeHash(Encoding.UTF8.GetBytes(normalized));
             var hash = crc.CrcValue;
             var upper24 = hash >> 8;
-            /*
-            var lower24 = hash & 0xFFFFFFU;
-            var merged = upper24 ^ lower24;
-            var rotated = (hash >> 16) | ((hash & 0xFFFFU) << 16);
-            */
             uint flippedHash = (hash >> 16) | (hash << 16);
             var flippedMergedHash = (flippedHash >> 8) ^ (flippedHash & 0xFFFFFFU);
             name.ForegroundColor = new TextColor(upper24);
             name.BackgroundColor = new TextColor(flippedMergedHash);
-
-            /*
-            MD5CryptoServiceProvider csp = new MD5CryptoServiceProvider();
-            var md5hash = csp.ComputeHash(Encoding.UTF8.GetBytes(normalized));
-            var fgHash = BitConverter.ToUInt32(md5hash, 0);
-            var bgHash = BitConverter.ToUInt32(md5hash, 4);
-            name.ForegroundColor = new TextColor(fgHash >> 8);
-            name.BackgroundColor = new TextColor(bgHash >> 8);
-            */
 
             return name;
         }
