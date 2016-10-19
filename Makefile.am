@@ -162,6 +162,7 @@ WIN32_FILES = \
 	$(BUILD_DIR)/smuxi-frontend.dll \
 	$(BUILD_DIR)/Meebey.SmartIrc4net.dll \
 	$(BUILD_DIR)/Twitterizer2.dll \
+	$(BUILD_DIR)/Twitterizer2.Streaming.dll \
 	$(BUILD_DIR)/Newtonsoft.Json.dll \
 	$(BUILD_DIR)/agsxmpp.dll \
 	$(BUILD_DIR)/StarkSoftProxy.dll \
@@ -194,6 +195,7 @@ OSX_FILES = \
 	$(BUILD_DIR)/smuxi-frontend.dll \
 	$(BUILD_DIR)/Meebey.SmartIrc4net.dll \
 	$(BUILD_DIR)/Twitterizer2.dll \
+	$(BUILD_DIR)/Twitterizer2.Streaming.dll \
 	$(BUILD_DIR)/Newtonsoft.Json.dll \
 	$(BUILD_DIR)/agsxmpp.dll \
 	$(BUILD_DIR)/StarkSoftProxy.dll \
@@ -219,6 +221,7 @@ LINUX_STATIC_FILES = \
 	$(BUILD_DIR)/smuxi-server.exe.config \
 	$(BUILD_DIR)/Meebey.SmartIrc4net.dll \
 	$(BUILD_DIR)/Twitterizer2.dll \
+	$(BUILD_DIR)/Twitterizer2.Streaming.dll \
 	$(BUILD_DIR)/Newtonsoft.Json.dll \
 	$(BUILD_DIR)/agsxmpp.dll \
 	$(BUILD_DIR)/StarkSoftProxy.dll \
