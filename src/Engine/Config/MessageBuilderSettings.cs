@@ -83,7 +83,7 @@ namespace Smuxi.Engine
             string domain = @"(?:(?:" + subdomain + ")+(?:" + any_tld + ")|localhost)";
             string bare_host = @"[a-z]+";
             string host = "(?:" + domain + "|" + bare_host + "|" + ip + ")";
-            string short_number = "[1-9][0-9]{,4}";
+            string short_number = "[1-9][0-9]{0,4}";
             string port = ":" + short_number;
             string user = "[a-z0-9._%+-]+@";
             string host_port = host + "(?:" + port + ")?";
