@@ -3026,9 +3026,9 @@ namespace Smuxi.Engine
             UpdateGroupPerson(chat, e.Data);
 
             var builder = CreateMessageBuilder();
-            builder.AppendMessage(GetPerson(chat, e.Data.Nick ?? e.Data.From),
-                                  e.Data.Message);
-            builder.MarkHighlights();
+            PersonModel senderPerson = GetPerson(chat, e.Data.Nick ?? e.Data.From);
+            builder.AppendMessage(senderPerson, e.Data.Message);
+            builder.MarkHighlights(senderPerson);
 
             var msg = builder.ToMessage();
             Session.AddMessageToChat(chat, msg);
@@ -3038,7 +3038,7 @@ namespace Smuxi.Engine
                                      e.Data.Channel)
             );
         }
-        
+
         private void _OnChannelAction(object sender, ActionEventArgs e)
         {
             var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
@@ -3046,10 +3046,11 @@ namespace Smuxi.Engine
 
             var builder = CreateMessageBuilder();
             builder.AppendActionPrefix();
-            builder.AppendIdendityName(GetPerson(chat, e.Data.Nick ?? e.Data.From));
+            PersonModel senderPerson = GetPerson(chat, e.Data.Nick ?? e.Data.From);
+            builder.AppendIdendityName(senderPerson);
             builder.AppendText(" ");
             builder.AppendMessage(e.ActionMessage);
-            builder.MarkHighlights();
+            builder.MarkHighlights(senderPerson);
 
             var msg = builder.ToMessage();
             Session.AddMessageToChat(chat, msg);

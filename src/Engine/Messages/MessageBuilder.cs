@@ -487,6 +487,13 @@ namespace Smuxi.Engine
             MarkAsHighlight();
         }
 
+        public virtual void MarkHighlights(PersonModel sender)
+        {
+            if (sender != Me) {
+                MarkHighlights();
+            }
+        }
+
         public virtual void MarkAsHighlight()
         {
             // colorize the whole message
