@@ -39,8 +39,7 @@ namespace Smuxi.Frontend.Curses
     public class LogWidget : Widget {
     	string [] messages = new string [80];
     	int head, tail;
-    	int count;
-    	
+
     	public LogWidget (int x, int y, int w, int h) : base (x, y, w, h)
     	{
     		//Fill = Fill.Horizontal | Fill.Vertical;

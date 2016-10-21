@@ -427,7 +427,10 @@ namespace Smuxi.Frontend
                                          "#smuxi-devel");
                 }
                 if (toMessage) {
-                    var msg = builder.ToMessage();
+
+                    // NOTE: this would seem useless because we ignore the resulting msg,
+                    // but this is a benchmark method
+                    builder.ToMessage();
                 }
             }
             stop = DateTime.UtcNow;
