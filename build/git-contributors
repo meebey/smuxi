@@ -2,6 +2,7 @@
 git log --no-merges "$@" | \
 	grep ^Author: | \
 	sed 's/ <.*//; s/^Author: //' | \
+	iconv -f utf8 -t ascii//TRANSLIT | \
 	sort | \
 	uniq -ic | \
 	sort -nr
