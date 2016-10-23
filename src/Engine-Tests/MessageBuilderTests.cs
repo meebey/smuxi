@@ -316,6 +316,11 @@ namespace Smuxi.Engine
             builder.TimeStamp = DateTime.MinValue;
             builder.AppendMessage(message);
             var actualMsg = builder.ToMessage();
+            Assert.AreEqual(expectedMsg.GetType(), actualMsg.GetType());
+            Assert.AreEqual(expectedMsg.MessageParts.Count, actualMsg.MessageParts.Count);
+            for (int i = 0; i < expectedMsg.MessageParts.Count; i++) {
+                Assert.AreEqual(expectedMsg.MessageParts[i].GetType(), actualMsg.MessageParts[i].GetType());
+            }
             Assert.AreEqual(expectedMsg, actualMsg);
         }
 
