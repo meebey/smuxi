@@ -548,6 +548,7 @@ Section "Main" SEC01
   File "../bin-win32/Mono.Posix.dll"
   File "../bin-win32/Nini.dll"
   File "../bin-win32/Twitterizer2.dll"
+  File "../bin-win32/Twitterizer2.Streaming.dll"
   File "../bin-win32/Newtonsoft.Json.dll"
   File "../bin-win32/agsxmpp.dll"
   File "../bin-win32/Db4objects.Db4o.dll"
