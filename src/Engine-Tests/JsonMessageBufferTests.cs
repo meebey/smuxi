@@ -65,5 +65,42 @@ namespace Smuxi.Engine
             var buffer = (JsonMessageBuffer) Buffer;
             buffer.GetChunkFileName(Int64.MaxValue);
         }
+
+        const string DOES_NOT_APPLY = "N/A";
+
+        [Test]
+        [Ignore(DOES_NOT_APPLY)]
+        public override void Contains()
+        {
+            base.Contains();
+        }
+
+        [Test]
+        [Ignore(DOES_NOT_APPLY)]
+        public override void IndexOf()
+        {
+            base.IndexOf();
+        }
+
+        [Test]
+        [Ignore(DOES_NOT_APPLY)]
+        public override void Enumerator()
+        {
+            base.Enumerator();
+        }
+
+        [Test]
+        [Ignore(DOES_NOT_APPLY)]
+        public override void RemoveAt()
+        {
+            base.RemoveAt();
+        }
+
+        [Test]
+        [Ignore(DOES_NOT_APPLY)]
+        public override void Clear()
+        {
+            base.Clear();
+        }
     }
 }
