@@ -156,7 +156,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
-        public void IndexOf()
+        public virtual void IndexOf()
         {
             Assert.AreEqual(1, Buffer.IndexOf(TestMessages[1]));
 
@@ -167,7 +167,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
-        public void Contains()
+        public virtual void Contains()
         {
             Assert.IsTrue(Buffer.Contains(TestMessages[0]));
 
@@ -367,14 +367,14 @@ namespace Smuxi.Engine
         }
 
         [Test]
-        public void Clear()
+        public virtual void Clear()
         {
             Buffer.Clear();
             Assert.AreEqual(0, Buffer.Count);
         }
 
         [Test]
-        public void RemoveAt()
+        public virtual void RemoveAt()
         {
             Buffer.RemoveAt(0);
             Assert.AreEqual(TestMessages[1], Buffer[0]);
@@ -385,7 +385,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
-        public void Enumerator()
+        public virtual void Enumerator()
         {
             int i = 0;
             foreach (var msg in Buffer) {
