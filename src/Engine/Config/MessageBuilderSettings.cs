@@ -122,8 +122,9 @@ namespace Smuxi.Engine
             // addresses without protocol (heuristical)
             // include well known TLDs to prevent autogen.sh, configure.ac or
             // Gst.Buffer.Unref() from matching
+            string endingSpaceOrInterrogation = "[\\s\\?]";
             string heuristic_domain = @"(?:(?:" + subdomain + ")+(?:" + common_tld + ")|localhost)";
-            string heuristic_address = heuristic_domain + "(?:" + path + ")?";
+            string heuristic_address = heuristic_domain + "(?:" + path + ")?" + endingSpaceOrInterrogation;
             regex = new Regex(
                 heuristic_address,
                 RegexOptions.IgnoreCase | RegexOptions.Compiled

@@ -261,7 +261,34 @@ namespace Smuxi.Engine
 
         public virtual MessageBuilder AppendMessage(string msg)
         {
-            return Append(ParsePatterns(CreateText(msg)));
+            string msgAugmented = msg + " ";
+
+            var patterns = ParsePatterns(CreateText(msgAugmented));
+            var lastPattern = patterns.LastOrDefault();
+
+            if (lastPattern != null) {
+
+                var lastPatternAsText = lastPattern as TextMessagePartModel;
+                if (lastPatternAsText != null) {
+
+                    bool lastPatternIsASpace = (lastPatternAsText.Text == " ");
+                    bool lastPatternHasASpaceAtTheEnd =
+                        lastPatternAsText.Text [lastPatternAsText.Text.Length - 1] == ' ';
+
+                    if (lastPatternIsASpace) {
+                        //add all except last
+                        var parsedPatterns = patterns;
+                        patterns = new List<MessagePartModel>();
+                        for (int i = 0; i < parsedPatterns.Count() - 1; i++) {
+                            ((List<MessagePartModel>) patterns).Add(parsedPatterns.ElementAt(i));
+                        }
+                    } else if (lastPatternHasASpaceAtTheEnd) {
+                        lastPatternAsText.Text = lastPatternAsText.Text.Substring(0, lastPatternAsText.Text.Count() - 1);
+                    }
+                }
+            }
+
+            return Append(patterns);
         }
 
         public  MessageBuilder AppendMessage(ContactModel sender, string msg)
@@ -881,16 +908,28 @@ namespace Smuxi.Engine
                 foreach (Group @group in match.Groups) {
                     groupValues[i++] = @group.Value;
                 }
-                
+
+                bool question = false;
+                bool space = false;
+
                 string url;
                 if (String.IsNullOrEmpty(pattern.LinkFormat)) {
                     url = match.Value;
                 } else {
                     url = String.Format(pattern.LinkFormat, groupValues);
+                    if (url.ElementAt(url.Length - 1) == ' ') {
+                        url = url.Substring(0, url.Length - 1);
+                        space = true;
+                    } else if (url.ElementAt(url.Length - 1) == '?'){
+                        url = url.Substring(0, url.Length - 1);
+                        question = true;
+                    }
                 }
                 string text;
                 if (String.IsNullOrEmpty(pattern.TextFormat)) {
                     text = match.Value;
+                    if (question || space)
+                        text = text.Substring(0, text.Length - 1);
                 } else {
                     text = String.Format(pattern.TextFormat, groupValues);
                 }
@@ -919,7 +958,11 @@ namespace Smuxi.Engine
                     msgPart = new TextMessagePartModel(text);
                 }
                 msgParts.Add(msgPart);
+                if (question)
+                    msgParts.Add(new TextMessagePartModel("?"));
                 lastindex = match.Index + match.Length;
+                if (space)
+                    lastindex = lastindex - 1;
                 match = match.NextMatch();
             } while (match.Success);
             
