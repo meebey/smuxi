@@ -68,6 +68,8 @@ namespace Smuxi.Engine
             HighlightWords = settings.HighlightWords;
         }
 
+        internal const string EndDelimiterGroupName = "DelimiterForEndOfPattern";
+
         static void InitBuiltinSmartLinks()
         {
             string path_last_chars = @"a-zA-Z0-9#/%&@=\-_+;:~'";
@@ -123,7 +125,8 @@ namespace Smuxi.Engine
             // include well known TLDs to prevent autogen.sh, configure.ac or
             // Gst.Buffer.Unref() from matching
             string heuristic_domain = @"(?:(?:" + subdomain + ")+(?:" + common_tld + ")|localhost)";
-            string heuristic_address = heuristic_domain + "(?:" + path + ")?";
+            string end_delimiter = String.Format(@"(?<{0}>$|\s|\W)", EndDelimiterGroupName);
+            string heuristic_address = heuristic_domain + "(?:" + path + ")?" + end_delimiter;
             regex = new Regex(
                 heuristic_address,
                 RegexOptions.IgnoreCase | RegexOptions.Compiled

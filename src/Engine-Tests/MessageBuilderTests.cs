@@ -612,12 +612,6 @@ namespace Smuxi.Engine
         [Test]
         public void AppendMessageWithNonUrls()
         {
-        }
-
-        [Test]
-        [Ignore]
-        public void BrokenAppendMessageWithNonUrls()
-        {
             var msg = "org.gnome.Foo.desktop";
             var builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
