@@ -892,12 +892,9 @@ namespace Smuxi.Engine
             
             int lastindex = 0;
             do {
-                var groupValues = new string[match.Groups.Count];
-                int i = 0;
-                foreach (Group @group in match.Groups) {
-                    groupValues[i++] = @group.Value;
-                }
-                
+                var groupValues = match.Groups.Cast<Group>()
+                    .Select(g => g.Value).ToArray();
+
                 string url;
                 if (String.IsNullOrEmpty(pattern.LinkFormat)) {
                     url = match.Value;
