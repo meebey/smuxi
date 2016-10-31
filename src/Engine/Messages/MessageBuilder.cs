@@ -892,7 +892,18 @@ namespace Smuxi.Engine
             
             int lastindex = 0;
             do {
+                var delimiterLength = 0;
+                var regexDelimiterForEndOfPatternValue = match.Groups[MessageBuilderSettings.EndDelimiterGroupName];
+                if (regexDelimiterForEndOfPatternValue != null) {
+                    delimiterLength = regexDelimiterForEndOfPatternValue.Value.Length;
+                }
+
                 var groupValues = match.Groups.Cast<Group>()
+
+                    // don't get the delimiter because it only determines
+                    // the end of pattern, which is not part of the pattern
+                    .Where(g => g != regexDelimiterForEndOfPatternValue)
+
                     .Select(g => g.Value).ToArray();
 
                 string url;
@@ -901,12 +912,14 @@ namespace Smuxi.Engine
                 } else {
                     url = String.Format(pattern.LinkFormat, groupValues);
                 }
+                url = url.Substring(0, url.Length - delimiterLength);
                 string text;
                 if (String.IsNullOrEmpty(pattern.TextFormat)) {
                     text = match.Value;
                 } else {
                     text = String.Format(pattern.TextFormat, groupValues);
                 }
+                text = text.Substring(0, text.Length - delimiterLength);
 
                 if (lastindex != match.Index) {
                     // there were some non-matching-chars before the match
@@ -932,7 +945,7 @@ namespace Smuxi.Engine
                     msgPart = new TextMessagePartModel(text);
                 }
                 msgParts.Add(msgPart);
-                lastindex = match.Index + match.Length;
+                lastindex = match.Index + match.Length - delimiterLength;
                 match = match.NextMatch();
             } while (match.Success);
             
