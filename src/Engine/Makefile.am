@@ -33,6 +33,13 @@ SMUXI_COMMON_DLL_SOURCE=../../bin/debug/smuxi-common.dll
 
 endif
 
+if BUNDLE_MONO_ADDINS
+MONO_ADDINS_DLL_SOURCE=../../lib/Mono.Addins.dll
+MONO_ADDINS_REF_LIBS=-r:$(MONO_ADDINS_DLL_SOURCE)
+else
+MONO_ADDINS_REF_LIBS=$(MONO_ADDINS_LIBS)
+endif
+
 if BUNDLE_LOG4NET
 LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 LOG4NET_REF_LIBS=-r:$(LOG4NET_DLL_SOURCE)
@@ -61,6 +68,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 FILES = \
 	../AssemblyVersion.cs \
 	AssemblyInfo.cs \
+	AddinHost.cs \
 	CertificateValidator.cs \
 	CommandModel.cs \
 	Engine.cs \
@@ -146,6 +154,7 @@ REFERENCES =  \
 	System.Xml \
 	Mono.Posix \
 	Mono.Data.Sqlite \
+	$(MONO_ADDINS_REF_LIBS) \
 	$(NINI_REF_LIBS) \
 	$(LOG4NET_REF_LIBS) \
 	$(DB4O_LIBS) \

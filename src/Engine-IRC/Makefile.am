@@ -76,7 +76,8 @@ FILES = \
 
 DATA_FILES = 
 
-RESOURCES = 
+RESOURCES = \
+	Engine-IRC.addin.xml
 
 EXTRAS = \
 	smuxi-engine-irc.pc.in 

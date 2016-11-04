@@ -18,6 +18,9 @@ SOURCES = \
 		Protocols/Twitter/TwitterMessageBuilder.cs \
 		Protocols/Twitter/TwitterSearchStream.cs
 
+RESOURCES = \
+	Engine-Twitter.addin.xml
+
 REFERENCES = 		$(LOG4NET_REF_LIBS) \
 			$(SMARTIRC4NET_LIBS) \
 			System.Web \
@@ -44,5 +47,5 @@ include $(top_srcdir)/Makefile.include
 
 all: $(ASSEMBLY_TARGET)
 
-$(ASSEMBLY_TARGET): $(SOURCES) $(DLL_REFERENCES)
-	$(MCS) $(CSC_FLAGS) $(build_references_ref) -target:library -out:$(ASSEMBLY_TARGET) $(SOURCES_BUILD)
+$(ASSEMBLY_TARGET): $(SOURCES) $(DLL_REFERENCES) $(build_resources)
+	$(MCS) $(CSC_FLAGS) $(build_references_ref) -target:library -out:$(ASSEMBLY_TARGET) $(SOURCES_BUILD) $(build_resources_embed)

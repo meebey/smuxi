@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Addin
+    id="smuxi-engine-twitter"
+    version="1.1"
+    compatVersion="1.1"
+    copyright="© 2009-2015 Mirco Bauer. Licensed under the GPL license."
+    name="Twitter"
+    category="Engines"
+    description="Support for Twitter protocol."
+    author="Mirco Bauer"
+    url="http://smuxi.im/"
+    defaultEnabled="true">
+
+  <Dependencies>
+    <!-- not depending on other addin, just the addinRoot -->
+    <Addin id="smuxi-engine" version="1.1"/>
+  </Dependencies>
+
+  <Extension path="/Smuxi/Server/Engine">
+    <Engine class="Smuxi.Engine.TwitterProtocolManager"/>
+  </Extension>
+</Addin>

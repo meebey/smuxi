@@ -11,6 +11,9 @@ SOURCES = \
 	Protocols/Campfire/CampfireEventStream.cs \
 	Protocols/Campfire/DTO.cs
 
+RESOURCES = \
+	Engine-Campfire.addin.xml
+
 REFERENCES = \
 	System \
 	System.Web \
@@ -36,5 +39,5 @@ include $(top_srcdir)/Makefile.include
 
 all: $(ASSEMBLY_TARGET)
 
-$(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb: $(SOURCES) $(DLL_REFERENCES)
-	$(CSC) $(CSC_FLAGS) $(build_references_ref) -target:library -out:$(ASSEMBLY_TARGET) $(SOURCES_BUILD)
+$(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb: $(SOURCES) $(DLL_REFERENCES) $(build_resources)
+	$(CSC) $(CSC_FLAGS) $(build_references_ref) -target:library -out:$(ASSEMBLY_TARGET) $(SOURCES_BUILD) $(build_resources_embed)

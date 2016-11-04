@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Addin
+    id="smuxi-engine-xmpp"
+    version="1.1"
+    compatVersion="1.1"
+    copyright="© 2005-2006 Mirco Bauer, © 2011 tuukka, © 2013-2014 Oliver Schneider. Licensed under the GPL license."
+    name="XMPP"
+    category="Engines"
+    description="Support for XMPP and XMPP-based protocols (e.g. Facebook)."
+    author="Mirco Bauer, Oliver Schneider"
+    url="http://smuxi.im/"
+    defaultEnabled="true">
+
+  <Dependencies>
+    <!-- not depending on other addin, just the addinRoot -->
+    <Addin id="smuxi-engine" version="1.1"/>
+  </Dependencies>
+
+  <Extension path="/Smuxi/Server/Engine">
+    <Engine class="Smuxi.Engine.XmppProtocolManager"/>
+    <Engine class="Smuxi.Engine.FacebookProtocolManager"/>
+  </Extension>
+</Addin>

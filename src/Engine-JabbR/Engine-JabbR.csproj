@@ -63,4 +63,9 @@
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Include="Engine-JabbR.addin.xml">
+      <LogicalName>Engine-JabbR.addin.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
