@@ -316,10 +316,10 @@ namespace Smuxi.Engine
             builder.TimeStamp = DateTime.MinValue;
             builder.AppendMessage(message);
             var actualMsg = builder.ToMessage();
-            Assert.AreEqual(expectedMsg.GetType(), actualMsg.GetType());
-            Assert.AreEqual(expectedMsg.MessageParts.Count, actualMsg.MessageParts.Count);
+            Assert.AreEqual(expectedMsg.GetType(), actualMsg.GetType(), "The message type does not match");
+            Assert.AreEqual(expectedMsg.MessageParts.Count, actualMsg.MessageParts.Count, "The number of message parts do not match");
             for (int i = 0; i < expectedMsg.MessageParts.Count; i++) {
-                Assert.AreEqual(expectedMsg.MessageParts[i].GetType(), actualMsg.MessageParts[i].GetType());
+                Assert.AreEqual(expectedMsg.MessageParts[i].GetType(), actualMsg.MessageParts[i].GetType(), "The type of the message part does not match");
             }
             Assert.AreEqual(expectedMsg, actualMsg);
         }
@@ -588,6 +588,25 @@ namespace Smuxi.Engine
         [Ignore]
         public void BrokenAppendMessageWithOddUrls()
         {
+            var msg = "https://en.wikipedia.org/wiki/Brace_(singer)";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel(msg));
+            TestMessage(msg, builder.ToMessage());
+
+            msg = "see the link (https://en.wikipedia.org/wiki/Brace_(singer))";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("see the link ("));
+            builder.Append(new UrlMessagePartModel(msg));
+            builder.Append(new TextMessagePartModel(")"));
+            TestMessage(msg, builder.ToMessage());
+
+            msg = "https://www.amazon.de/TP-Link-TL-SG105-Gigabit-lüfterloses-Passivkühlkonzept/dp/B00A128S24/";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel(msg));
+            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
