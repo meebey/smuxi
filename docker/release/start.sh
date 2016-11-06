@@ -1,19 +1,13 @@
 #! /bin/sh
 
-if [ ! -e /config/creds.conf ]; then
-  cp /creds.conf /config/
-  chown nobody:users /config/creds.conf
-  chmod 755 /config/creds.conf
-fi
-
-user=`grep -E '^user\s' /config/creds.conf  | cut -f 2`
-pass=`grep -E '^pass\s' /config/creds.conf  | cut -f 2`
-
-if smuxi-server --list-users | grep -Fq "$user"
-  then
-  echo "User already exists."
+if smuxi-server --list-users | grep -Fq "$SMUXI_USER"
+then
+  smuxi-server --modify-user --username="$SMUXI_USER" --password="$SMUXI_PASS"
 else
-  smuxi-server --add-user --username="$user" --password="$pass"
+  smuxi-server --add-user --username="$SMUXI_USER" --password="$SMUXI_PASS"
 fi
 
-smuxi-server
+# Make sure we listen on 0.0.0.0
+sed -i 's/BindAddress = 127.0.0.1/BindAddress = 0.0.0.0/g' ~/.config/smuxi/smuxi-engine.ini
+
+smuxi-server -d
