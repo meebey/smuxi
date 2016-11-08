@@ -62,7 +62,6 @@ namespace Smuxi.Engine
         Thread                  f_UpdateFriendsTimelineThread;
         int                     f_UpdateFriendsTimelineInterval = 120;
         decimal                 f_LastFriendsTimelineStatusID;
-        DateTime                f_LastFriendsUpdate;
 
         GroupChatModel          f_RepliesChat;
         Thread                  f_UpdateRepliesThread;

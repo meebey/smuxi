@@ -43,7 +43,6 @@ namespace Smuxi.Frontend.Swf
         private static readonly string    _Name = "smuxi";
         private static readonly string    _UIName = "SWF (WinForms)";
         private static Version            _Version;
-        private static string             _VersionNumber;
         private static string             _VersionString;
         private static Version            _EngineVersion;
         private static MainWindow         _MainWindow;
@@ -51,8 +50,7 @@ namespace Smuxi.Frontend.Swf
         private static Session            _Session;
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
-        private static object             _UnhandledExceptionSyncRoot = new Object();
-        
+
         public static string Name {
             get {
                 return _Name;
@@ -138,7 +136,6 @@ namespace Smuxi.Frontend.Swf
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
                 GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
             _Version = asm_name.Version;
-            _VersionNumber = asm_name.Version.ToString();
             _VersionString = pr.Product + " - " + _UIName + " frontend " + _Version;
 
 #if LOG4NET

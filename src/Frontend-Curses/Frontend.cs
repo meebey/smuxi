@@ -42,7 +42,6 @@ namespace Smuxi.Frontend.Curses
         private static readonly string    _Name = "smuxi";
         private static readonly string    _UIName = "Curses";
         private static Version            _Version;
-        private static string             _VersionNumber;
         private static string             _VersionString;
         private static Version            _EngineVersion;
         private static MainWindow         _MainWindow;
@@ -135,7 +134,6 @@ namespace Smuxi.Frontend.Curses
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
                 GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
             _Version = asm_name.Version;
-            _VersionNumber = asm_name.Version.ToString();
             _VersionString = pr.Product + " - " + _UIName + " frontend " + _Version;
 
 #if LOG4NET
