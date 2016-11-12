@@ -5,9 +5,12 @@ before_install:
 
 mono:
     - latest
+    - 4.6.1
     - 4.2.3
+    - 4.2.1
     - 4.0.0
     - 3.12.0
+    - 3.2.8
     - 2.10.8
 
 install:
