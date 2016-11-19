@@ -364,7 +364,9 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                ChatViewManager.CurrentChatView.Close();
+                if (ChatViewManager.CurrentChatView != null) {
+                    ChatViewManager.CurrentChatView.Close();
+                }
                 if (Frontend.IsMacOSX && ChatViewManager.Chats.Count == 1) {
                     ChatViewManager.Minimize();
                 }

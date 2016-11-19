@@ -6,7 +6,9 @@ namespace Smuxi.Frontend.Gnome
 	{
 		private global::Gtk.VBox vbox12;
 		private global::Gtk.VBox vbox13;
-		private global::Gtk.Label label6;
+        
+		private global::Gtk.Label f_SshUsernameLabel;
+        
 		private global::Gtk.Entry f_SshUsernameEntry;
 		private global::Gtk.Label label9;
 		private global::Gtk.VBox f_SshPasswordVBox;
@@ -46,13 +48,13 @@ namespace Smuxi.Frontend.Gnome
 			this.vbox13.Name = "vbox13";
 			this.vbox13.Spacing = 6;
 			// Container child vbox13.Gtk.Box+BoxChild
-			this.label6 = new global::Gtk.Label ();
-			this.label6.Name = "label6";
-			this.label6.Xalign = 0F;
-			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("_SSH Username: (optional)");
-			this.label6.UseUnderline = true;
-			this.vbox13.Add (this.label6);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox13 [this.label6]));
+			this.f_SshUsernameLabel = new global::Gtk.Label ();
+			this.f_SshUsernameLabel.Name = "f_SshUsernameLabel";
+			this.f_SshUsernameLabel.Xalign = 0F;
+			this.f_SshUsernameLabel.LabelProp = global::Mono.Unix.Catalog.GetString ("_SSH Username: (optional)");
+			this.f_SshUsernameLabel.UseUnderline = true;
+			this.vbox13.Add (this.f_SshUsernameLabel);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox13 [this.f_SshUsernameLabel]));
 			w1.Position = 0;
 			w1.Expand = false;
 			w1.Fill = false;
@@ -305,7 +307,7 @@ namespace Smuxi.Frontend.Gnome
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.label6.MnemonicWidget = this.f_SshUsernameEntry;
+			this.f_SshUsernameLabel.MnemonicWidget = this.f_SshUsernameEntry;
 			this.label14.MnemonicWidget = this.f_SshUsernameEntry;
 			this.label16.MnemonicWidget = this.f_SshKeyfileChooserButton;
 			this.label12.MnemonicWidget = this.f_UsernameEntry;
