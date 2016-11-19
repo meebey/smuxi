@@ -248,6 +248,7 @@ dist-win32:
 	mkdir -p $(WIN32_BUILD_DIR)/icons
 	cp -r $(WIN32_ICON_THEME_DIR) $(WIN32_BUILD_DIR)/icons
 	makensis $(top_srcdir)/src/smuxi-win32.nsis
+	mv smuxi-win32-setup.exe smuxi-$(VERSION)-win32-setup.exe
 
 dist-osx:
 	DIST_VERSION=$$(git describe); \
@@ -267,6 +268,7 @@ dist-osx:
 	cp -r $(OSX_ICON_THEME_DIR) $(OSX_BINARIES_DIR)/icons
 	-rm smuxi-osx.zip
 	cd $(OSX_BUILD_DIR) && zip -r ../smuxi-osx.zip Smuxi.app
+	mv smuxi-osx.zip smuxi-$(VERSION)-osx.zip
 
 dist-linux-static:
 	DIST_VERSION=$$(git describe); \
