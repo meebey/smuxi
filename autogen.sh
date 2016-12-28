@@ -8,9 +8,7 @@ CONFIGURE=configure.ac
 : ${AUTOHEADER=autoheader}
 : ${AUTOMAKE=automake}
 : ${INTLTOOLIZE=intltoolize}
-: ${LIBTOOLIZE=libtoolize}
 : ${ACLOCAL=aclocal}
-: ${LIBTOOL=libtool}
 
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
@@ -48,16 +46,6 @@ DIE=0
   }
 }
 
-(grep "^AC_PROG_LIBTOOL" $CONFIGURE >/dev/null) && {
-  ($LIBTOOL --version) < /dev/null > /dev/null 2>&1 || {
-    echo
-    echo "**Error**: You must have \`libtool' (libtool-bin on Debian) installed to compile $PROJECT."
-    echo "Get ftp://ftp.gnu.org/pub/gnu/libtool-1.2d.tar.gz"
-    echo "(or a newer version if it is available)"
-    DIE=1
-  }
-}
-
 if test "$DIE" -eq 1; then
         exit 1
 fi
@@ -80,11 +68,6 @@ if grep "^IT_PROG_INTLTOOL" $CONFIGURE >/dev/null; then
 	echo "Running $INTLTOOLIZE ..."
 	$INTLTOOLIZE --copy --force --automake
 fi
-
-(grep "^AC_PROG_LIBTOOL" $CONFIGURE >/dev/null) && {
-    echo "Running $LIBTOOLIZE ..."
-    $LIBTOOLIZE --force --copy
-}
 
 echo "Running $ACLOCAL $aclocalinclude ..."
 $ACLOCAL $aclocalinclude
