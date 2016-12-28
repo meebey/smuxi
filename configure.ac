@@ -12,10 +12,6 @@ fi
 
 AC_PROG_INSTALL
 
-AC_DISABLE_STATIC
-AC_PROG_LIBTOOL
-#LT_INIT([disable-static])
-
 AC_MSG_CHECKING([whether the shell understands "+="])
 shell_append=no
 ( foo=bar; set foo baz; eval "$[1]+=\$[2]" && test "$foo" = barbaz ) \
