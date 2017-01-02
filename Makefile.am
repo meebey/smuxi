@@ -303,6 +303,8 @@ dist-linux-debs:
 run: run-gnome
 run-gnome: all
 	if [ "x$(shell uname)" = "xDarwin" ]; then \
+	  cp $(LIB_DIR)/log4net.dll $(BUILD_DIR); \
+	  cp $(LIB_DIR)/Nini.dll $(BUILD_DIR); \
 	  export DYLD_FALLBACK_LIBRARY_PATH=@WITH_MONO_FRAMEWORK@/lib:/lib:/usr/lib; \
 	fi; \
 	cd $(BUILD_DIR) && \
