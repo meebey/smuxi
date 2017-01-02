@@ -303,7 +303,7 @@ dist-linux-debs:
 run: run-gnome
 run-gnome: all
 	if [ "x$(shell uname)" = "xDarwin" ]; then \
-	  export DYLD_FALLBACK_LIBRARY_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib:/lib:/usr/lib; \
+	  export DYLD_FALLBACK_LIBRARY_PATH=@WITH_MONO_FRAMEWORK@/lib:/lib:/usr/lib; \
 	fi; \
 	cd $(BUILD_DIR) && \
 		mono --debug ./smuxi-frontend-gnome.exe -d

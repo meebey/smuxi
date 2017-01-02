@@ -151,6 +151,19 @@ AC_SUBST([git_commit_hash], "$GIT_COMMIT_HASH")
 AC_SUBST([DEV_VERSION_SUFFIX])
 AC_SUBST([dist_version], "$DIST_VERSION")
 
+AC_ARG_WITH([mono-framework],
+  AC_HELP_STRING([--with-mono-framework="MONO_FRAMEWORK"],
+  [Set where to look for the mono framework (macOS) [default=/Library/Frameworks/Mono.framework/Versions/Current]]),
+  with_mono_framework=$enableval,
+  with_mono_framework=/Library/Frameworks/Mono.framework/Versions/Current
+)
+
+AS_IF([test  "xDarwin" = "x$(uname)" -a "x$with_mono_framework" != "xno"], [
+  export PKG_CONFIG_PATH=${with_mono_framework}/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
+  AC_SUBST([WITH_MONO_FRAMEWORK], "$with_mono_framework")],
+  []
+)
+
 SHAMROCK_EXPAND_LIBDIR
 SHAMROCK_CHECK_MONO_MODULE(2.8)
 SHAMROCK_FIND_MONO_RUNTIME
