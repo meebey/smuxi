@@ -204,7 +204,7 @@ namespace Smuxi.Engine
                 RemoveAt(0);
             }
 
-            var dto = new MessageDtoModelV1(msg);
+            var dto = new MessageDtoModelV2(msg);
             var json = JsonSerializer.SerializeToString(dto);
 
             using (var cmd = Connection.CreateCommand()) {
@@ -241,7 +241,7 @@ namespace Smuxi.Engine
                     var msgs = new List<MessageModel>(limit);
                     while (reader.Read()) {
                         var json = (string) reader["JSON"];
-                        var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
+                        var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV2>(json);
                         var msg = dto.ToMessage();
                         msgs.Add(msg);
                     }

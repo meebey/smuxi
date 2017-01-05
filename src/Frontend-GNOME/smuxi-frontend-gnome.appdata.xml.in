@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2015 Mirco Bauer <meebey@meebey.net> -->
+<!-- Copyright 2015-2016 Mirco Bauer <meebey@meebey.net> -->
 <component type="desktop">
   <id>smuxi-frontend-gnome.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
@@ -25,5 +25,10 @@
     </screenshot>
   </screenshots>
   <url type="homepage">https://smuxi.im/</url>
+  <url type="help">https://smuxi.im/documentation/</url>
+  <url type="translate">https://smuxi.im/contribute/#translate</url>
+  <url type="bugtracker">https://smuxi.im/contribute/#providefeedback</url>
+  <url type="faq">https://smuxi.im/faq/</url>
   <updatecontact>mmmbauer@gnome.org</updatecontact>
+  <developer_name>Mirco Bauer</developer_name>
 </component>

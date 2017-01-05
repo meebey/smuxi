@@ -48,18 +48,11 @@ namespace Smuxi.Frontend.Swf
 #endif
         private int _Version = 0;
         private ChatViewManager _ChatViewManager;
-        private IList<ChatView> _SyncedChatViews;
         private Control         _Control;
         
         public int Version {
             get {
                 return _Version;
-            }
-        }
-        
-        public IList<ChatView> SyncedChatViews {
-            get {
-                return _SyncedChatViews;
             }
         }
         

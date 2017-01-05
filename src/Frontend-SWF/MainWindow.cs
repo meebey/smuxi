@@ -12,7 +12,6 @@ namespace Smuxi.Frontend.Swf
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private bool             _CaretMode;
         private ChatViewManager  _ChatViewManager;
         private IFrontendUI      _UI;
         private Notebook         _Notebook;
@@ -20,7 +19,7 @@ namespace Smuxi.Frontend.Swf
         
         public bool CaretMode {
             get {
-                return _CaretMode;
+                return false;
             }
         }
         

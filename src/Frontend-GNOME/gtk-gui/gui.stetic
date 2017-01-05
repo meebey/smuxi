@@ -3370,7 +3370,7 @@ Click "Forward" to begin.</property>
             <property name="MemberName" />
             <property name="Spacing">6</property>
             <child>
-              <widget class="Gtk.Label" id="label6">
+              <widget class="Gtk.Label" id="f_SshUsernameLabel">
                 <property name="MemberName" />
                 <property name="Xalign">0</property>
                 <property name="LabelProp" translatable="yes">_SSH Username: (optional)</property>

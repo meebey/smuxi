@@ -250,10 +250,8 @@ namespace Smuxi.Frontend.Swf
                 }
                 font = new Font(FontFamily.GenericMonospace, defaultSize.Value);
             } else {
-                string fontWeigth = null;
                 if (fontStyle.Contains(" ")) {
                     int pos = fontStyle.IndexOf(" ");
-                    fontWeigth = fontStyle.Substring(0, pos);
                     fontStyle = fontStyle.Substring(pos + 1);
                 }
                 FontStyle style = (FontStyle) Enum.Parse(typeof(FontStyle), fontStyle);

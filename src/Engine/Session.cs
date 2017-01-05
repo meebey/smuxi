@@ -52,7 +52,6 @@ namespace Smuxi.Engine
         private UserConfig                            _UserConfig;
         private FilterListController                  _FilterListController;
         private ICollection<FilterModel>              _Filters;
-        private bool                                  _OnStartupCommandsProcessed;
         Timer NewsFeedTimer { get; set; }
         List<string> SeenNewsFeedIds { get; set; }
         DateTime NewsFeedLastModified { get; set; }

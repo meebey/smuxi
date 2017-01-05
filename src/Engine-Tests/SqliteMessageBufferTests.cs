@@ -75,5 +75,21 @@ namespace Smuxi.Engine
             Assert.AreEqual(Buffer.MaxCapacity, Buffer.Count);
             Assert.AreEqual(msgs[32 - (Buffer.MaxCapacity - bufferCount)].ToString(), Buffer[0].ToString());
         }
+
+        const string DOES_NOT_APPLY = "N/A";
+
+        [Test]
+        [Ignore(DOES_NOT_APPLY)]
+        public override void Contains()
+        {
+            base.Contains();
+        }
+
+        [Test]
+        [Ignore(DOES_NOT_APPLY)]
+        public override void IndexOf()
+        {
+            base.IndexOf();
+        }
     }
 }

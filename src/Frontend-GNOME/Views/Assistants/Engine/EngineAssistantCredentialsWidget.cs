@@ -50,6 +50,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public Gtk.Label SshUsernameLabel {
+            get {
+                return f_SshUsernameLabel;
+            }
+        }
+
         public Gtk.Entry SshPasswordEntry {
             get {
                 return f_SshPasswordEntry;

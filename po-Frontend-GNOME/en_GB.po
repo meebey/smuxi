@@ -764,7 +764,7 @@ msgstr "Invalid filter regex: '{0}'. Reason: {1}"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:200
 msgid "Are you sure you want to delete the selected filter?"
-msgstr "Are you sure you want to delete the selected server?"
+msgstr "Are you sure you want to delete the selected filter?"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:246
 #, fuzzy

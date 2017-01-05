@@ -1,7 +1,17 @@
-language: c
+language: csharp
 
 before_install:
   - git submodule update --init --recursive
+
+mono:
+    - latest
+    - 4.6.1
+    - 4.2.3
+    - 4.2.1
+    - 4.0.0
+    - 3.12.0
+    - 3.2.8
+    - 2.10.8
 
 install:
     - sudo apt-get update > /dev/null
@@ -24,7 +34,7 @@ script:
         xbuild /p:Warn=0 src/smuxi.sln /p:TargetFrameworkVersion=v4.0
       fi
     - nunit-console bin/release/smuxi-common-tests.dll
-    - nunit-console bin/release/smuxi-engine-tests.dll || true
+    - nunit-console bin/release/smuxi-engine-tests.dll
     - nunit-console bin/release/smuxi-frontend-tests.dll
     - nunit-console bin/release/smuxi-frontend-gnome-tests.dll
     - nunit-console bin/release/smuxi-frontend-stfl-tests.dll
