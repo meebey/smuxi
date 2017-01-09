@@ -13,6 +13,11 @@ mono:
     - 3.2.8
     - 2.10.8
 
+addons:
+    apt:
+        sources:
+        - sourceline: 'ppa:meebey/smuxi-daily'
+
 install:
     - sudo apt-get update > /dev/null
     - sudo apt-get build-dep smuxi > /dev/null
