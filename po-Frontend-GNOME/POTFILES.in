@@ -9,7 +9,6 @@ src/Frontend-GNOME/GnomeUI.cs
 src/Frontend-GNOME/Main.cs
 src/Frontend-GNOME/MainWindow.cs
 src/Frontend-GNOME/NotImplementedMessageDialog.cs
-src/Frontend-GNOME/Preferences/PreferencesDialog.cs
 src/Frontend-GNOME/FindGroupChatDialog.cs
 src/Frontend-GNOME/Frontend.cs
 src/Frontend-GNOME/Notebook.cs
@@ -21,10 +20,14 @@ src/Frontend-GNOME/Views/JoinWidget.cs
 src/Frontend-GNOME/Views/MenuWidget.cs
 src/Frontend-GNOME/Views/MessageTextView.cs
 src/Frontend-GNOME/Views/FilterListWidget.cs
+src/Frontend-GNOME/Views/PreferencesDialog.cs
+src/Frontend-GNOME/Views/ServerDialog.cs
 src/Frontend-GNOME/Views/Chats/ChatView.cs
 src/Frontend-GNOME/Views/Chats/GroupChatView.cs
 src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs
 src/Frontend-GNOME/Preferences/ServerListView.cs
+src/Frontend-GNOME/Interfaces/PreferencesDialog2.ui
+src/Frontend-GNOME/Interfaces/ServerListWidget.ui
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs
