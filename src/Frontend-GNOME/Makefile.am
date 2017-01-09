@@ -142,7 +142,6 @@ FILES = \
 	NotifyManager.cs \
 	PangoTools.cs \
 	Preferences/ServerListView.cs \
-	Preferences/PreferencesDialog.cs \
 	Views/ChatTreeView.cs \
 	Views/JoinWidget.cs \
 	Views/MenuWidget.cs \
@@ -213,7 +212,7 @@ RESOURCES = \
 	$(top_builddir)/images/person-chat_256x256.png \
 	$(top_builddir)/images/protocol-chat_256x256.png \
 	$(top_builddir)/images/session-chat_256x256.png \
-	Interfaces/PreferencesDialog3.ui \
+	Interfaces/PreferencesDialog2.ui \
 	Interfaces/ServerListWidget.ui
 
 EXTRAS = \
