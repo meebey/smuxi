@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10;INDICATE_SHARP;NOTIFY_SHARP;IPC_DBUS;DBUS_SHARP;GTKSPELL</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10;NOTIFY_SHARP;IPC_DBUS;DBUS_SHARP;GTKSPELL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\release</OutputPath>
-    <DefineConstants>TRACE;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10;INDICATE_SHARP;NOTIFY_SHARP;IPC_DBUS;DBUS_SHARP</DefineConstants>
+    <DefineConstants>TRACE;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10;NOTIFY_SHARP;IPC_DBUS;DBUS_SHARP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunWithWarnings>false</RunWithWarnings>
@@ -230,10 +230,6 @@
     <Reference Include="System.Core" />
     <Reference Include="gio-sharp, Version=2.14.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gio-sharp-2.0</Package>
-    </Reference>
-    <Reference Include="indicate-sharp, Version=0.4.1.0, Culture=neutral, PublicKeyToken=2e8e49ba7d172cb0">
-      <Private>False</Private>
-      <Package>indicate-sharp-0.1</Package>
     </Reference>
     <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Private>False</Private>
