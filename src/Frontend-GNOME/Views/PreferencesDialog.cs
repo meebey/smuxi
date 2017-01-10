@@ -452,6 +452,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             WriteToConfig();
+            Frontend.ApplyConfig(Frontend.UserConfig);
             Destroy();
         }
 
