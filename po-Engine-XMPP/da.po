@@ -1,48 +1,58 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Joe Hansen <joedalton2@yahoo.dk>, 2013-2015
+# Alan Mortensen <alanmortensen.am@gmail.com>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:33+0200\n"
-"PO-Revision-Date: 2015-05-03 19:26+0000\n"
-"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-06-12 16:03+0000\n"
+"PO-Revision-Date: 2017-01-17 17:48+0100\n"
+"Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
+"Language-Team: Danish (http://wiki.dansk-gruppen.dk)\"\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
-msgid "The Server has shut down"
-msgstr "Serveren har lukke ned"
+msgid "The server has shut down"
+msgstr "Serveren har lukket ned"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
 msgid ""
 "Another client logged in with the same resource, you have been disconnected"
-msgstr "En anden klient loggede ind med den samme ressource, du er blevet frakoblet"
+msgstr ""
+"En anden klient loggede ind med den samme ressource, du er blevet frakoblet"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:209
 msgid ""
 "Authentication failed, either username does not exist or invalid password"
-msgstr "Godkendelse mislykkedes, enten er brugernavnet ikkeeksisterende eller adgangskoden er ugyldig"
+msgstr ""
+"Godkendelse mislykkedes, enten er brugernavnet ikkeeksisterende eller "
+"adgangskoden er ugyldig"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
 msgid ""
-"if you want to create an account with the specified user and password, type "
-"/register now"
-msgstr "hvis du ønsker at oprette en konto med det angivne bruger og den angivne adgangskode så tast /register nu"
+"If you want to create an account with the specified user and password, type /"
+"register now"
+msgstr ""
+"Hvis du ønsker at oprette en konto med den angivne bruger og adgangskode, så "
+"tast /register nu"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
 msgid ""
 "This engine has native Facebook support, you should be using it instead of "
-"connecting to facebook with xmpp"
-msgstr "Denne motor har standardunderstøttelse for Facebook, du bør bruge den i stedet for at forbinde til Facebook med xmpp"
+"connecting to Facebook with XMPP"
+msgstr ""
+"Denne motor har indbygget understøttelse for Facebook. Du bør bruge den i "
+"stedet for at forbinde til Facebook med XMPP"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
 msgid "not connected"
@@ -65,8 +75,8 @@ msgstr "{0} er ikke en kendt ressource"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
 #, csharp-format
-msgid "Contact's Jid: {0}"
-msgstr "Kontakts Jid: {0}"
+msgid "Contact's JID: {0}"
+msgstr "Kontakts JID: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
 msgid "You have a mutual subscription with this contact"
@@ -76,21 +86,27 @@ msgstr "Du har et fælles abonnement med denne kontakt"
 msgid ""
 "You have no subscription with this contact and this contact is not "
 "subscribed to you"
-msgstr "Du har intet abonnement med denne kontakt og denne kontakt har ikke abonnement hos dig"
+msgstr ""
+"Du har intet abonnement med denne kontakt og denne kontakt har ikke "
+"abonnement hos dig"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
 msgid ""
-"You are subscribed to this contact, but the contact is not subcribed to you"
-msgstr "Du har abonnement med denne kontakt, men kontakten har ikke abonnement hos dig"
+"You are subscribed to this contact, but the contact is not subscribed to you"
+msgstr ""
+"Du har abonnement med denne kontakt, men kontakten har ikke abonnement hos "
+"dig"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
 msgid ""
-"You are not subscribed to this contact, but the contact is subcribed to you"
-msgstr "Du har ikke abonnement hos denne kontakt, men kontakten har abonnement hos dig"
+"You are not subscribed to this contact, but the contact is subscribed to you"
+msgstr ""
+"Du har ikke abonnement hos denne kontakt, men kontakten har abonnement hos "
+"dig"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
 #, csharp-format
-msgid "Invalid Contact command: {0}"
+msgid "Invalid contact command: {0}"
 msgstr "Ugyldig kontaktkommando: {0}"
 
 #. TRANSLATOR: this line is used as a label / category for a
@@ -123,8 +139,9 @@ msgstr "Prioritet for fraværende er: {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
 #, csharp-format
 msgid ""
-"Invalid Priority: {0} (valid priorities are between -128 and 127 inclusive)"
-msgstr "Ugyldig prioritet: {0} (gyldige prioriteter er mellem -128 og 127 inklusive)"
+"Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
+msgstr ""
+"Ugyldig prioritet: {0} (gyldige prioriteter er mellem -128 og 127 inklusive)"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
 #, csharp-format
@@ -149,7 +166,7 @@ msgstr "{0}{1} ønsker ikke at blive forstyrret"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1649
 #, csharp-format
 msgid "{0}{1} wants to chat"
-msgstr "{0}{1} ønsker at snakke"
+msgstr "{0}{1} ønsker at chatte"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1656
 #, csharp-format
@@ -161,7 +178,9 @@ msgstr "{0}{1} er frakoblet"
 msgid ""
 "Automatically allowed {0} to subscribe to you, since you are already asking "
 "to subscribe"
-msgstr "Tilladte automatisk {0} at abonnere på dig, da du allerede anmoder om at abonnere"
+msgstr ""
+"Tilladte automatisk {0} at abonnere på dig, da du allerede anmoder om at "
+"abonnere"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1666
 #, csharp-format
@@ -179,7 +198,9 @@ msgstr "{0}{1} lod dig abonnere"
 msgid ""
 "Automatically removed {0}'s subscription to your presences after losing the "
 "subscription to theirs"
-msgstr "Fjernede automatisk {0}s abonnement til dine tilstedeværelser efter tab af abonnement til deres"
+msgstr ""
+"Fjernede automatisk {0}s abonnement til dine tilstedeværelser efter tab af "
+"abonnement til deres"
 
 #. you cannot (anymore?) see their presences
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1688
@@ -248,17 +269,17 @@ msgstr "siden {0}({1})"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1887
 #, csharp-format
 msgid "An unknown groupchat error occurred: {0}"
-msgstr "Der opstod en ukendt gruppesnak: {0}"
+msgstr "Der opstod en ukendt gruppechatfejl: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1894
 #, csharp-format
 msgid "Server of groupchat \"{0}\" not found."
-msgstr "Server for gruppesnak »{0}« blev ikke fundet."
+msgstr "Server for gruppechat »{0}« blev ikke fundet."
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
 #, csharp-format
-msgid "Muc service is not available for \"{0}\""
-msgstr "Muc-tjeneste er ikke tilgængelig for »{0}«"
+msgid "MUC service is not available for \"{0}\""
+msgstr "MUC-tjeneste er ikke tilgængelig for »{0}«"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
 #, csharp-format
@@ -268,21 +289,24 @@ msgstr "Du har ikke tilladelse til at slutte dig til »{0}«"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1910
 #, csharp-format
 msgid "An unhandled groupchat error occurred: {0}"
-msgstr "Der opstod en uhåndteret gruppesnak: {0}"
+msgstr "Der opstod en uhåndteret gruppechatfejl: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2096
 #, csharp-format
 msgid ""
-"Received a presence update from {0}, but there's no corresponding chat "
-"window"
-msgstr "Modtog en tilstedeværelsesopdatering fra »{0}«, men der er intet tilsvarende snakkevindue"
+"Received a presence update from {0}, but there's no corresponding chat window"
+msgstr ""
+"Modtog en tilstedeværelsesopdatering fra »{0}«, men der er intet tilsvarende "
+"chatvindue"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2120
 #, csharp-format
 msgid ""
 "Received a groupchat message from {0} but there's no corresponding chat "
 "window: {1}"
-msgstr "Modtog en gruppesnakbesked fra »{0}«, men der er intet tilsvarende snakkevindue: {1}"
+msgstr ""
+"Modtog en gruppechatbesked fra »{0}«, men der er intet tilsvarende "
+"chatvindue: {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
 #, csharp-format
