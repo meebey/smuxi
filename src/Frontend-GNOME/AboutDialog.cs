@@ -55,7 +55,8 @@ namespace Smuxi.Frontend.Gnome
                 "Tuukka Hastrup <Tuukka.Hastrup@iki.fi>",
                 "Bianca Mix <heavydemon@freenet.de>",
                 "Oliver Schneider <mail@oli-obk.de>",
-                "Carlos Martín Nieto <cmn@dwim.me>"
+                "Carlos Martín Nieto <cmn@dwim.me>",
+                "Andres G. Aragoneses <knocte@gmail.com>"
             };
             Artists = new string[] {
                 "Jakub Steiner <jimmac@ximian.com>",
