@@ -2,6 +2,8 @@ TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
 EXTRA_DIST = $(WIN_ICON) $(DESKTOP_FILE).in $(man_MANS) $(appdata_in_files)
 man_MANS = smuxi-frontend-gnome.1
 
+mkdir_p = $(install_sh) -d
+
 ICON_NAME = smuxi-frontend-gnome
 ICON_NAME_PNG = $(ICON_NAME).png
 ICON_SVG = $(ICON_NAME).svg
@@ -97,27 +99,38 @@ BINARIES = \
 all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_DESKTOPAPPLICATIONS) $(BINARIES)
 
 $(ICON_SVG):
+	$(mkdir_p) $(dir $@)
 	$(INSTALL) -m644 $(top_srcdir)/images/icon.svg $@
 $(ICON_XPM):
+	$(mkdir_p) $(dir $@)
 	$(INSTALL) -m644 $(top_srcdir)/images/icon.xpm $@
 $(ICON_16):
-	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_16x16.png $@
+	$(mkdir_p) $(dir $@)
+	$(INSTALL) -m644 $(top_srcdir)/images/icon_16x16.png $@
 $(ICON_22):
-	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_22x22.png $@
+	$(mkdir_p) $(dir $@)
+	$(INSTALL) -m644 $(top_srcdir)/images/icon_22x22.png $@
 $(ICON_24):
-	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_24x24.png $@
+	$(mkdir_p) $(dir $@)
+	$(INSTALL) -m644 $(top_srcdir)/images/icon_24x24.png $@
 $(ICON_32):
-	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_32x32.png $@
+	$(mkdir_p) $(dir $@)
+	$(INSTALL) -m644 $(top_srcdir)/images/icon_32x32.png $@
 $(ICON_48):
-	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_48x48.png $@
+	$(mkdir_p) $(dir $@)
+	$(INSTALL) -m644 $(top_srcdir)/images/icon_48x48.png $@
 $(ICON_128):
-	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_128x128.png $@
+	$(mkdir_p) $(dir $@)
+	$(INSTALL) -m644 $(top_srcdir)/images/icon_128x128.png $@
 $(ICON_256):
-	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_256x256.png $@
+	$(mkdir_p) $(dir $@)
+	$(INSTALL) -m644 $(top_srcdir)/images/icon_256x256.png $@
 $(top_builddir)/images/256/$(GROUP_CHAT_ICON_NAME).png:
-	$(INSTALL) -D -m644 $(top_srcdir)/images/group-chat_256x256.png $@
+	$(mkdir_p) $(dir $@)
+	$(INSTALL) -m644 $(top_srcdir)/images/group-chat_256x256.png $@
 $(top_builddir)/images/256/$(PERSON_CHAT_ICON_NAME).png:
-	$(INSTALL) -D -m644 $(top_srcdir)/images/person-chat_256x256.png $@
+	$(mkdir_p) $(dir $@)
+	$(INSTALL) -m644 $(top_srcdir)/images/person-chat_256x256.png $@
 
 FILES = \
 	../AssemblyVersion.cs \
