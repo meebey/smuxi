@@ -133,7 +133,18 @@ namespace Smuxi.Engine
                 return MessageBuffer.LastSeenHighlight;
             }
             set {
-                MessageBuffer.LastSeenHighlight = value;
+                var msgBuffer = MessageBuffer;
+                if (msgBuffer == null) {
+#if LOG4NET
+                    _Logger.ErrorFormat(
+                        "{0}.set_LastSeenHighlight(): MessageBuffer is null, " +
+                        "ignoring set call...",
+                        this
+                    );
+#endif
+                    return;
+                }
+                msgBuffer.LastSeenHighlight = value;
             }
         }
 
@@ -145,7 +156,18 @@ namespace Smuxi.Engine
                 return MessageBuffer.LastSeenMessage;
             }
             set {
-                MessageBuffer.LastSeenMessage = value;
+                var msgBuffer = MessageBuffer;
+                if (msgBuffer == null) {
+#if LOG4NET
+                    _Logger.ErrorFormat(
+                        "{0}.set_LastSeenMessage(): MessageBuffer is null, " +
+                        "ignoring set call...",
+                        this
+                    );
+#endif
+                    return;
+                }
+                msgBuffer.LastSeenMessage = value;
             }
         }
 
