@@ -322,7 +322,8 @@ namespace Smuxi.Engine
                 "IRC/irc.geekshed.net",
                 "IRC/irc.efnet.org",
                 "IRC/irc.ircnet.org",
-                "IRC/irc.freenode.net"
+                "IRC/irc.freenode.net",
+                "IRC/irc.ponychat.net"
             });
             
             prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.oftc.net/";
@@ -392,6 +393,15 @@ namespace Smuxi.Engine
             Get(prefix + "Network", "freenode");
             Get(prefix + "Nickname", String.Empty);
             Get(prefix + "Realname", String.Empty);
+            Get(prefix + "Username", String.Empty);
+            Get(prefix + "Password", String.Empty);
+            Get(prefix + "UseEncryption", false);
+            Get(prefix + "ValidateServerCertificate", false);
+            
+            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.ponychat.net/";
+            Get(prefix + "Hostname", "irc.ponychat.net");
+            Get(prefix + "Port", 6667);
+            Get(prefix + "Network", "PonyChat");
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
             Get(prefix + "UseEncryption", false);
