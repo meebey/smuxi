@@ -38,6 +38,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         public static Gdk.Pixbuf   IconPixbuf { get; private set; }
+        static bool IsGtkSharp2_12_41_OrLater { get; set; }
         private bool               NickColors { get; set; }
         private GroupChatModel     _GroupChatModel;
         private Gtk.TreeView       _PersonTreeView;
@@ -123,6 +124,11 @@ namespace Smuxi.Frontend.Gnome
             IconPixbuf = Frontend.LoadIcon(
                 "smuxi-group-chat", 16, "group-chat_256x256.png"
             );
+
+            // BUG: this check does not work as GTK# is not reflecting the
+            // GTK# version in the assembly version nor in any other way at runtime :(((
+            var gtkSharpVersion = typeof(Gtk.Global).Assembly.GetName().Version;
+            IsGtkSharp2_12_41_OrLater = gtkSharpVersion >= new Version(2, 12, 41);
         }
 
         public GroupChatView(GroupChatModel groupChat) : base(groupChat)
@@ -325,8 +331,14 @@ namespace Smuxi.Frontend.Gnome
                 Gtk.ListStore ls = (Gtk.ListStore) _PersonTreeView.Model;
                 // cleanup, be sure the list is empty
                 ls.Clear();
-                // detach the model (less CPU load)
-                _PersonTreeView.Model = new Gtk.ListStore(typeof(PersonModel));
+                // HACK: workaround GTK# 2.12.40 bug throwing a NullReferenceException in Gtk.TreeView.get_Model()
+                // This issue happens the model gets detached and re-attached again,
+                // for more details, see: https://bugzilla.xamarin.com/show_bug.cgi?id=55235
+                if (IsGtkSharp2_12_41_OrLater) {
+                    // OPT: detach the model (less CPU load), this saves 50ms
+                    // for a chat with 2000 users
+                    _PersonTreeView.Model = new Gtk.ListStore(typeof(PersonModel));
+                }
                 Participants = new List<PersonModel>();
                 string longestName = String.Empty;
                 foreach (var person in persons.Values.OrderBy(x => x)) {
@@ -337,12 +349,11 @@ namespace Smuxi.Frontend.Gnome
                     }
                     Participants.Add(person);
                 }
-                // attach the model again
-                // BUG? TreeView doesn't seem to recognize existing values in the model?!?
-                // see: http://www.smuxi.org/issues/show/132
-                _PersonTreeView.Model = ls;
-                _PersonTreeView.SearchColumn = 0;
-
+                if (IsGtkSharp2_12_41_OrLater) {
+                    // attach the model again
+                    _PersonTreeView.Model = ls;
+                    _PersonTreeView.SearchColumn = 0;
+                }
                 OnParticipantsChanged(EventArgs.Empty);
 
                 // TRANSLATOR: this string will be appended to the one above
