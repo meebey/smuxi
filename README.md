@@ -1,5 +1,7 @@
 Software Requirements
 =====================
+
+[![Join the chat at https://gitter.im/meebey/smuxi](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/meebey/smuxi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 First you will need to install a few libraries to compile the source
 
 Libraries:
