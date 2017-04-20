@@ -1,0 +1,311 @@
+# Indonesian translation for smuxi.
+# Copyright (C) 2017 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-01-17 20:01+0000\n"
+"PO-Revision-Date: 2017-04-20 11:26+0700\n"
+"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: ../src/Engine/FrontendManager.cs:218
+msgid "No network connections"
+msgstr "Tidak ada koneksi jaringan"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr "Mengoptimalkan: {0} ..."
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr "Gagal mengoptimalkan: {0}. Alasan: {1}"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:315
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr ""
+"Riwayat obrolan Anda tidak lagi tersedia karena kesalahan namun akan "
+"dipertahankan sejak sekarang."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:771
+#, csharp-format
+msgid "{0} is typing..."
+msgstr "{0} sedang mengetik..."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:777
+#, csharp-format
+msgid "{0} has stopped typing..."
+msgstr "{0} telah berhenti mengetik..."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:822
+#, csharp-format
+msgid "{0} is away"
+msgstr "{0} sedang pergi"
+
+#: ../src/Engine/Messages/MessageBuilder.cs:828
+#, csharp-format
+msgid "{0} is offline"
+msgstr "{0} sedang luring"
+
+#: ../src/Engine/Messages/MessageBuilder.cs:834
+#, csharp-format
+msgid "{0} is online"
+msgstr "{0} sedang daring"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:162
+msgid "not connected"
+msgstr "tidak terhubung"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:193
+msgid "Not connected to server"
+msgstr "Tidak terhubung ke peladen"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
+#: ../src/Engine/Session.cs:1067
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Tidak cukup parameter untuk perintah {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:212
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "Tersambung ke {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:242
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Terputus dari {0}"
+
+#: ../src/Engine/Session.cs:247
+#, csharp-format
+msgid "Automatically connecting to {0}..."
+msgstr "Sambungkan secara otomatis ke {0} ..."
+
+#: ../src/Engine/Session.cs:278
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "Sambungan otomatis ke {0} gagal!"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine/Session.cs:505
+msgid "Engine Commands"
+msgstr "Perintah Mesin"
+
+#: ../src/Engine/Session.cs:634
+msgid "Connect failed!"
+msgstr "Hubungkan gagal!"
+
+#: ../src/Engine/Session.cs:657
+#, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
+msgstr "Putuskan sambungan gagal - tidak dapat menemukan peladen: {0}"
+
+#: ../src/Engine/Session.cs:699
+msgid "Reconnect failed!"
+msgstr "Hubungkan kembali gagal!"
+
+#: ../src/Engine/Session.cs:723
+msgid "Configuration reloaded"
+msgstr "Konfigurasi dimuat ulang"
+
+#: ../src/Engine/Session.cs:727
+msgid "Configuration saved"
+msgstr "Konfigurasi disimpan"
+
+#: ../src/Engine/Session.cs:754
+msgid "Invalid key/value format."
+msgstr "Format kunci/nilai tidak valid"
+
+#: ../src/Engine/Session.cs:778
+#, csharp-format
+msgid "Invalid config key: '{0}'"
+msgstr "Kunci konfigurasi tidak valid: '{0}'"
+
+#: ../src/Engine/Session.cs:794 ../src/Engine/Session.cs:800
+#, csharp-format
+msgid "Could not convert config value: '{0}' to type: {1}"
+msgstr "Tidak dapat mengkonversi nilai konfigurasi: '{0}' untuk mengetik: {1}"
+
+#: ../src/Engine/Session.cs:814
+#, csharp-format
+msgid ""
+"Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
+msgstr ""
+"Kunci hapus aplikasi tidak valid: '{0}'. Kunci hapus yang valid: PolaPesan/"
+"{{ID}}."
+
+#: ../src/Engine/Session.cs:827
+#, csharp-format
+msgid "Message pattern with ID: '{0}' does not exist."
+msgstr "Pola pesan dengan ID: '{0}' tidak ada."
+
+#: ../src/Engine/Session.cs:834
+#, csharp-format
+msgid "Message pattern with ID: '{0}' removed."
+msgstr "Pola pesan dengan ID: '{0}' dihapus"
+
+#: ../src/Engine/Session.cs:842
+msgid "Invalid parameter for config; use load, save, get or set."
+msgstr ""
+"Parameter tidak valid untuk konfigurasi; Gunakan load (muat), save "
+"(simpan), get (ambil) atau set (atur)."
+
+#: ../src/Engine/Session.cs:919
+msgid "Invalid parameter for network; use list, switch, or close"
+msgstr ""
+"Parameter tidak valid untuk jaringan; Gunakan list (daftar), switch "
+"(beralih), atau close (tutup)"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:949
+msgid "Connected Networks"
+msgstr "Jaringan Terhubung"
+
+#: ../src/Engine/Session.cs:954 ../src/Engine/Session.cs:978
+msgid "Network"
+msgstr "Jaringan"
+
+#: ../src/Engine/Session.cs:955
+msgid "Protocol"
+msgstr "Protokol"
+
+#: ../src/Engine/Session.cs:956
+msgid "Host"
+msgstr "Host"
+
+#: ../src/Engine/Session.cs:957
+msgid "Port"
+msgstr "Port"
+
+#. TRANSLATOR: no connected networks
+#. TRANSLATOR: no available networks
+#: ../src/Engine/Session.cs:963 ../src/Engine/Session.cs:984
+msgid "None"
+msgstr "Tak ada"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:970
+msgid "Available Networks"
+msgstr "Jaringan yang Tersedia"
+
+#: ../src/Engine/Session.cs:998
+#, csharp-format
+msgid "Network close failed - could not find network: {0}"
+msgstr "Tutup jaringan gagal - tidak dapat menemukan jaringan: {0}"
+
+#: ../src/Engine/Session.cs:1042
+#, csharp-format
+msgid "Network switch failed - could not find network: {0}"
+msgstr "Beralih jaringan gagal - tidak dapat menemukan jaringan: {0}"
+
+#: ../src/Engine/Session.cs:1060
+msgid "Not connected to any network"
+msgstr "Tidak terhubung ke jaringan apapun"
+
+#: ../src/Engine/Session.cs:1317
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Gagal menulis ke riwayat obrolan. Riwayat obrolan Anda tidak akan "
+"dipertahankan. Alasan: {0}"
+
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:1550
+msgid "Connect failed."
+msgstr "Sambungan gagal."
+
+#: ../src/Engine/Session.cs:1564
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr ""
+"Tidak ada pengelola protokol yang ditemukan untuk protokol tersebut: {0}"
+
+#: ../src/Engine/Session.cs:1896
+msgid "Welcome to Smuxi"
+msgstr "Selamat datang di Smuxi"
+
+#: ../src/Engine/Session.cs:1903
+msgid "Type /help to get a list of available commands."
+msgstr "Ketik /help untuk mendapatkan daftar perintah yang tersedia."
+
+#: ../src/Engine/Session.cs:1909
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
+msgstr ""
+"Setelah Anda membuat sambungan daftar perintah tersedia yang berubah. Pergi "
+"ke tab koneksi yang baru dibuka dan gunakan perintah /help lagi untuk "
+"melihat daftar perintah yang diperluas."
+
+#: ../src/Engine/Config/UserListController.cs:117
+msgid "Username must not be empty."
+msgstr "Nama pengguna tidak boleh kosong"
+
+#: ../src/Engine/Config/UserListController.cs:127
+msgid "Password must not be empty."
+msgstr "Kata sandi tidak boleh kosong"
+
+#: ../src/Engine/Config/UserListController.cs:136
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr "Pengguna \"{0}\" tidak ada"
+
+#: ../src/Engine/Config/UserListController.cs:145
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr "Pengguna \"{0}\" sudah ada"
+
+#: ../src/Engine/Config/ServerListController.cs:118
+msgid "Network must not be empty."
+msgstr "Jaringan tidak boleh kosong"
+
+#: ../src/Engine/Config/ServerListController.cs:138
+msgid "Server hostname must not be empty."
+msgstr "Nama host peladen tidak boleh kosong"
+
+#: ../src/Engine/Config/ServerListController.cs:141
+msgid "Server hostname contains invalid characters (newline)."
+msgstr "Nama host peladen berisi karakter yang tidak valid (baris baru)."
+
+#: ../src/Engine/Config/ServerListController.cs:148
+#, csharp-format
+msgid "Server ID '{0}' already exists."
+msgstr "ID peladen '{0}' sudah ada"
+
+#: ../src/Engine/Chats/ChatModel.cs:106
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Gagal memuat riwayat obrolan. Riwayat obrolan Anda tidak akan "
+"dipertahankan. Alasan: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:322
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr ""
+"Gagal membuka riwayat obrolan untuk menulis. Riwayat obrolan Anda tidak "
+"akan dipertahankan. Alasan: {0}"
