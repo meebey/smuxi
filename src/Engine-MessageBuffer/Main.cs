@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2014 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2014, 2017 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -266,9 +266,7 @@ namespace Smuxi.Engine
                             Console.WriteLine(json);
                         }
                     }
-                    if (destinationBuffer == null) {
-                        Console.WriteLine("]");
-                    }
+                    Console.WriteLine("]");
                 } else {
                     foreach (var msg in sourceBuffer) {
                         destinationBuffer.Add(msg);
