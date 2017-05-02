@@ -54,14 +54,7 @@ namespace Smuxi.Engine
             };
             parser.Add("h|help", _("Show this help"),
                 val => {
-                    Console.WriteLine(_("Usage: smuxi-message-buffer [options] action action-options"));
-                    Console.WriteLine();
-                    Console.WriteLine(_("Actions:"));
-                    Console.WriteLine("  cat");
-                    Console.WriteLine("  convert/copy/cp");
-                    Console.WriteLine();
-                    Console.WriteLine(_("Options:"));
-                    parser.WriteOptionDescriptions(Console.Out);
+                    ShowUsage(parser);
                     Environment.Exit(0);
                 }
             );
@@ -73,7 +66,12 @@ namespace Smuxi.Engine
                     repo.Threshold = log4net.Core.Level.Debug;
                 }
 
-                var action = args.Skip(mainArgs.Count()).First();
+                var action = args.Skip(mainArgs.Count()).FirstOrDefault();
+                if (String.IsNullOrEmpty(action)) {
+                    ShowUsage(parser);
+                    Environment.Exit(1);
+                }
+
                 var actionArgs = args.Skip(mainArgs.Count() + 1);
                 switch (action.ToLower()) {
                     case "cat":
@@ -99,6 +97,18 @@ namespace Smuxi.Engine
             } catch (Exception e) {
                 Logger.Fatal(e);
             }
+        }
+
+        static void ShowUsage(OptionSet mainOptions)
+        {
+            Console.WriteLine(_("Usage: smuxi-message-buffer [options] action action-options"));
+            Console.WriteLine();
+            Console.WriteLine(_("Actions:"));
+            Console.WriteLine("  cat");
+            Console.WriteLine("  convert/copy/cp");
+            Console.WriteLine();
+            Console.WriteLine(_("Options:"));
+            mainOptions.WriteOptionDescriptions(Console.Out);
         }
 
         static void CatAction(string action, IEnumerable<string> args)
