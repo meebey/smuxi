@@ -326,13 +326,8 @@ namespace Smuxi.Frontend.Gnome
                 // cleanup, be sure the list is empty
                 ls.Clear();
                 Participants = new List<PersonModel>();
-                string longestName = String.Empty;
                 foreach (var person in persons.Values.OrderBy(x => x)) {
                     ls.AppendValues(person);
-                    
-                    if (person.IdentityName.Length > longestName.Length) {
-                        longestName = person.IdentityName;
-                    }
                     Participants.Add(person);
                 }
 
