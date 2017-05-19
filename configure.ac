@@ -228,6 +228,17 @@ fi
 if test "$CLI_RUNTIME" = "4.5"; then
 	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.5 /property:DefineConstants=MONO_4_5"
 fi
+# Mono's xbuild >= 5.0 no longer defaults to mcs as compiler but csc which will
+# generate debug symbol files named .pdb instead of .mdb. Since we are
+# installing the debug symbol files, we override the compiler to mcs to ensure
+# the files will be avilable for the install during "make install"
+AC_MSG_CHECKING([for Mono >= 5.0])
+if $PKG_CONFIG 'mono >= 5.0'; then
+	AC_MSG_RESULT(yes)
+	XBUILD_FLAGS+=" /p:CscToolExe=mcs.exe"
+else
+	AC_MSG_RESULT(no)
+fi
 AC_SUBST(XBUILD_FLAGS)
 
 # Required Libraries	
