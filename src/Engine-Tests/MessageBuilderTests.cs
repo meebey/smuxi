@@ -719,5 +719,35 @@ namespace Smuxi.Engine
             builder.Append(new UrlMessagePartModel("http://[2a01:4f8:a0:7041::2]/"));
             TestMessage("http://[2a01:4f8:a0:7041::2]/", builder.ToMessage());
         }
+
+        [Test]
+        public void AppendMessageWithBitcoinTxHash()
+        {
+            var msg = "foo bc4c50f4bcacf990804e2dbc0049ff04eb1500acd535a20f8adf24212f333ed8 bar";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("foo "));
+            builder.Append(
+                new UrlMessagePartModel(
+                    "https://blockchain.info/tx/bc4c50f4bcacf990804e2dbc0049ff04eb1500acd535a20f8adf24212f333ed8",
+                    "bc4c50f4bcacf990804e2dbc0049ff04eb1500acd535a20f8adf24212f333ed8"
+                )
+            );
+            builder.Append(new TextMessagePartModel(" bar"));
+            TestMessage(msg, builder.ToMessage());
+
+            msg = "foo (bc4c50f4bcacf990804e2dbc0049ff04eb1500acd535a20f8adf24212f333ed8) bar";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("foo ("));
+            builder.Append(
+                new UrlMessagePartModel(
+                    "https://blockchain.info/tx/bc4c50f4bcacf990804e2dbc0049ff04eb1500acd535a20f8adf24212f333ed8",
+                    "bc4c50f4bcacf990804e2dbc0049ff04eb1500acd535a20f8adf24212f333ed8"
+                )
+            );
+            builder.Append(new TextMessagePartModel(") bar"));
+            TestMessage(msg, builder.ToMessage());
+        }
     }
 }

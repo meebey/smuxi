@@ -124,6 +124,28 @@ namespace Smuxi.Engine
                 LinkFormat = "mailto:{1}"
             });
 
+            // bitcoin address
+            var bitcoin_address = @"[13][a-km-zA-HJ-NP-Z1-9]{25,34}";
+            var query = @"(\?[" + path_chars + @"]+)?";
+            var bitcoin_address_query = bitcoin_address + query;
+            regex = new Regex(
+                @"(?:bitcoin:)?(" + bitcoin_address_query + @")",
+                RegexOptions.IgnoreCase | RegexOptions.Compiled
+            );
+            BuiltinPatterns.Add(new MessagePatternModel(regex) {
+                LinkFormat = "bitcoin:{1}"
+            });
+
+            // bitcoin tx hash
+            var bitcoin_tx_hash = @"[a-fA-F0-9]{64}";
+            regex = new Regex(
+                start_delimiter + @"(" + bitcoin_tx_hash + @")" + end_delimiter,
+                RegexOptions.IgnoreCase | RegexOptions.Compiled
+            );
+            BuiltinPatterns.Add(new MessagePatternModel(regex) {
+                LinkFormat = "https://blockchain.info/tx/{1}"
+            });
+
             // addresses without protocol (heuristical)
             // include well known TLDs to prevent autogen.sh, configure.ac or
             // Gst.Buffer.Unref() from matching
