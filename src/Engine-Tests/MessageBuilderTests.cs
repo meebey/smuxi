@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2013-2015 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2013-2017 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -626,6 +626,23 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void AppendMessageWithHeuristicDomainAndLeadingAndTrailingParanthesis()
+        {
+            var msg = "leading text (example.com) trailing text";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("leading text ("));
+            builder.Append(
+                new UrlMessagePartModel(
+                    "http://example.com",
+                    "example.com"
+                )
+            );
+            builder.Append(new TextMessagePartModel(") trailing text"));
+            TestMessage(msg, builder.ToMessage());
+        }
+
+        [Test]
         public void AppendMessageWithIdnLink()
         {
             var msg = "http://www.brasileirão.com";
@@ -648,6 +665,14 @@ namespace Smuxi.Engine
             var builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
             builder.Append(new UrlMessagePartModel("http://www.ietf.org/rfc/rfc2812.txt", "RFC2812"));
+            TestMessage(msg, builder.ToMessage());
+
+            msg = "(CVE-2017-0144)";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("("));
+            builder.Append(new UrlMessagePartModel("http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0144", "CVE-2017-0144"));
+            builder.Append(new TextMessagePartModel(")"));
             TestMessage(msg, builder.ToMessage());
         }
 

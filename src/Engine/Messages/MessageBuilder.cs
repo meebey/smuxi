@@ -1,7 +1,8 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010-2014 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2017 Mirco Bauer <meebey@meebey.net>
 // Copyright (c) 2013 Oliver Schneider <mail@oli-obk.de>
+// Copyright (c) 2016 Andres G. Aragoneses <knocte@gmail.com>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -892,41 +893,47 @@ namespace Smuxi.Engine
             
             int lastindex = 0;
             do {
-                var delimiterLength = 0;
+                var startDelimiterLength = 0;
+                var regexDelimiterForStartOfPatternValue = match.Groups[MessageBuilderSettings.StartDelimiterGroupName];
+                if (regexDelimiterForStartOfPatternValue != null) {
+                    startDelimiterLength = regexDelimiterForStartOfPatternValue.Value.Length;
+                }
+                var endDelimiterLength = 0;
                 var regexDelimiterForEndOfPatternValue = match.Groups[MessageBuilderSettings.EndDelimiterGroupName];
                 if (regexDelimiterForEndOfPatternValue != null) {
-                    delimiterLength = regexDelimiterForEndOfPatternValue.Value.Length;
+                    endDelimiterLength = regexDelimiterForEndOfPatternValue.Value.Length;
                 }
 
                 var groupValues = match.Groups.Cast<Group>()
 
                     // don't get the delimiter because it only determines
-                    // the end of pattern, which is not part of the pattern
-                    .Where(g => g != regexDelimiterForEndOfPatternValue)
+                    // the start or end of pattern, which is not part of the pattern
+                    .Where(g => g != regexDelimiterForStartOfPatternValue &&
+                                g != regexDelimiterForEndOfPatternValue)
 
                     .Select(g => g.Value).ToArray();
 
                 string url;
                 if (String.IsNullOrEmpty(pattern.LinkFormat)) {
                     url = match.Value;
+                    url = url.Substring(0 + startDelimiterLength, url.Length - (startDelimiterLength - endDelimiterLength));
                 } else {
                     url = String.Format(pattern.LinkFormat, groupValues);
                 }
-                url = url.Substring(0, url.Length - delimiterLength);
                 string text;
                 if (String.IsNullOrEmpty(pattern.TextFormat)) {
                     text = match.Value;
                 } else {
                     text = String.Format(pattern.TextFormat, groupValues);
                 }
-                text = text.Substring(0, text.Length - delimiterLength);
+                text = text.Substring(0 + startDelimiterLength, text.Length - (startDelimiterLength + endDelimiterLength));
 
                 if (lastindex != match.Index) {
                     // there were some non-matching-chars before the match
                     // copy that to a TextMessagePartModel
                     var notMatchPart = new TextMessagePartModel(textPart);
                     // only take the proper chunk of text
-                    notMatchPart.Text = textPart.Text.Substring(lastindex, match.Index - lastindex);
+                    notMatchPart.Text = textPart.Text.Substring(lastindex, match.Index + startDelimiterLength - lastindex);
                     // and try other patterns on this part
                     var parts = ParsePatterns(notMatchPart, remainingPatterns);
                     foreach (var part in parts) {
@@ -945,12 +952,12 @@ namespace Smuxi.Engine
                     msgPart = new TextMessagePartModel(text);
                 }
                 msgParts.Add(msgPart);
-                lastindex = match.Index + match.Length - delimiterLength;
+                lastindex = match.Index + match.Length - endDelimiterLength;
                 match = match.NextMatch();
             } while (match.Success);
             
             if (lastindex != textPart.Text.Length) {
-                // there were some non-url-chars before this url
+                // there were some non-matching-chars after the last match
                 // copy TextMessagePartModel
                 var notMatchPart = new TextMessagePartModel(textPart);
                 // only take the proper chunk of text
