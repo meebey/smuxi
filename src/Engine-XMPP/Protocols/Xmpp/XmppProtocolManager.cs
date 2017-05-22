@@ -103,6 +103,23 @@ namespace Smuxi.Engine
             }
         }
 
+        protected string Username {
+            get {
+                int index = Server.Username.IndexOf('@');
+                if (index < 0) {
+                    return Server.Username;
+                } else {
+                    return Server.Username.Substring(0, index);
+                }
+            }
+        }
+
+        protected virtual string ProtocolChatTitle {
+            get {
+                return String.Format("{0} {1}", Protocol, Host);
+            }
+        }
+
         public XmppProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
@@ -250,7 +267,7 @@ namespace Smuxi.Engine
 
             // TODO: use config for single network chat or once per network manager
             NetworkChat = Session.CreateChat<ProtocolChatModel>(
-                NetworkID, String.Format("{0} {1}", Protocol, Host), this
+                NetworkID, ProtocolChatTitle, this
             );
             Session.AddChat(NetworkChat);
             if (Host.EndsWith("facebook.com") && !(this is FacebookProtocolManager)) {
@@ -2745,7 +2762,7 @@ namespace Smuxi.Engine
             return true;
         }
 
-        static string _(string msg)
+        static internal string _(string msg)
         {
             return LibraryCatalog.GetString(msg, LibraryTextDomain);
         }
