@@ -47,9 +47,6 @@
     <Compile Include="Config\XmppPersonModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Protocols\Xmpp\FacebookProtocolManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
       <Name>Common</Name>

@@ -253,14 +253,6 @@ namespace Smuxi.Engine
                 NetworkID, String.Format("{0} {1}", Protocol, Host), this
             );
             Session.AddChat(NetworkChat);
-            if (Host.EndsWith("facebook.com") && !(this is FacebookProtocolManager)) {
-                var builder = CreateMessageBuilder();
-                builder.AppendEventPrefix();
-                builder.AppendMessage(_("This engine has native Facebook support, you should be using it instead of connecting to Facebook with XMPP"));
-                // cannot use AddMessageToFrontend because NetworkChat is not yet synced, causing AddMessageToFrontend to drop it.
-                // cannot sync NetworkChat before this, because then the sync would swallow the message
-                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
-            }
             Session.SyncChat(NetworkChat);
 
             Connect();

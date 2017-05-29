@@ -9,8 +9,7 @@ SOURCES = \
 	Config/XmppServerModel.cs \
 	Protocols/Xmpp/XmppGroupChatModel.cs \
 	Protocols/Xmpp/XmppProtocolManager.cs \
-	Config/XmppPersonModel.cs \
-	Protocols/Xmpp/FacebookProtocolManager.cs
+	Config/XmppPersonModel.cs
 
 REFERENCES = \
 	System \
