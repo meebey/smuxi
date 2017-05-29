@@ -22,6 +22,7 @@ src/Frontend-GNOME/Views/MessageTextView.cs
 src/Frontend-GNOME/Views/FilterListWidget.cs
 src/Frontend-GNOME/Views/PreferencesDialog.cs
 src/Frontend-GNOME/Views/ServerDialog.cs
+src/Frontend-GNOME/Views/ServerWidget.cs
 src/Frontend-GNOME/Views/Chats/ChatView.cs
 src/Frontend-GNOME/Views/Chats/GroupChatView.cs
 src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs
