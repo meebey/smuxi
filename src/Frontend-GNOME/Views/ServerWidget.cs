@@ -47,6 +47,12 @@ namespace Smuxi.Frontend.Gnome
 
         public string Protocol {
             set {
+                if (value == null) {
+                    // clear selection
+                    f_ProtocolComboBox.Active = -1;
+                    return;
+                }
+
                 Gtk.ListStore store = (Gtk.ListStore) ProtocolComboBox.Model;
                 int protocolPosition = -1;
                 int j = 0;
