@@ -23,11 +23,12 @@ using SysDiag = System.Diagnostics;
 using IgeMacIntegration;
 using Smuxi.Common;
 using Smuxi.Engine;
+using UI = Gtk.Builder.ObjectAttribute;
 
 namespace Smuxi.Frontend.Gnome
 {
     [System.ComponentModel.ToolboxItem(true)]
-    public partial class MenuWidget : Gtk.Bin
+    public class MenuWidget : Gtk.Bin
     {
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -36,6 +37,44 @@ namespace Smuxi.Frontend.Gnome
         MainWindow MainWindow { get; set; }
         public JoinWidget JoinWidget { get; private set; }
         ChatViewManager ChatViewManager { get; set; }
+#pragma warning disable 0649
+        [UI("MenuWidgetAccelGroup")] Gtk.AccelGroup f_AccelGroup;
+        [UI("MenuBar")] Gtk.MenuBar f_MenuBar;
+        // Smuxi sub-menu
+        [UI("QuitMenuItem")] Gtk.MenuItem f_QuitMenuItem;
+        // Server sub-menu
+        [UI("JoinChatMenuItem")] Gtk.ImageMenuItem f_JoinChatMenuItem;
+        // Chat sub-menu
+        [UI("NextChatMenuItem")] Gtk.ImageMenuItem f_NextChatMenuItem;
+        [UI("PreviousChatMenuItem")] Gtk.ImageMenuItem f_PreviousChatMenuItem;
+        [UI("CloseChatMenuItem")] Gtk.ImageMenuItem f_CloseChatMenuItem;
+        // Engine sub-menu
+        // View sub-menu
+        // Help sub-menu
+        [UI("QuitAction")] Gtk.Action f_QuitAction;
+        [UI("JoinChatAction")] Gtk.Action f_JoinChatAction;
+        [UI("CaretModeAction")] Gtk.ToggleAction f_CaretModeAction;
+        [UI("BrowseModeAction")] Gtk.ToggleAction f_BrowseModeAction;
+        [UI("ShowMenubarAction")] Gtk.ToggleAction f_ShowMenubarAction;
+        [UI("OpenLogAction")] Gtk.Action f_OpenLogAction;
+        [UI("CloseChatAction")] Gtk.Action f_CloseChatAction;
+        [UI("FindGroupChatAction")] Gtk.Action f_FindGroupChatAction;
+        [UI("MenuToolbar")] Gtk.Toolbar f_MenuToolbar;
+        [UI("JoinToolbar")] Gtk.Toolbar f_JoinToolbar;
+        [UI("ShowToolbarAction")] Gtk.ToggleAction f_ShowToolbarAction;
+        [UI("ShowStatusbarAction")] Gtk.ToggleAction f_ShowStatusbarAction;
+        [UI("FullscreenMenuItem")] Gtk.MenuItem f_FullscreenMenuItem;
+        [UI("SmuxiAction")] Gtk.Action f_SmuxiAction;
+        [UI("AboutAction")] Gtk.Action f_AboutAction;
+        [UI("PreferencesAction")] Gtk.Action f_PreferencesAction;
+        // menubar actions
+        // toolbar actions
+        [UI("ConnectToolAction")] Gtk.Action f_ConnectToolAction;
+        [UI("FindGroupChatToolAction")] Gtk.Action f_FindGroupChatToolAction;
+        [UI("OpenLogToolAction")] Gtk.Action f_OpenLogToolAction;
+        [UI("FullscreenToolAction")] Gtk.Action f_FullscreenToolAction;
+        [UI("PreferencesToolAction")] Gtk.Action f_PreferencesToolAction;
+#pragma warning restore
 
         public bool CaretMode {
             get {
@@ -94,6 +133,57 @@ namespace Smuxi.Frontend.Gnome
 
             Build();
 
+            // HACK: GtkBuilder of GTK2 can't connect accelerators correctly
+            // from GtkActions or GtkMenuItems, thus we need to create them
+            // using code here (till GTK3)
+            MainWindow.AddAccelGroup(f_AccelGroup);
+            // Smuxi sub-menu
+            f_QuitMenuItem.AddAccelerator("activate", f_AccelGroup,
+                new Gtk.AccelKey(
+                    Gdk.Key.q,
+                    Gdk.ModifierType.ControlMask,
+                    Gtk.AccelFlags.Visible
+                )
+            );
+            // Chat sub-menu
+            f_JoinChatMenuItem.AddAccelerator("activate", f_AccelGroup,
+                new Gtk.AccelKey(
+                    Gdk.Key.l,
+                    Gdk.ModifierType.ControlMask,
+                    Gtk.AccelFlags.Visible
+                )
+            );
+            f_NextChatMenuItem.AddAccelerator("activate", f_AccelGroup,
+                new Gtk.AccelKey(
+                    Gdk.Key.Page_Down,
+                    Gdk.ModifierType.ControlMask,
+                    Gtk.AccelFlags.Visible
+                )
+            );
+            f_PreviousChatMenuItem.AddAccelerator("activate", f_AccelGroup,
+                new Gtk.AccelKey(
+                    Gdk.Key.Page_Up,
+                    Gdk.ModifierType.ControlMask,
+                    Gtk.AccelFlags.Visible
+                )
+            );
+            f_CloseChatMenuItem.AddAccelerator("activate", f_AccelGroup,
+                new Gtk.AccelKey(
+                    Gdk.Key.w,
+                    Gdk.ModifierType.ControlMask,
+                    Gtk.AccelFlags.Visible
+                )
+            );
+            // View sub-menu
+            f_FullscreenMenuItem.AddAccelerator("activate", f_AccelGroup,
+                new Gtk.AccelKey(
+                    Gdk.Key.F11,
+                    Gdk.ModifierType.None,
+                    Gtk.AccelFlags.Visible
+                )
+            );
+
+            /*
             // Smuxi Menu
             f_QuitAction.IconName = Gtk.Stock.Quit;
 
@@ -111,6 +201,7 @@ namespace Smuxi.Frontend.Gnome
             f_ConnectToolAction.IconName = Gtk.Stock.Network;
             f_OpenLogToolAction.IconName = Gtk.Stock.Open;
             f_FindGroupChatToolAction.IconName = Gtk.Stock.Find;
+            */
 
             f_MenuToolbar.ShowAll();
             f_MenuToolbar.NoShowAll = true;
@@ -158,6 +249,15 @@ namespace Smuxi.Frontend.Gnome
                 IgeMacMenu.QuitMenuItem = (Gtk.MenuItem)
                     f_QuitAction.CreateMenuItem();
             }
+        }
+
+        protected virtual void Build()
+        {
+            global::Stetic.BinContainer.Attach(this);
+            var builder = new Gtk.Builder(null, "MenuWidget2.ui", null);
+            builder.Autoconnect(this);
+            Add((Gtk.Widget) builder.GetObject("MenuWidgetBox"));
+            ShowAll();
         }
 
         protected void OnAboutActionActivated(object sender, EventArgs e)

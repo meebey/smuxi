@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="2.24"/>
+  <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkActionGroup" id="MenuWidgetActionGroup">
+    <child>
+      <object class="GtkToggleAction" id="ShowToolbarAction">
+        <property name="label" translatable="yes">Show _Toolbar</property>
+        <signal name="toggled" handler="OnShowToolbarActionToggled" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="WebsiteAction">
+        <property name="label" translatable="yes">_Website</property>
+        <signal name="activate" handler="OnWebsiteActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="FindGroupChatToolAction">
+        <property name="label" translatable="yes">Find Group Chat</property>
+        <property name="tooltip" translatable="yes">Find Group Chat</property>
+        <property name="is_important">True</property>
+        <signal name="activate" handler="OnFindGroupChatActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleAction" id="ShowStatusbarAction">
+        <property name="label" translatable="yes">Show _Statusbar</property>
+        <signal name="toggled" handler="OnShowStatusbarActionToggled" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="AboutAction">
+        <property name="label" translatable="yes">About</property>
+        <signal name="activate" handler="OnAboutActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleAction" id="BrowseModeAction">
+        <property name="label" translatable="yes">_Browse Mode</property>
+        <signal name="toggled" handler="OnBrowseModeActionToggled" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="SwitchRemoteEngineAction">
+        <property name="label" translatable="yes">Switch Remote Engine</property>
+        <signal name="activate" handler="OnSwitchRemoteEngineActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="UseLocalEngineAction">
+        <property name="label" translatable="yes">_Use Local Engine</property>
+        <signal name="activate" handler="OnUseLocalEngineActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="PreviousChatAction">
+        <property name="label" translatable="yes">_Previous Chat</property>
+        <signal name="activate" handler="OnPreviousChatActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="NextChatAction">
+        <property name="label" translatable="yes">_Next Chat</property>
+        <signal name="activate" handler="OnNextChatActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="ClearAllActivityAction">
+        <property name="label" translatable="yes">C_lear All Activity</property>
+        <signal name="activate" handler="OnClearAllActivityActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="ManageServerAction">
+        <property name="label" translatable="yes">_Manage</property>
+        <signal name="activate" handler="OnManageServerActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="AddServerAction">
+        <property name="label" translatable="yes">_Add</property>
+        <signal name="activate" handler="OnAddServerActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="PreferencesToolAction">
+        <property name="label" translatable="yes">_Preferences</property>
+        <property name="tooltip" translatable="yes">Preferences</property>
+        <property name="is_important">True</property>
+        <signal name="activate" handler="OnPreferencesActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="FullscreenToolAction">
+        <property name="label" translatable="yes">Fullscreen</property>
+        <property name="tooltip" translatable="yes">Fullscreen</property>
+        <property name="icon_name">gtk-fullscreen</property>
+        <property name="is_important">True</property>
+        <signal name="activate" handler="OnFullscreenActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="ConnectToolAction">
+        <property name="label" translatable="yes">Connect</property>
+        <property name="tooltip" translatable="yes">Connect</property>
+        <property name="is_important">True</property>
+        <signal name="activate" handler="OnConnectActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="AddRemoteEngineAction">
+        <property name="label" translatable="yes">_Add Remote Engine</property>
+        <signal name="activate" handler="OnAddRemoteEngineActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="JoinChatAction">
+        <property name="label" translatable="yes">_Open / Join Chat</property>
+        <signal name="activate" handler="OnJoinChatActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="CloseChatAction">
+        <signal name="activate" handler="OnCloseChatActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="OpenLogToolAction">
+        <property name="label" translatable="yes">Open Log</property>
+        <property name="tooltip" translatable="yes">Open Log</property>
+        <property name="is_important">True</property>
+        <signal name="activate" handler="OnOpenLogActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="OpenLogAction">
+        <property name="label" translatable="yes">Open Log</property>
+        <signal name="activate" handler="OnOpenLogActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleAction" id="ShowMenubarAction">
+        <property name="label" translatable="yes">Show _Menubar</property>
+        <signal name="toggled" handler="OnShowMenubarActionToggled" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleAction" id="CaretModeAction">
+        <property name="label" translatable="yes">_Caret Mode</property>
+        <signal name="toggled" handler="OnCaretModeActionToggled" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="QuitAction">
+        <property name="label" translatable="yes">_Quit</property>
+        <signal name="activate" handler="OnQuitActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="PreferencesAction">
+        <property name="label" translatable="yes">_Preferences</property>
+        <signal name="activate" handler="OnPreferencesActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="FullscreenAction">
+        <property name="label" translatable="yes">_Fullscreen</property>
+        <signal name="activate" handler="OnFullscreenActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="FindGroupChatAction">
+        <property name="label" translatable="yes">_Find Group Chat</property>
+        <signal name="activate" handler="OnFindGroupChatActionActivated" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="ConnectAction">
+        <property name="label" translatable="yes">_Connect</property>
+        <property name="icon_name">gtk-connect</property>
+        <property name="is_important">True</property>
+        <signal name="activate" handler="OnConnectActionActivated" swapped="no"/>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAccelGroup" id="MenuWidgetAccelGroup"/>
+  <object class="GtkImage" id="image6">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">gtk-go-forward</property>
+  </object>
+  <object class="GtkImage" id="image7">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">gtk-go-back</property>
+  </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+  </object>
+  <object class="GtkImage" id="image10">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
+  <object class="GtkImage" id="image11">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">gtk-clear</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+    <property name="icon_name">gtk-open</property>
+  </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">gtk-open</property>
+  </object>
+  <object class="GtkImage" id="image8">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">gtk-open</property>
+  </object>
+  <object class="GtkImage" id="image9">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
+  <object class="GtkVBox" id="MenuWidgetBox">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkMenuBar" id="MenuBar">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkMenuItem" id="menuitem1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">_Smuxi</property>
+            <property name="use_underline">True</property>
+            <child type="submenu">
+              <object class="GtkMenu" id="menu1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkImageMenuItem" id="PreferencesMenuItem">
+                    <property name="label">gtk-preferences</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="use_stock">True</property>
+                    <signal name="activate" handler="OnPreferencesActionActivated" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="QuitMenuItem">
+                    <property name="label">gtk-quit</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="use_stock">True</property>
+                    <signal name="activate" handler="OnQuitActionActivated" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkMenuItem" id="menuitem2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">_Server</property>
+            <property name="use_underline">True</property>
+            <child type="submenu">
+              <object class="GtkMenu" id="menu2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkImageMenuItem" id="ConnectMenuItem">
+                    <property name="label">gtk-connect</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="use_stock">True</property>
+                    <signal name="activate" handler="OnConnectActionActivated" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparatorMenuItem" id="imagemenuitem7">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="AddServerMenuItem">
+                    <property name="label">gtk-add</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="use_stock">True</property>
+                    <signal name="activate" handler="OnAddServerActionActivated" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="ManageServerMenuItem">
+                    <property name="label" translatable="yes">_Manage</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="image">image1</property>
+                    <property name="use_stock">False</property>
+                    <signal name="activate" handler="OnManageServerActionActivated" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkMenuItem" id="menuitem3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">_Chat</property>
+            <property name="use_underline">True</property>
+            <child type="submenu">
+              <object class="GtkMenu" id="menu4">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkImageMenuItem" id="JoinChatMenuItem">
+                    <property name="label" translatable="yes">_Open / Join Chat</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="image">image3</property>
+                    <property name="use_stock">False</property>
+                    <signal name="activate" handler="OnJoinChatActionActivated" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="FindGroupChatMenuItem">
+                    <property name="label" translatable="yes">_Find Group Chat</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="image">image4</property>
+                    <property name="use_stock">False</property>
+                    <signal name="activate" handler="OnFindGroupChatActionActivated" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="ClearAllActivityMenuItem">
+                    <property name="label" translatable="yes">C_lear All Activity</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="image">image2</property>
+                    <property name="use_stock">False</property>
+                    <signal name="activate" handler="OnClearAllActivityActionActivated" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparatorMenuItem" id="menuitem7">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="NextChatMenuItem">
+                    <property name="label" translatable="yes">_Next Chat</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="image">image6</property>
+                    <property name="use_stock">False</property>
+                    <signal name="activate" handler="OnNextChatActionActivated" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="PreviousChatMenuItem">
+                    <property name="label" translatable="yes">_Previous Chat</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="image">image7</property>
+                    <property name="use_stock">False</property>
+                    <signal name="activate" handler="OnPreviousChatActionActivated" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparatorMenuItem" id="menuitem8">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="OpenLogMenuItem">
+                    <property name="label" translatable="yes">Open L_og</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="image">image8</property>
+                    <property name="use_stock">False</property>
+                    <signal name="activate" handler="OnOpenLogActionActivated" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="CloseChatMenuItem">
+                    <property name="label">gtk-close</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="use_stock">True</property>
+                    <signal name="activate" handler="OnCloseChatActionActivated" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkMenuItem" id="menuitem4">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">_Engine</property>
+            <property name="use_underline">True</property>
+            <child type="submenu">
+              <object class="GtkMenu" id="menu3">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkImageMenuItem" id="UseLocalEngineMenuItem">
+                    <property name="label" translatable="yes">imagemenuitem</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="image">image9</property>
+                    <property name="use_stock">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparatorMenuItem" id="menuitem9">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="AddRemoteEngine">
+                    <property name="label" translatable="yes">imagemenuitem</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="image">image10</property>
+                    <property name="use_stock">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="SwitchRemoteEngineMenuItem">
+                    <property name="label" translatable="yes">imagemenuitem</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="image">image11</property>
+                    <property name="use_stock">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkMenuItem" id="menuitem5">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">_View</property>
+            <property name="use_underline">True</property>
+            <child type="submenu">
+              <object class="GtkMenu" id="menu5">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkCheckMenuItem" id="CaretModeMenuItem">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckMenuItem" id="BrowseModeMenuItem">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckMenuItem" id="ShowMenubarMenuItem">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckMenuItem" id="ShowToolbarMenuItem">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckMenuItem" id="ShowStatusbarMenuItem">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkMenuItem" id="FullscreenMenuItem">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">_Fullscreen</property>
+                    <property name="use_underline">True</property>
+                    <signal name="activate" handler="OnFullscreenActionActivated" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkMenuItem" id="menuitem6">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">_About</property>
+            <property name="use_underline">True</property>
+            <child type="submenu">
+              <object class="GtkMenu" id="menu6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkImageMenuItem" id="WebsiteMenuItem">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="use_stock">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImageMenuItem" id="AboutMenuItem">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="use_underline">True</property>
+                    <property name="use_stock">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkHBox" id="box1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkToolbar" id="MenuToolbar">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="toolbar_style">both-horiz</property>
+            <child>
+              <object class="GtkToolButton" id="ConnectToolButton">
+                <property name="related_action">ConnectToolAction</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip_markup">Connect</property>
+                <property name="tooltip_text" translatable="yes">Connect</property>
+                <property name="is_important">True</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-connect</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="FindGroupChatToolButton">
+                <property name="related_action">FindGroupChatToolAction</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="is_important">True</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-find</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="OpenLogToolButton">
+                <property name="related_action">OpenLogToolAction</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="is_important">True</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-open</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="FullscreenToolButton">
+                <property name="related_action">FullscreenToolAction</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="is_important">True</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-fullscreen</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="PreferencesToolButton">
+                <property name="related_action">PreferencesToolAction</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="is_important">True</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-preferences</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolbar" id="JoinToolbar">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="show_arrow">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+  </object>
+</interface>

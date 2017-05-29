@@ -98,6 +98,9 @@
     <EmbeddedResource Include="Interfaces\ServerListWidget.ui">
       <LogicalName>ServerListWidget.ui</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\MenuWidget2.ui">
+      <LogicalName>MenuWidget2.ui</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />
@@ -164,7 +167,6 @@
     <Compile Include="osx\Carbon.cs" />
     <Compile Include="osx\AppleEvent.cs" />
     <Compile Include="osx\CoreFoundation.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.MenuWidget.cs" />
     <Compile Include="Views\MenuWidget.cs" />
     <Compile Include="Views\Tags\LinkTag.cs" />
     <Compile Include="Views\Tags\PersonTag.cs" />
