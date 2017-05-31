@@ -63,6 +63,15 @@ namespace Smuxi.Engine
             var textPart = (TextMessagePartModel) msg.MessageParts[0];
             textPart.ForegroundColor = TextColor.Grey;
             Assert.IsFalse(msg.Equals(SimpleMessage));
+
+            var actualMsg = new MessageModel();
+            actualMsg.MessageParts.Add(new ImageMessagePartModel("filename", "text"));
+            var expectedMsg = new MessageModel();
+            expectedMsg.MessageParts.Add(new ImageMessagePartModel("filename", "text"));
+            Assert.IsTrue(expectedMsg.Equals(actualMsg));
+            var imagePart = (ImageMessagePartModel) actualMsg.MessageParts[0];
+            imagePart.AlternativeText = "foo";
+            Assert.IsFalse(expectedMsg.Equals(actualMsg));
         }
 
         [Test]

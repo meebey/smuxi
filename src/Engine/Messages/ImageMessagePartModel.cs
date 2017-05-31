@@ -1,13 +1,7 @@
 /*
- * $Id: Config.cs 100 2005-08-07 14:54:22Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/Config.cs $
- * $Rev: 100 $
- * $Author: meebey $
- * $Date: 2005-08-07 16:54:22 +0200 (Sun, 07 Aug 2005) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008, 2012, 2017 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -112,6 +106,33 @@ namespace Smuxi.Engine
 
             sw.Write( f_ImageFileName);
             sw.Write( f_AlternativeText);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is ImageMessagePartModel)) {
+                return false;
+            }
+
+            var textPart = (ImageMessagePartModel) obj;
+            return Equals(textPart);
+        }
+
+        public override bool Equals(MessagePartModel part)
+        {
+            var imagePart = part as ImageMessagePartModel;
+            if ((object) imagePart == null) {
+                return false;
+            }
+
+            if (f_ImageFileName != imagePart.ImageFileName) {
+                return false;
+            }
+            if (f_AlternativeText != imagePart.AlternativeText) {
+                return false;
+            }
+
+            return base.Equals(imagePart);
         }
     }
 }
