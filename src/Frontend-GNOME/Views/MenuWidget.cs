@@ -356,6 +356,8 @@ namespace Smuxi.Frontend.Gnome
                         SysDiag.Process.Start(
                             ChatViewManager.CurrentChatView.ChatModel.LogFile
                         );
+                    } catch (System.IO.FileNotFoundException) {
+                        Frontend.ShowError(Parent, _("No chat log was found for this chat. Have you turned on logging?"));
                     } catch (Exception ex) {
                         Frontend.ShowError(Parent, ex);
                     }
