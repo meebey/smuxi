@@ -310,9 +310,12 @@ namespace Smuxi.Engine
             builder.AppendFormat("{{{{virtual {0}}}}}", "hugs");
         }
 
-        void TestMessage(string message, MessageModel expectedMsg)
+        void TestMessage(string message, MessageModel expectedMsg, MessageBuilderSettings settings = null)
         {
             var builder = new MessageBuilder();
+            if (settings != null) {
+                builder.Settings = settings;
+            }
             builder.TimeStamp = DateTime.MinValue;
             builder.AppendMessage(message);
             var actualMsg = builder.ToMessage();
@@ -748,6 +751,21 @@ namespace Smuxi.Engine
             );
             builder.Append(new TextMessagePartModel(") bar"));
             TestMessage(msg, builder.ToMessage());
+        }
+
+        [Test]
+        public void AppendMessageWithEmojis()
+        {
+            var msg = "foo :smiley: bar";
+            var builder = new MessageBuilder();
+            builder.Settings.Emojis = true;
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("foo "));
+            builder.Append(
+                new ImageMessagePartModel("smuxi-emoji://smiley", ":smiley:")
+            );
+            builder.Append(new TextMessagePartModel(" bar"));
+            TestMessage(msg, builder.ToMessage(), builder.Settings);
         }
     }
 }
