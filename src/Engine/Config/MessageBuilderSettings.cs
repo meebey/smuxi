@@ -27,6 +27,7 @@ namespace Smuxi.Engine
     public class MessageBuilderSettings
     {
         static List<MessagePatternModel> BuiltinPatterns { get; set; }
+        static MessagePatternModel EmojiMessagePattern { get; set; }
         public List<MessagePatternModel> UserPatterns { get; set; }
         public List<MessagePatternModel> Patterns { get; set; }
         public bool NickColors { get; set; }
@@ -34,10 +35,29 @@ namespace Smuxi.Engine
         public bool StripColors { get; set; }
         public TextColor HighlightColor { get; set; }
         public List<string> HighlightWords { get; set; }
-        public bool Emojis { get; set; }
+
+        public bool Emojis {
+            get {
+                return Patterns.Contains(EmojiMessagePattern);
+            }
+            set {
+                if (value && !Emojis) {
+                    Patterns.Add(EmojiMessagePattern);
+                }
+                if (!value) {
+                    Patterns.Remove(EmojiMessagePattern);
+                }
+            }
+        }
 
         static MessageBuilderSettings()
         {
+            var emojiRegex = new Regex(@":(\w+):", RegexOptions.Compiled);
+            EmojiMessagePattern = new MessagePatternModel(emojiRegex) {
+                MessagePartType = typeof(ImageMessagePartModel),
+                LinkFormat = "smuxi-emoji://{1}"
+            };
+
             BuiltinPatterns = new List<MessagePatternModel>();
             InitBuiltinSmartLinks();
         }
@@ -387,7 +407,6 @@ namespace Smuxi.Engine
             HighlightWords = new List<string>(
                 (string[]) userConfig["Interface/Chat/HighlightWords"]
             );
-            Emojis = (bool) userConfig["Interface/Chat/Emojis"];
 
             var patternController = new MessagePatternListController(userConfig);
             var userPatterns = patternController.GetList();
@@ -400,16 +419,12 @@ namespace Smuxi.Engine
             // of MessageBuilderSettings is created via the static initializer.
             patterns.AddRange(builtinPatterns);
             patterns.AddRange(userPatterns);
-            if (Emojis) {
-                // Emoji
-                var regex = new Regex(@":(\w+):", RegexOptions.Compiled);
-                patterns.Add(new MessagePatternModel(regex) {
-                    MessagePartType = typeof(ImageMessagePartModel),
-                    LinkFormat = "smuxi-emoji://{1}",
-                });
-            }
             Patterns = patterns;
             UserPatterns = userPatterns;
+
+            // The Patterns property has to be initialized before we set the
+            // Emojis property as it will modify the existing Patterns collection
+            Emojis = (bool) userConfig["Interface/Chat/Emojis"];
         }
     }
 }
