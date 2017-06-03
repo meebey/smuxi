@@ -46,6 +46,15 @@ namespace Smuxi.Frontend.Gnome
         }
 
         public string Protocol {
+            get {
+                Gtk.TreeIter activeIter;
+                if (!f_ProtocolComboBox.GetActiveIter(out activeIter)) {
+                    return null;
+                }
+                var store = (Gtk.ListStore) ProtocolComboBox.Model;
+                var protocolId = (string) store.GetValue(activeIter, 1);
+                return protocolId;
+            }
             set {
                 if (value == null) {
                     // clear selection
@@ -235,10 +244,18 @@ namespace Smuxi.Frontend.Gnome
             server.Network  = f_NetworkComboBoxEntry.Entry.Text.Trim();
             server.Port     = f_PortSpinButton.ValueAsInt;
             server.Username = f_UsernameEntry.Text.Trim();
-            // HACK: use Twitter username as hostname for multi-account support
-            if (f_ProtocolComboBox.ActiveText == "Twitter") {
-                server.Hostname = server.Username;
+
+            switch (Protocol) {
+                case "Twitter":
+                    // HACK: use Twitter username as hostname for multi-account support
+                    server.Hostname = server.Username;
+                    break;
+                case "Slack":
+                    // HACK: on Slack the nickname has to match the username
+                    server.Nickname =  server.Username;
+                    break;
             }
+
             server.Password = f_PasswordEntry.Text;
             server.Nickname = f_NicknameEntry.Text.Trim();
             server.Realname = f_RealnameEntry.Text.Trim();
@@ -310,6 +327,9 @@ namespace Smuxi.Frontend.Gnome
             f_ProtocolComboBox.Changed += delegate {
                 CheckProtocolComboBox();
             };
+            f_HostnameEntry.Changed += delegate {
+                CheckHostnameEntry();
+            };
             f_ShowPasswordCheckButton.Clicked += delegate {
                 CheckShowPasswordCheckButton();
             };
@@ -352,6 +372,7 @@ namespace Smuxi.Frontend.Gnome
             }
             switch (f_ProtocolComboBox.ActiveText) {
                 case "IRC":
+                case "Slack":
                     if (f_PortSpinButton.Value == 6667 ||
                         f_PortSpinButton.Value == 6697) {
                         f_PortSpinButton.Value = useEncryption ? 6697 : 6667;
@@ -484,6 +505,32 @@ namespace Smuxi.Frontend.Gnome
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
                     f_PasswordEntry.Text = String.Empty;
                     break;
+                case "Slack":
+                    // https://my.slack.com/account/gateways
+                    ShowHostname = true;
+                    // we map the 4rd level domain (foo.irc.slacke.com) to the
+                    // network name as it is guaranteed to be unique, see
+                    // CheckHostnameEntry()
+                    ShowNetwork = false;
+                    // on Slack the nickname has to match the username
+                    ShowNickname = false;
+                    // the realname is ignored by the IRC bridge
+                    ShowRealname = false;
+                    ShowPassword = true;
+                    SupportUseEncryption = true;
+
+                    // use TLS by default
+                    f_UseEncryptionCheckButton.Active = true;
+
+                    f_HostnameEntry.Text = ".irc.slack.com";
+                    f_HostnameEntry.Sensitive = true;
+
+                    // Slack only supports 6667 or 6697
+                    f_PortSpinButton.Sensitive = false;
+
+                    f_NetworkComboBoxEntry.Entry.Text = String.Empty;
+                    f_PasswordEntry.Text = String.Empty;
+                    break;
                 // in case we don't know / handle the protocol here, make
                 // sure we grant maximum flexibility for the input
                 default:
@@ -498,6 +545,25 @@ namespace Smuxi.Frontend.Gnome
                     f_PortSpinButton.Sensitive = true;
                     f_UseEncryptionCheckButton.Sensitive = true;
                     f_ValidateServerCertificateCheckButton.Sensitive = true;
+                    break;
+            }
+        }
+
+        void CheckHostnameEntry()
+        {
+            Trace.Call();
+
+            var hostname = f_HostnameEntry.Text ?? String.Empty;
+            switch (Protocol) {
+                case "Slack":
+                    var colonPosition = hostname.IndexOf('.');
+                    if (colonPosition < 0) {
+                        return;
+                    }
+                    // map 4th level domain to the network name, e.g.
+                    // "foo.irc.slack.come" as host becomes "foo" as network
+                    var fourthLevelDomain = hostname.Substring(0, colonPosition);
+                    f_NetworkComboBoxEntry.Entry.Text = fourthLevelDomain;
                     break;
             }
         }

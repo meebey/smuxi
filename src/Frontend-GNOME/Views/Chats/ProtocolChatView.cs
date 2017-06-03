@@ -80,6 +80,9 @@ namespace Smuxi.Frontend.Gnome
             NetworkWebsiteUrls.Add("Infinity-IRC", "http://www.infinityirc.com/");
             NetworkWebsiteUrls.Add("GeekShed", "http://www.geekshed.net/");
 
+            // IRC bridges
+            NetworkWebsiteUrls.Add("Slack", "https://slack.com/");
+
             // Twitter
             NetworkWebsiteUrls.Add("Twitter", "http://www.twitter.com/");
 

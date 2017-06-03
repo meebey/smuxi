@@ -47,6 +47,7 @@
     <Compile Include="..\AssemblyVersion.cs" />
     <Compile Include="Protocols\Irc\IrcMessageBuilder.cs" />
     <Compile Include="Config\IrcServerModel.cs" />
+    <Compile Include="Protocols\Irc\SlackProtocolManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\po-Engine-IRC\de.po" />

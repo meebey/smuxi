@@ -64,6 +64,7 @@ FILES = \
 	Protocols/Irc/IrcProtocolManager.cs \
 	Protocols/Irc/IrcPersonModel.cs \
 	Protocols/Irc/IrcTextColor.cs \
+	Protocols/Irc/SlackProtocolManager.cs \
 	Config/IrcServerModel.cs \
 	../AssemblyVersion.cs \
 	AssemblyInfo.cs 
