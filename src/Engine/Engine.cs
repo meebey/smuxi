@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2016 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2017 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -30,6 +30,9 @@ namespace Smuxi.Engine
 {
     public class Engine
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private static bool             _IsInitialized;
         private static string           _VersionString;
         private static Config           _Config;
@@ -120,6 +123,47 @@ namespace Smuxi.Engine
 
             _Config = new Config();
             _Config.Load();
+
+            // migration config settins from 1.0 or earlier to 1.1
+            if (_Config.PreviousVersion == null ||
+                _Config.PreviousVersion < new Version(1, 1)) {
+                // migrate all existing IRC connections for Slack to the
+                // SlackProtocolManager
+                var users = (string[]) _Config["Engine/Users/Users"];
+                if (users != null) {
+                    foreach (var user in users) {
+                        var userConfig = new UserConfig(_Config, user);
+                        var serverController = new ServerListController(userConfig);
+                        var servers = serverController.GetServerList();
+                        foreach (var server in servers) {
+                            if (server.Protocol != "IRC") {
+                                continue;
+                            }
+                            if (!server.Hostname.EndsWith(".irc.slack.com")) {
+                                continue;
+                            }
+#if LOG4NET
+                            f_Logger.InfoFormat(
+                                "Migrating Slack server '{0}' of user '{1}' " +
+                                "from IRC to Slack protocol manager",
+                                server,
+                                user
+                            );
+#endif
+                            // this is Slack IRC bridge connection
+                            var migratedServer = new ServerModel(server);
+                            migratedServer.ServerID = null;
+                            migratedServer.Protocol = "Slack";
+                            serverController.AddServer(migratedServer);
+                            // remove old Slack server with IRC as protocol
+                            serverController.RemoveServer(server.Protocol,
+                                                          server.ServerID);
+                        }
+                    }
+                }
+                _Config["Engine/ConfigVersion"] = _Config.CurrentVersion.ToString();
+            }
+
             _Config.Save();
 
             string location = Path.GetDirectoryName(asm.Location);

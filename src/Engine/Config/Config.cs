@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015, 2017 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -51,6 +51,8 @@ namespace Smuxi.Engine
 #endif
         protected bool          m_IsCleanConfig;
         protected Hashtable     m_Preferences = Hashtable.Synchronized(new Hashtable());
+        public Version PreviousVersion { get; private set; }
+        public Version CurrentVersion { get; private set; }
         public event EventHandler<ConfigChangedEventArgs> Changed;
         
         public object this[string key] {
@@ -244,7 +246,11 @@ namespace Smuxi.Engine
 
             prefix = "Engine/";
             var oldConfigVersion = Get<string>(prefix+"ConfigVersion", null);
-            Get(prefix+"ConfigVersion", Engine.AssemblyVersion.ToString());
+            if (!String.IsNullOrEmpty(oldConfigVersion)) {
+                PreviousVersion = new Version(oldConfigVersion);
+            }
+            CurrentVersion = Engine.AssemblyVersion;
+            Get(prefix+"ConfigVersion", CurrentVersion.ToString());
 
             prefix = "Engine/Users/DEFAULT/Interface/";
             Get(prefix+"ShowAdvancedSettings", false);
