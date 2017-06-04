@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007, 2010, 2012-2014 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010, 2012-2014, 2017 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -59,6 +59,28 @@ namespace Smuxi.Engine
         
         public ServerModel()
         {
+        }
+
+        public ServerModel(ServerModel server)
+        {
+            if (server == null) {
+                throw new ArgumentNullException("server");
+            }
+
+            UseEncryption = server.UseEncryption;
+            ValidateServerCertificate = server.ValidateServerCertificate;
+            ClientCertificateFilename = server.ClientCertificateFilename;
+            Protocol = server.Protocol;
+            Hostname = server.Hostname;
+            Port = server.Port;
+            Network = server.Network;
+            Nickname = server.Nickname;
+            Realname = server.Realname;
+            Username = server.Username;
+            Password = server.Password;
+            OnStartupConnect = server.OnStartupConnect;
+            OnConnectCommands = new List<string>(server.OnConnectCommands);
+            ServerID = server.ServerID;
         }
 
         protected ServerModel(SerializationInfo info, StreamingContext ctx)
