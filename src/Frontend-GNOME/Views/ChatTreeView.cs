@@ -25,6 +25,9 @@ namespace Smuxi.Frontend.Gnome
 {
     public class ChatTreeView : Gtk.TreeView
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         public Gtk.TreeStore TreeStore { get; private set; }
         ThemeSettings ThemeSettings { get; set; }
         int f_CurrentChatNumber;
@@ -43,6 +46,15 @@ namespace Smuxi.Frontend.Gnome
                     TreeStore.GetIterFirst(out iter);
                 } else {
                     iter = FindChatIter(value);
+                    if (Gtk.TreeIter.Zero.Equals(iter)) {
+#if LOG4NET
+                        f_Logger.ErrorFormat(
+                            "set_CurrentChatView(): FindChatIter({0}) " +
+                            "returned Gtk.TreeIter.Zero, ignoring...", value
+                        );
+#endif
+                        return;
+                    }
                 }
                 var path = TreeStore.GetPath(iter);
                 // we have to ensure we can make the new selection
