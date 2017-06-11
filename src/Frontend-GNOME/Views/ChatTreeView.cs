@@ -25,6 +25,9 @@ namespace Smuxi.Frontend.Gnome
 {
     public class ChatTreeView : Gtk.TreeView
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         public Gtk.TreeStore TreeStore { get; private set; }
         ThemeSettings ThemeSettings { get; set; }
         Gtk.TreeViewColumn ActivityColumn { get; set; }
@@ -41,9 +44,21 @@ namespace Smuxi.Frontend.Gnome
             set {
                 Gtk.TreeIter iter;
                 if (value == null) {
-                    TreeStore.GetIterFirst(out iter);
+                    if (!TreeStore.GetIterFirst(out iter)) {
+                        // no chat views available; this can happen on shutdown
+                        return;
+                    }
                 } else {
                     iter = FindChatIter(value);
+                    if (Gtk.TreeIter.Zero.Equals(iter)) {
+#if LOG4NET
+                        f_Logger.ErrorFormat(
+                            "set_CurrentChatView(): FindChatIter({0}) " +
+                            "returned Gtk.TreeIter.Zero, ignoring...", value
+                        );
+#endif
+                        return;
+                    }
                 }
                 var path = TreeStore.GetPath(iter);
                 // we have to ensure we can make the new selection
@@ -85,6 +100,10 @@ namespace Smuxi.Frontend.Gnome
                 if (!Selection.GetSelected(out iter) &&
                     TreeStore.GetIterFirst(out iter)) {
                     Selection.SelectIter(iter);
+                    return;
+                }
+                if (Gtk.TreeIter.Zero.Equals(iter)) {
+                    // no chat views available; this happens during shutdown
                     return;
                 }
                 var path = TreeStore.GetPath(iter);
@@ -496,7 +515,9 @@ namespace Smuxi.Frontend.Gnome
         Gtk.TreePath GetPath(int rowNumber)
         {
             Gtk.TreeIter iter;
-            TreeStore.GetIterFirst(out iter);
+            if (!TreeStore.GetIterFirst(out iter)) {
+                return null;
+            }
             var path = TreeStore.GetPath(iter);
             // TODO: clamp upper limit
             int i;
