@@ -86,6 +86,10 @@ namespace Smuxi.Frontend.Gnome
                     Selection.SelectIter(iter);
                     return;
                 }
+                if (Gtk.TreeIter.Zero.Equals(iter)) {
+                    // no chat views available; this happens during shutdown
+                    return;
+                }
                 var path = TreeStore.GetPath(iter);
                 f_CurrentChatNumber = GetRowNumber(path);
             };
