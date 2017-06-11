@@ -43,7 +43,10 @@ namespace Smuxi.Frontend.Gnome
             set {
                 Gtk.TreeIter iter;
                 if (value == null) {
-                    TreeStore.GetIterFirst(out iter);
+                    if (!TreeStore.GetIterFirst(out iter)) {
+                        // no chat views available; this can happen on shutdown
+                        return;
+                    }
                 } else {
                     iter = FindChatIter(value);
                     if (Gtk.TreeIter.Zero.Equals(iter)) {
@@ -508,7 +511,9 @@ namespace Smuxi.Frontend.Gnome
         Gtk.TreePath GetPath(int rowNumber)
         {
             Gtk.TreeIter iter;
-            TreeStore.GetIterFirst(out iter);
+            if (!TreeStore.GetIterFirst(out iter)) {
+                return null;
+            }
             var path = TreeStore.GetPath(iter);
             // TODO: clamp upper limit
             int i;
