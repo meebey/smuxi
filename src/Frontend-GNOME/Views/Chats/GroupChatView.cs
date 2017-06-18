@@ -325,8 +325,6 @@ namespace Smuxi.Frontend.Gnome
                 Gtk.ListStore ls = (Gtk.ListStore) _PersonTreeView.Model;
                 // cleanup, be sure the list is empty
                 ls.Clear();
-                // detach the model (less CPU load)
-                _PersonTreeView.Model = new Gtk.ListStore(typeof(PersonModel));
                 Participants = new List<PersonModel>();
                 string longestName = String.Empty;
                 foreach (var person in persons.Values.OrderBy(x => x)) {
@@ -337,11 +335,6 @@ namespace Smuxi.Frontend.Gnome
                     }
                     Participants.Add(person);
                 }
-                // attach the model again
-                // BUG? TreeView doesn't seem to recognize existing values in the model?!?
-                // see: http://www.smuxi.org/issues/show/132
-                _PersonTreeView.Model = ls;
-                _PersonTreeView.SearchColumn = 0;
 
                 OnParticipantsChanged(EventArgs.Empty);
 

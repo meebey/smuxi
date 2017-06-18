@@ -7,7 +7,7 @@ export MONO_TLS_SESSION_CACHE_TIMEOUT
 
 # Mono >= 4 SEGVs with Boehm as GC during startup
 # see https://bugzilla.opensuse.org/show_bug.cgi?id=955080
-if ! mono -V | grep -q -F "version 4."; then
+if ! mono -V | grep -q -e "version [4-9]\."; then
     # HACK: forcibly disabled SGen, as it has a known SEGV bug related to the
     # Mono.Data.Sqlite binding that does not happen with the boehm GC, see:
     # https://smuxi.im/issues/show/1062
