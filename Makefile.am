@@ -217,6 +217,7 @@ OSX_FILES = \
 LINUX_STATIC_FILES = \
 	$(LIB_DIR)/Mono.Data.Sqlite.dll \
 	$(LIB_DIR)/Mono.Posix.dll \
+	/usr/lib/libMonoPosixHelper.so \
 	$(LIB_DIR)/Nini.dll \
 	$(LIB_DIR)/log4net.dll \
 	$(BUILD_DIR)/smuxi-common.dll \
