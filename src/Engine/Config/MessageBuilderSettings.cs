@@ -149,7 +149,16 @@ namespace Smuxi.Engine
             var query = @"(\?[" + path_chars + @"]+)?";
             var bitcoin_address_query = bitcoin_address + query;
             regex = new Regex(
-                @"(?:bitcoin:)?(" + bitcoin_address_query + @")",
+                @"bitcoin:(" + bitcoin_address_query + @")",
+                RegexOptions.IgnoreCase | RegexOptions.Compiled
+            );
+            BuiltinPatterns.Add(new MessagePatternModel(regex) {
+                LinkFormat = "bitcoin:{1}"
+            });
+
+            // bitcoin address (heuristical)
+            regex = new Regex(
+                start_delimiter + @"(" + bitcoin_address_query + @")" + end_delimiter,
                 RegexOptions.IgnoreCase | RegexOptions.Compiled
             );
             BuiltinPatterns.Add(new MessagePatternModel(regex) {

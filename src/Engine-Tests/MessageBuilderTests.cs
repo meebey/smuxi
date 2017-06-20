@@ -754,6 +754,22 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void AppendMessageWithNonBitcoinTxHash()
+        {
+            var msg = "11:45:54 <matt> I so I send to 0x2880502fc7373e73cc19f3e8dd1cd71ca75ad826, correct?";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel(msg));
+            TestMessage(msg, builder.ToMessage());
+
+            msg = "19:15:50 <meebey> b7ae3f09f4f1ef58a6bc479541523a7428ab5d30  ../../lib/emoji.json";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel(msg));
+            TestMessage(msg, builder.ToMessage());
+        }
+
+        [Test]
         public void AppendMessageWithEmojis()
         {
             var msg = "foo :smiley: bar";
