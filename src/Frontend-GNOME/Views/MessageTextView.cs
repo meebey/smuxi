@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2009-2015 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2009-2015, 2017 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -305,13 +305,6 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            int width, height;
-            int descent;
-            using (var layout = CreatePangoLayout(null)) {
-                layout.GetPixelSize(out width, out height);
-                descent = layout.Context.GetMetrics(layout.FontDescription, null).Descent;
-            }
-
             // A mark here serves two pusposes. One is to allow us to apply the
             // tag across the pixbuf. It also lets us know later where to put
             // the pixbuf if we need to load it from the network
@@ -323,13 +316,7 @@ namespace Smuxi.Frontend.Gnome
             if (EmojiCache.TryGetIcon("emojione", emojiName, out emojiPath)) {
                 var emojiFile = new FileInfo(emojiPath);
                 if (emojiFile.Exists && emojiFile.Length > 0) {
-                    var pix = new Gdk.Pixbuf(emojiPath, -1, height);
-                    buffer.InsertPixbuf(ref iter, pix);
-                    var beforeIter = buffer.GetIterAtMark(mark);
-                    var imgTag = new EmojiTag(mark, emojiFile.FullName);
-                    imgTag.Rise = - descent;
-                    _MessageTextTagTable.Add(imgTag);
-                    buffer.ApplyTag(imgTag, beforeIter, iter);
+                    AddEmoji(buffer, ref iter, imgPart, shortName, mark, emojiPath);
                 } else {
                     AddAlternativeText(buffer, ref iter, imgPart);
                 }
@@ -341,13 +328,8 @@ namespace Smuxi.Frontend.Gnome
             EmojiCache.BeginDownloadFile("emojione", emojiName, emojiUrl,
                 (path) => {
                     GLib.Idle.Add(delegate {
-                        var afterIter = buffer.GetIterAtMark(mark);
-                        buffer.InsertPixbuf(ref afterIter, new Gdk.Pixbuf(path, -1, height));
-                        var beforeIter = buffer.GetIterAtMark(mark);
-                        var emojiTag = new EmojiTag(mark, path);
-                        _MessageTextTagTable.Add(emojiTag);
-                        emojiTag.Rise = - descent;
-                        buffer.ApplyTag(emojiTag, beforeIter, afterIter);
+                        var markIter = buffer.GetIterAtMark(mark);
+                        AddEmoji(buffer, ref markIter, imgPart, shortName, mark, path);
                         return false;
                     });
                 },
@@ -360,6 +342,50 @@ namespace Smuxi.Frontend.Gnome
                     });
                 }
             );
+        }
+
+        void AddEmoji(Gtk.TextBuffer buffer, ref Gtk.TextIter iter,
+                      ImageMessagePartModel imgPart, string shortName,
+                      Gtk.TextMark emojiMark , string imagePath)
+        {
+            int width, height;
+            int descent;
+            using (var layout = CreatePangoLayout(null)) {
+                layout.GetPixelSize(out width, out height);
+                descent = layout.Context.GetMetrics(layout.FontDescription, null).Descent;
+            }
+
+            Gdk.Pixbuf emojiPixBuf;
+            try {
+                emojiPixBuf = new Gdk.Pixbuf(imagePath, -1, height);
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.ErrorFormat(
+                    "AddEmoji(): error loading " +
+                    "image file: '{0}' " +
+                    "emoji: '{1}' into Gdk.Pixbuf(), " +
+                    "Exception: {2}",
+                    imagePath, shortName, ex
+                );
+#endif
+
+                // delete the broken image file, maybe after the
+                // next download this will be a valid image
+                File.Delete(imagePath);
+
+                // show alternative text as fallback instead
+                buffer.DeleteMark(emojiMark);
+                AddAlternativeText(buffer, ref iter, imgPart);
+                return;
+            }
+
+            buffer.InsertPixbuf(ref iter, emojiPixBuf);
+            var beforeIter = buffer.GetIterAtMark(emojiMark);
+            var emojiTag = new EmojiTag(emojiMark, imagePath) {
+                Rise =  - descent
+            };
+            _MessageTextTagTable.Add(emojiTag);
+            buffer.ApplyTag(emojiTag, beforeIter, iter);
         }
 
         public void AddMessage(MessageModel msg)
