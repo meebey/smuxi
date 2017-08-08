@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi frontend-GNOME master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-05 14:41+0000\n"
-"PO-Revision-Date: 2016-07-25 09:21+0700\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-07-11 11:00+0000\n"
+"PO-Revision-Date: 2017-07-31 10:33+0700\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: \n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:1
 msgid "Smuxi Preferences"
@@ -98,7 +98,7 @@ msgstr "Perintah Saat Awal Mula:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:17
 msgid "<b>Global Commands</b>"
-msgstr "<b>Perintah Global</b?"
+msgstr "<b>Perintah Global</b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:18
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
@@ -268,11 +268,11 @@ msgstr "<b> Warna Tab </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:52
 msgid "Automatically switch to newly opened person chats"
-msgstr ""
+msgstr "Secara otomatis beralih ke obrolan orang yang baru dibuka"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:53
 msgid "Automatically switch to newly opened group chats"
-msgstr ""
+msgstr "Secara otomatis beralih ke obrolan grup yang baru dibuka"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:54
 msgid "Tree"
@@ -344,9 +344,8 @@ msgstr "<b> Warna </b>"
 
 #. This is a setting for character based line wrapping vs word based when showing messages
 #: ../glade/smuxi-frontend-gnome.glade.h:70
-#, fuzzy
 msgid "_Wrap Mode:"
-msgstr "Mode lipat"
+msgstr "Mode _Lipat:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:71
 msgid "<b> Chat </b>"
@@ -354,21 +353,18 @@ msgstr "<b> Obrolan </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:72
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
-#, fuzzy
 msgid "Highlight words:"
-msgstr "Sorot Kata Salah Eja"
+msgstr "Sorot kata:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:73
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
-#, fuzzy
 msgid "Beep on highlight"
-msgstr "Penyorotan"
+msgstr "Bunyi bip saat penyorotan"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:74
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
-#, fuzzy
 msgid "<b> Highlighting </b>"
-msgstr "<b>Nama:</b>"
+msgstr "<b> Penyorotan </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:75
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
@@ -380,44 +376,36 @@ msgid "Enable"
 msgstr "Memfungsikan"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:77
-#, fuzzy
 msgid "Show always"
-msgstr "Selalu tampilkan citra"
+msgstr "Selalu tampilkan"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:78
-#, fuzzy
 msgid "Show when window is minimized"
-msgstr "Saat untuk menampilkan miniatur berkas"
+msgstr "Tampilkan saat jendela diminimalkan"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:79
-#, fuzzy
 msgid "Show when window is closed"
-msgstr "Apakah menampilkan dekorasi jendela"
+msgstr "Tampilkan saat jendela ditutup"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:80
-#, fuzzy
 msgid "<b> Notification Area Icon </b>"
-msgstr "Supplementary Private Use Area-B"
+msgstr "<b> Ikon Area Pemberitahuan </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:81
-#, fuzzy
 msgid "Show Smuxi in the messaging menu"
-msgstr "Tampilkan menu 'Metoda Masukan'"
+msgstr "Tampilkan Smuxi pada menu perpesanan"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:82
-#, fuzzy
 msgid "<b>Messaging Menu</b>"
-msgstr "<b>Nama:</b>"
+msgstr "<b>Menu Perpesanan</b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:83
-#, fuzzy
 msgid "Show notification popups"
-msgstr "Notifikasi"
+msgstr "Tampilkan popup pemberitahuan"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:84
-#, fuzzy
 msgid "<b>Notification Popups</b>"
-msgstr "<b>Nama:</b>"
+msgstr "<b>Popup pemberitahuan</b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:85
 msgid "Notification"
@@ -425,9 +413,8 @@ msgstr "Pemberitahuan"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:86
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
-#, fuzzy
 msgid "_Interface"
-msgstr "Antarmuka:"
+msgstr "_Antarmuka"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:87
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
@@ -444,14 +431,12 @@ msgid "Enabled"
 msgstr "Diaktifkan"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:90
-#, fuzzy
 msgid "Log Filtered Messages"
-msgstr "Log masuk"
+msgstr "Pesan Log yang Disaring"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:91
-#, fuzzy
 msgid "_Logging"
-msgstr "Sedang log masuk.."
+msgstr "_Logging"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
@@ -459,34 +444,36 @@ msgid "Smuxi"
 msgstr "Smuxi"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:2
-#, fuzzy
 msgid "IRC Chat"
-msgstr "Obrolan"
+msgstr "Obrolan IRC"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:3
-#, fuzzy
 msgid "Smuxi IRC Client"
-msgstr "_Smuxi"
+msgstr "Klien IRC Smuxi"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:4
 msgid "Chat with other people on IRC"
-msgstr ""
+msgstr "Mengobrol dengan orang lain di IRC"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:5
 msgid ""
 "chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;"
 "jabbr;"
 msgstr ""
+"obrol;perpesanan;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;"
+"campfire;jabbr;"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:2
 msgid "Chat with other people on IRC, Twitter, Jabber and Campfire"
-msgstr ""
+msgstr "Mengobrol dengan orang lain di IRC, Twitter, Jabber dan Campfire"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:3
 msgid ""
 "Smuxi is an open-source, distributed and user-friendly chat client for IRC, "
 "Twitter, Jabber/XMPP, Campfire and SignalR's JabbR."
 msgstr ""
+"Smuxi adalah klien obrolan sumber terbuka, terdistribusi dan mudah digunakan "
+"untuk IRC, Twitter, Jabber/XMPP, Campfire dan SignalR's JabbR."
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:4
 msgid ""
@@ -495,14 +482,21 @@ msgid ""
 "and can allow multiple Smuxi frontends to be connected and in sync. This is "
 "similar to screen+irssi or IRC bouncers, but more elegant and powerful."
 msgstr ""
+"Terinspirasi oleh kombinasi layar dan irssi, Smuxi memiliki server yang "
+"dapat dilepas (atau seperti klien \"normal\") yang tetap tersambung saat "
+"Anda tidak berada, dan memungkinkan beberapa frontend Smuxi terhubung dan "
+"sinkron. Ini mirip dengan layar+irssi atau IRC bouncer, namun lebih elegan "
+"dan bertenaga."
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:5
 msgid "The main window showing an IRC channel"
-msgstr ""
+msgstr "Jendela utama menampilkan kanal IRC"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:66
 msgid "translator-credits"
-msgstr "Andika Triwidada <andika@gmail.com>, 2016."
+msgstr ""
+"Andika Triwidada <andika@gmail.com>, 2016.\n"
+"Kukuh Syafaat <syafaatkukuh@gmail.com>, 2017."
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:79
 msgid "Smuxi Website"
@@ -510,56 +504,49 @@ msgstr "Situs Web Smuxi"
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:46
 msgid "Oops, I did it again..."
-msgstr ""
+msgstr "Ups, saya melakukannya lagi..."
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:59
 msgid "Smuxi crashed because an unhandled exception was thrown!"
-msgstr ""
+msgstr "Smuxi macet karena pengecualian yang tidak tertangani dilemparkan!"
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:63
-#, fuzzy
 msgid "Here is the stacktrace, please report this bug!"
-msgstr "Mohon laporkan bug "
+msgstr "Berikut adalah stacktrace, laporkan kutu ini!"
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:83
-#, fuzzy
 msgid "_Report Bug"
-msgstr "Laporkan Bug di Terjemahan"
+msgstr "Lapo_rkan Kutu"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:61
-#, fuzzy
 msgid "Engine not found."
-msgstr "Tidak ditemukan."
+msgstr "Mesin tidak ditemukan."
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:77
-#, fuzzy
 msgid "Engine Manager"
-msgstr "Manajer"
+msgstr "Pengelola Mesin"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:96
 msgid "Select which Smuxi engine you want to connect to"
-msgstr ""
+msgstr "Pilih mesin Smuxi yang ingin Anda sambungkan"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:102
-#, fuzzy
 msgid "Engine:"
-msgstr "Engine"
+msgstr "Mesin:"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:113
 msgid "Use Low Bandwidth Mode"
-msgstr ""
+msgstr "Gunakan Mode Pita Lebar Rendah"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:137
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:197
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:382
-#, fuzzy
 msgid "Local Engine"
-msgstr "Lokal"
+msgstr "Mesin Lokal"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:189
-#, fuzzy
 msgid "Please select an engine!"
-msgstr "Harap pilih suatu berkas .shape"
+msgstr "Silakan pilih mesin!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:212
 #, csharp-format
@@ -568,83 +555,80 @@ msgid ""
 "Engine Version: {0} Frontend Version: {1}\n"
 "Engine Protocol: {2} Frontend Protocol: {3}"
 msgstr ""
+"Frontend Anda tidak kompatibel dengan mesinnya!\n"
+"Versi Mesin: {0} Versi Frontend: {1}\n"
+"Protokol Mesin: {2} Protokol Frontend: {3}"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:245
-#, fuzzy
 msgid "An error occurred while connecting to the engine!"
-msgstr "Terjadi galat sewaktu menjalankan operasi"
+msgstr "Terjadi kesalahan saat menyambungkan ke mesin!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:246
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Engine URL: {0}"
-msgstr "Engine"
+msgstr "URL Mesin: {0}"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:249
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Error: {0}"
-msgstr "0"
+msgstr "Kesalahan: {0}"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:319
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Are you sure you want to delete the engine \"{0}\"?"
-msgstr "Yakin akan menghapus permanen “%B”?"
+msgstr "Apakah Anda yakin ingin menghapus mesin \"{0}\"?"
 
 #: ../src/Frontend-GNOME/Entry.cs:485
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
-msgstr ""
+msgstr "Anda akan menempelkan {0} baris. Apakah Anda ingin melanjutkan?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
 #: ../src/Frontend-GNOME/Entry.cs:602
-#, fuzzy
 msgid "Frontend Commands"
-msgstr "Frontend"
+msgstr "Perintah Frontend"
 
 #: ../src/Frontend-GNOME/Main.cs:49
-#, fuzzy
 msgid "Enable debug output"
-msgstr "Aktifkan moda awakutu"
+msgstr "Aktifkan keluaran awakutu"
 
 #: ../src/Frontend-GNOME/Main.cs:56
-#, fuzzy
 msgid "Show this help"
-msgstr "Tunjukkan bantuan sintaks"
+msgstr "Tampilkan bantuan ini"
 
 #: ../src/Frontend-GNOME/Main.cs:60
 msgid "Options:"
 msgstr "Opsi:"
 
 #: ../src/Frontend-GNOME/Main.cs:67
-#, fuzzy
 msgid "Connect to engine"
-msgstr "Sambung"
+msgstr "Sambungkan ke mesin"
 
 #: ../src/Frontend-GNOME/Main.cs:74
 msgid "Opens the specified link in Smuxi"
-msgstr ""
+msgstr "Buka tautan yang ditentukan di Smuxi"
 
 #: ../src/Frontend-GNOME/Main.cs:81
 msgid "Starts a new Smuxi instance and ignores an existing one"
-msgstr ""
+msgstr "Mulai instance Smuxi baru dan abaikan yang sudah ada"
 
 #: ../src/Frontend-GNOME/Main.cs:109
 msgid "Passing link to already running Smuxi instance..."
-msgstr ""
+msgstr "Melewati tautan yang sudah menjalankan instance Smuxi..."
 
 #: ../src/Frontend-GNOME/Main.cs:117
 msgid "Bringing already running Smuxi instance to foreground..."
-msgstr ""
+msgstr "Membawa instance Smuxi yang sudah berjalan ke latar depan..."
 
 #: ../src/Frontend-GNOME/MainWindow.cs:374
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "{0} Users"
-msgstr "0"
+msgstr "{0} Pengguna"
 
 #: ../src/Frontend-GNOME/NotImplementedMessageDialog.cs:40
-#, fuzzy
 msgid "Sorry, not implemented yet!"
-msgstr "Dukungan TNCC belum diimplementasikan pada Windows\n"
+msgstr "Maaf, belum diimplementasikan!"
 
 #. fill ListStore
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:179
@@ -666,37 +650,40 @@ msgid ""
 "The SQLite backend has no known performance or stability issues and is the "
 "recommended setting."
 msgstr ""
+"Pengaturan ini menentukan apakah Smuxi harus menyimpan pesan obrolan di "
+"memori (tidak stabil) atau ke diska (persisten).\n"
+"Untuk persisten Anda dapat memilih antara Db4o, basis data objek atau "
+"SQLite, basis data relasional.\n"
+"Backend Db4o telah mengetahui masalah seperti penggunaan memori dan CPU yang "
+"tinggi dan bahkan dapat menyebabkan macet dan karenanya sudah tidak berlaku "
+"lagi.\n"
+"Backend SQLite tidak memiliki kinerja atau masalah stabilitas yang diketahui "
+"dan ini merupakan pengaturan yang disarankan."
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:208
-#, fuzzy
 msgid "Persistent: SQLite (Recommended)"
-msgstr "%s (disarankan)"
+msgstr "Persisten: SQLite (Disarankan)"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:212
-#, fuzzy
 msgid "Persistent: Db4o (Deprecated)"
-msgstr "Baris Penyangga Persisten:"
+msgstr "Persisten: Db4o (Tidak Berlaku)"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:216
-#, fuzzy
 msgid "Persistent (Preview)"
-msgstr "Preview"
+msgstr "Persisten (Pratinjau)"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:219
-#, fuzzy
 msgid "Volatile"
-msgstr "Baris Penyangga Volatil:"
+msgstr "Volatil"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:242
-#, fuzzy
 msgid "No Proxy"
-msgstr "_Proksi:"
+msgstr "Tidak Ada Proksi"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:244
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:340
-#, fuzzy
 msgid "System Default"
-msgstr "Gunakan fonta monospace bawaan sistem"
+msgstr "Bawaan Sistem"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:258
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:134
@@ -716,18 +703,17 @@ msgid "Filters"
 msgstr "Tapis"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:277
-#, fuzzy
 msgid "Logging"
-msgstr "Sedang log masuk.."
+msgstr "Logging"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:699
 msgid "Nicknames(s) field must not be empty."
-msgstr ""
+msgstr "Ruas nama panggilan tidak boleh kosong."
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:895
 #, csharp-format
 msgid "Invalid highlight regex: '{0}'. Reason: {1}"
-msgstr ""
+msgstr "Regex sorot tidak valid: '{0}'. Alasan: {1}"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:100
@@ -737,7 +723,7 @@ msgstr "Nama"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:86
 msgid "Topic"
-msgstr ""
+msgstr "Topik"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:115
 msgid ""
@@ -745,43 +731,51 @@ msgid ""
 "take a while, or may not work at all.\n"
 "Do you wish to continue?"
 msgstr ""
+"Mencari obrolan grup tanpa penyaring tidak disarankan.  Ini mungkin "
+"memerlukan beberapa saat, atau mungkin tidak bekerja sama sekali.\n"
+"Apakah Anda ingin melanjutkan?"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:156
 msgid "Error while fetching the list of group chats from the server."
-msgstr ""
+msgstr "Kesalahan saat mengambil daftar obrolan grup dari server."
 
 #: ../src/Frontend-GNOME/Frontend.cs:388
-#, fuzzy
 msgid "Disconnected from engine."
-msgstr "Terputus"
+msgstr "Terputus dari mesin."
 
 #: ../src/Frontend-GNOME/Frontend.cs:431
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
-msgstr ""
+msgstr "Menyambungkan kembali ke mesin... (percobaan {0})"
 
 #: ../src/Frontend-GNOME/Frontend.cs:542
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Cause: {0}"
-msgstr "Karakter yang menyebabkan pengutipan ruas"
+msgstr "Penyebab: {0}"
 
 #: ../src/Frontend-GNOME/Frontend.cs:675
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
 msgstr ""
+"Frontend telah kehilangan sambungan ke server.\n"
+"Apakah Anda ingin menyambungkan kembali sekarang?"
 
 #: ../src/Frontend-GNOME/Frontend.cs:694
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
 msgstr ""
+"Menyambungkan kembali ke server telah gagal.\n"
+"Apakah Anda ingin mencoba lagi?"
 
 #: ../src/Frontend-GNOME/Frontend.cs:1008
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
 msgstr ""
+"Server telah kehilangan sambungan ke frontend.\n"
+"Apakah Anda ingin menyambungkan kembali sekarang?"
 
 #: ../src/Frontend-GNOME/NotifyManager.cs:338
 msgid "Show"
@@ -795,70 +789,59 @@ msgstr "Protokol"
 
 #: ../src/Frontend-GNOME/QuickConnectDialog.cs:59
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:71
-#, fuzzy
 msgid "Hostname"
-msgstr "Memperlakukan host \"%s\" sebagai nama host mentah\n"
+msgstr "Nama Host"
 
 #: ../src/Frontend-GNOME/QuickConnectDialog.cs:162
-#, fuzzy
 msgid "Unable to load server: "
-msgstr "Gagal memuat gambar (%s)"
+msgstr "Tidak dapat memuat server: "
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:239
-#, fuzzy
 msgid "Person / Private"
-msgstr "Privat"
+msgstr "Orang / Privat"
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:55
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:240
-#, fuzzy
 msgid "Group / Public"
-msgstr "Publik"
+msgstr "Grup / Publik"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:65
-#, fuzzy
 msgid "Engine Assistant - Smuxi"
-msgstr "Pembantu"
+msgstr "Asisten Mesin - Smuxi"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:87
-#, fuzzy
 msgid "Add Smuxi Engine"
-msgstr "_Smuxi"
+msgstr "Tambah Mesin Smuxi"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:89
-#, fuzzy
 msgid "Edit Smuxi Engine"
-msgstr "_Smuxi"
+msgstr "Sunting Mesin Smuxi"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:198
-#, fuzzy
 msgid "Credentials"
-msgstr "Kredensial SMTP"
+msgstr "Kredensial"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:278
 msgid "Now you can use the Smuxi Engine"
-msgstr ""
+msgstr "Sekarang Anda bisa menggunakan Mesin Smuxi"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:281
-#, fuzzy
 msgid "Thank you"
-msgstr ""
-"Terima kasih telah meluangkan waktu untuk mengisi survey, kami menghargainya!"
+msgstr "Terima kasih"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:298
 msgid ""
 "An engine with this name already exists! Please specify a different one."
-msgstr ""
+msgstr "Mesin dengan nama ini sudah ada! Harap tentukan yang berbeda."
 
 #: ../src/Frontend-GNOME/Views/JoinWidget.cs:89
 msgid "Enter which chat to join"
-msgstr ""
+msgstr "Masukkan obrolan mana yang akan bergabung"
 
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
-#, fuzzy
 msgid "About Smuxi"
-msgstr "_Smuxi"
+msgstr "Tentang Smuxi"
 
 #. TODO: add cmd+, accelerator
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
@@ -867,61 +850,60 @@ msgstr "Preferensi"
 
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:264
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
-#, fuzzy
 msgid "Unable to add server: "
-msgstr "Tak bisa menyimpan pengecualian kepercayaan server"
+msgstr "Tidak dapat menambahkan server: "
 
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:385
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Beralih ke mesin lokal akan melepaskan Anda dari mesin saat ini!\n"
+"Apakah Anda yakin ingin melakukan ini?"
 
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:429
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Memindahkan mesin jauh akan memutuskan hubungan Anda dari mesin saat ini!\n"
+"Apakah Anda yakin ingin melakukan ini?"
 
 #: ../src/Frontend-GNOME/Views/MessageTextView.cs:412
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Day changed from {0} to {1}"
-msgstr "Penyesuaian vertikal, bernilai 0 (atas) hingga 1 (bawah)"
+msgstr "Hari berubah dari {0} menjadi {1}"
 
 #: ../src/Frontend-GNOME/Views/MessageTextView.cs:416
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Day changed to {0}"
-msgstr "Hari"
+msgstr "Hari berubah menjadi {0}"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:120
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:130
 #, csharp-format
 msgid "Invalid filter regex: '{0}'. Reason: {1}"
-msgstr ""
+msgstr "Regex penyaring tidak valid: '{0}'. Alasan: {1}"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
-#, fuzzy
 msgid "Are you sure you want to delete the selected filter?"
-msgstr "Anda yakin akan menghapus perintah yang dipilih?"
+msgstr "Apakah Anda yakin ingin menghapus penyaring yang dipilih?"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:241
-#, fuzzy
 msgid "Protocol / Server"
-msgstr "Protokol"
+msgstr "Protokol / Server"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:248
-#, fuzzy
 msgid "Chat Type"
-msgstr "Obrolan"
+msgstr "Jenis Obrolan"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:281
 msgid "Normal"
 msgstr "Normal"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:282
-#, fuzzy
 msgid "Event"
-msgstr "K_ejadian:"
+msgstr "Kejadian"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:289
 msgid "Type"
@@ -933,85 +915,73 @@ msgstr "Pola"
 
 #: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:557
 msgid "Low Bandwidth Mode is active: no messages synced."
-msgstr ""
+msgstr "Mode Pita Lebar Rendah aktif: tidak ada pesan yang disinkronkan."
 
 #: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:859
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
-#, fuzzy
 msgid "Show _Menubar"
-msgstr "Tampilkan bilah menu"
+msgstr "Tampilkan Bilah _Menu"
 
 #: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:321
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Retrieving user list for {0}..."
-msgstr "Mengambil daftar folder untuk '%s'"
+msgstr "Mengambil daftar pengguna untuk {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
 #: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:349
-#, fuzzy
 msgid "done."
-msgstr "Selesa_i"
+msgstr "selesai."
 
 #: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:127
-#, fuzzy
 msgid "Reconnect"
-msgstr "Pengguna meminta sambung ulang\n"
+msgstr "Sambungkan kembali"
 
 #: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:174
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Menutup protokol obrol juga akan menutup semua obrolan terbuka yang "
+"terhubung dengannya!\n"
+"Apakah Anda yakin ingin melakukan ini?"
 
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:189
-#, fuzzy
 msgid "Are you sure you want to delete the selected server?"
-msgstr "Anda yakin akan menghapus perintah yang dipilih?"
+msgstr "Apakah Anda yakin akan menghapus server yang dipilih?"
 
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:245
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:279
-#, fuzzy
 msgid "Unable to edit server: "
-msgstr "Tak bisa menyimpan pengecualian kepercayaan server"
+msgstr "Tidak dapat menyunting server: "
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:24
-#, fuzzy
 msgid "Find"
 msgstr "Temukan"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:44
-#, fuzzy
 msgid "_Search for:"
-msgstr "_Cari untuk:"
+msgstr "Car_i untuk:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:73
-#, fuzzy
 msgid "_Match Case"
-msgstr "Cocok _huruf besar kecil"
+msgstr "Cocok _Huruf Besar Kecil"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:85
-#, fuzzy
 msgid "Search _Backwards"
-msgstr "Cari mundur"
+msgstr "Cari Mun_dur"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:97
-#, fuzzy
 msgid "_Wrap Around"
 msgstr "_Melipat"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:110
-#, fuzzy
 msgid "Use _Regular Expressions"
-msgstr ""
-"Penyaring \"%s\" tidak cocok dengan tipe kotak-surat bertipe \"%s\".\n"
-"Ini terjadi misalnya saat Anda menggunakan ekspresi biasa dicocokkan dengan "
-"kotak-surat IMAP, ini dilakukan dengan metoda yang sangat lambat; bila "
-"memungkinkan, gunakan pencocokkan substring sebagai gantinya."
+msgstr "Gunakan Ekspresi _Reguler"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:23
 msgid "Smuxi - Find Group Chat"
-msgstr ""
+msgstr "Smuxi - Cari Obrolan Grup"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:47
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:73
@@ -1019,7 +989,6 @@ msgid "_Name:"
 msgstr "_Nama:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs:69
-#, fuzzy
 msgid "Join"
 msgstr "Gabung"
 
@@ -1035,21 +1004,18 @@ msgstr "_Server"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:61
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:62
-#, fuzzy
 msgid "_Chat"
-msgstr "Obrolan"
+msgstr "Obrol_an"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:64
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:65
-#, fuzzy
 msgid "_Engine"
-msgstr "Engine"
+msgstr "M_esin"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:67
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:68
-#, fuzzy
 msgid "_View"
-msgstr "_Lihat"
+msgstr "_Tampilan"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:70
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:71
@@ -1058,7 +1024,6 @@ msgstr "_Bantuan"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:73
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:75
-#, fuzzy
 msgid "Connect"
 msgstr "Sambung"
 
@@ -1066,9 +1031,8 @@ msgstr "Sambung"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:79
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
-#, fuzzy
 msgid "Open Log"
-msgstr "Gagal membuka log debug: %s\n"
+msgstr "Buka Log"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:87
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:88
@@ -1082,7 +1046,6 @@ msgstr "_Keluar"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:93
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
-#, fuzzy
 msgid "_Connect"
 msgstr "_Sambung"
 
@@ -1093,39 +1056,33 @@ msgstr "T_ambah"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:99
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
-#, fuzzy
 msgid "_Manage"
-msgstr "Kelola tugas pribadi Anda"
+msgstr "_Kelola"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:102
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
-#, fuzzy
 msgid "_Open / Join Chat"
-msgstr "Gabung"
+msgstr "Buka / Gabung ke _Obrolan"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:105
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
-#, fuzzy
 msgid "_Find Group Chat"
-msgstr "Obrolan"
+msgstr "Temukan Obro_lan Grup"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:108
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:109
-#, fuzzy
 msgid "C_lear All Activity"
-msgstr "Bersi_hkan"
+msgstr "Bersi_hkan Semua Aktivitas"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:111
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:112
-#, fuzzy
 msgid "_Next Chat"
-msgstr "Obrolan"
+msgstr "Obrolan Berikut_nya"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:114
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:115
-#, fuzzy
 msgid "_Previous Chat"
-msgstr "Obrolan"
+msgstr "Ob_rolan Sebelumnya"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
@@ -1134,45 +1091,38 @@ msgstr "_Tutup"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
-#, fuzzy
 msgid "_Use Local Engine"
-msgstr "Engine"
+msgstr "G_unakan Mesin Lokal"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:123
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:124
-#, fuzzy
 msgid "_Add Remote Engine"
-msgstr "Remote"
+msgstr "T_ambah Mesin Jauh"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
-#, fuzzy
 msgid "Switch Remote Engine"
-msgstr "Switch Layer 2 Remote"
+msgstr "Beralih ke Mesin Jauh"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
-#, fuzzy
 msgid "_Caret Mode"
-msgstr "Mode"
+msgstr "Mode _Caret"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:132
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:133
-#, fuzzy
 msgid "_Browse Mode"
-msgstr "Tenggat setelah mode ramban dimatikan"
+msgstr "Mode Ram_ban"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
-#, fuzzy
 msgid "Show _Statusbar"
-msgstr "Tampilkan bilah status"
+msgstr "Tampilkan Bilah _Status"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
-#, fuzzy
 msgid "_Fullscreen"
-msgstr "Layar Penuh"
+msgstr "Layar _Penuh"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
@@ -1181,69 +1131,54 @@ msgstr "Tent_ang"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:150
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:152
-#, fuzzy
 msgid "Find Group Chat"
-msgstr "Obrolan"
+msgstr "Temukan Obrolan Grup"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:154
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:155
-#, fuzzy
 msgid "_Website"
-msgstr "Situs Web"
+msgstr "Situs _Web"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:158
-#, fuzzy
 msgid "Show _Toolbar"
-msgstr "Tampilkan Bilah Perkakas"
+msgstr "Tampilkan Bilah Ala_t"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
-#, fuzzy
 msgid "Smuxi - Connect"
-msgstr "_Smuxi"
+msgstr "Smuxi - Tersambung"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:206
-#, fuzzy
 msgid "Smuxi - Preferences"
-msgstr "Preferensi Smuxi"
+msgstr "Smuxi - Preferensi"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
-#, fuzzy
 msgid "Nicknames:"
-msgstr ""
-"Nama panggilan yang akan dipakai. Anda dapat menyatakan nama panggilan "
-"ekstra (dipisahkan dengan spasi) yang akan dipakai sebagai cadangan ketika "
-"pilihan pertama tidak tersedia. Setelan baku adalah cadangan memakai $nick_ "
-"dan $nick__."
+msgstr "Nama Panggilan:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
 msgid "Tabs"
 msgstr "Tab"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
-#, fuzzy
 msgid "<b> User List Position </b>"
-msgstr "<b> Posisi Tab </b>"
+msgstr "<b> Posisi Daftar Pengguna </b>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1441
-#, fuzzy
 msgid "<b> Channel </b>"
-msgstr "<b>Nama:</b>"
+msgstr "<b> Kanal </b>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1652
-#, fuzzy
 msgid "<b>Channel Filters</b>"
-msgstr "<b>Nama:</b>"
+msgstr "<b>Penyaring Kanal</b>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1669
-#, fuzzy
 msgid "<b>User Filters</b>"
-msgstr "<b>Nama:</b>"
+msgstr "<b>Penyaring Pengguna</b>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:42
-#, fuzzy
 msgid "Use _SSH Tunnel"
-msgstr "Pakai IFNAME untuk antar muka terowongan"
+msgstr "Gunakan selang _SSH"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:56
 msgid ""
@@ -1251,18 +1186,19 @@ msgid ""
 "small performance impact, but is more secure and required when using NAT or "
 "port-based firewalls</span>"
 msgstr ""
+"<span size=\"small\">Mengaktifkan penggunaan SSH untuk sambungan.  Ini "
+"memiliki dampak kinerja yang kecil, namun lebih aman dan dibutuhkan saat "
+"menggunakan firewall berbasis NAT atau port</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
-#, fuzzy
 msgid "SSH _Host:"
-msgstr ""
-"berbagi;ssh;host;nama;jarak jauh;remote;desktop;media;audio;video;gambar;"
-"foto;film;server;perender;"
+msgstr "_Host SSH:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:146
 msgid ""
 "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
 msgstr ""
+"<span size=\"small\">DNS atau alamat IP dan port dari server SSH</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:159
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
@@ -1273,43 +1209,43 @@ msgstr "_Porta:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:186
 msgid ""
 "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
-msgstr ""
+msgstr "<span size=\"small\">DNS atau alamat IP dan port server Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:199
-#, fuzzy
 msgid "_Smuxi Host:"
-msgstr "_Smuxi"
+msgstr "Host _Smuxi:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:52
-#, fuzzy
 msgid "_SSH Username: (optional)"
-msgstr "opsional"
+msgstr "Nama pengguna _SSH: (opsional)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:75
 msgid ""
 "<span size=\"small\">Username which will be used to log into the SSH server</"
 "span>"
 msgstr ""
+"<span size=\"small\">Nama pengguna yang akan digunakan untuk masuk ke server "
+"SSH</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:95
-#, fuzzy
 msgid "_SSH Password: (optional)"
-msgstr "opsional"
+msgstr "Kata sandi _SSH: (opsional)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
 msgid ""
 "<span size=\"small\">Password which will be used to log into the SSH server. "
 "The password is optional if SSH key authorization is used (see below).</span>"
 msgstr ""
+"<span size=\"small\">Kata sandi yang akan digunakan untuk masuk ke server "
+"SSH. Kata sandi bersifat opsional jika otorisasi kunci SSH digunakan (lihat "
+"di bawah).</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:140
-#, fuzzy
 msgid "_SSH Keyfile: (optional)"
-msgstr "Berkas kunci SSH tak ditemukan."
+msgstr "Berkas kunci _SSH: (opsional)"
 
 #. Container child vbox17.Gtk.Box+BoxChild
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:148
-#, fuzzy
 msgid "Select a File"
 msgstr "Pilih Berkas"
 
@@ -1318,6 +1254,8 @@ msgid ""
 "<span size=\"small\">SSH private keyfile which will be used to log into the "
 "SSH server</span>"
 msgstr ""
+"<span size=\"small\">Berkas kunci privat SSH yang akan digunakan untuk masuk "
+"ke server SSH</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:181
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:242
@@ -1329,6 +1267,8 @@ msgid ""
 "<span size=\"small\">Username which will be used to log into the Smuxi "
 "server</span>"
 msgstr ""
+"<span size=\"small\">Nama pengguna yang akan digunakan untuk masuk ke server "
+"Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:224
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:116
@@ -1337,16 +1277,15 @@ msgstr "_Sandi:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:248
 msgid "<span size=\"small\">Password of the user</span>"
-msgstr ""
+msgstr "<span size=\"small\">Kata sandi dari pengguna</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:268
-#, fuzzy
 msgid "_Verify Password:"
-msgstr "_Verifikasi Sandi Baru"
+msgstr "_Verifikasi Kata Sandi:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:292
 msgid "<span size=\"small\">Repeat the password for verification</span>"
-msgstr ""
+msgstr "<span size=\"small\">Ulangi kata sandi untuk verifikasi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs:19
 msgid ""
@@ -1355,86 +1294,79 @@ msgid ""
 "\n"
 "Click \"Forward\" to begin."
 msgstr ""
+"Selamat datang di Asisten Konfigurasi Mesin Smuxi.\n"
+"Anda perlu memasukkan beberapa informasi sebelum bisa menggunakan mesin.\n"
+"\n"
+"Klik \"Maju\" untuk memulai."
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
-#, fuzzy
 msgid "_Engine Name:"
-msgstr "Nama mesin penyusun tema"
+msgstr "Nama M_esin:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:59
 msgid "<span size=\"small\">Profile name of the new engine</span>"
-msgstr ""
+msgstr "<span size=\"small\">Nama profil mesin baru</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:80
-#, fuzzy
 msgid "_Default Engine:"
-msgstr "Engine"
+msgstr "Mesin _Bawaan:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:91
-#, fuzzy
 msgid "Use as new default engine"
-msgstr "Gunakan Lokasi Standar"
+msgstr "Gunakan sebagai mesin bawaan baru"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:104
 msgid ""
 "<span size=\"small\">If enabled, the current engine will be the default next "
 "time Smuxi is started</span>"
 msgstr ""
+"<span size=\"small\">Jika diaktifkan, mesin saat ini akan menjadi bawaan "
+"ketika Smuxi dimulai pada waktu berikutnya</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
-#, fuzzy
 msgid "Smuxi - Open Chat"
-msgstr "_Smuxi"
+msgstr "Smuxi - Obrolan Terbuka"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:63
 msgid "_Type:"
 msgstr "_Tipe:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
-#, fuzzy
 msgid "Smuxi - Server"
-msgstr "_Smuxi"
+msgstr "Smuxi - Server"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:58
-#, fuzzy
 msgid "_Hostname:"
-msgstr "Memperlakukan host \"%s\" sebagai nama host mentah\n"
+msgstr "Nam _Host:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:79
-#, fuzzy
 msgid "_Network:"
-msgstr "Jaringan"
+msgstr "Jaringa_n:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:105
 msgid "Nickname:"
 msgstr "Nama panggilan:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:252
-#, fuzzy
 msgid "_Protocol:"
-msgstr "Protokol"
+msgstr "_Protokol:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
-#, fuzzy
 msgid "Automatically connect to server at startup"
-msgstr "Terhubung ke server"
+msgstr "Sambungkan ke server saat awal mula secara otomatis"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:276
-#, fuzzy
 msgid "Use Encryption"
-msgstr "Enkripsi:"
+msgstr "Gunakan Enkripsi"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:288
-#, fuzzy
 msgid "Validate Server Certificate"
-msgstr "Tak dapat mengesahkan:\n"
+msgstr "Validasi Sertifikat Server"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:308
-#, fuzzy
 msgid "_On Connect Commands:"
-msgstr "Perintah Saat Tersambung:"
+msgstr "Perintah Saat Tersamb_ung:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
-#, fuzzy
 msgid "_Ignore Commands"
-msgstr "Perintah"
+msgstr "Aba_ikan Perintah"
