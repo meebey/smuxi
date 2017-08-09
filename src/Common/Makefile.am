@@ -107,5 +107,7 @@ $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafil
 	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref) $(LOG4NET_LIBS)
 
 generate-emojione:
-	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(BUILD_DIR)/GenerateEmoji.exe -target:exe  GenerateEmojione.cs -r:$(BUILD_DIR)/ServiceStack.Text
-	$(BUILD_DIR)/GenerateEmoji.exe $(top_srcdir)/lib/emoji.json GeneratedEmojione.cs
+	wget -O $(top_srcdir)/lib/emoji_raw.json https://raw.githubusercontent.com/emojione/emojione/2.2.7/emoji.json
+	json_pp < $(top_srcdir)/lib/emoji_raw.json > $(top_srcdir)/lib/emoji.json
+	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -r:System -r:System.Core -r:$(BUILD_DIR)/Newtonsoft.Json.dll -out:$(BUILD_DIR)/GenerateEmoji.exe -target:exe GenerateEmojione.cs
+	mono --debug $(BUILD_DIR)/GenerateEmoji.exe $(top_srcdir)/lib/emoji.json GeneratedEmojione.cs

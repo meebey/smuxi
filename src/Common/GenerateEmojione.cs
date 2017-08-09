@@ -1,6 +1,7 @@
 ﻿// This file is part of Smuxi and is licensed under the terms of MIT/X11
 //
 // Copyright (c) 2015 Carlos Martín Nieto
+// Copyright (c) 2017 Mirco Bauer <meebey@meebey.net>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,8 +22,10 @@
 // THE SOFTWARE.
 using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
-using ServiceStack.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Smuxi.Common {
 
@@ -44,6 +47,13 @@ namespace Smuxi.Common {
 }
 ";
 
+        public class Emoji
+        {
+            public string Unicode { get; set; }
+            public string Shortname { get; set; }
+            public List<string> Aliases { get; set; }
+        }
+
         public static void Main(string[] args) {
             if (args.Length < 2) {
                 Console.Error.WriteLine("Usage: GenerateEmojione.cs <emoji.json> <EmojiMapping.cs>");
@@ -51,13 +61,45 @@ namespace Smuxi.Common {
             }
 
             var emojiDesc = File.ReadAllText(args[0]);
-            var objectList = JsonSerializer.DeserializeFromString<List<JsonObject>>(emojiDesc);
-            var obj = objectList[0];
+            var emojiDict = JsonConvert.DeserializeObject<Dictionary<string, Emoji>>(emojiDesc);
+            Console.Error.WriteLine("number of parsed emojis: {0}", emojiDict.Count);
             using (var writer = new StreamWriter(args[1])) {
                 writer.Write(outputHead);
-                foreach (var j in obj) {
-                    var emoji = JsonSerializer.DeserializeFromString<JsonObject>(j.Value);
-                    writer.WriteLine(String.Format("{{ \"{0}\", \"{1}\" }},", j.Key, emoji.Get("unicode")));
+                foreach (var emoji in emojiDict.Values.OrderBy(x => x.Shortname)) {
+                    var unicodeCodePoint = emoji.Unicode;
+                    // for backwards compatibility with previously cached emoji
+                    // images we have to upper case the code point as the newer
+                    // JSON format now uses lower-case code points.
+                    // E.g., now it says 0031-20e3 instead of 0031-20E3
+                    unicodeCodePoint = unicodeCodePoint.ToUpperInvariant();
+                    var shortname = emoji.Shortname;
+                    if (String.IsNullOrEmpty(shortname)) {
+                        Console.Error.WriteLine("emoji {0} shortname is empty, skipping...", unicodeCodePoint);
+                    }
+                    var shortnameAlternates = emoji.Aliases;
+                    var shortnames = new List<string>();
+                    shortnames.Add(shortname);
+                    if (shortnameAlternates != null && shortnameAlternates.Count > 0) {
+                        shortnames.AddRange(shortnameAlternates);
+                    }
+                    foreach (var rawName in shortnames) {
+                        string strippedName = rawName;
+                        if (strippedName.StartsWith(":")) {
+                            strippedName = strippedName.Substring(1);
+                        }
+                        if (strippedName.EndsWith(":")) {
+                            strippedName = strippedName.Substring(
+                                0, strippedName.Length - 1
+                            );
+                        }
+                        writer.WriteLine(
+                            String.Format(
+                                @"{{ ""{0}"", ""{1}"" }},",
+                                strippedName,
+                                unicodeCodePoint
+                            )
+                        );
+                    }
                 }
                 writer.Write(outputTail);
                 writer.Flush();
