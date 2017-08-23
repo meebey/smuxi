@@ -41,6 +41,8 @@ namespace Smuxi.Common
 
         public static string  UnicodeToUrl(string unicode)
         {
+            // the filename has to be lower case, otherwise it will HTTP 404
+            unicode = unicode.ToLowerInvariant();
             return String.Format("{0}{1}.png", BaseUri, unicode);
         }
 
