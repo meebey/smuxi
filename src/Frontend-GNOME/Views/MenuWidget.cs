@@ -351,11 +351,10 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             try {
+                var logFile = ChatViewManager.CurrentChatView.ChatModel.LogFile;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        SysDiag.Process.Start(
-                            ChatViewManager.CurrentChatView.ChatModel.LogFile
-                        );
+                        SysDiag.Process.Start(logFile);
                     } catch (Exception ex) {
                         Frontend.ShowError(Parent, ex);
                     }
