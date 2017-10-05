@@ -310,7 +310,9 @@ namespace Smuxi.Engine
             builder.AppendFormat("{{{{virtual {0}}}}}", "hugs");
         }
 
-        void TestMessage(string message, MessageModel expectedMsg, MessageBuilderSettings settings = null)
+        void TestMessage(string message, MessageModel expectedMsg,
+                         MessageBuilderSettings settings = null,
+                         string assertFailMessage = null)
         {
             var builder = new MessageBuilder();
             if (settings != null) {
@@ -319,12 +321,23 @@ namespace Smuxi.Engine
             builder.TimeStamp = DateTime.MinValue;
             builder.AppendMessage(message);
             var actualMsg = builder.ToMessage();
-            Assert.AreEqual(expectedMsg.GetType(), actualMsg.GetType(), "The message type does not match");
-            Assert.AreEqual(expectedMsg.MessageParts.Count, actualMsg.MessageParts.Count, "The number of message parts do not match");
-            for (int i = 0; i < expectedMsg.MessageParts.Count; i++) {
-                Assert.AreEqual(expectedMsg.MessageParts[i].GetType(), actualMsg.MessageParts[i].GetType(), "The type of the message part does not match");
+
+            string assertFailMessagePrefix = String.Empty;
+            if (assertFailMessage != null) {
+                assertFailMessagePrefix = assertFailMessage + ": ";
             }
-            Assert.AreEqual(expectedMsg, actualMsg);
+
+            Assert.AreEqual(expectedMsg.GetType(), actualMsg.GetType(),
+                            assertFailMessagePrefix + "The message type does not match");
+            Assert.AreEqual(expectedMsg.MessageParts.Count, actualMsg.MessageParts.Count,
+                            assertFailMessagePrefix + "The number of message parts do not match");
+            for (int i = 0; i < expectedMsg.MessageParts.Count; i++) {
+                Assert.AreEqual(expectedMsg.MessageParts[i].GetType(),
+                                actualMsg.MessageParts[i].GetType(),
+                                assertFailMessagePrefix + "The type of the message part does not match");
+            }
+            Assert.AreEqual(expectedMsg, actualMsg,
+                            assertFailMessagePrefix + "The message objects are not equal");
         }
 
         [Test]
