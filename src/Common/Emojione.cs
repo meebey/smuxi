@@ -29,6 +29,12 @@ namespace Smuxi.Common
     {
         readonly static string BaseUri = "http://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/";
 
+        public static Dictionary<string, string> ShortnameToUnicodeMap {
+            get {
+                return map;
+            }
+        }
+
         public static string ShortnameToUnicode(string shortName)
         {
             string val;

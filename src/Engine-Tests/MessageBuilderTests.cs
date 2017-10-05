@@ -19,6 +19,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 using System;
 using NUnit.Framework;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
@@ -785,6 +786,7 @@ namespace Smuxi.Engine
         [Test]
         public void AppendMessageWithEmojis()
         {
+            // simple emoji
             var msg = "foo :smiley: bar";
             var builder = new MessageBuilder();
             builder.Settings.Emojis = true;
@@ -795,6 +797,43 @@ namespace Smuxi.Engine
             );
             builder.Append(new TextMessagePartModel(" bar"));
             TestMessage(msg, builder.ToMessage(), builder.Settings);
+
+            // emoji with underscore
+            msg = ":slightly_smiling_face:";
+            builder = new MessageBuilder();
+            builder.Settings.Emojis = true;
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(
+                new ImageMessagePartModel("smuxi-emoji://slightly_smiling_face", ":slightly_smiling_face:")
+            );
+            TestMessage(msg, builder.ToMessage(), builder.Settings);
+
+            // emoji with plus
+            msg = ":+1:";
+            builder = new MessageBuilder();
+            builder.Settings.Emojis = true;
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(
+                new ImageMessagePartModel("smuxi-emoji://+1", ":+1:")
+            );
+            TestMessage(msg, builder.ToMessage(), builder.Settings);
+
+            // test all supported emojis of the Emojione provider
+            foreach (var emojiShortname in Emojione.ShortnameToUnicodeMap.Keys) {
+                var msgWithEmoji = ":" + emojiShortname + ":";
+                builder = new MessageBuilder();
+                builder.Settings.Emojis = true;
+                builder.TimeStamp = DateTime.MinValue;
+                builder.Append(
+                    new ImageMessagePartModel(
+                        String.Format("smuxi-emoji://{0}", emojiShortname),
+                        msgWithEmoji
+                    )
+                );
+                TestMessage(msgWithEmoji, builder.ToMessage(), builder.Settings,
+                            String.Format("failed testing emoji '{0}'",
+                                          emojiShortname));
+            }
         }
     }
 }

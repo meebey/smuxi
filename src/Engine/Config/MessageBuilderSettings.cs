@@ -18,6 +18,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 using System;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using Smuxi.Common;
@@ -52,7 +53,17 @@ namespace Smuxi.Engine
 
         static MessageBuilderSettings()
         {
-            var emojiRegex = new Regex(@":(\w+):", RegexOptions.Compiled);
+            // OPT: this emoji regex is really long, around 27k characters
+            var emojiRegexBuilder = new StringBuilder(32 * 1024);
+            emojiRegexBuilder.Append(":(");
+            foreach (var emojiShortname in Emojione.ShortnameToUnicodeMap.Keys) {
+                emojiRegexBuilder.AppendFormat("{0}|", Regex.Escape(emojiShortname));
+            }
+            // remove trailing |
+            emojiRegexBuilder.Length--;
+            emojiRegexBuilder.Append("):");
+
+            var emojiRegex = new Regex(emojiRegexBuilder.ToString(), RegexOptions.Compiled);
             EmojiMessagePattern = new MessagePatternModel(emojiRegex) {
                 MessagePartType = typeof(ImageMessagePartModel),
                 LinkFormat = "smuxi-emoji://{1}"
