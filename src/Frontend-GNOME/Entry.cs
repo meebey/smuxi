@@ -46,7 +46,7 @@ namespace Smuxi.Frontend.Gnome
 
         private NickCompleter NickCompleter { get; set; }
 
-        ChatViewManager ChatViewManager;
+        ChatViewManager ChatViewManager { get; set; }
         event EventHandler<EventArgs> Activated;
 
         /*
