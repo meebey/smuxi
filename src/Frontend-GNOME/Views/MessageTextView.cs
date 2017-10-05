@@ -634,6 +634,7 @@ namespace Smuxi.Frontend.Gnome
                 scheme = uri.Scheme;
             } catch (UriFormatException) {
                 AddAlternativeText(buffer, ref iter, imgpart);
+                return;
             }
             switch (scheme) {
                 case "smuxi-emoji":
