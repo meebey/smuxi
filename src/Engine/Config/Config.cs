@@ -686,6 +686,19 @@ namespace Smuxi.Engine
             }
         }
 
+        public void SetAll(IEnumerable<KeyValuePair<string, object>> settings)
+        {
+            if (settings == null) {
+                throw new ArgumentNullException("settings");
+            }
+
+            lock (m_Preferences) {
+                foreach (var setting in settings) {
+                    this[setting.Key] = setting.Value;
+                }
+            }
+        }
+
         public void Save()
         {
             Trace.Call();

@@ -67,7 +67,17 @@ namespace Smuxi.Engine
             get {
                 // major == compatibility
                 // minor == features
-                return new Version("0.13");
+                // in 0.11 added:
+                // ServerModel.Nickname
+                // ServerModel.Realname
+                // in 0.12 added:
+                // ChatModel.LastSeenMessage
+                // in 0.13 added:
+                // SessionManager.EngineAssemblyVersion
+                // SessionManager.EngineProtocolVersion
+                // in 0.14 added:
+                // Config.SetAll()
+                return new Version("0.14");
             }
         }
 

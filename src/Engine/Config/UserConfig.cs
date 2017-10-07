@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2010-2011, 2013, 2015 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2010-2011, 2013, 2015, 2017 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -98,18 +98,7 @@ namespace Smuxi.Engine
                 return obj;
             }
             set {
-                // ignore writing back overridden config keys
-                if (FrontendConfig != null && FrontendConfig[key] != null) {
-                    return;
-                }
-
-                // TODO: make remoting calls after a timeout and batch the update
-                _Config[_UserPrefix + key] = value;
-                
-                // update entry in cache
-                if (IsCaching) {
-                    _Cache[key] = value;
-                }
+                Set(key, value);
             }
         }
         
@@ -145,7 +134,54 @@ namespace Smuxi.Engine
                 _Cache.Clear();
             }
         }
-        
+
+        void Set(string key, object value)
+        {
+            if (key == null) {
+                throw new ArgumentNullException("key");
+            }
+            if (value == null) {
+                throw new ArgumentNullException("value");
+            }
+
+            // ignore writing back overridden config keys
+            if (FrontendConfig != null && FrontendConfig[key] != null) {
+                return;
+            }
+
+            // TODO: make remoting calls after a timeout and batch the update
+            _Config[_UserPrefix + key] = value;
+
+            // update entry in cache
+            if (IsCaching) {
+                _Cache[key] = value;
+            }
+        }
+
+        public void SetAll(IEnumerable<KeyValuePair<string, object>> settings)
+        {
+            if (settings == null) {
+                throw new ArgumentNullException("settings");
+            }
+
+            var filteredSettings = new Dictionary<string, object>();
+            foreach (var setting in settings) {
+                // ignore writing back overridden settings in the frontend config
+                if (FrontendConfig != null && FrontendConfig[setting.Key] != null) {
+                    continue;
+                }
+
+                filteredSettings.Add(setting.Key, setting.Value);
+                // update entry in cache
+                if (IsCaching) {
+                    _Cache[setting.Key] = setting.Value;
+                }
+            }
+
+            // REMOTING CALL
+            _Config.SetAll(filteredSettings);
+        }
+
         public void Remove(string key)
         {
             _Config.Remove(_UserPrefix + key);

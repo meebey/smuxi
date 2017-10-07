@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2013, 2016-2017 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -144,6 +144,7 @@ namespace Smuxi.Frontend.Gnome
 
             // Filters
             FilterListWidget = new FilterListWidget(parent, Frontend.UserConfig);
+            // REMOTING CALL
             FilterListWidget.InitProtocols(Frontend.Session.GetSupportedProtocols());
             FilterListWidget.Load();
             f_FilterListBox.Add(FilterListWidget);
@@ -366,7 +367,8 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            var conf = Frontend.UserConfig;
+            var userConf = Frontend.UserConfig;
+            var conf = new Dictionary<string, object>();
 
             // manually handled widgets
             if (f_ProxySwitch.Active) {
@@ -396,7 +398,8 @@ namespace Smuxi.Frontend.Gnome
             // mapped widgets
             foreach (var confEntry in ConfigKeyToWidgetNameMap) {
                 var confKey = confEntry.Key;
-                var confValue = conf[confKey];
+                // get type from config value
+                var confValue = userConf[confKey];
                 var widgetId = confEntry.Value;
                 var widget = Builder.GetObject(widgetId);
                 if (widget is Gtk.SpinButton) {
@@ -444,7 +447,19 @@ namespace Smuxi.Frontend.Gnome
                 conf["Interface/Chat/BackgroundColor"] = String.Empty;
             }
 
-            conf.Save();
+            if (Frontend.EngineProtocolVersion >= new Version(0, 14)) {
+                // with >= 0.14 we can set many keys in a single call
+                // REMOTING CALL
+                userConf.SetAll(conf);
+            } else {
+                // < 0.14 we need to set key by key
+                foreach (var entry in conf) {
+                    // REMOTING CALL
+                    userConf[entry.Key] = entry.Value;
+                }
+            }
+            // REMOTING CALL
+            userConf.Save();
         }
 
         protected virtual void OnResponse(object sender, Gtk.ResponseArgs e)
