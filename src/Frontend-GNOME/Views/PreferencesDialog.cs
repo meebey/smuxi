@@ -134,6 +134,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             Parent = parent;
+            TransientFor = parent;
             Builder = builder;
             Builder.Autoconnect(this);
             f_CategoryNotebook.ShowTabs = false;
