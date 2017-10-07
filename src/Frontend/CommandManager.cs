@@ -162,33 +162,43 @@ namespace Smuxi.Frontend
             DateTime start, stop;
             start = DateTime.UtcNow;
 
+            // REMOTING CALL
             handled = f_Session.Command(cmd);
             IProtocolManager pm = null;
             if (!handled) {
                 if (cmd.Chat is SessionChatModel && cmd.FrontendManager != null) {
+                    // REMOTING CALL
                     pm = cmd.FrontendManager.CurrentProtocolManager;
                 } else {
+                    // REMOTING CALL
                     pm = cmd.Chat.ProtocolManager;
                 }
 
                 // we maybe have no network manager yet
                 if (pm != null) {
+                    // REMOTING CALL
                     handled = pm.Command(cmd);
                 } else {
                     handled = false;
                 }
             }
             if (!handled) {
+                // OPT TODO: the remoting calls in this code branch should be
+                // avoided by checking if there are any frontend commands hooks
+                // available or not
                 var filteredCmd = IOSecurity.GetFilteredPath(cmd.Command);
                 var hooks = new HookRunner("frontend", "command-manager",
                                            "command-" + filteredCmd);
                 hooks.EnvironmentVariables.Add("FRONTEND_VERSION", FrontendVersion);
                 hooks.Environments.Add(new CommandHookEnvironment(cmd));
+                // 3 REMOTING CALLS inside the ctor
                 hooks.Environments.Add(new ChatHookEnvironment(cmd.Chat));
                 if (pm != null) {
+                    // 6-7 REMOTING CALLS inside the ctor
                     hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
                 }
 
+                // REMOTING CALL
                 var cmdChar = (string) f_Session.UserConfig["Interface/Entry/CommandCharacter"];
                 hooks.Commands.Add(new SessionHookCommand(f_Session, cmd.Chat, cmdChar));
                 if (pm != null) {
