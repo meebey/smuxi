@@ -6,18 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
-"keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-10 11:40+0000\n"
-"PO-Revision-Date: 2015-07-18 17:34+0300\n"
-"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-03-11 14:40+0000\n"
+"PO-Revision-Date: 2016-03-12 11:35+0200\n"
+"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
 "Language-Team: team.lists@gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Project-Style: gnome\n"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
@@ -36,7 +36,7 @@ msgstr "Εντολές Campfire"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:262
 msgid "Upload"
-msgstr "Ανέβασμα"
+msgstr "Αποστολή"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:263
 #, csharp-format
@@ -46,7 +46,7 @@ msgstr "'{0}' ({1} B) {2}"
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:367
 #, csharp-format
 msgid "Failed to post message: {0}"
-msgstr "Αποτυχία αποστολής μηνύματος: {0}"
+msgstr "Αποτυχία δημοσίευσης μηνύματος: {0}"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:383
 #, csharp-format
@@ -54,38 +54,43 @@ msgid "has uploaded '{0}' ({1} B) {2}"
 msgstr "έχει ανεβάσει '{0}' ({1} B) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:415
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:420
 #, csharp-format
 msgid "has joined {0}"
 msgstr "έχει συνδέσει {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:424
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:429
 #, csharp-format
 msgid "has left {0}"
 msgstr "έχει απομείνει {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:432
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:437
 #, csharp-format
 msgid "has locked {0}"
 msgstr "έχει κλειδώσει {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
 #, csharp-format
 msgid "has unlocked {0}"
 msgstr "έχει ξεκλειδώσει {0}"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:446
 msgid "has changed the topic"
 msgstr "έχει αλλάξει το θέμα"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:451
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:458
+#, csharp-format
+msgid "has pasted a tweet by {0}: {1}"
+msgstr "έχει επικολλήσει ένα tweet από {0}: {1}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:465
 msgid "has performed an unknown action"
 msgstr "έχει εκτελέσει μια άγνωστη ενέργεια"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:492
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:504
 #, csharp-format
 msgid "Error reading from stream: {0}"
 msgstr "Σφάλμα ανάγνωσης από τη ροή: {0}"

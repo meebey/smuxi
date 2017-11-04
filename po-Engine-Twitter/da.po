@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Joe Hansen <joedalton2@yahoo.dk>, 2011,2013,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:32+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-05-22 19:46+0000\n"
 "PO-Revision-Date: 2015-05-03 19:28+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
+"Language-Team: Danish (http://wiki.dansk-gruppen.dk)\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
@@ -48,13 +49,17 @@ msgstr "Twittergodkendelse krævet."
 msgid ""
 "Please open the following URL and click \"Allow\" to allow Smuxi to connect "
 "to your Twitter account: {0}"
-msgstr "Åbn venligst den følgende adresse og klik »Tillad« for at tillade Smuxi at forbinde til din Twitterkonto: {0}"
+msgstr ""
+"Åbn venligst den følgende adresse og klik »Tillad« for at tillade Smuxi at "
+"forbinde til din Twitterkonto: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:282
 msgid ""
 "Once you have allowed Smuxi to access your Twitter account, Twitter will "
 "provide a PIN."
-msgstr "Når du har tilladt Smuxi at tilgå din Twitterkonto, vil Twitter tilbyde en PIN."
+msgstr ""
+"Når du har tilladt Smuxi at tilgå din Twitterkonto, vil Twitter tilbyde en "
+"PIN."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:289
 msgid "Please type: /pin PIN_FROM_TWITTER"
@@ -123,7 +128,9 @@ msgstr "Twitter accepterede ikke din PIN. Indtastede du den korrekt?"
 msgid ""
 "Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
 "account."
-msgstr "Forsøg igen ved at lukke dette faneblad og forbinde igen til Twitter »{0}-kontoen«."
+msgstr ""
+"Forsøg igen ved at lukke dette faneblad og forbinde igen til Twitter »{0}-"
+"kontoen«."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
 msgid "Migrated Twitter account from basic auth to OAuth."
@@ -182,7 +189,8 @@ msgstr "Fjernede tweet {0} som favorit."
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
 "{0}"
-msgstr "Der opstod en fejl under hentning af vennetidslinjen fra Twitter. Årsag: {0}"
+msgstr ""
+"Der opstod en fejl under hentning af vennetidslinjen fra Twitter. Årsag: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
 #, csharp-format
@@ -193,7 +201,8 @@ msgstr "Der opstod en fejl under hentning af svar fra Twitter. Årsag: {0}"
 #, csharp-format
 msgid ""
 "An error occurred while fetching direct messages from Twitter. Reason: {0}"
-msgstr "Der opstod en fejl under hentning af direkte beskeder fra Twitter. Årsag: {0}"
+msgstr ""
+"Der opstod en fejl under hentning af direkte beskeder fra Twitter. Årsag: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1972
 msgid "Twitter didn't send a valid response, they're probably overloaded"

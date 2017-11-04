@@ -25,7 +25,7 @@ msgstr "Žádná připojení k sítí"
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
 #, csharp-format
 msgid "Optimizing: {0}..."
-msgstr "Optimalizuji: {0}..."
+msgstr "Optimalizuje se: {0}…"
 
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
 #, csharp-format
@@ -36,17 +36,17 @@ msgstr "Optimalizace {0} se nezdařila. Příčina: {1}"
 msgid ""
 "Your chat history is no longer available because of an error but will be "
 "preserved from now on."
-msgstr "Vaše historie chatů se stala kvůli chybě nedostupnou, ale odteď bude zase uložena."
+msgstr "Vaše historie pokeců se stala kvůli chybě nedostupnou, ale odteď bude zase uložena."
 
 #: ../src/Engine/Messages/MessageBuilder.cs:771
 #, csharp-format
 msgid "{0} is typing..."
-msgstr "{0} píše..."
+msgstr "{0} píše…"
 
 #: ../src/Engine/Messages/MessageBuilder.cs:777
 #, csharp-format
 msgid "{0} has stopped typing..."
-msgstr "{0} přestal(a) psát..."
+msgstr "{0} přestal(a) psát…"
 
 #: ../src/Engine/Messages/MessageBuilder.cs:820
 #, csharp-format
@@ -56,16 +56,16 @@ msgstr "{0} je pryč"
 #: ../src/Engine/Messages/MessageBuilder.cs:826
 #, csharp-format
 msgid "{0} is offline"
-msgstr "{0} je online"
+msgstr "{0} je odpojen(a)"
 
 #: ../src/Engine/Messages/MessageBuilder.cs:832
 #, csharp-format
 msgid "{0} is online"
-msgstr "{0} je offline"
+msgstr "{0} je připojen(a)"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:162
 msgid "not connected"
-msgstr "nepřipojen"
+msgstr "nepřipojen(a)"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:193
 msgid "Not connected to server"
@@ -80,17 +80,17 @@ msgstr "Pro příkaz {0} nebyl zadán dostatek parametrů"
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:212
 #, csharp-format
 msgid "Connected to {0}"
-msgstr "Spojen s {0}"
+msgstr "Připojeno k {0}"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:242
 #, csharp-format
 msgid "Disconnected from {0}"
-msgstr "Odpojen od {0}"
+msgstr "Odpojeno od {0}"
 
 #: ../src/Engine/Session.cs:247
 #, csharp-format
 msgid "Automatically connecting to {0}..."
-msgstr "Automatické připojování s {0}..."
+msgstr "Automatické připojování k {0}…"
 
 #: ../src/Engine/Session.cs:278
 #, csharp-format
@@ -101,7 +101,7 @@ msgstr "Automatické připojení k {0} selhalo!"
 #. list of commands below
 #: ../src/Engine/Session.cs:505
 msgid "Engine Commands"
-msgstr "Příkazy enginu"
+msgstr "Příkazy výkonné části"
 
 #: ../src/Engine/Session.cs:634
 msgid "Connect failed!"
@@ -110,7 +110,7 @@ msgstr "Připojení selhalo!"
 #: ../src/Engine/Session.cs:657
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr "Odpojení selhalo - nepodařilo se najít server: {0}"
+msgstr "Odpojení selhalo – nepodařilo se najít server: {0}"
 
 #: ../src/Engine/Session.cs:699
 msgid "Reconnect failed!"
@@ -118,55 +118,55 @@ msgstr "Opětovné připojení selhalo!"
 
 #: ../src/Engine/Session.cs:723
 msgid "Configuration reloaded"
-msgstr "Nastavení byla načtena"
+msgstr "Nastavení bylo načteno"
 
 #: ../src/Engine/Session.cs:727
 msgid "Configuration saved"
-msgstr "Nastavení byla uložena"
+msgstr "Nastavení bylo uloženo"
 
 #: ../src/Engine/Session.cs:754
 msgid "Invalid key/value format."
-msgstr "Neplatný formát klíč/hodnota."
+msgstr "Neplatný formát dvojice klíč/hodnota."
 
 #: ../src/Engine/Session.cs:778
 #, csharp-format
 msgid "Invalid config key: '{0}'"
-msgstr "Neplatný klíč konfigurace: '{0}'"
+msgstr "Neplatný klíč nastavení: „{0}“"
 
 #: ../src/Engine/Session.cs:794 ../src/Engine/Session.cs:800
 #, csharp-format
 msgid "Could not convert config value: '{0}' to type: {1}"
-msgstr "Nemohu zkonvertovat konfigurační hodnotu: '{0}' na typ: {1}"
+msgstr "Nelze převést hodnotu nastavení: „{0}“ na typ: {1}"
 
 #: ../src/Engine/Session.cs:814
 #, csharp-format
 msgid ""
 "Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
-msgstr "Neplatný klíč pro smazání z konfigurace: '{0}'. Platné klíče k smazání: MessagePatterns/{{ID}}."
+msgstr "Neplatný klíč pro smazání z nastavení: „{0}“. Platné klíče ke smazání: MessagePatterns/{{ID}}."
 
 #: ../src/Engine/Session.cs:827
 #, csharp-format
 msgid "Message pattern with ID: '{0}' does not exist."
-msgstr "Vzor zprávy s ID: '{0}' neexistuje."
+msgstr "Vzor zprávy s ID: „{0}“ neexistuje."
 
 #: ../src/Engine/Session.cs:834
 #, csharp-format
 msgid "Message pattern with ID: '{0}' removed."
-msgstr "Vzor zprávy s ID: '{0}' smazán."
+msgstr "Vzor zprávy s ID: „{0}“ smazán."
 
 #: ../src/Engine/Session.cs:842
 msgid "Invalid parameter for config; use load, save, get or set."
-msgstr "Neplatný parametr příkazu config: použij load, save, get nebo set."
+msgstr "Neplatný parametr pro nastavení: použijte load, save, get nebo set."
 
 #: ../src/Engine/Session.cs:919
 msgid "Invalid parameter for network; use list, switch, or close"
-msgstr "Neplatný parametr pro network; zadejte list, switch nebo close"
+msgstr "Neplatný parametr pro network; použijte list, switch nebo close"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
 #: ../src/Engine/Session.cs:949
 msgid "Connected Networks"
-msgstr "Spojen k sítím:"
+msgstr "Připojené sítě:"
 
 #: ../src/Engine/Session.cs:954 ../src/Engine/Session.cs:978
 msgid "Network"
@@ -199,12 +199,12 @@ msgstr "Dostupné sítě:"
 #: ../src/Engine/Session.cs:998
 #, csharp-format
 msgid "Network close failed - could not find network: {0}"
-msgstr "Uzavření sítě selhalo - síť nenalezena: {0}"
+msgstr "Uzavření sítě selhalo – síť nenalezena: {0}"
 
 #: ../src/Engine/Session.cs:1042
 #, csharp-format
 msgid "Network switch failed - could not find network: {0}"
-msgstr "Přepnutí sítě selhalo - síť nenalezena: {0}"
+msgstr "Přepnutí sítě selhalo – síť nenalezena: {0}"
 
 #: ../src/Engine/Session.cs:1060
 msgid "Not connected to any network"
@@ -215,7 +215,7 @@ msgstr "Není připojeno k žádné síti"
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr "Nezdařilo se uložení historie chatů. Vaše historie chatů nebude uchována. Příčina: {0}"
+msgstr "Nezdařilo se uložení historie pokecu. Vaše historie pokecu nebude uchována. Příčina: {0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
@@ -241,7 +241,10 @@ msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
 "the extended command list."
-msgstr "Po zdařeném spojení se změní seznam dostupných příkazů. Pro zobrazení rozšířeného seznamu příkazů přepněte na záložku nového spojení a použijte znovu příkaz /help."
+msgstr ""
+"Po zdařeném připojení se změní seznam dostupných příkazů. Pro zobrazení "
+"rozšířeného seznamu příkazů přepněte na záložku nového připojení a použijte "
+"znovu příkaz /help."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
@@ -254,12 +257,12 @@ msgstr "Heslo nemůže být prázdné."
 #: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr "Uživatel \"{0}\" neexistuje."
+msgstr "Uživatel „{0}“ neexistuje."
 
 #: ../src/Engine/Config/UserListController.cs:145
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr "Uživatel \"{0}\" již existuje."
+msgstr "Uživatel „{0}“ již existuje."
 
 #: ../src/Engine/Config/ServerListController.cs:118
 msgid "Network must not be empty."
@@ -267,27 +270,27 @@ msgstr "Síť nesmí být prázdná."
 
 #: ../src/Engine/Config/ServerListController.cs:138
 msgid "Server hostname must not be empty."
-msgstr "Název hostitele serveru nesmí být prázdný."
+msgstr "Název hostitelského serveru nesmí být prázdný."
 
 #: ../src/Engine/Config/ServerListController.cs:141
 msgid "Server hostname contains invalid characters (newline)."
-msgstr "Název hostitele serveru obsahuje neplatné znaky (nové řádky)."
+msgstr "Název hostitelského serveru obsahuje neplatné znaky (zalomení řádku)."
 
 #: ../src/Engine/Config/ServerListController.cs:148
 #, csharp-format
 msgid "Server ID '{0}' already exists."
-msgstr "Identifikace serveru '{0}' již existuje."
+msgstr "Identifikace serveru „{0}“ již existuje."
 
 #: ../src/Engine/Chats/ChatModel.cs:109
 #, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr "Nezdařilo se načtení historie chatů. Vaše historie chatů nebude uchována. Příčina: {0}"
+msgstr "Nezdařilo se načtení historie pokecu. Vaše historie pokecu nebude uchována. Příčina: {0}"
 
 #: ../src/Engine/Chats/ChatModel.cs:311
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
-msgstr "Nezdařilo se otevření historie chatů pro zápis. Vaše historie chatů nebude uchována. Příčina: {0}"
+msgstr "Nezdařilo se otevření historie pokecu pro zápis. Vaše historie pokecu nebude uchována. Příčina: {0}"

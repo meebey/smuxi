@@ -1,56 +1,60 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# 
+# Brazilian Portuguese translation for Smuxi-Engine-JabbR.
+# Copyright (C) 2015 THE SMUXI'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the SMUXI package.
+#
 # Translators:
+# Enrico Nicoletto <liverig@gmail.com>, 2015.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:00+0100\n"
-"PO-Revision-Date: 2013-12-11 16:07+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/smuxi/language/pt_BR/)\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-27 23:41+0000\n"
+"PO-Revision-Date: 2015-07-28 08:59-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.7.3\n"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:103
 msgid "JabbR Commands"
-msgstr ""
+msgstr "Comandos do JabbR"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:136
 #, csharp-format
 msgid "Joining room failed. Reason: {0}"
-msgstr ""
+msgstr "Falha ao ingressar na sala. Motivo: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:162
 #, csharp-format
 msgid "Sending message failed. Reason: {0}"
-msgstr ""
+msgstr "Falha ao enviar mensagem. Motivo: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:230
 #, csharp-format
 msgid "Connection failed! Reason: {0}"
-msgstr ""
+msgstr "Conexão falhou! Motivo: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
 #, csharp-format
 msgid "Connecting to {0}..."
-msgstr ""
+msgstr "Conectando a {0}..."
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:340
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr ""
+msgstr "Reconectando a {0}..."
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:433
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
 msgid "not connected"
-msgstr ""
+msgstr "desconectado"
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:577
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
 #, csharp-format
 msgid "Retrieving chat information failed. Reason: {0}"
-msgstr ""
+msgstr "Falha ao recuperar informações do bate-papo. Motivo: {0}"

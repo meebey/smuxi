@@ -1,0 +1,142 @@
+# Indonesian translation for smuxi.
+# Copyright (C) 2017 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-04-20 06:43+0000\n"
+"PO-Revision-Date: 2017-04-20 14:07+0700\n"
+"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: ../src/Server/Main.cs:65
+msgid "Add user to Server"
+msgstr "Tambahkan pengguna ke Peladen"
+
+#: ../src/Server/Main.cs:74
+msgid "Modify existing user of Server"
+msgstr "Ubah pengguna Peladen yang ada"
+
+#: ../src/Server/Main.cs:83
+msgid "Delete user from Server"
+msgstr "Hapus pengguna dari Peladen"
+
+#: ../src/Server/Main.cs:92
+msgid "List all existing users of Server"
+msgstr "Cantumkan semua pengguna Peladen yang ada"
+
+#: ../src/Server/Main.cs:101
+msgid "User to create, modify or delete"
+msgstr "Pengguna untuk membuat, memodifikasi atau menghapus"
+
+#: ../src/Server/Main.cs:110
+msgid "Password of the user when creating or modifying a user"
+msgstr "Kata sandi pengguna saat membuat atau memodifikasi pengguna"
+
+#: ../src/Server/Main.cs:119
+msgid "Enable debug output"
+msgstr "Aktifkan keluaran debug"
+
+#: ../src/Server/Main.cs:127
+msgid ""
+"Optimize message buffers and exit (valid values: none, defrag, index, all)"
+msgstr ""
+"Optimalkan buffer pesan dan keluar (nilai yang valid: none, defrag, index, "
+"all)"
+
+#: ../src/Server/Main.cs:140
+msgid "Show this help"
+msgstr "Tampilkan bantuan ini"
+
+#: ../src/Server/Main.cs:142
+msgid "Usage: smuxi-server [options]"
+msgstr "Penggunaan: smuxi-server [options]"
+
+#: ../src/Server/Main.cs:144
+msgid "Options:"
+msgstr "Opsi:"
+
+#: ../src/Server/Main.cs:152
+msgid "Show version"
+msgstr "Tampilkan versi"
+
+#: ../src/Server/Main.cs:165
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr "Pilihan tidak diketahui: '{0}'"
+
+#: ../src/Server/Main.cs:192
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Kesalahan baris perintah: {0}"
+
+#: ../src/Server/Main.cs:236
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
+msgstr ""
+"Paling banyak satu dari --add-user, --modify-user, dan --delete-user dapat "
+"digunakan sekaligus."
+
+#: ../src/Server/Main.cs:246
+msgid "You must specify a username with the --username option."
+msgstr "Anda harus menentukan nama pengguna dengan opsi --username."
+
+#: ../src/Server/Main.cs:252
+msgid "Username must not be empty."
+msgstr "Nama pengguna tidak boleh kosong"
+
+#: ../src/Server/Main.cs:262
+msgid "You must specify a password with the --password option."
+msgstr "Anda harus menentukan kata sandi dengan opsi --password."
+
+#: ../src/Server/Main.cs:268
+msgid "Password must not be empty."
+msgstr "Kata sandi tidak boleh kosong"
+
+#: ../src/Server/Main.cs:287
+#, csharp-format
+msgid ""
+"Invalid optimization value passed to --optimize-message-buffer, valid values "
+"are: {0}"
+msgstr ""
+"Nilai pengoptimalan yang tidak valid dikirimkan ke --optimize-message-"
+"buffer, nilai yang valid adalah: {0}"
+
+#: ../src/Server/Main.cs:307
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "Pengguna \"{0}\" berhasil ditambahkan ke server."
+
+#: ../src/Server/Main.cs:316
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "Pengguna \"{0}\" berhasil dimodifikasi."
+
+#: ../src/Server/Main.cs:325
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "Pengguna \"{0}\" berhasil dihapus dari server."
+
+#: ../src/Server/Main.cs:332
+msgid "Users:"
+msgstr "Pengguna:"
+
+#: ../src/Server/Main.cs:380
+#, csharp-format
+msgid "Successfully optimized {0} message buffers."
+msgstr "Penyangga pesan yang berhasil dioptimalkan {0}."
+
+#: ../src/Server/Main.cs:393
+#, csharp-format
+msgid "Failed to optimize message buffers: {0}"
+msgstr "Gagal mengoptimalkan penyangga pesan: {0}"

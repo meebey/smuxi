@@ -1,0 +1,375 @@
+# Indonesian translation for smuxi.
+# Copyright (C) 2017 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-01-17 20:02+0000\n"
+"PO-Revision-Date: 2017-04-20 11:56+0700\n"
+"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:256
+#, csharp-format
+msgid "{0} invites you to {1}"
+msgstr "{0} mengundang Anda ke {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:280
+msgid "Accept invite (join room)"
+msgstr "Terima undangan (gabung kanal)"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:308
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1771
+msgid "away"
+msgstr "pergi"
+
+#. TRANSLATOR: {0} is the amount of seconds
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:314
+#, csharp-format
+msgid "lag: {0} seconds"
+msgstr "ketinggalan: {0} seconds"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:320
+msgid "not connected"
+msgstr "tidak terhubung"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:380
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Menggunakan proksi: {0}: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:387
+#, csharp-format
+msgid "Connecting to {0} port {1}..."
+msgstr "Menghubungkan ke {0} port {1} ..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:401
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:542
+#, csharp-format
+msgid "Connection to {0} established"
+msgstr "Sambungan ke {0} mapan"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:410
+msgid "Logging in..."
+msgstr "Masuk..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:450
+msgid "Connection failed!"
+msgstr "Koneksi gagal!"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:454
+msgid "Connection failed! Reason: "
+msgstr "Koneksi gagal! Alasan:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:467
+msgid "Disconnecting..."
+msgstr "Terputus..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:472
+#, csharp-format
+msgid "Disconnecting from {0}..."
+msgstr "Terputus dari {0}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:479
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Terputus dari {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:485
+msgid "Connection closed"
+msgstr "Sambungan ditutup"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:494
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:569
+msgid "Not connected"
+msgstr "Tidak terhubung"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:528
+msgid "Reconnecting..."
+msgstr "Menghubungkan kembali..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:536
+#, csharp-format
+msgid "Reconnecting to {0}..."
+msgstr "Menghubungkan kembali ke {0}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:555
+msgid "Reconnect Error"
+msgstr "Hubungkan kembali Gagal"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:949
+#, csharp-format
+msgid "Sleeping for {0} milliseconds"
+msgstr "Tidur selama {0} milidetik"
+
+#. TRANSLATOR: this line is used as label / category for a
+#. list of commands below
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1034
+msgid "IrcProtocolManager Commands"
+msgstr "Perintah IrcProtocolManager"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1116
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Port tidak valid: {0}"
+
+#. TRANSLATOR: some IRC networks dislike too many joins in a
+#. short period and thus Smuxi throttles/queues them
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1211
+#, csharp-format
+msgid "Queuing joins: {0}"
+msgstr "Antrian bergabung: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1232
+#, csharp-format
+msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
+msgstr ""
+"Sudah bergabung ke kanal: {0}. Ketik /window {0} untuk beralih ke sana."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1266
+#, csharp-format
+msgid "Active joins: {0} - Queued joins: {1}"
+msgstr "Aktif bergabung: {0} - Antri bergabung: {1}"
+
+#. TRANSLATORS: final message will look like this:
+#. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1290
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1320
+#, csharp-format
+msgid "Joining: {0}"
+msgstr "Bergabung: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1292
+msgid "Remaining"
+msgstr "Sisa"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1297
+#, csharp-format
+msgid "active joins: {0}"
+msgstr "aktif bergabung: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1306
+#, csharp-format
+msgid "queued joins: {0}"
+msgstr "antri bergabung: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1752
+msgid "IRC Op"
+msgstr "IRC Op"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1754
+msgid "Owner"
+msgstr "Pemilik"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1756
+msgid "ChanAdmin"
+msgstr "ChanAdmin"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1758
+msgid "Op"
+msgstr "Op"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1760
+msgid "Halfop"
+msgstr "Halfop"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1762
+msgid "Voice"
+msgstr "Suara"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1825
+#, csharp-format
+msgid "Topic for {0}: {1}"
+msgstr "Topik untuk {0}: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1827
+#, csharp-format
+msgid "No topic set for {0}"
+msgstr "Tidak ada topik yang ditetapkan untuk {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1992
+msgid "ban"
+msgstr "pencekalan"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2003
+msgid "No bans in channel"
+msgstr "Tidak ada pencekalan di kanal"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2040
+msgid "ban exception"
+msgstr "pengecualian pencekalan"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2051
+msgid "No ban exceptions in channel"
+msgstr "Tidak ada pengecualian pencekalan di saluran"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2088
+msgid "invite exception"
+msgstr "mengundang pengecualian"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2099
+msgid "No invite exceptions in channel"
+msgstr "Tidak ada pengecualian undangan di saluran"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2213
+#, csharp-format
+msgid "Your user mode is {0}"
+msgstr "Mode pengguna Anda adalah {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2239
+#, csharp-format
+msgid "{0} is already on {1}"
+msgstr "{0} sudah ada di {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2247
+#, csharp-format
+msgid "Inviting {0} to {1}"
+msgstr "Mengundang {0} ke {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2270
+msgid "Users"
+msgstr "Pengguna"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2321
+#, csharp-format
+msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
+msgstr "Total {0} pengguna [{1} ops, {2} suara, {3} normal]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2459
+msgid "Connection error! Reason: "
+msgstr "Kesalahan koneksi! Alasan: "
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2471
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Tidak cukup parameter untuk perintah {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2480
+msgid "Not connected to server"
+msgstr "Tidak terhubung ke peladen"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2724
+#, csharp-format
+msgid "{0}: No such nick/channel"
+msgstr "{0}: Tidak ada nick/kanal seperti itu"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2843
+#, csharp-format
+msgid ""
+"Increased send delay to {0}ms to avoid being flooded off the server again."
+msgstr ""
+"Meningkatnya jeda kirim ke {0}ms agar peladen tidak kebanjiran lagi."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2858
+#, csharp-format
+msgid "Nick {0} is already in use"
+msgstr "Nick {0} sudah digunakan"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2874
+msgid "Cannot join to channel:"
+msgstr "Tidak dapat bergabung ke kanal:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2876
+msgid "You are banned"
+msgstr "Anda dicekal"
+
+#. TRANSLATOR: {0}: nickname, {1}: ident@host,
+#. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
+#. example:
+#. meebey [meebey@example.com] requested CTCP VERSION from meebey:
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2959
+#, csharp-format
+msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
+msgstr "{0} [{1}] meminta CTCP {2} dari {3}: {4}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2986
+#, csharp-format
+msgid "CTCP PING reply from {0}: {1} seconds"
+msgstr "CTCP PING membalas dari {0}: {1} detik"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2995
+#, csharp-format
+msgid "CTCP {0} reply from {1}: {2}"
+msgstr "CTCP {0} membalas dari {1}: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3246
+#, csharp-format
+msgid "{0} [{1}] has joined {2}"
+msgstr "{0} [{1}] telah bergabung {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3391
+#, csharp-format
+msgid "{0} [{1}] has left {2}"
+msgstr "{0} [{1}] telah meninggalkan {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3416
+#, csharp-format
+msgid "You were kicked from {0} by {1}"
+msgstr "Anda ditendang dari {0} oleh {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3424
+#, csharp-format
+msgid "{0} was kicked from {1} by {2}"
+msgstr "{0} ditendang dari {1} oleh {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3442
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3474
+#, csharp-format
+msgid "You're now known as {0}"
+msgstr "Anda sekarang dikenal sebagai {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3477
+#, csharp-format
+msgid "{0} is now known as {1}"
+msgstr "{0} sekarang dikenal sebagai {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3511
+#, csharp-format
+msgid "{0} changed the topic of {1} to: {2}"
+msgstr "{0} mengubah topik {1} menjadi: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3671
+#, csharp-format
+msgid "Mode change [{0}] for user {1}"
+msgstr "Mode berubah [{0}] untuk pengguna {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3702
+#, csharp-format
+msgid "mode/{0} [{1}] by {2}"
+msgstr "mode/{0} [{1}] oleh {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3738
+#, csharp-format
+msgid "{0} [{1}] has quit"
+msgstr "{0} [{1}] telah keluar"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3837
+#, csharp-format
+msgid ""
+"Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
+"seconds..."
+msgstr ""
+"Sambungan ke {0} port {1} telah gagal (coba {2}), coba lagi dalam {3} "
+"detik..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3887
+#, csharp-format
+msgid "{0} is away: {1}"
+msgstr "{0} sedang pergi: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3897
+msgid "You are no longer marked as being away"
+msgstr "Anda tidak lagi ditandai sebagai pergi"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3907
+msgid "You have been marked as being away"
+msgstr "Anda telah ditandai sebagai pergi"

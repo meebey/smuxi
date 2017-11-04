@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Joe Hansen <joedalton2@yahoo.dk>, 2011,2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:33+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-05-22 19:48+0000\n"
 "PO-Revision-Date: 2015-05-03 19:24+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
+"Language-Team: Danish (http://wiki.dansk-gruppen.dk)\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Server/Main.cs:65
@@ -49,7 +50,9 @@ msgstr "Aktiver fejlsøgningsuddata"
 #: ../src/Server/Main.cs:127
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
-msgstr "Optimer mellemlager for beskeder og afslut (gyldige værdier: none, defrag, index, all)"
+msgstr ""
+"Optimer mellemlager for beskeder og afslut (gyldige værdier: none, defrag, "
+"index, all)"
 
 #: ../src/Server/Main.cs:140
 msgid "Show this help"
@@ -79,9 +82,11 @@ msgstr "Kommandolinjefejl: {0}"
 
 #: ../src/Server/Main.cs:236
 msgid ""
-"At most one of --add-user, --modify-user, and --delete-user may be used at a"
-" time."
-msgstr "Kun et af tilvalgene --add-user, --modify-user og --delete-user kan bruges på samme tid."
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
+msgstr ""
+"Kun et af tilvalgene --add-user, --modify-user og --delete-user kan bruges "
+"på samme tid."
 
 #: ../src/Server/Main.cs:246
 msgid "You must specify a username with the --username option."
@@ -102,9 +107,11 @@ msgstr "Adgangskode må ikke være tomt."
 #: ../src/Server/Main.cs:287
 #, csharp-format
 msgid ""
-"Invalid optimization value passed to --optimize-message-buffer, valid values"
-" are: {0}"
-msgstr "Ugyldig optimeringsværdi sendt til --optimize-message-buffer, gyldige værdier er: {0}"
+"Invalid optimization value passed to --optimize-message-buffer, valid values "
+"are: {0}"
+msgstr ""
+"Ugyldig optimeringsværdi sendt til --optimize-message-buffer, gyldige "
+"værdier er: {0}"
 
 #: ../src/Server/Main.cs:307
 #, csharp-format

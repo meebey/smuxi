@@ -1,0 +1,126 @@
+# 'smuxi/po-Engine-MessageBuffer/
+# Slovenian translation for smuxi.
+# Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+#
+# Matej Urbančič <mateju@svn.gnome.org>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-03-11 21:40+0000\n"
+"PO-Revision-Date: 2016-03-11 22:56+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 "
+"|| n%100==4 ? 3 : 0);\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.8.4\n"
+
+#: ../src/Engine-MessageBuffer/Main.cs:49
+msgid "Enable debug output"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:55
+#: ../src/Engine-MessageBuffer/Main.cs:131
+#: ../src/Engine-MessageBuffer/Main.cs:195
+msgid "Show this help"
+msgstr "Pokaže to pomoč"
+
+#: ../src/Engine-MessageBuffer/Main.cs:57
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:59
+msgid "Actions:"
+msgstr "Dejanja:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:63
+#: ../src/Engine-MessageBuffer/Main.cs:142
+#: ../src/Engine-MessageBuffer/Main.cs:207
+msgid "Options:"
+msgstr "Možnosti:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:90
+#, csharp-format
+msgid "Unknown action: '{0}'"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:97
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:109
+msgid "Database format (valid values: auto, db4o, sqlite)"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:124
+#: ../src/Engine-MessageBuffer/Main.cs:188
+#, csharp-format
+msgid "Unknown {0} option: '{1}'"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:135
+#, csharp-format
+msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:140
+msgid "Database path"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:151
+msgid "db_path is required"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:165
+msgid "Source format (valid values: auto, db4o, sqlite)"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:173
+msgid "Destination format (valid values: auto, db4o, sqlite)"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:199
+#, csharp-format
+msgid ""
+"Usage: smuxi-message-buffer {0} [action-options] source_db destination_db"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:204
+msgid "Source file path"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:205
+msgid "Destination file path or -/empty for stdout"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:216
+msgid "source_db and destination_db are required"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:232
+msgid "sourceFile must not be empty."
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:248
+#, csharp-format
+msgid "Destination database {0} must be empty!"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:298
+#, csharp-format
+msgid "Unknown file format: '{0}'"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:320
+#, csharp-format
+msgid "Unsupported buffer type: '{0}'"
+msgstr ""

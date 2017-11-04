@@ -1,0 +1,35 @@
+# Indonesian translation for smuxi.
+# Copyright (C) 2017 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-04-20 06:43+0000\n"
+"PO-Revision-Date: 2017-04-20 13:58+0700\n"
+"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:52
+msgid "Direct Message"
+msgstr "Pesan Langsung"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:60
+msgid "Timeline"
+msgstr "Lini masa"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:65
+msgid "Unfollow"
+msgstr "Berhenti Ikuti"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:69
+msgid "Follow"
+msgstr "Ikuti"

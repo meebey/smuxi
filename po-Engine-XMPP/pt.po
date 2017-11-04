@@ -1,0 +1,346 @@
+# Portuguese translation for smuxi.
+# Copyright (C) 2015 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Tiago Santos <tiagofsantos81@sapo.pt>, 2014 - 2016..
+# Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-04-28 15:01+0000\n"
+"PO-Revision-Date: 2016-07-05 19:52+0100\n"
+"Last-Translator: Tiago Santos <tiagofsantos81@sapo.pt>\n"
+"Language-Team: Portuguese\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Project-Style: gnome\n"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
+msgid "The server has shut down"
+msgstr "O servidor foi desligado"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
+msgid ""
+"Another client logged in with the same resource, you have been disconnected"
+msgstr "Outro cliente está autenticado no mesmo recurso. Foi desligado."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:209
+msgid ""
+"Authentication failed, either username does not exist or invalid password"
+msgstr ""
+"Autenticação falhou. Ou o nome de utilizador não existe ou a senha não é "
+"válida."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
+msgid ""
+"If you want to create an account with the specified user and password, type /"
+"register now"
+msgstr ""
+"Se quiser criar uma conta com o utilizador e senha especificados, digite /"
+"register agora"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
+msgid ""
+"This engine has native Facebook support, you should be using it instead of "
+"connecting to Facebook with XMPP"
+msgstr ""
+"Este motor tem suporte nativo para Facebook. Deve utilizá-lo em vez de ligar "
+"ao Facebook com XMPP"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
+msgid "not connected"
+msgstr "não ligado"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:819
+#, csharp-format
+msgid "Could not find contact {0}"
+msgstr "Impossível encontrar o contacto {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:825
+#, csharp-format
+msgid "Contact {0} has {1} known resources"
+msgstr "Contacto {0} tem {1} recursos conhecidos"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
+#, csharp-format
+msgid "{0} is not a known resource"
+msgstr "{0} não é um recurso conhecido"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
+#, csharp-format
+msgid "Contact's JID: {0}"
+msgstr "JID do contacto: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
+msgid "You have a mutual subscription with this contact"
+msgstr "Tem um subscrição mútua com este contacto"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:844
+msgid ""
+"You have no subscription with this contact and this contact is not "
+"subscribed to you"
+msgstr ""
+"Não tem uma subscrição com este contacto e este contacto não está subscrito "
+"consigo"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
+msgid ""
+"You are subscribed to this contact, but the contact is not subscribed to you"
+msgstr ""
+"Está subscrito a este contacto mas este contacto não está subscrito consigo"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
+msgid ""
+"You are not subscribed to this contact, but the contact is subscribed to you"
+msgstr ""
+"Não está subscrito a este contacto mas o contacto está subscrito consigo"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
+#, csharp-format
+msgid "Invalid contact command: {0}"
+msgstr "Comando de contacto inválido: {0}"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:957
+#, csharp-format
+msgid "{0} Commands"
+msgstr "{0} comandos"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:982
+#, csharp-format
+msgid "Advanced {0} Commands"
+msgstr "{0} comandos avançados"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1017
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Porta inválida: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1052
+#, csharp-format
+msgid "Priority for Available is: {0}"
+msgstr "Prioridade para Disponível é: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
+#, csharp-format
+msgid "Priority for Away is: {0}"
+msgstr "Prioridade para Ausente é: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
+#, csharp-format
+msgid ""
+"Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
+msgstr ""
+"Prioridade inválida: {0} (prioridades válidas estão entre -128 e 127 "
+"inclusive)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
+#, csharp-format
+msgid "{0}{1} is available"
+msgstr "{0}{1} está disponível"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1637
+#, csharp-format
+msgid "{0}{1} is away"
+msgstr "{0}{1} está ausente"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1641
+#, csharp-format
+msgid "{0}{1} is extended away"
+msgstr "{0}{1} está ausente por muito tempo"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1645
+#, csharp-format
+msgid "{0}{1} wishes not to be disturbed"
+msgstr "{0}{1} não quer ser perturbado"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1649
+#, csharp-format
+msgid "{0}{1} wants to chat"
+msgstr "{0}{1} quer conversar"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1656
+#, csharp-format
+msgid "{0}{1} is offline"
+msgstr "{0}{1} está offline"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1662
+#, csharp-format
+msgid ""
+"Automatically allowed {0} to subscribe to you, since you are already asking "
+"to subscribe"
+msgstr ""
+"Permitir automaticamente que {0} se subscreva a si, dado que já está a pedir "
+"para subscrever"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1666
+#, csharp-format
+msgid "{0}{1} wishes to subscribe to you"
+msgstr "{0}{1} quer subscrever-se a si"
+
+#. you can now see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1674
+#, csharp-format
+msgid "{0}{1} allowed you to subscribe"
+msgstr "{0}{1} permitiu-lhe subscrever"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1681
+#, csharp-format
+msgid ""
+"Automatically removed {0}'s subscription to your presences after losing the "
+"subscription to theirs"
+msgstr ""
+"Remover automaticamente a subscrição de {0} das suas presenças depois de "
+"perder a sua subscrição às deles"
+
+#. you cannot (anymore?) see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1688
+#, csharp-format
+msgid "{0}{1} denied/removed your subscription"
+msgstr "{0}{1} negou/removeu a sua subscrição"
+
+#. you might still be able to see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1693
+#, csharp-format
+msgid "{0}{1} unsubscribed from you"
+msgstr "{0}{1} deixou de subscrever a si"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1697
+#, csharp-format
+msgid "received a malformed error message: {0}"
+msgstr "recebeu uma mensagem de erro mal formada: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1704
+#, csharp-format
+msgid "{0}{1}'s server could not be found"
+msgstr "servidor de {0}{1} não pôde ser encontrado"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1707
+#, csharp-format
+msgid "{0}{1} is already using your requested resource"
+msgstr "{0}{1} já está a utilizar o recurso pedido"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1714
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1736
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1750
+#, csharp-format
+msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
+msgstr ""
+"De momento não existe nenhuma mensagem de erro útil para {0}, {1}, {2}{3}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1727
+#, csharp-format
+msgid "You do not have permission to access {0}{1}"
+msgstr "Não tem permissão para aceder a {0}{1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1777
+#, csharp-format
+msgid "{0} days"
+msgstr "{0} dias"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1783
+#, csharp-format
+msgid "{0} hours"
+msgstr "{0} horas"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1787
+#, csharp-format
+msgid "{0} minutes"
+msgstr "{0} minutos"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1790
+#, csharp-format
+msgid "{0} seconds"
+msgstr "{0} segundos"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1802
+#, csharp-format
+msgid " since {0} ({1})"
+msgstr "desde {0} ({1})"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1887
+#, csharp-format
+msgid "An unknown groupchat error occurred: {0}"
+msgstr "Ocorreu um erro desconhecido de conversa de grupo: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1894
+#, csharp-format
+msgid "Server of groupchat \"{0}\" not found."
+msgstr "Servidor da conversa de grupo \"{0}\" não encontrado."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
+#, csharp-format
+msgid "MUC service is not available for \"{0}\""
+msgstr "Serviço MUC não está disponível para \"{0}\""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
+#, csharp-format
+msgid "You do not have permission to join \"{0}\""
+msgstr "Não tem permissão para se juntar a \"{0}\""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1910
+#, csharp-format
+msgid "An unhandled groupchat error occurred: {0}"
+msgstr "Ocorreu um erro não gerido de conversa de grupo: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2096
+#, csharp-format
+msgid ""
+"Received a presence update from {0}, but there's no corresponding chat window"
+msgstr ""
+"Recebeu uma atualização de presença de {0} mas não existe uma janela de "
+"conversação correspondente"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2120
+#, csharp-format
+msgid ""
+"Received a groupchat message from {0} but there's no corresponding chat "
+"window: {1}"
+msgstr ""
+"Recebeu uma mensagem de conversa de grupo de {0} mas não existe uma janela "
+"de conversação correspondente: {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
+#, csharp-format
+msgid "You have been invited to {2} by {0} because {1}"
+msgstr "Foi convidado para {2} por {0} porque {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2403
+#, csharp-format
+msgid "You have been invited to {1} by {0}"
+msgstr "Foi convidado para {1} por {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2424
+msgid "Accept invite (join room)"
+msgstr "Aceitar convite (juntar-se à sala)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2562
+#, csharp-format
+msgid "Reconnecting to {0}"
+msgstr "A religar a {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2576
+#, csharp-format
+msgid "Reconnecting to {0} in {1} seconds"
+msgstr "A religar a {0} em {1} segundos"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2606
+#, csharp-format
+msgid "Error: {0}"
+msgstr "Erro: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2618
+msgid "Authenticated"
+msgstr "Autenticado"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2669
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "A usar o proxy: {0}:{1}"

@@ -1,83 +1,88 @@
 # Translation of smuxi-frontend messages to Portuguese
 # Copyright (C) 2010 the smuxi's copyright holder
 # This file is distributed under the same license as the smuxi-frontend package.
-#
 # Américo Monteiro <a_monteiro@netcabo.pt>, 2010.
 # Pedro Ribeiro <p.m42.ribeiro@gmail.com>, 2012.
-#
+# Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi-frontend \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-25 06:26+0200\n"
-"PO-Revision-Date: 2012-07-30 09:16+0100\n"
-"Last-Translator: Pedro Ribeiro <p.m42.ribeiro@gmail.com>\n"
-"Language-Team: Portuguese <traduz@debianpt.org>\n"
+"Project-Id-Version: smuxi-frontend\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-10-23 13:05+0000\n"
+"PO-Revision-Date: 2015-11-17 09:31+0100\n"
+"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
+"Language-Team: Pedro Albuquerque\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
 
-#: ../src/Server/Main.cs:71
+#: ../src/Server/Main.cs:65
 msgid "Add user to Server"
-msgstr "Acrescentar utilizador ao Servidor"
+msgstr "Acrescentar utilizador ao servidor"
 
-#: ../src/Server/Main.cs:80
+#: ../src/Server/Main.cs:74
 msgid "Modify existing user of Server"
 msgstr "Modificar utilizador existente"
 
-#: ../src/Server/Main.cs:89
+#: ../src/Server/Main.cs:83
 msgid "Delete user from Server"
-msgstr "Apagar utilizador do Servidor"
+msgstr "Eliminar utilizador do servidor"
 
-#: ../src/Server/Main.cs:98
+#: ../src/Server/Main.cs:92
 msgid "List all existing users of Server"
-msgstr "Listar todos os utilizadores do Servidor"
+msgstr "Listar todos os utilizadores do servidor"
 
-#: ../src/Server/Main.cs:107
+#: ../src/Server/Main.cs:101
 msgid "User to create, modify or delete"
-msgstr "Utilizador a criar, modificar ou apagar"
+msgstr "Utilizador a criar, modificar ou eliminar"
 
-#: ../src/Server/Main.cs:116
+#: ../src/Server/Main.cs:110
 msgid "Password of the user when creating or modifying a user"
-msgstr "Palavra-chave do utilizador ao criar ou modificar um utilizador"
+msgstr "Senha do utilizador ao criar ou modificar um utilizador"
 
-#: ../src/Server/Main.cs:125
+#: ../src/Server/Main.cs:119
 msgid "Enable debug output"
-msgstr "Ativar saída de debug"
+msgstr "Ativar saída de depuração"
 
-#: ../src/Server/Main.cs:133
+#: ../src/Server/Main.cs:127
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
 msgstr ""
-"Optimizar buffers de mensagens e sair (valores válidos: none, defrag, index, "
+"Otimizar buffers de mensagens e sair (valores válidos: none, defrag, index, "
 "all) "
 
-#: ../src/Server/Main.cs:146
+#: ../src/Server/Main.cs:140
 msgid "Show this help"
 msgstr "Mostrar esta ajuda"
 
-#: ../src/Server/Main.cs:148
+#: ../src/Server/Main.cs:142
 msgid "Usage: smuxi-server [options]"
 msgstr "Utilização: smuxi-server [opções]"
 
-#: ../src/Server/Main.cs:150
+#: ../src/Server/Main.cs:144
 msgid "Options:"
 msgstr "Opções:"
 
-#: ../src/Server/Main.cs:161
+#: ../src/Server/Main.cs:152
+msgid "Show version"
+msgstr "Mostrar versão"
+
+#: ../src/Server/Main.cs:165
 #, csharp-format
 msgid "Unknown option: '{0}'"
-msgstr "Opção Desconhecida: '{0}'"
+msgstr "Opção desconhecida: \"{0}\""
 
-#: ../src/Server/Main.cs:188
+#: ../src/Server/Main.cs:192
 #, csharp-format
 msgid "Command line error: {0}"
 msgstr "Erro na linha de comandos: {0}"
 
-#: ../src/Server/Main.cs:232
+#: ../src/Server/Main.cs:236
 msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a "
 "time."
@@ -85,59 +90,59 @@ msgstr ""
 "Só pode ser usado um de --add-user, --modify-user ou --delete-user de cada "
 "vez."
 
-#: ../src/Server/Main.cs:242
+#: ../src/Server/Main.cs:246
 msgid "You must specify a username with the --username option."
 msgstr "Tem que indicar um nome de utilizador com a opção --username."
 
-#: ../src/Server/Main.cs:248
+#: ../src/Server/Main.cs:252
 msgid "Username must not be empty."
-msgstr "O nome de utilizador não deve estar vazio"
+msgstr "O nome de utilizador não pode estar vazio."
 
-#: ../src/Server/Main.cs:258
+#: ../src/Server/Main.cs:262
 msgid "You must specify a password with the --password option."
-msgstr "Tem que indicar uma palavra-chave com a opção --password."
+msgstr "Tem que indicar uma senha com a opção --password."
 
-#: ../src/Server/Main.cs:264
+#: ../src/Server/Main.cs:268
 msgid "Password must not be empty."
-msgstr "A palavra-chave não deve estar vazia"
+msgstr "A palavra-chave não pode estar vazia."
 
-#: ../src/Server/Main.cs:283
+#: ../src/Server/Main.cs:287
 #, csharp-format
 msgid ""
 "Invalid optimization value passed to --optimize-message-buffer, valid values "
 "are: {0}"
 msgstr ""
-"Valor de optimização inválido passado para --optimize-message-buffer. Os "
-"valores válidos são: {0}"
+"Valor de otimização inválido passado a --optimize-message-buffer. Os valores "
+"válidos são: {0}"
 
-#: ../src/Server/Main.cs:303
+#: ../src/Server/Main.cs:307
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
 msgstr "Utilizador \"{0}\" adicionado ao servidor com sucesso."
 
-#: ../src/Server/Main.cs:312
+#: ../src/Server/Main.cs:316
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
 msgstr "Utilizador \"{0}\" modificado com sucesso."
 
-#: ../src/Server/Main.cs:321
+#: ../src/Server/Main.cs:325
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
 msgstr "Utilizador \"{0}\" removido do servidor com sucesso."
 
-#: ../src/Server/Main.cs:328
+#: ../src/Server/Main.cs:332
 msgid "Users:"
 msgstr "Utilizadores:"
 
-#: ../src/Server/Main.cs:376
+#: ../src/Server/Main.cs:380
 #, csharp-format
 msgid "Successfully optimized {0} message buffers."
-msgstr "{0} buffers de mensagens optimizados com sucesso."
+msgstr "{0} buffers de mensagens otimizados com sucesso."
 
-#: ../src/Server/Main.cs:389
+#: ../src/Server/Main.cs:393
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
-msgstr "Falhou a optimização dos buffers de mensagens: {0}"
+msgstr "Falha ao otimizar os buffers de mensagens: {0}"
 
 #~ msgid "Engine does not exist."
 #~ msgstr "Não existe esse 'Engine'."

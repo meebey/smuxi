@@ -1,41 +1,51 @@
 # Translation of smuxi-frontend-gnome-irc messages to Portuguese
 # Copyright (C) 2010 the smuxi's copyright holder
 # This file is distributed under the same license as the smuxi-frontend-gnome-irc package.
-#
 # Américo Monteiro <a_monteiro@netcabo.pt>, 2010.
+# Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi-frontend-gnome-irc \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-19 12:23+0200\n"
-"PO-Revision-Date: 2010-07-15 01:56+0100\n"
-"Last-Translator: Américo Monteiro <a_monteiro@netcabo.pt>\n"
-"Language-Team: Portuguese <traduz@debianpt.org>\n"
+"Project-Id-Version: smuxi-frontend-gnome-irc\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-10-19 12:40+0000\n"
+"PO-Revision-Date: 2015-11-17 10:18+0100\n"
+"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
+"Language-Team: Pedro Albuquerque\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:220
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:51
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:247
+msgid "Query"
+msgstr "Consultar"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:255
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
 msgid "Whois"
 msgstr "Quem é"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:224
-msgid "Query"
-msgstr "Questionar"
-
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:229
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:55
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:261
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:221
 msgid "Add To Contacts"
-msgstr ""
+msgstr "Adicionar aos contactos"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:234
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:59
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:267
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:227
 msgid "Invite to"
 msgstr "Convidar para"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:285
+msgid "Rename"
+msgstr "Renomear"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:297
+msgid "Remove"
+msgstr "Remover"
 
 #~ msgid "Op"
 #~ msgstr "Dar Op"

@@ -1,37 +1,39 @@
-# SOME DESCRIPTIVE TITLE.
+# German translation for smuxi-Engine-JabbR.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# 
+# This file is distributed under the same license as the smuxi package.
+#
 # Translators:
-# Bianca Mix <heavydemon@freenet.de>, 2013
-# Mirco Bauer <meebey@gmail.com>, 2013
+# Bianca Mix <heavydemon@freenet.de>, 2013.
+# Mirco Bauer <meebey@gmail.com>, 2013.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-11 17:00+0100\n"
-"PO-Revision-Date: 2013-12-11 19:37+0000\n"
-"Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/smuxi/language/de/)\n"
+"PO-Revision-Date: 2016-01-08 14:29+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:103
 msgid "JabbR Commands"
-msgstr "JabbR Befehle"
+msgstr "JabbR-Befehle"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:136
 #, csharp-format
 msgid "Joining room failed. Reason: {0}"
-msgstr "Raum-betreten fehlgeschlagen. Grund: {0}"
+msgstr "Betreten des Raums ist fehlgeschlagen. Grund: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:162
 #, csharp-format
 msgid "Sending message failed. Reason: {0}"
-msgstr "Senden der Nachricht fehlgeschlagen. Grund: {0}"
+msgstr "Senden der Nachricht ist fehlgeschlagen. Grund: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:230
 #, csharp-format
@@ -41,12 +43,12 @@ msgstr "Verbindung ist fehlgeschlagen! Ursache: {0}"
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
 #, csharp-format
 msgid "Connecting to {0}..."
-msgstr "Verbinde zu {0}..."
+msgstr "Verbindung zu {0} …"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:340
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr "Verbinde erneut zu {0}..."
+msgstr "Erneute Verbindung zu {0} …"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:433
 msgid "not connected"
@@ -55,4 +57,4 @@ msgstr "nicht verbunden"
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:577
 #, csharp-format
 msgid "Retrieving chat information failed. Reason: {0}"
-msgstr "Abfragen der Chat Informationen fehlgeschlagen. Grund: {0}"
+msgstr "Abfragen der Chat-Informationen ist fehlgeschlagen. Grund: {0}"

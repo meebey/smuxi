@@ -1,0 +1,212 @@
+# Indonesian translation for smuxi.
+# Copyright (C) 2017 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-01-17 20:03+0000\n"
+"PO-Revision-Date: 2017-04-20 13:29+0700\n"
+"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
+msgid "Home Timeline"
+msgstr "Beranda Linimasa"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:136
+msgid "Replies & Mentions"
+msgstr "Balasan & Sebutan"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:147
+msgid "Direct Messages"
+msgstr "Pesan Langsung"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:195
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Menggunakan proxy: {0}: {1}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:217
+msgid "Connecting to Twitter..."
+msgstr "Menghubungkan ke Twitter ..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:259
+msgid "Twitter authorization required."
+msgstr "Otorisasi Twitter dibutuhkan"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:266
+#, csharp-format
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr ""
+"Silahkan buka URL berikut dan klik \"Allow\" untuk memungkinkan Smuxi "
+"terhubung ke akun Twitter Anda: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:282
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr ""
+"Setelah Anda membolehkan Smuxi mengakses akun Twitter Anda, Twitter akan "
+"memberikan PIN."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:289
+msgid "Please type: /pin PIN_FROM_TWITTER"
+msgstr "Mohon ketik: /pin PIN_FROM_TWITTER"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:297
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:359
+msgid "Connection failed!"
+msgstr "Koneksi gagal!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:302
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:363
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Koneksi gagal! Alasan: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:317
+msgid "Fetching user details from Twitter, please wait..."
+msgstr "Mengambil rincian pengguna dari Twitter, mohon tunggu ..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:324
+msgid "Finished fetching user details."
+msgstr "Selesai mengambil rincian pengguna."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:330
+msgid "Successfully connected to Twitter."
+msgstr "Berhasil terhubung ke Twitter."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:348
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr "Gagal mengambil detail pengguna dari Twitter. Alasan: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:381
+msgid "Fetching friends from Twitter, please wait..."
+msgstr "Mengambil teman dari Twitter, mohon tunggu ..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:390
+msgid "Finished fetching friends."
+msgstr "Selesai mengambil teman."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:394
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr "Gagal mengambil teman dari Twitter. Alasan: "
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:738
+msgid "Twitter Commands"
+msgstr "Perintah Twitter"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:787
+msgid "No pending authorization request!"
+msgstr "Tidak ada permintaan otorisasi yang tertunda!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:808
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr "Gagal memberi otorisasi dengan Twitter: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr ""
+"Twitter tidak menerima PIN Anda. Apakah Anda memasukkannya dengan benar?"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:824
+#, csharp-format
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr ""
+"Silakan coba lagi dengan menutup tab ini dan terhubung kembali ke akun "
+"Twitter \"{0}\"."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
+msgid "Migrated Twitter account from basic auth to OAuth."
+msgstr "Akun Twitter bermigrasi dari auth dasar ke OAuth."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr "Berhasil mengotorisasi akun Twitter \"{0}\" untuk Smuxi"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:902
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Tidak dapat memperbarui status - Alasan: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:913
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr ""
+"Tidak dapat mengirim pesan - tidak ada target yang ditentukan. Gunakan: /"
+"msg $nick message"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:930
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1025
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "Tidak dapat mengirim pesan - Alasan: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:950
+msgid "Other timelines"
+msgstr "Lini masa lainnya"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1008
+msgid "Could not send message - the specified user does not exist."
+msgstr "Tidak dapat mengirim pesan - pengguna yang ditentukan tidak ada."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1122
+#, csharp-format
+msgid "Search {0}"
+msgstr "Cari {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
+#, csharp-format
+msgid "Successfully deleted tweet {0}."
+msgstr "Berhasil menghapus cuitan {0}."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1277
+#, csharp-format
+msgid "Successfully favorited tweet {0}."
+msgstr "Berhasil memfavoritkan cuitan {0}."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1309
+#, csharp-format
+msgid "Successfully unfavorited tweet {0}."
+msgstr "Berhasil menghapus favorit cuitan {0}."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1371
+#, csharp-format
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+"{0}"
+msgstr ""
+"Terjadi kesalahan saat mengambil lini masa teman dari Twitter. Alasan: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
+#, csharp-format
+msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
+msgstr "Terjadi kesalahan saat mengambil balasan dari Twitter. Alasan: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1589
+#, csharp-format
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: {0}"
+msgstr ""
+"Terjadi kesalahan saat mengambil pesan langsung dari Twitter. Alasan: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1972
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr ""
+"Twitter tidak mengirimkan respon yang valid, mereka mungkin kelebihan beban"

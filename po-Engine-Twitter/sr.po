@@ -1,0 +1,214 @@
+# Serbian translation for smuxi.
+# Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-01-05 14:41+0000\n"
+"PO-Revision-Date: 2016-01-06 10:39+0100\n"
+"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Gtranslator 2.91.6\n"
+"X-Project-Style: gnome\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
+msgid "Home Timeline"
+msgstr "Главна временска линија"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:136
+msgid "Replies & Mentions"
+msgstr "Одговори и помињања"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:147
+msgid "Direct Messages"
+msgstr "Непосредне поруке"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:195
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Користим посредника: {0}:{1}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:217
+msgid "Connecting to Twitter..."
+msgstr "Повезујем се на Твитер..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:259
+msgid "Twitter authorization required."
+msgstr "Потребно је потврђивање идентитета за Твитер."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:266
+#, csharp-format
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr ""
+"Отворите следећу адресу и притисните „Допусти“ да допустите Смуксију да се "
+"повеже на ваш налог на Твитеру: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:282
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr ""
+"Када будете допустили Смуксију да приступи вашем налогу на Твитеру, Твитер "
+"ће обезбедити ПИН."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:289
+msgid "Please type: /pin PIN_FROM_TWITTER"
+msgstr "Упишите: /pin ПИН_СА_ТВИТЕРА"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:297
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:359
+msgid "Connection failed!"
+msgstr "Повезивање није успело!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:302
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:363
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Повезивање није успело! Разлог: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:317
+msgid "Fetching user details from Twitter, please wait..."
+msgstr "Набављам појединости о кориснику са Твитера, сачекајте..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:324
+msgid "Finished fetching user details."
+msgstr "Завршио сам набављање појединости о кориснику."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:330
+msgid "Successfully connected to Twitter."
+msgstr "Успешно сте повезани на Твитер."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:348
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr "Нисам успео да набавим појединости о кориснику са Твитера. Разлог: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:381
+msgid "Fetching friends from Twitter, please wait..."
+msgstr "Набављам пријатеље са Твитера, сачекајте..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:390
+msgid "Finished fetching friends."
+msgstr "Завршио сам набављање пријатеља."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:394
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr "Нисам успео да набавим пријатеље са Твитера. Разлог: "
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:738
+msgid "Twitter Commands"
+msgstr "Наредбе Твитера"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:787
+msgid "No pending authorization request!"
+msgstr "Нема заказаних захтева потврђивања идентитета!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:808
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr "Нисам упео да потврдим идентитет са Твитером: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr "Твитер не прихвата ваш ПИН.  Да ли сте га исправно унели?"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:824
+#, csharp-format
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr ""
+"Пробајте поново тако што ћете затворити овај језичак и поново се повезати на "
+"Твитеров „{0}“ налог."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
+msgid "Migrated Twitter account from basic auth to OAuth."
+msgstr "Преселио сам налог Твитера са основне пријаве на ОПријаву."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr "Успешно је потврђен идентитет Твитеровог налога „{0}“ за Смуксија"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:902
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Не могу да освежим стање — Разлог: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:913
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr ""
+"Не могу да пошаљем поруку — циљ није наведен. Користите: „/msg $nick порука“"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:930
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1025
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "Не могу да пошаљем поруку — Разлог: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:950
+msgid "Other timelines"
+msgstr "Остале временске линије"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1008
+msgid "Could not send message - the specified user does not exist."
+msgstr "Не могу да пошаљем поруку — наведени корисник не постоји."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1122
+#, csharp-format
+msgid "Search {0}"
+msgstr "Тражим {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
+#, csharp-format
+msgid "Successfully deleted tweet {0}."
+msgstr "Успешно сам обрисао цвркут „{0}“."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1277
+#, csharp-format
+msgid "Successfully favorited tweet {0}."
+msgstr "Ознака омиљеног је успешно постављена за цвркут „{0}“."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1309
+#, csharp-format
+msgid "Successfully unfavorited tweet {0}."
+msgstr "Ознака омиљеног је успешно уклоњена за цвркут „{0}“."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1371
+#, csharp-format
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+"{0}"
+msgstr ""
+"Дошло је до грешке приликом добављања временске линије пријатеља са Твитера. "
+"Разлог: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
+#, csharp-format
+msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
+msgstr "Дошло је до грешке приликом добављања одговора са Твитера. Разлог: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1589
+#, csharp-format
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: {0}"
+msgstr ""
+"Дошло је до грешке приликом добављања непосредних порука са Твитера. Разлог: "
+"{0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1972
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr "Твитер није послао исправан одговор, вероватно је преоптерећен"

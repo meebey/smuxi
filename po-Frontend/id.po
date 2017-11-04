@@ -1,0 +1,147 @@
+# Indonesian translation for smuxi.
+# Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Andika Triwidada <atriwidada@gnome.org>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi frontend master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-05-05 14:40+0000\n"
+"PO-Revision-Date: 2016-07-25 05:26+0700\n"
+"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: \n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: ../src/Frontend/CommandManager.cs:466
+#, csharp-format
+msgid "Unknown Command: {0}"
+msgstr "Perintah Tak Dikenal: {0}"
+
+#: ../src/Frontend/CommandManager.cs:475
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Parameter tidak cukup untuk perintah {0}"
+
+#: ../src/Frontend/EngineManager.cs:112
+msgid "Engine must not be empty."
+msgstr "Mesin tak boleh kosong."
+
+#: ../src/Frontend/EngineManager.cs:123
+msgid "Engine does not exist."
+msgstr "Mesin tidak ada."
+
+#: ../src/Frontend/EngineManager.cs:313
+#, csharp-format
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
+msgstr "Kanal tak dikenal ({0}) - hanya tipe kanal berikut yang didukung:"
+
+#: ../src/Frontend/EngineManager.cs:322
+msgid ""
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
+msgstr ""
+"Registrasi ke mesin gagal! Nama pengguna dan/atau kata sandi salah - harap "
+"periksa mereka."
+
+#: ../src/Frontend/SshTunnelManager.cs:147
+msgid "SSH client application was not found: "
+msgstr "Aplikasi klien SSH tidak ditemukan:"
+
+#: ../src/Frontend/SshTunnelManager.cs:150
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr "Klien SSH mesti OpenSSH (ssh) atau Plink (plink.exe, bukan putty.exe)"
+
+#: ../src/Frontend/SshTunnelManager.cs:187
+#, csharp-format
+msgid ""
+"The local SSH forwarding port {0} is already in use. Is there an old SSH "
+"tunnel still active?"
+msgstr ""
+"Port penerusan SSH lokal {0} sudah dipakai. Apakah ada tunnel SSH lama yang "
+"masih aktif?"
+
+#: ../src/Frontend/SshTunnelManager.cs:211
+#, csharp-format
+msgid ""
+"SSH tunnel setup failed (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"SSH parameters: {2}\n"
+"\n"
+"Program Error:\n"
+"{3}\n"
+"Program Output:\n"
+"{4}\n"
+msgstr ""
+"Penyiapan tunnel SSH gagal (kode keluar: {0})\n"
+"\n"
+"Program SSH: {1}\n"
+"Parameter SSH: {2}\n"
+"\n"
+"Kesalahan Program:\n"
+"{3}\n"
+"Keluaran Program:\n"
+"{4}\n"
+
+#: ../src/Frontend/SshTunnelManager.cs:332
+#: ../src/Frontend/SshTunnelManager.cs:481
+msgid "SSH keyfile not found."
+msgstr "Berkas kunci SSH tak ditemukan."
+
+#: ../src/Frontend/SshTunnelManager.cs:338
+#: ../src/Frontend/SshTunnelManager.cs:487
+msgid "SSH keyfile could not be read."
+msgstr "Berkas kunci SSH tak bisa dibaca."
+
+#: ../src/Frontend/SshTunnelManager.cs:429
+#, csharp-format
+msgid ""
+"OpenSSH version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"Nomor versi OpenSSH tak ditemukan (kode keluar: {0})\n"
+"\n"
+"Program SSH: {1}\n"
+"\n"
+"Kesalahan Program:\n"
+"{2}\n"
+"Keluaran Program:\n"
+"{3}\n"
+
+#: ../src/Frontend/SshTunnelManager.cs:472
+msgid "PuTTY / Plink requires a username to be set."
+msgstr "PuTTY / Plink memerlukan ditatanya suatu nama pengguna."
+
+#: ../src/Frontend/SshTunnelManager.cs:560
+#, csharp-format
+msgid ""
+"Plink version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"Nomor versi Plink tak ditemukan (kode keluar: {0})\n"
+"\n"
+"Program SSH: {1}\n"
+"\n"
+"Kesalahan Program:\n"
+"{2}\n"
+"Keluaran Program:\n"
+"{3}\n"

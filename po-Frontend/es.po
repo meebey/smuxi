@@ -1,22 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Matías Bellone, 2013
 # Ricardo A. Hermosilla Carrillo <inactive+rahermosillac@transifex.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:34+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-06-30 07:00+0000\n"
 "PO-Revision-Date: 2013-12-10 18:57+0000\n"
 "Last-Translator: Matías Bellone\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/smuxi/language/es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/smuxi/language/"
+"es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Frontend/CommandManager.cs:466
@@ -39,15 +41,18 @@ msgstr "El motor no existe."
 
 #: ../src/Frontend/EngineManager.cs:313
 #, csharp-format
-msgid ""
-"Unknown channel ({0}) - only the following channel types are supported:"
-msgstr "Canal desconocido ({0}) - sólo se es compatible con los siguientes tipos de canales:"
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
+msgstr ""
+"Canal desconocido ({0}) - sólo se es compatible con los siguientes tipos de "
+"canales:"
 
 #: ../src/Frontend/EngineManager.cs:322
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
-msgstr "¡Falló la registración con el motor! El usuario y/o la contraseña son inválidos - verifíquelos. "
+msgstr ""
+"¡Falló la registración con el motor! El usuario y/o la contraseña son "
+"no válidos - verifíquelos. "
 
 #: ../src/Frontend/SshTunnelManager.cs:147
 msgid "SSH client application was not found: "
@@ -56,14 +61,17 @@ msgstr "No se encontró el programa del cliente SSH:"
 #: ../src/Frontend/SshTunnelManager.cs:150
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
-msgstr "El cliente SSH debe ser OpenSSH (ssh) o Plink (plink.exe, no putty.exe)"
+msgstr ""
+"El cliente SSH debe ser OpenSSH (ssh) o Plink (plink.exe, no putty.exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:187
 #, csharp-format
 msgid ""
 "The local SSH forwarding port {0} is already in use. Is there an old SSH "
 "tunnel still active?"
-msgstr "El puerto local SSH {0} está actualmente en uso. ¿Existe todavía un túnel SSH antiguo activo?"
+msgstr ""
+"El puerto local SSH {0} está actualmente en uso. ¿Existe todavía un túnel "
+"SSH antiguo activo?"
 
 #: ../src/Frontend/SshTunnelManager.cs:211
 #, csharp-format
@@ -77,7 +85,16 @@ msgid ""
 "{3}\n"
 "Program Output:\n"
 "{4}\n"
-msgstr "Falló la configuración del túnel SSH (código de salida: {0})\n\nPrograma SSH: {1}\nParámetros SSH: {2}\n\nError del programa:\n{3}\nSalida del programa:\n{4}\n"
+msgstr ""
+"Falló la configuración del túnel SSH (código de salida: {0})\n"
+"\n"
+"Programa SSH: {1}\n"
+"Parámetros SSH: {2}\n"
+"\n"
+"Error del programa:\n"
+"{3}\n"
+"Salida del programa:\n"
+"{4}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:332
 #: ../src/Frontend/SshTunnelManager.cs:481
@@ -100,7 +117,15 @@ msgid ""
 "{2}\n"
 "Program Output:\n"
 "{3}\n"
-msgstr "No ha sido posible obtener la versión de OpenSSH (código de salida: {0})\n\nPrograma SSH: {1}\n\nError del programa:\n{2}\nSalida del programa:\n{3}\n"
+msgstr ""
+"No ha sido posible obtener la versión de OpenSSH (código de salida: {0})\n"
+"\n"
+"Programa SSH: {1}\n"
+"\n"
+"Error del programa:\n"
+"{2}\n"
+"Salida del programa:\n"
+"{3}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:472
 msgid "PuTTY / Plink requires a username to be set."
@@ -117,4 +142,13 @@ msgid ""
 "{2}\n"
 "Program Output:\n"
 "{3}\n"
-msgstr "No se encontró la versión de Plink (código de salida: {0})\n\nPrograma SSH: {1}\n\nError del programa:\n{2}\n\nSalida del programa:\n{3}\n"
+msgstr ""
+"No se encontró la versión de Plink (código de salida: {0})\n"
+"\n"
+"Programa SSH: {1}\n"
+"\n"
+"Error del programa:\n"
+"{2}\n"
+"\n"
+"Salida del programa:\n"
+"{3}\n"

@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-05-22 19:47+0000\n"
+"PO-Revision-Date: 2013-11-19 16:27+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/smuxi/language/"
+"fr/)\n"
+"Language: oc\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:390
+msgid "Query"
+msgstr "Chat privat"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
+msgid "Op"
+msgstr "Opper"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
+msgid "Deop"
+msgstr "Levar l'Op"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
+msgid "Voice"
+msgstr "Voicer"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
+msgid "Devoice"
+msgstr "Levar lo Voice"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
+msgid "Kick"
+msgstr "Kicker"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:416
+msgid "Kick + Ban"
+msgstr "Kicker + Bannir"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:420
+msgid "Ban"
+msgstr "Bannir"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:424
+msgid "Unban"
+msgstr "Levar lo ban"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:92
+msgid "Whois"
+msgstr "Whois"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:434
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:96
+msgid "CTCP"
+msgstr "CTCP"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:443
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:103
+msgid "Invite to"
+msgstr "Inviter a"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:73
+msgid "Ping"
+msgstr "Ping"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:78
+msgid "Version"
+msgstr "Version"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:83
+msgid "Time"
+msgstr "Temps"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:88
+msgid "Finger"
+msgstr "Finger"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:93
+msgid "Userinfo"
+msgstr "Userinfo"
+

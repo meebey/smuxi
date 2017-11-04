@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # flugsio <flugsio@gmail.com>, 2014-2015
 # flugsio <flugsio@gmail.com>, 2011
@@ -9,16 +9,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:33+0200\n"
-"PO-Revision-Date: 2015-05-22 17:05+0000\n"
-"Last-Translator: flugsio <flugsio@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/projects/p/smuxi/language/sv/)\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-06-28 17:04+0000\n"
+"PO-Revision-Date: 2016-04-03 13:36+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/smuxi/language/"
+"sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../src/Server/Main.cs:65
 msgid "Add user to Server"
@@ -51,7 +54,9 @@ msgstr "Aktivera utskrift av fellogg"
 #: ../src/Server/Main.cs:127
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
-msgstr "Optimera meddelandebuffertarna och avsluta (giltiga värden: none, defrag, index, all)"
+msgstr ""
+"Optimera meddelandebuffertarna och avsluta (giltiga värden: none, defrag, "
+"index, all)"
 
 #: ../src/Server/Main.cs:140
 msgid "Show this help"
@@ -77,13 +82,14 @@ msgstr "Okänd flagga: \"{0}\""
 #: ../src/Server/Main.cs:192
 #, csharp-format
 msgid "Command line error: {0}"
-msgstr "Komandoradsfel: {0}"
+msgstr "Kommandoradsfel: {0}"
 
 #: ../src/Server/Main.cs:236
 msgid ""
-"At most one of --add-user, --modify-user, and --delete-user may be used at a"
-" time."
-msgstr "Högst en av --add-user, --modify-user och --delete-user får användas i taget."
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
+msgstr ""
+"Högst en av --add-user, --modify-user och --delete-user får användas i taget."
 
 #: ../src/Server/Main.cs:246
 msgid "You must specify a username with the --username option."
@@ -95,7 +101,7 @@ msgstr "Användarnamnet får inte vara tomt."
 
 #: ../src/Server/Main.cs:262
 msgid "You must specify a password with the --password option."
-msgstr "Du måste ange ett lösenord med flaggan --pasword."
+msgstr "Du måste ange ett lösenord med flaggan --password."
 
 #: ../src/Server/Main.cs:268
 msgid "Password must not be empty."
@@ -104,9 +110,11 @@ msgstr "Lösenordet kan inte vara tomt."
 #: ../src/Server/Main.cs:287
 #, csharp-format
 msgid ""
-"Invalid optimization value passed to --optimize-message-buffer, valid values"
-" are: {0}"
-msgstr "Ogiltigt optimeringsvärde för --optimize-message-buffer, giltiga värden är: {0}"
+"Invalid optimization value passed to --optimize-message-buffer, valid values "
+"are: {0}"
+msgstr ""
+"Ogiltigt optimeringsvärde för --optimize-message-buffer, giltiga värden är: "
+"{0}"
 
 #: ../src/Server/Main.cs:307
 #, csharp-format
@@ -116,7 +124,7 @@ msgstr "Användaren \"{0}\" lades till korrekt i servern."
 #: ../src/Server/Main.cs:316
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
-msgstr "Användaren \"{0}\" redigerad.."
+msgstr "Användaren \"{0}\" redigerad."
 
 #: ../src/Server/Main.cs:325
 #, csharp-format
@@ -130,7 +138,7 @@ msgstr "Användare:"
 #: ../src/Server/Main.cs:380
 #, csharp-format
 msgid "Successfully optimized {0} message buffers."
-msgstr "Lyckades optimera {0} meddelandebufftertar."
+msgstr "Lyckades optimera {0} meddelandebuffertar."
 
 #: ../src/Server/Main.cs:393
 #, csharp-format

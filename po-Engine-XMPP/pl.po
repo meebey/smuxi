@@ -1,27 +1,23 @@
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Aviary.pl
-# Jeśli masz jakiekolwiek uwagi odnoszące się do tłumaczenia lub chcesz
-# pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
-# gnomepl@aviary.pl
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Piotr Drąg <piotrdrag@gmail.com>, 2015.
-# Aviary.pl <gnomepl@aviary.pl>, 2015.
+# Polish translation for smuxi.
+# Copyright © 2015-2016 the smuxi authors.
+# This file is distributed under the same license as the smuxi package.
+# Piotr Drąg <piotrdrag@gmail.com>, 2015-2016.
+# Aviary.pl <community-poland@mozilla.org>, 2015-2016.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 16:39+0200\n"
-"PO-Revision-Date: 2015-09-02 16:25+0200\n"
+"POT-Creation-Date: 2016-09-10 06:04+0200\n"
+"PO-Revision-Date: 2016-09-10 06:05+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <gnomepl@aviary.pl>\n"
+"Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Poedit-Language: Polish\n"
-"X-Poedit-Country: Poland\n"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
 msgid "The server has shut down"
@@ -44,7 +40,7 @@ msgid ""
 "If you want to create an account with the specified user and password, type /"
 "register now"
 msgstr ""
-"Aby utworzyć konto o podanej nazwie użytkownika i haśle, należy wpisać /"
+"Aby utworzyć konto o podanej nazwie użytkownika i haśle, należy wpisać /"
 "register"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
@@ -52,8 +48,8 @@ msgid ""
 "This engine has native Facebook support, you should be using it instead of "
 "connecting to Facebook with XMPP"
 msgstr ""
-"Ten mechanizm posiada natywną obsługę serwisu Facebook, należy jej używać "
-"zamiast łączenia przez protokół XMPP"
+"Ten mechanizm ma natywną obsługę serwisu Facebook, należy jej używać zamiast "
+"łączenia przez protokół XMPP"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
 msgid "not connected"
@@ -67,7 +63,7 @@ msgstr "Nie można odnaleźć kontaktu {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:825
 #, csharp-format
 msgid "Contact {0} has {1} known resources"
-msgstr "Znane zasoby posiadane przez kontakt {0}: {1}"
+msgstr "Znane zasoby kontaktu {0}: {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
 #, csharp-format
@@ -81,7 +77,7 @@ msgstr "JID kontaktu: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
 msgid "You have a mutual subscription with this contact"
-msgstr "Subskrypcja z tym kontaktem działa w obie strony"
+msgstr "Subskrypcja z tym kontaktem działa w obie strony"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:844
 msgid ""
@@ -136,8 +132,8 @@ msgstr "Priorytet dla stanu „Nieobecny”: {0}"
 msgid ""
 "Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
 msgstr ""
-"Nieprawidłowy priorytet: {0} (prawidłowe priorytety mogą być między -128 a "
-"127)"
+"Nieprawidłowy priorytet: {0} (prawidłowe priorytety mogą być między -128 "
+"a 127)"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
 #, csharp-format
@@ -167,7 +163,7 @@ msgstr "Użytkownik {0}{1} chce rozmawiać"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1656
 #, csharp-format
 msgid "{0}{1} is offline"
-msgstr "Użytkownik {0}{1} jest w trybie offline"
+msgstr "Użytkownik {0}{1} jest w trybie offline"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1662
 #, csharp-format
@@ -176,12 +172,12 @@ msgid ""
 "to subscribe"
 msgstr ""
 "Automatycznie zezwolono użytkownikowi {0} na subskrypcję, ponieważ już "
-"wysłano mu prośbę o subskrypcję"
+"wysłano mu prośbę o subskrypcję"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1666
 #, csharp-format
 msgid "{0}{1} wishes to subscribe to you"
-msgstr "Użytkownik {0}{1} prosi o subskrypcję"
+msgstr "Użytkownik {0}{1} prosi o subskrypcję"
 
 #. you can now see their presences
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1674
@@ -208,7 +204,7 @@ msgstr "Użytkownik {0}{1} zabronił/usunął subskrypcję"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1693
 #, csharp-format
 msgid "{0}{1} unsubscribed from you"
-msgstr "Użytkownik {0}{1} zrezygnował z subskrypcji"
+msgstr "Użytkownik {0}{1} zrezygnował z subskrypcji"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1697
 #, csharp-format
@@ -230,7 +226,7 @@ msgstr "Użytkownik {0}{1} już używa zażądanego zasobu"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1750
 #, csharp-format
 msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
-msgstr "Obecnie nie ma przydatnego komunikatu błędu dla {0}, {1}, {2}{3}"
+msgstr "Obecnie nie ma przydatnego komunikatu o błędzie dla {0}, {1}, {2}{3}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1727
 #, csharp-format
@@ -307,7 +303,7 @@ msgstr ""
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
 #, csharp-format
 msgid "You have been invited to {2} by {0} because {1}"
-msgstr "Zaproszono do {2} przez {0} z powodu {1}"
+msgstr "Zaproszono do {2} przez {0} z powodu {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2403
 #, csharp-format
@@ -321,12 +317,12 @@ msgstr "Przyjmij zaproszenie (dołącz do pokoju)"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2562
 #, csharp-format
 msgid "Reconnecting to {0}"
-msgstr "Ponowne łączenie z {0}"
+msgstr "Ponowne łączenie z {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2576
 #, csharp-format
 msgid "Reconnecting to {0} in {1} seconds"
-msgstr "Ponowne łączenie z {0} za {1} s"
+msgstr "Ponowne łączenie z {0} za {1} s"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2606
 #, csharp-format

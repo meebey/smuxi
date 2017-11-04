@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Joe Hansen <joedalton2@yahoo.dk>, 2011,2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:34+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-05-22 19:46+0000\n"
 "PO-Revision-Date: 2013-04-29 08:41+0000\n"
 "Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
+"Language-Team: Danish (http://wiki.dansk-gruppen.dk)\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Frontend/CommandManager.cs:466
@@ -38,15 +39,16 @@ msgstr "Motor findes ikke."
 
 #: ../src/Frontend/EngineManager.cs:313
 #, csharp-format
-msgid ""
-"Unknown channel ({0}) - only the following channel types are supported:"
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Ukendt kanal ({0}) - kun de følgende kanaltyper er understøttet:"
 
 #: ../src/Frontend/EngineManager.cs:322
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
-msgstr "Registrering med motor mislykkedes! Brugernavnet og/eller adgangskoden var forkert - bekræft dem venligst."
+msgstr ""
+"Registrering med motor mislykkedes! Brugernavnet og/eller adgangskoden var "
+"forkert - bekræft dem venligst."
 
 #: ../src/Frontend/SshTunnelManager.cs:147
 msgid "SSH client application was not found: "
@@ -55,14 +57,18 @@ msgstr "SSH-klientprogram blev ikke fundet: "
 #: ../src/Frontend/SshTunnelManager.cs:150
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
-msgstr "SSH-klient skal enten være OpenSSH (ssh) eller Plink (plink.exe, ikke putty.exe)"
+msgstr ""
+"SSH-klient skal enten være OpenSSH (ssh) eller Plink (plink.exe, ikke putty."
+"exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:187
 #, csharp-format
 msgid ""
 "The local SSH forwarding port {0} is already in use. Is there an old SSH "
 "tunnel still active?"
-msgstr "Den lokale SSH-videresendelsesport {0} er allerede i brug. Er der en gammel SSH-tunnel, der stadig er aktiv?"
+msgstr ""
+"Den lokale SSH-videresendelsesport {0} er allerede i brug. Er der en gammel "
+"SSH-tunnel, der stadig er aktiv?"
 
 #: ../src/Frontend/SshTunnelManager.cs:211
 #, csharp-format
@@ -76,7 +82,16 @@ msgid ""
 "{3}\n"
 "Program Output:\n"
 "{4}\n"
-msgstr "Kunne ikke opsætte SSH-tunnel (afbrydelseskode: {0})\n\nSSH-program: {1}\nSSH-parametre: {2}\n\nProgramfejl:\n{3}\nProgramuddata:\n{4}\n"
+msgstr ""
+"Kunne ikke opsætte SSH-tunnel (afbrydelseskode: {0})\n"
+"\n"
+"SSH-program: {1}\n"
+"SSH-parametre: {2}\n"
+"\n"
+"Programfejl:\n"
+"{3}\n"
+"Programuddata:\n"
+"{4}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:332
 #: ../src/Frontend/SshTunnelManager.cs:481
@@ -99,7 +114,15 @@ msgid ""
 "{2}\n"
 "Program Output:\n"
 "{3}\n"
-msgstr "Versionnummer for OpenSSH blev ikke fundet (afbrydelseskode: {0})\n\nSSH-program: {1}\n\nProgramfejl:\n{2}\nProgramuddata:\n{3}\n"
+msgstr ""
+"Versionnummer for OpenSSH blev ikke fundet (afbrydelseskode: {0})\n"
+"\n"
+"SSH-program: {1}\n"
+"\n"
+"Programfejl:\n"
+"{2}\n"
+"Programuddata:\n"
+"{3}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:472
 msgid "PuTTY / Plink requires a username to be set."
@@ -116,4 +139,12 @@ msgid ""
 "{2}\n"
 "Program Output:\n"
 "{3}\n"
-msgstr "Plink-versionsnummer blev ikke fundet (afslutningskode: {0})\n\nSSH-program: {1}\n\nProgramfejl:\n{2}\nProgramuddata:\n{3}\n"
+msgstr ""
+"Plink-versionsnummer blev ikke fundet (afslutningskode: {0})\n"
+"\n"
+"SSH-program: {1}\n"
+"\n"
+"Programfejl:\n"
+"{2}\n"
+"Programuddata:\n"
+"{3}\n"

@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Joe Hansen <joedalton2@yahoo.dk>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:31+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-05-22 19:45+0000\n"
 "PO-Revision-Date: 2013-11-20 11:27+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
+"Language-Team: Danish (http://wiki.dansk-gruppen.dk)\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:255
@@ -265,7 +266,9 @@ msgstr "{0}: Intet sådan brugernavn/kanal"
 #, csharp-format
 msgid ""
 "Increased send delay to {0}ms to avoid being flooded off the server again."
-msgstr "Øgede forsinkelse for send til {0}ms for at undgå at blive oversvømmet på serveren igen."
+msgstr ""
+"Øgede forsinkelse for send til {0}ms for at undgå at blive oversvømmet på "
+"serveren igen."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2822
 #, csharp-format
@@ -299,73 +302,75 @@ msgstr "CTCP PING svar fra {0}: {1} sekunder"
 msgid "CTCP {0} reply from {1}: {2}"
 msgstr "CTCP {0} svar fra {1}: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3207
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3210
 #, csharp-format
 msgid "{0} [{1}] has joined {2}"
 msgstr "{0} [{1}] har sluttet sig til {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3349
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3355
 #, csharp-format
 msgid "{0} [{1}] has left {2}"
 msgstr "{0} [{1}] har forladt {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3374
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3380
 #, csharp-format
 msgid "You were kicked from {0} by {1}"
 msgstr "Du blev smidt ud fra {0} af {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3382
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3388
 #, csharp-format
 msgid "{0} was kicked from {1} by {2}"
 msgstr "{0} blev smidt ud fra {1} af {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3400
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3432
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3406
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3438
 #, csharp-format
 msgid "You're now known as {0}"
 msgstr "Du er nu kendt som {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3435
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3441
 #, csharp-format
 msgid "{0} is now known as {1}"
 msgstr "{0} er nu kendt som {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3469
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3475
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
 msgstr "{0} ændrede emnet på {1} til: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3629
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3635
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
 msgstr "Tilstandsændring [{0}] for bruger {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3660
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3666
 #, csharp-format
 msgid "mode/{0} [{1}] by {2}"
 msgstr "tilstand/{0} [{1}] af {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3696
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3702
 #, csharp-format
 msgid "{0} [{1}] has quit"
 msgstr "{0} [{1}] er gået"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3786
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3801
 #, csharp-format
 msgid ""
 "Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
 "seconds..."
-msgstr "Forbindelse til {0} port {1} er mislykkedes (forsøg {2}), forsøger om {3} sekunder..."
+msgstr ""
+"Forbindelse til {0} port {1} er mislykkedes (forsøg {2}), forsøger om {3} "
+"sekunder..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3836
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3851
 #, csharp-format
 msgid "{0} is away: {1}"
 msgstr "{0} er fraværende: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3846
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3861
 msgid "You are no longer marked as being away"
 msgstr "Du er ikke længere registreret som fraværende"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3856
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3871
 msgid "You have been marked as being away"
 msgstr "Du er registreret som fraværende"

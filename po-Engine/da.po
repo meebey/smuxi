@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Joe Hansen <joedalton2@yahoo.dk>, 2011-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:30+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-05-22 19:44+0000\n"
 "PO-Revision-Date: 2014-11-27 14:26+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
+"Language-Team: Danish (http://wiki.dansk-gruppen.dk)\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Engine/FrontendManager.cs:218
@@ -36,7 +37,9 @@ msgstr "Kunne ikke optimere: {0}. Årsag: {1}"
 msgid ""
 "Your chat history is no longer available because of an error but will be "
 "preserved from now on."
-msgstr "Din snakkehistorik er ikke længere tilgængelig på grund af en fejl, men den vil blive gemt fremadrettet."
+msgstr ""
+"Din chathistorik er ikke længere tilgængelig på grund af en fejl, men den "
+"vil blive gemt fremadrettet."
 
 #: ../src/Engine/Messages/MessageBuilder.cs:771
 #, csharp-format
@@ -142,7 +145,9 @@ msgstr "Kunne ikke konvertere konfigurationsværdi: »{0}« til type: {1}"
 #, csharp-format
 msgid ""
 "Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
-msgstr "Ugyldig fjern nøgle-konfiguration: »{0}«. Gyldige fjern nøgler: MessagePatterns/{{ID}}."
+msgstr ""
+"Ugyldig fjern nøgle-konfiguration: »{0}«. Gyldige fjern nøgler: "
+"MessagePatterns/{{ID}}."
 
 #: ../src/Engine/Session.cs:827
 #, csharp-format
@@ -156,11 +161,15 @@ msgstr "Beskedmønster med ID: »{0}« fjernet."
 
 #: ../src/Engine/Session.cs:842
 msgid "Invalid parameter for config; use load, save, get or set."
-msgstr "Ugyldig parameter for konfiguration: brug load (indlæs), save (gem), get (hent) eller set (sæt)."
+msgstr ""
+"Ugyldig parameter for konfiguration: brug load (indlæs), save (gem), get "
+"(hent) eller set (sæt)."
 
 #: ../src/Engine/Session.cs:919
 msgid "Invalid parameter for network; use list, switch, or close"
-msgstr "Ugyldigt parameter for netværk; brug list (vis), switch (skift) eller close (luk)"
+msgstr ""
+"Ugyldigt parameter for netværk; brug list (vis), switch (skift) eller close "
+"(luk)"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
@@ -215,7 +224,9 @@ msgstr "Ikke tilsluttet til noget netværk"
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr "Kunne ikke skrive snakkehistorik. Din snakkehistorik vil ikke blive gemt. Årsag: {0}"
+msgstr ""
+"Kunne ikke skrive chathistorik. Din chathistorik vil ikke blive gemt. "
+"Årsag: {0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
@@ -241,7 +252,10 @@ msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
 "the extended command list."
-msgstr "Efter du har foretaget en forbindelsen så ændres listen over tilgængelige kommandoer. Gå til det netop åbnede forbindelsesfaneblad og brug kommandoen /help igen for at se den udvidede kommandoliste."
+msgstr ""
+"Efter du har foretaget en forbindelsen så ændres listen over tilgængelige "
+"kommandoer. Gå til det netop åbnede forbindelsesfaneblad og brug kommandoen /"
+"help igen for at se den udvidede kommandoliste."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
@@ -278,16 +292,20 @@ msgstr "Serverværtsnavn indeholder ugyldige tegn (nylinje)."
 msgid "Server ID '{0}' already exists."
 msgstr "Server-id »{0}« findes allerede."
 
-#: ../src/Engine/Chats/ChatModel.cs:109
+#: ../src/Engine/Chats/ChatModel.cs:106
 #, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr "Kunne ikke indlæse snakkehistorik. Din snakkehistorik vil ikke blive bevaret. Årsag: {0}"
+msgstr ""
+"Kunne ikke indlæse chathistorik. Din chathistorik vil ikke blive "
+"bevaret. Årsag: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:311
+#: ../src/Engine/Chats/ChatModel.cs:322
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
-msgstr "Kunne ikke åbne snakkehistorik for skrivning. Din snakkehistorik vil ikke blive bevaret. Årsag: {0}"
+msgstr ""
+"Kunne ikke åbne chathistorik for skrivning. Din chathistorik vil ikke "
+"blive bevaret. Årsag: {0}"

@@ -1,0 +1,152 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Translators:
+# Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>, 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&k"
+"eywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-05-22 19:46+0000\n"
+"PO-Revision-Date: 2016-03-17 19:56+0200\n"
+"Last-Translator: Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>\n"
+"Language-Team: Tot En Òc\n"
+"Language: oc\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: ../src/Frontend/CommandManager.cs:466
+#, csharp-format
+msgid "Unknown Command: {0}"
+msgstr "Comanda desconeguda : {0}"
+
+#: ../src/Frontend/CommandManager.cs:475
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Pas pro de paramètres per la comanda {0}"
+
+#: ../src/Frontend/EngineManager.cs:112
+msgid "Engine must not be empty."
+msgstr "Lo motor deu pas èsser void."
+
+#: ../src/Frontend/EngineManager.cs:123
+msgid "Engine does not exist."
+msgstr "Lo motor existís pas."
+
+#: ../src/Frontend/EngineManager.cs:313
+#, csharp-format
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
+msgstr ""
+"Canal desconegut ({0}), sols los tipes de canals seguents son suportats :"
+
+#: ../src/Frontend/EngineManager.cs:322
+msgid ""
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
+msgstr ""
+"Impossible de s'enregistrar alprèp del motor, lo nom d'utilizaire e/o lo "
+"senhal èra(n) marrit(s), verificatz_lo(s)."
+
+#: ../src/Frontend/SshTunnelManager.cs:147
+msgid "SSH client application was not found: "
+msgstr "L'aplicacion SSH client es pas estada trobada :"
+
+#: ../src/Frontend/SshTunnelManager.cs:150
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr ""
+"Lo client SSH deu èsser siá OpenSSH (ssh) o Plink (plink.exe, e non "
+"putty.exe)"
+
+#: ../src/Frontend/SshTunnelManager.cs:187
+#, csharp-format
+msgid ""
+"The local SSH forwarding port {0} is already in use. Is there an old SSH "
+"tunnel still active?"
+msgstr ""
+"La redirection locala de pòrt {0} es totjorn en cors d'utilizacion. L'ancian "
+"tunèl SSH es totjorn actiu ?"
+
+#: ../src/Frontend/SshTunnelManager.cs:211
+#, csharp-format
+msgid ""
+"SSH tunnel setup failed (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"SSH parameters: {2}\n"
+"\n"
+"Program Error:\n"
+"{3}\n"
+"Program Output:\n"
+"{4}\n"
+msgstr ""
+"Mesa en rota del tunèl SSH  fracassada (còde de sortida : {0})\n"
+"\n"
+"Programa SSH : {1}\n"
+"Paramètres SSH : {2}\n"
+"\n"
+"Error del programa :\n"
+"{3}\n"
+"Sortida del programa :\n"
+"{4}\n"
+
+#: ../src/Frontend/SshTunnelManager.cs:332
+#: ../src/Frontend/SshTunnelManager.cs:481
+msgid "SSH keyfile not found."
+msgstr "Fichièr de clau SSH introbable"
+
+#: ../src/Frontend/SshTunnelManager.cs:338
+#: ../src/Frontend/SshTunnelManager.cs:487
+msgid "SSH keyfile could not be read."
+msgstr "Impossible de legir lo fichièr de clau SSH."
+
+#: ../src/Frontend/SshTunnelManager.cs:429
+#, csharp-format
+msgid ""
+"OpenSSH version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"Impossible de trobar la version d'OpenSSH (còde de sortida: {0})\n"
+"\n"
+"Programa SSH: {1}\n"
+"\n"
+"Error del programa:\n"
+"{2}\n"
+"Sortida del programa:\n"
+"{3}\n"
+
+#: ../src/Frontend/SshTunnelManager.cs:472
+msgid "PuTTY / Plink requires a username to be set."
+msgstr "PuTTY o Plink necessitan un nom d'utilizaire per foncionar."
+
+#: ../src/Frontend/SshTunnelManager.cs:560
+#, csharp-format
+msgid ""
+"Plink version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"Numèro de version Plink pas trobat (còde de retorn : {0})\n"
+"\n"
+"Programa SSH : {1}\n"
+"\n"
+"Error del programa : \n"
+"{2}\n"
+"Sortida del programa : \n"
+"{3}\n"

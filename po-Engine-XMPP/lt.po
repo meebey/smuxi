@@ -1,25 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Moo, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:33+0200\n"
-"PO-Revision-Date: 2015-05-26 11:37+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-01-08 14:33+0000\n"
+"PO-Revision-Date: 2016-01-08 22:07+0200\n"
 "Last-Translator: Moo\n"
-"Language-Team: Lithuanian (http://www.transifex.com/projects/p/smuxi/language/lt/)\n"
+"Language-Team: Lithuanian (http://www.transifex.com/projects/p/smuxi/"
+"language/lt/)\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
-msgid "The Server has shut down"
+msgid "The server has shut down"
 msgstr "Serveris sustabdytas"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
@@ -30,19 +34,25 @@ msgstr "Prisijungė kitas klientas su tuo pačiu ištekliu, jūs buvote atjungti
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:209
 msgid ""
 "Authentication failed, either username does not exist or invalid password"
-msgstr "Tapatybės nustatymas nepavyko, tokio vartotojo vardo nėra arba neteisingas slaptažodis"
+msgstr ""
+"Tapatybės nustatymas nepavyko, tokio vartotojo vardo nėra arba neteisingas "
+"slaptažodis"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
 msgid ""
-"if you want to create an account with the specified user and password, type "
-"/register now"
-msgstr "jeigu norite susikurti paskyrą su nurodytu vartotojo vardu ir slaptažodžiu, dabar įveskite /register"
+"If you want to create an account with the specified user and password, type /"
+"register now"
+msgstr ""
+"Jeigu norite susikurti paskyrą su nurodytu vartotojo vardu ir slaptažodžiu, "
+"dabar įveskite /register"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
 msgid ""
 "This engine has native Facebook support, you should be using it instead of "
-"connecting to facebook with xmpp"
-msgstr "Šis varikliukas turi savą Facebook palaikymą, jūs turėtumėte naudoti jį, vietoj jungimosi prie facebook per xmpp"
+"connecting to Facebook with XMPP"
+msgstr ""
+"Šis modulis turi savą Facebook palaikymą, jūs turėtumėte naudoti jį, vietoj "
+"jungimosi prie Facebook per XMPP"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
 msgid "not connected"
@@ -65,8 +75,8 @@ msgstr "{0} nėra žinomas išteklius"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
 #, csharp-format
-msgid "Contact's Jid: {0}"
-msgstr "Kontakto Jid: {0}"
+msgid "Contact's JID: {0}"
+msgstr "Kontakto JID: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
 msgid "You have a mutual subscription with this contact"
@@ -76,22 +86,28 @@ msgstr "Jūs esate priregistruoti su šiuo kontaktu vienas prie kito"
 msgid ""
 "You have no subscription with this contact and this contact is not "
 "subscribed to you"
-msgstr "Jūs nesate priregistruoti prie šio kontakto ir šis kontaktas nėra priregistruotas prie jūsų"
+msgstr ""
+"Jūs nesate priregistruoti prie šio kontakto ir šis kontaktas nėra "
+"priregistruotas prie jūsų"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
 msgid ""
-"You are subscribed to this contact, but the contact is not subcribed to you"
-msgstr "Jūs esate priregistruoti prie šio kontakto, tačiau šis kontaktas nėra priregistruotas prie jūsų"
+"You are subscribed to this contact, but the contact is not subscribed to you"
+msgstr ""
+"Jūs esate priregistruoti prie šio kontakto, tačiau šis kontaktas nėra "
+"priregistruotas prie jūsų"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
 msgid ""
-"You are not subscribed to this contact, but the contact is subcribed to you"
-msgstr "Jūs nesate priregistruoti prie šio kontakto, tačiau kontaktas yra priregistruotas prie jūsų"
+"You are not subscribed to this contact, but the contact is subscribed to you"
+msgstr ""
+"Jūs nesate priregistruoti prie šio kontakto, tačiau kontaktas yra "
+"priregistruotas prie jūsų"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
 #, csharp-format
-msgid "Invalid Contact command: {0}"
-msgstr "Neteisinga Kontakto komanda: {0}"
+msgid "Invalid contact command: {0}"
+msgstr "Neteisinga kontakto komanda: {0}"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
@@ -123,8 +139,9 @@ msgstr "Atsitraukimo Pirmenybė yra: {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
 #, csharp-format
 msgid ""
-"Invalid Priority: {0} (valid priorities are between -128 and 127 inclusive)"
-msgstr "Neteisinga Pirmenybė: {0} (teisingos pirmenybės yra tarp -128 ir 127 imtinai)"
+"Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
+msgstr ""
+"Neteisinga pirmenybė: {0} (teisingos pirmenybės yra tarp -128 ir 127 imtinai)"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
 #, csharp-format
@@ -161,7 +178,9 @@ msgstr "{0}{1} yra atsijungęs"
 msgid ""
 "Automatically allowed {0} to subscribe to you, since you are already asking "
 "to subscribe"
-msgstr "Automatiškai leista {0} prie jūsų prisiregistruoti, kadangi jūs jau prašote priregistravimo"
+msgstr ""
+"Automatiškai leista {0} prie jūsų prisiregistruoti, kadangi jūs jau prašote "
+"priregistravimo"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1666
 #, csharp-format
@@ -179,7 +198,9 @@ msgstr "{0}{1} leido jums prisiregistruoti"
 msgid ""
 "Automatically removed {0}'s subscription to your presences after losing the "
 "subscription to theirs"
-msgstr "Automatiškai pašalintas {0} priregistravimas prie jūsų būsenų, po to, kai jūs praradote priregistravimą prie šio vartotojo būsenų"
+msgstr ""
+"Automatiškai pašalintas {0} priregistravimas prie jūsų būsenų, po to, kai "
+"jūs praradote priregistravimą prie šio vartotojo būsenų"
 
 #. you cannot (anymore?) see their presences
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1688
@@ -257,8 +278,8 @@ msgstr "Grupės pokalbio \"{0}\" serveris nerastas."
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
 #, csharp-format
-msgid "Muc service is not available for \"{0}\""
-msgstr "Muc paslauga \"{0}\" yra neprieinama"
+msgid "MUC service is not available for \"{0}\""
+msgstr "MUC paslauga \"{0}\" yra neprieinama"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
 #, csharp-format
@@ -273,16 +294,18 @@ msgstr "Grupės pokalbyje įvyko neapdorota klaida: {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2096
 #, csharp-format
 msgid ""
-"Received a presence update from {0}, but there's no corresponding chat "
-"window"
-msgstr "Gautas būsenos atnaujinimas iš {0}, tačiau nėra atitinkamo pokalbių lango"
+"Received a presence update from {0}, but there's no corresponding chat window"
+msgstr ""
+"Gautas būsenos atnaujinimas iš {0}, tačiau nėra atitinkamo pokalbių lango"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2120
 #, csharp-format
 msgid ""
 "Received a groupchat message from {0} but there's no corresponding chat "
 "window: {1}"
-msgstr "Gautas grupės pokalbio pranešimas iš {0}, tačiau nėra atitinkamo pokalbių lango: {1}"
+msgstr ""
+"Gautas grupės pokalbio pranešimas iš {0}, tačiau nėra atitinkamo pokalbių "
+"lango: {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
 #, csharp-format

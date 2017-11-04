@@ -1,23 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Mirco Bauer <meebey@gmail.com>, 2013
 # RavuAlHemio <ondra.hosek@gmail.com>, 2013
+# Marek Černocký <marek@manet.cz>, 2016.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:32+0200\n"
-"PO-Revision-Date: 2013-12-11 16:09+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-05-22 19:45+0000\n"
+"PO-Revision-Date: 2016-03-17 07:43+0100\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:103
 msgid "JabbR Commands"
@@ -26,33 +30,33 @@ msgstr "Příkazy JabbR"
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:136
 #, csharp-format
 msgid "Joining room failed. Reason: {0}"
-msgstr "Vstoupení do místnosti se nezdařilo. Důvod: {0}"
+msgstr "Vstup do místnosti se nezdařil. Příčina: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:162
 #, csharp-format
 msgid "Sending message failed. Reason: {0}"
-msgstr "Odeslání zprávy se nezdařilo. Důvod: {0}"
+msgstr "Odeslání zprávy se nezdařilo. Příčina: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:230
 #, csharp-format
 msgid "Connection failed! Reason: {0}"
-msgstr "Spojení se nezdařilo! Důvod: {0}"
+msgstr "Připojení se nezdařilo! Příčina: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
 #, csharp-format
 msgid "Connecting to {0}..."
-msgstr "Spojuji se s {0}..."
+msgstr "Připojuje se k serveru {0}…"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr "Obnovuji spojení s {0}..."
+msgstr "Opětovně se připojuje k serveru {0}…"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
 msgid "not connected"
-msgstr "nepřipojen"
+msgstr "nepřipojeno"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
 #, csharp-format
 msgid "Retrieving chat information failed. Reason: {0}"
-msgstr "Nezdařilo se získat informace o chatu. Důvod: {0}"
+msgstr "Nezdařilo se získat informace o pokecu. Příčina: {0}"

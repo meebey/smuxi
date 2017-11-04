@@ -1,0 +1,51 @@
+# 'smuxi/po-Frontend-GNOME-XMPP/
+# Slovenian translation for smuxi.
+# Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+#
+# Matej Urbančič <mateju@svn.gnome.org>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-03-11 14:42+0000\n"
+"PO-Revision-Date: 2016-03-11 22:58+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n"
+"%100==3 || n%100==4 ? 3 : 0);\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.8.4\n"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:247
+msgid "Query"
+msgstr "Poizvej"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:255
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
+msgid "Whois"
+msgstr "Kdo je"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:261
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:221
+msgid "Add To Contacts"
+msgstr "Dodaj med stike"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:267
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:227
+msgid "Invite to"
+msgstr "Povabi v"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:285
+msgid "Rename"
+msgstr "Preimenuj"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:297
+msgid "Remove"
+msgstr "Odstrani"

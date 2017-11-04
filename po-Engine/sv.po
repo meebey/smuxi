@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # flugsio <flugsio@gmail.com>, 2013-2014
 # flugsio <flugsio@gmail.com>, 2011, 2012
@@ -9,16 +9,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:30+0200\n"
-"PO-Revision-Date: 2014-06-19 01:58+0000\n"
-"Last-Translator: flugsio <flugsio@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/projects/p/smuxi/language/sv/)\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-06-28 17:00+0000\n"
+"PO-Revision-Date: 2016-04-03 13:32+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/smuxi/language/"
+"sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
@@ -38,7 +41,9 @@ msgstr "Misslyckades att optimera: {0}. Anledning: {1}"
 msgid ""
 "Your chat history is no longer available because of an error but will be "
 "preserved from now on."
-msgstr "Din chatthistorik är inte längre tillgänglig på grund av ett fel, men kommer att bibehållas från och med nu."
+msgstr ""
+"Din chatthistorik är inte längre tillgänglig på grund av ett fel, men kommer "
+"att bibehållas från och med nu."
 
 #: ../src/Engine/Messages/MessageBuilder.cs:771
 #, csharp-format
@@ -128,7 +133,7 @@ msgstr "Inställningarna sparades"
 
 #: ../src/Engine/Session.cs:754
 msgid "Invalid key/value format."
-msgstr "Ogiltigt nykel/värde format."
+msgstr "Ogiltigt nyckel/värde-format."
 
 #: ../src/Engine/Session.cs:778
 #, csharp-format
@@ -144,7 +149,9 @@ msgstr "Kunde inte konvertera konfigurationsvärdet: '{0}' till typen: {1}"
 #, csharp-format
 msgid ""
 "Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
-msgstr "Ogiltig config remove key: '{0}'. Giltiga remove keys: MessagePatterns/{{ID}}."
+msgstr ""
+"Ogiltig config remove key: '{0}'. Giltiga remove keys: MessagePatterns/"
+"{{ID}}."
 
 #: ../src/Engine/Session.cs:827
 #, csharp-format
@@ -217,7 +224,9 @@ msgstr "Inte ansluten till något nätverk"
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr "Kunde inte spara chatthistorik. Din chatthistorik kommer inte att bibehållas. Anledning: {0}"
+msgstr ""
+"Kunde inte spara chatthistorik. Din chatthistorik kommer inte att "
+"bibehållas. Anledning: {0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
@@ -243,7 +252,10 @@ msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
 "the extended command list."
-msgstr "Efter att du har kopplat upp dig så uppdateras listan med tillgängliga kommandon. Gå till den nyligen öppnade anslutningsfliken och använd kommandot /help igen för att se den utökade kommandolistan."
+msgstr ""
+"Efter att du har kopplat upp dig så uppdateras listan med tillgängliga "
+"kommandon. Gå till den nyligen öppnade anslutningsfliken och använd "
+"kommandot /help igen för att se den utökade kommandolistan."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
@@ -280,16 +292,20 @@ msgstr "Serverns värdnamn innehåller ogiltiga tecken (ny rad)."
 msgid "Server ID '{0}' already exists."
 msgstr "Server ID '{0}' finns redan."
 
-#: ../src/Engine/Chats/ChatModel.cs:109
+#: ../src/Engine/Chats/ChatModel.cs:106
 #, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr "Kunde inte läsa in chatthistoriken. Din chatthistorik kommer inte att sparas. Anledning: {0}"
+msgstr ""
+"Kunde inte läsa in chatthistoriken. Din chatthistorik kommer inte att "
+"sparas. Anledning: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:311
+#: ../src/Engine/Chats/ChatModel.cs:322
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
-msgstr "Kunde inte öppna chatthistoriken med skrivrättighet. Din chatthistorik kommer inte att sparas. Anledning: {0}"
+msgstr ""
+"Kunde inte öppna chatthistoriken med skrivrättighet. Din chatthistorik "
+"kommer inte att sparas. Anledning: {0}"

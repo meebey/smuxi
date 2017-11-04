@@ -1,21 +1,23 @@
-# SOME DESCRIPTIVE TITLE.
+# German translation for smuxi-Frontend-GNOME-IRC.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# 
+# This file is distributed under the same license as the smuxi package.
+#
 # Translators:
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-11 17:04+0100\n"
-"PO-Revision-Date: 2013-11-19 16:27+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/smuxi/language/de/)\n"
+"PO-Revision-Date: 2016-01-08 15:08+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:390
 msgid "Query"
@@ -39,19 +41,19 @@ msgstr "Devoice"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
 msgid "Kick"
-msgstr "Kick"
+msgstr "Hinauswerfen"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:416
 msgid "Kick + Ban"
-msgstr "Kick + Ban"
+msgstr "Hinauswerfen und Sperren"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:420
 msgid "Ban"
-msgstr "Ban"
+msgstr "Sperren"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:424
 msgid "Unban"
-msgstr "Unban"
+msgstr "Sperre aufheben"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:63
