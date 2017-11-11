@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-05-22 19:44+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-04-20 06:23+0000\n"
 "PO-Revision-Date: 2014-11-27 14:26+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish (http://wiki.dansk-gruppen.dk)\n"
@@ -26,7 +26,7 @@ msgstr "Ingen netværksforbindelser"
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
 #, csharp-format
 msgid "Optimizing: {0}..."
-msgstr "Optimerer: {0}..."
+msgstr "Optimerer: {0} …"
 
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
 #, csharp-format
@@ -44,24 +44,24 @@ msgstr ""
 #: ../src/Engine/Messages/MessageBuilder.cs:771
 #, csharp-format
 msgid "{0} is typing..."
-msgstr "{0} taster ..."
+msgstr "{0} taster …"
 
 #: ../src/Engine/Messages/MessageBuilder.cs:777
 #, csharp-format
 msgid "{0} has stopped typing..."
-msgstr "{0} har stoppet indtastning ..."
+msgstr "{0} har stoppet indtastning …"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:820
+#: ../src/Engine/Messages/MessageBuilder.cs:822
 #, csharp-format
 msgid "{0} is away"
 msgstr "{0} er fraværende"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:826
+#: ../src/Engine/Messages/MessageBuilder.cs:828
 #, csharp-format
 msgid "{0} is offline"
 msgstr "{0} er frakoblet"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:832
+#: ../src/Engine/Messages/MessageBuilder.cs:834
 #, csharp-format
 msgid "{0} is online"
 msgstr "{0} er tilkoblet"
@@ -93,7 +93,7 @@ msgstr "Ikke længere forbundet til {0}"
 #: ../src/Engine/Session.cs:247
 #, csharp-format
 msgid "Automatically connecting to {0}..."
-msgstr "Automatisk tilslutning til {0} ..."
+msgstr "Automatisk tilslutning til {0} …"
 
 #: ../src/Engine/Session.cs:278
 #, csharp-format
@@ -225,8 +225,8 @@ msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
 msgstr ""
-"Kunne ikke skrive chathistorik. Din chathistorik vil ikke blive gemt. "
-"Årsag: {0}"
+"Kunne ikke skrive chathistorik. Din chathistorik vil ikke blive gemt. Årsag: "
+"{0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
@@ -298,8 +298,8 @@ msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
 msgstr ""
-"Kunne ikke indlæse chathistorik. Din chathistorik vil ikke blive "
-"bevaret. Årsag: {0}"
+"Kunne ikke indlæse chathistorik. Din chathistorik vil ikke blive bevaret. "
+"Årsag: {0}"
 
 #: ../src/Engine/Chats/ChatModel.cs:322
 #, csharp-format
@@ -307,5 +307,5 @@ msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
 msgstr ""
-"Kunne ikke åbne chathistorik for skrivning. Din chathistorik vil ikke "
-"blive bevaret. Årsag: {0}"
+"Kunne ikke åbne chathistorik for skrivning. Din chathistorik vil ikke blive "
+"bevaret. Årsag: {0}"
