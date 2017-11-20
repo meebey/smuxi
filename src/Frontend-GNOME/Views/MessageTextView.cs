@@ -176,18 +176,6 @@ namespace Smuxi.Frontend.Gnome
                 }
                 CheckStyle();
             };
-            FocusInEvent += (o, args) => {
-                if (_MarkerlineBufferPosition == 0) {
-                    return;
-                }
-                // restore the cursor position when entering the focus, for
-                // example by pressing F7. This is useful for blind persons who
-                // use a screen reader like orca to continue reading new unread
-                // messages.
-                var markerIter = Buffer.GetIterAtOffset(_MarkerlineBufferPosition);
-                markerIter.ForwardLine();
-                Buffer.PlaceCursor(markerIter);
-            };
         }
 
         public void ApplyConfig(UserConfig config)
