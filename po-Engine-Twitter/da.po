@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-05-22 19:46+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-04-20 06:25+0000\n"
 "PO-Revision-Date: 2015-05-03 19:28+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish (http://wiki.dansk-gruppen.dk)\n"
@@ -38,7 +38,7 @@ msgstr "Bruger proxy: {0}:{1}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:217
 msgid "Connecting to Twitter..."
-msgstr "Tilslutter til Twitter..."
+msgstr "Tilslutter til Twitter …"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:259
 msgid "Twitter authorization required."
@@ -78,7 +78,7 @@ msgstr "Forbindelse mislykkedes! Årsag: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:317
 msgid "Fetching user details from Twitter, please wait..."
-msgstr "Henter brugerdetaljer fra Twitter, vent venligst..."
+msgstr "Henter brugerdetaljer fra Twitter, vent venligst …"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:324
 msgid "Finished fetching user details."
@@ -94,7 +94,7 @@ msgstr "Kunne ikke hente brugerdetaljer fra Twitter. Årsag: "
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:381
 msgid "Fetching friends from Twitter, please wait..."
-msgstr "Henter venneliste fra Twitter, vent venligst..."
+msgstr "Henter venneliste fra Twitter, vent venligst …"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:390
 msgid "Finished fetching friends."

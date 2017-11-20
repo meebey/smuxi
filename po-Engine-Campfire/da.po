@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-08-23 11:09+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-04-20 06:24+0000\n"
 "PO-Revision-Date: 2017-01-15 10:04+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish (http://wiki.dansk-gruppen.dk)\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
 msgid "Connecting to campfire... "
-msgstr "Forbinder til campfire ..."
+msgstr "Forbinder til campfire …"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:166
 msgid "Connected to campfire"

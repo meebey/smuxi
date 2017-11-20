@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-05-22 19:45+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-04-20 06:25+0000\n"
 "PO-Revision-Date: 2013-12-11 16:10+0000\n"
 "Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: Danish (http://wiki.dansk-gruppen.dk)\n"
@@ -42,12 +42,12 @@ msgstr "Forbindelse mislykkedes! Årsag: {0}"
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
 #, csharp-format
 msgid "Connecting to {0}..."
-msgstr "Forbinder til {0} ..."
+msgstr "Forbinder til {0} …"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr "Genforbinder til {0}..."
+msgstr "Genforbinder til {0} …"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
 msgid "not connected"

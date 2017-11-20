@@ -9,10 +9,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-05-22 20:05+0000\n"
-"PO-Revision-Date: 2016-03-17 08:04+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-11-04 05:45+0000\n"
+"PO-Revision-Date: 2017-11-05 13:10+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -27,101 +27,106 @@ msgid "Enable debug output"
 msgstr "Zapnout ladicí informace"
 
 #: ../src/Engine-MessageBuffer/Main.cs:55
-#: ../src/Engine-MessageBuffer/Main.cs:131
-#: ../src/Engine-MessageBuffer/Main.cs:195
+#: ../src/Engine-MessageBuffer/Main.cs:141
+#: ../src/Engine-MessageBuffer/Main.cs:205
 msgid "Show this help"
 msgstr "Zobrazit tuto nápovědu"
 
-#: ../src/Engine-MessageBuffer/Main.cs:57
-msgid "Usage: smuxi-message-buffer [options] action action-options"
-msgstr "Použití: smuxi-message-buffer [volby] akce volby-akce"
-
-#: ../src/Engine-MessageBuffer/Main.cs:59
-msgid "Actions:"
-msgstr "Akce:"
-
-#: ../src/Engine-MessageBuffer/Main.cs:63
-#: ../src/Engine-MessageBuffer/Main.cs:142
-#: ../src/Engine-MessageBuffer/Main.cs:207
-msgid "Options:"
-msgstr "Volby:"
-
-#: ../src/Engine-MessageBuffer/Main.cs:90
+#: ../src/Engine-MessageBuffer/Main.cs:88
 #, csharp-format
 msgid "Unknown action: '{0}'"
 msgstr "Neznámá akce: „{0}“"
 
-#: ../src/Engine-MessageBuffer/Main.cs:97
+#: ../src/Engine-MessageBuffer/Main.cs:95
 #, csharp-format
 msgid "Command line error: {0}"
 msgstr "Chybný příkaz: {0}"
 
-#: ../src/Engine-MessageBuffer/Main.cs:109
+#: ../src/Engine-MessageBuffer/Main.cs:104
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr "Použití: smuxi-message-buffer [volby] akce volby-akce"
+
+#: ../src/Engine-MessageBuffer/Main.cs:106
+msgid "Actions:"
+msgstr "Akce:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:110
+#: ../src/Engine-MessageBuffer/Main.cs:152
+#: ../src/Engine-MessageBuffer/Main.cs:217
+msgid "Options:"
+msgstr "Volby:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:119
 msgid "Database format (valid values: auto, db4o, sqlite)"
 msgstr "Formát databáze (povolené hodnoty: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:124
-#: ../src/Engine-MessageBuffer/Main.cs:188
+#: ../src/Engine-MessageBuffer/Main.cs:134
+#: ../src/Engine-MessageBuffer/Main.cs:198
 #, csharp-format
 msgid "Unknown {0} option: '{1}'"
 msgstr "Neznámá volba {0}: „{1}“"
 
-#: ../src/Engine-MessageBuffer/Main.cs:135
+#: ../src/Engine-MessageBuffer/Main.cs:145
 #, csharp-format
 msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
 msgstr "Použití: smuxi-message-buffer {0} [volby-akce] cesta_k_databázi"
 
-#: ../src/Engine-MessageBuffer/Main.cs:140
-msgid "Database path"
-msgstr "Cesta k databázi"
+#: ../src/Engine-MessageBuffer/Main.cs:150
+msgid "Database path(s)"
+msgstr "Cesta (nebo i více cest) k databázi"
 
-#: ../src/Engine-MessageBuffer/Main.cs:151
+#: ../src/Engine-MessageBuffer/Main.cs:161
 msgid "db_path is required"
 msgstr "cesta_k_databázi musí být zadána"
 
-#: ../src/Engine-MessageBuffer/Main.cs:165
+#: ../src/Engine-MessageBuffer/Main.cs:175
 msgid "Source format (valid values: auto, db4o, sqlite)"
 msgstr "Zdrojový formát (povolené hodnoty: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:173
+#: ../src/Engine-MessageBuffer/Main.cs:183
 msgid "Destination format (valid values: auto, db4o, sqlite)"
 msgstr "Cílový formát (povolené hodnoty: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:199
+#: ../src/Engine-MessageBuffer/Main.cs:209
 #, csharp-format
 msgid ""
-"Usage: smuxi-message-buffer {0} [action-options] source_db destination_db"
+"Usage: smuxi-message-buffer {0} [action-options] source_db(s)... "
+"destination_db"
 msgstr ""
 "Použití: smuxi-message-buffer {0} [volby-akce] zdrojová_databáze "
-"cílová_databáze"
+"cílová_databáze…"
 
-#: ../src/Engine-MessageBuffer/Main.cs:204
-msgid "Source file path"
-msgstr "Cesta ke zdrojovému souboru"
+#: ../src/Engine-MessageBuffer/Main.cs:214
+msgid "Source file path(s)"
+msgstr "Cesta (nebo i více cest) ke zdrojovému souboru"
 
-#: ../src/Engine-MessageBuffer/Main.cs:205
+#: ../src/Engine-MessageBuffer/Main.cs:215
 msgid "Destination file path or -/empty for stdout"
 msgstr "Cesta k cílovému souboru nebo -/empty pro standardní výstup"
 
-#: ../src/Engine-MessageBuffer/Main.cs:216
+#: ../src/Engine-MessageBuffer/Main.cs:226
 msgid "source_db and destination_db are required"
 msgstr "zdrojová_databáze a cílová_databáze musí být zadány"
 
-#: ../src/Engine-MessageBuffer/Main.cs:232
+#: ../src/Engine-MessageBuffer/Main.cs:242
 msgid "sourceFile must not be empty."
 msgstr "Zdrojový soubor nesmí být prázdný."
 
-#: ../src/Engine-MessageBuffer/Main.cs:248
+#: ../src/Engine-MessageBuffer/Main.cs:251
+msgid "sourceFiles must not be empty."
+msgstr "Zdrojové soubory nesmí být prázdné."
+
+#: ../src/Engine-MessageBuffer/Main.cs:271
 #, csharp-format
 msgid "Destination database {0} must be empty!"
 msgstr "Cílová databáze {0} musí být prázdná!"
 
-#: ../src/Engine-MessageBuffer/Main.cs:298
+#: ../src/Engine-MessageBuffer/Main.cs:340
 #, csharp-format
 msgid "Unknown file format: '{0}'"
 msgstr "Neznámý formát souboru: „{0}“"
 
-#: ../src/Engine-MessageBuffer/Main.cs:320
+#: ../src/Engine-MessageBuffer/Main.cs:362
 #, csharp-format
 msgid "Unsupported buffer type: '{0}'"
 msgstr "Nepodporovaný typ vyrovnávací paměti: „{0}“"

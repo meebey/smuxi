@@ -1,17 +1,17 @@
 # Polish translation for smuxi.
-# Copyright © 2012-2016 the smuxi authors.
+# Copyright © 2012-2017 the smuxi authors.
 # This file is distributed under the same license as the smuxi package.
 # <lukasznaw@gmail.com>, 2012.
 # <okwell@gmail.com>, 2012.
-# Piotr Drąg <piotrdrag@gmail.com>, 2015-2016.
-# Aviary.pl <community-poland@mozilla.org>, 2015-2016.
+# Piotr Drąg <piotrdrag@gmail.com>, 2015-2017.
+# Aviary.pl <community-poland@mozilla.org>, 2015-2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-10 06:04+0200\n"
-"PO-Revision-Date: 2016-09-10 06:05+0200\n"
+"POT-Creation-Date: 2017-11-05 15:12+0100\n"
+"PO-Revision-Date: 2017-11-05 15:21+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -495,15 +495,15 @@ msgstr ""
 msgid "The main window showing an IRC channel"
 msgstr "Główne okno wyświetlające kanał IRC"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:66
+#: ../src/Frontend-GNOME/AboutDialog.cs:70
 msgid "translator-credits"
 msgstr ""
 "<lukasznaw@gmail.com>, 2012\n"
 "<okwell@gmail.com>, 2012\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2015-2016\n"
-"Aviary.pl <community-poland@mozilla.org>, 2015-2016"
+"Piotr Drąg <piotrdrag@gmail.com>, 2015-2017\n"
+"Aviary.pl <community-poland@mozilla.org>, 2015-2017"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:79
+#: ../src/Frontend-GNOME/AboutDialog.cs:83
 msgid "Smuxi Website"
 msgstr "Witryna programu Smuxi"
 
@@ -583,14 +583,14 @@ msgstr "Błąd: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Na pewno usunąć mechanizm „{0}”?"
 
-#: ../src/Frontend-GNOME/Entry.cs:485
+#: ../src/Frontend-GNOME/Entry.cs:492
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Wklejane wiersze: {0}. Kontynuować?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:602
+#: ../src/Frontend-GNOME/Entry.cs:609
 msgid "Frontend Commands"
 msgstr "Polecenia interfejsu"
 
@@ -635,93 +635,9 @@ msgstr "Użytkownicy: {0}"
 msgid "Sorry, not implemented yet!"
 msgstr "Jeszcze niezaimplementowane."
 
-#. fill ListStore
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:179
-msgid "Character"
-msgstr "Znak"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:180
-msgid "Word"
-msgstr "Słowo"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:187
-msgid ""
-"This setting specifies if Smuxi should store chat messages in memory "
-"(volatile) or to disk (persistent).\n"
-"For persistent you can choose between Db4o, an object database or SQLite, a "
-"relational database.\n"
-"The Db4o backend has known issues like high memory and CPU usage and can "
-"even lead to crashes and thus it is deprecated.\n"
-"The SQLite backend has no known performance or stability issues and is the "
-"recommended setting."
-msgstr ""
-"To ustawienie określa, czy program Smuxi powinien przechowywać wiadomości "
-"rozmów w pamięci (tymczasowo) czy na dysku (trwale).\n"
-"Do trwałego przechowywania można wybrać obiektową bazę danych Db4o lub "
-"relacyjną bazę danych SQLite.\n"
-"Mechanizm Db4o ma znane problemy, takie jak wysokie zużycie pamięci "
-"i procesora, co może prowadzić do awarii, i dlatego jest przestarzały.\n"
-"Mechanizm SQLite nie ma znanych problemów z wydajnością i stabilnością, więc "
-"jest zalecanym ustawieniem."
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:208
-msgid "Persistent: SQLite (Recommended)"
-msgstr "Trwale: SQLite (zalecane)"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:212
-msgid "Persistent: Db4o (Deprecated)"
-msgstr "Trwale: Db4o (przestarzałe)"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:216
-msgid "Persistent (Preview)"
-msgstr "Trwale (podgląd)"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:219
-msgid "Volatile"
-msgstr "Tymczasowo"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:242
-msgid "No Proxy"
-msgstr "Brak pośrednika"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:244
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:340
-msgid "System Default"
-msgstr "Domyślne systemu"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:258
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:134
-msgid "Connection"
-msgstr "Połączenie"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:262
-msgid "Interface"
-msgstr "Interfejs"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:266
-msgid "Servers"
-msgstr "Serwery"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:273
-msgid "Filters"
-msgstr "Filtry"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:277
-msgid "Logging"
-msgstr "Zapisywanie w dzienniku"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:699
-msgid "Nicknames(s) field must not be empty."
-msgstr "Pole pseudonimów nie może być puste."
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:895
-#, csharp-format
-msgid "Invalid highlight regex: '{0}'. Reason: {1}"
-msgstr "Nieprawidłowe wyrażenie regularne wyróżniania: „{0}”. Powód: {1}"
-
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:100
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:265
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:103
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:293
 msgid "Name"
 msgstr "Nazwa"
 
@@ -743,21 +659,39 @@ msgstr ""
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Błąd podczas pobierania listy rozmów grupowych z serwera."
 
-#: ../src/Frontend-GNOME/Frontend.cs:388
+#: ../src/Frontend-GNOME/Frontend.cs:390
 msgid "Disconnected from engine."
 msgstr "Rozłączono z mechanizmu."
 
-#: ../src/Frontend-GNOME/Frontend.cs:431
+#: ../src/Frontend-GNOME/Frontend.cs:433
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
 msgstr "Ponowne łączenie z mechanizmem… (próba: {0})"
 
-#: ../src/Frontend-GNOME/Frontend.cs:542
+#: ../src/Frontend-GNOME/Frontend.cs:546
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Powód: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:675
+#: ../src/Frontend-GNOME/Frontend.cs:638
+msgid ""
+"A fatal error has been detected because of a protocol incompatibility with "
+"the smuxi-server!\n"
+"\n"
+"Please install Mono on the frontend side so it matches the smuxi-server.\n"
+"\n"
+"More details about this issue can be found here:\n"
+"https://smuxi.im/issues/show/589"
+msgstr ""
+"Wykryto krytyczny błąd z powodu niezgodności protokołu z smuxi-server.\n"
+"\n"
+"Proszę zainstalować pakiet Mono po stronie interfejsu, aby pasował do smuxi-"
+"server.\n"
+"\n"
+"Więcej informacji o tym problemie (w języku angielskim):\n"
+"https://smuxi.im/issues/show/589"
+
+#: ../src/Frontend-GNOME/Frontend.cs:705
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -765,7 +699,7 @@ msgstr ""
 "Interfejs utracił połączenie z serwerem.\n"
 "Połączyć ponownie?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:694
+#: ../src/Frontend-GNOME/Frontend.cs:724
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
@@ -773,7 +707,7 @@ msgstr ""
 "Ponowne połączenie z serwerem się nie powiodło.\n"
 "Spróbować ponownie?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:1008
+#: ../src/Frontend-GNOME/Frontend.cs:1038
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -786,13 +720,13 @@ msgid "Show"
 msgstr "Wyświetl"
 
 #: ../src/Frontend-GNOME/QuickConnectDialog.cs:58
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:233
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:70
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:235
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:79
 msgid "Protocol"
 msgstr "Protokół"
 
 #: ../src/Frontend-GNOME/QuickConnectDialog.cs:59
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:71
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:80
 msgid "Hostname"
 msgstr "Nazwa serwera"
 
@@ -801,40 +735,44 @@ msgid "Unable to load server: "
 msgstr "Nie można wczytać serwera: "
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:239
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:267
 msgid "Person / Private"
 msgstr "Osoba/prywatne"
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:55
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:240
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:268
 msgid "Group / Public"
 msgstr "Grupa/publiczne"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:65
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:67
 msgid "Engine Assistant - Smuxi"
 msgstr "Asystent mechanizmów — Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:87
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:90
 msgid "Add Smuxi Engine"
 msgstr "Dodaj mechanizm Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:89
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:92
 msgid "Edit Smuxi Engine"
 msgstr "Modyfikuj mechanizm Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:198
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:137
+msgid "Connection"
+msgstr "Połączenie"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:201
 msgid "Credentials"
 msgstr "Dane uwierzytelniające"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:278
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:303
 msgid "Now you can use the Smuxi Engine"
 msgstr "Teraz można używać mechanizmu Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:281
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:306
 msgid "Thank you"
 msgstr "Dziękujemy"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:298
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:323
 msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr "Mechanizm o tej nazwie już istnieje. Proszę podać inną."
@@ -852,12 +790,12 @@ msgstr "O programie Smuxi"
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:264
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:266
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:240
 msgid "Unable to add server: "
 msgstr "Nie można dodać serwera: "
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:385
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:391
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -865,7 +803,7 @@ msgstr ""
 "Przełączenie na lokalny mechanizm rozłączy z obecnego mechanizmu.\n"
 "Na pewno przełączyć?"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:429
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:435
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -873,12 +811,12 @@ msgstr ""
 "Przełączenie na zdalny mechanizm rozłączy z obecnego mechanizmu.\n"
 "Na pewno przełączyć?"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:412
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:455
 #, csharp-format
 msgid "Day changed from {0} to {1}"
 msgstr "Dzień został zmieniony z {0} na {1}"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:416
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:459
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Dzień zmieniono na {0}"
@@ -889,39 +827,63 @@ msgstr "Dzień zmieniono na {0}"
 msgid "Invalid filter regex: '{0}'. Reason: {1}"
 msgstr "Nieprawidłowe wyrażenie regularne filtru: „{0}”. Powód: {1}"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:199
 msgid "Are you sure you want to delete the selected filter?"
 msgstr "Na pewno usunąć zaznaczony filtr?"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:241
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:251
+msgid "Network"
+msgstr "Sieć"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:269
 msgid "Protocol / Server"
 msgstr "Protokół/serwer"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:248
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:276
 msgid "Chat Type"
 msgstr "Typ rozmowy"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:281
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:309
 msgid "Normal"
 msgstr "Zwykła"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:282
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:310
 msgid "Event"
 msgstr "Wydarzenie"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:289
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:317
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:314
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:342
 msgid "Pattern"
 msgstr "Wzór"
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:557
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:224
+msgid "No Proxy"
+msgstr "Brak pośrednika"
+
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:226
+msgid "System Default"
+msgstr "Domyślne systemu"
+
+#: ../src/Frontend-GNOME/Views/ServerDialog.cs:64
+msgid "Save"
+msgstr "Zapisz"
+
+#: ../src/Frontend-GNOME/Views/ServerDialog.cs:72
+msgid "Add"
+msgstr "Dodaj"
+
+#: ../src/Frontend-GNOME/Views/ServerWidget.cs:81
+msgid "Unsupported"
+msgstr "Nieobsługiwane"
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:562
 msgid "Low Bandwidth Mode is active: no messages synced."
 msgstr "Tryb wolnego łącza jest aktywny: brak zsynchronizowanych wiadomości."
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:859
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:864
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
 msgid "Show _Menubar"
@@ -933,15 +895,15 @@ msgid "Retrieving user list for {0}..."
 msgstr "Pobieranie listy użytkowników dla {0}…"
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:349
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:337
 msgid "done."
 msgstr "gotowe."
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:127
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:130
 msgid "Reconnect"
 msgstr "Połącz ponownie"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:174
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:177
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
@@ -950,12 +912,12 @@ msgstr ""
 "rozmowy.\n"
 "Zamknąć?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:189
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:202
 msgid "Are you sure you want to delete the selected server?"
 msgstr "Na pewno usunąć zaznaczony serwer?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:245
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:279
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:258
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:292
 msgid "Unable to edit server: "
 msgstr "Nie można modyfikować serwera: "
 
@@ -1218,11 +1180,11 @@ msgstr "<span size=\"small\">DNS lub adres IP i port serwera Smuxi</span>"
 msgid "_Smuxi Host:"
 msgstr "_Serwer Smuxi:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:52
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:54
 msgid "_SSH Username: (optional)"
 msgstr "Nazwa użytkownika _SSH (opcjonalna):"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:75
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:77
 msgid ""
 "<span size=\"small\">Username which will be used to log into the SSH server</"
 "span>"
@@ -1230,11 +1192,11 @@ msgstr ""
 "<span size=\"small\">Nazwa użytkownika używana do logowania w serwerze SSH</"
 "span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:95
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:97
 msgid "_SSH Password: (optional)"
 msgstr "_Hasło SSH (opcjonalne):"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:121
 msgid ""
 "<span size=\"small\">Password which will be used to log into the SSH server. "
 "The password is optional if SSH key authorization is used (see below).</span>"
@@ -1243,16 +1205,16 @@ msgstr ""
 "opcjonalne, jeśli używane jest upoważnienie kluczem SSH (proszę zobaczyć "
 "niżej)</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:140
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:142
 msgid "_SSH Keyfile: (optional)"
 msgstr "_Plik klucza SSH (opcjonalny):"
 
 #. Container child vbox17.Gtk.Box+BoxChild
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:148
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:150
 msgid "Select a File"
 msgstr "Wybór pliku"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:161
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:163
 msgid ""
 "<span size=\"small\">SSH private keyfile which will be used to log into the "
 "SSH server</span>"
@@ -1260,12 +1222,12 @@ msgstr ""
 "<span size=\"small\">Plik klucza prywatnego SSH używanego do logowania "
 "w serwerze SSH</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:181
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:183
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:242
 msgid "_Username:"
 msgstr "Nazwa _użytkownika:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:204
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:206
 msgid ""
 "<span size=\"small\">Username which will be used to log into the Smuxi "
 "server</span>"
@@ -1273,20 +1235,20 @@ msgstr ""
 "<span size=\"small\">Nazwa użytkownika używana do logowania w serwerze "
 "Smuxi</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:224
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:226
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:116
 msgid "_Password:"
 msgstr "_Hasło:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:248
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:250
 msgid "<span size=\"small\">Password of the user</span>"
 msgstr "<span size=\"small\">Hasło użytkownika</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:268
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:270
 msgid "_Verify Password:"
 msgstr "_Sprawdzenie hasła:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:292
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:294
 msgid "<span size=\"small\">Repeat the password for verification</span>"
 msgstr ""
 "<span size=\"small\">Powtórzenie hasła w celu sprawdzenia jego poprawności</"
@@ -1375,12 +1337,3 @@ msgstr "P_olecenia po połączeniu:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
 msgid "_Ignore Commands"
 msgstr "Polecenia _ignorowania"
-
-#~ msgid "Protocol:"
-#~ msgstr "Protokół:"
-
-#~ msgid "Network:"
-#~ msgstr "Sieć:"
-
-#~ msgid "Hostname:"
-#~ msgstr "Nazwa serwera:"
