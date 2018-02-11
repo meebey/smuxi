@@ -1,22 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Kalle Kaitala <cobrian@cobrian.net>, 2013,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:34+0200\n"
-"PO-Revision-Date: 2015-05-22 10:28+0000\n"
-"Last-Translator: Kalle Kaitala <cobrian@cobrian.net>\n"
-"Language-Team: Finnish (http://www.transifex.com/projects/p/smuxi/language/fi/)\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-11-04 05:46+0000\n"
+"PO-Revision-Date: 2018-02-11 17:47+0200\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/smuxi/language/"
+"fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:1
 msgid "Smuxi Preferences"
@@ -27,11 +30,14 @@ msgid ""
 "The nickname to use. You can specify extra nicknames (separated by spaces) "
 "which will be used as fallbacks when the first choice is not available. By "
 "default $nick_ and $nick__ will be used as fallbacks."
-msgstr "Käytettävä lempinimi. Voit määritellä ylimääräisiä lempinimiä (eroteltuna välilyönnillä) joita käytetään varalla jos ensimmäinen vaihtoehto ei ole saatavilla. Oletuksena varalla käytetään $nick_ ja $nick__."
+msgstr ""
+"Käytettävä lempinimi. Voit määritellä ylimääräisiä lempinimiä (eroteltuna "
+"välilyönnillä) joita käytetään varalla jos ensimmäinen vaihtoehto ei ole "
+"saatavilla. Oletuksena varalla käytetään $nick_ ja $nick__."
 
 #: ../glade/smuxi-frontend-gnome.glade.h:3
 msgid "Nickname(s):"
-msgstr "Lempinimi/et:"
+msgstr "Nimimerkki/-merkit:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:4
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
@@ -40,7 +46,7 @@ msgstr "Käyttäjänimi:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:5
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:177
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
 msgid "Realname:"
 msgstr "Oikea nimi:"
 
@@ -51,7 +57,7 @@ msgstr "Enkoodaus:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:7
 msgid "Automatically convert UTF-8 characters"
-msgstr "Käännä UTF-8 -merkit automaattisesti"
+msgstr "Käännä UTF-8-merkit automaattisesti"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:8
 msgid "<b>General</b>"
@@ -74,7 +80,7 @@ msgid "Port:"
 msgstr "Portti:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:13
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:254
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
 msgid "Show Password"
 msgstr "Näytä salasana"
 
@@ -127,7 +133,16 @@ msgid ""
 "dd = day\n"
 "MM = month\n"
 "yy/yyyy = year"
-msgstr "ss = sekunnit\nmm = minuutit\nhh = tunnit (01 - 12)\nHH = tunnit (00-23)\ntt = AM/PM\n\ndd = päivä\nMM = kuukausi\nyy/yyyy = vuosi"
+msgstr ""
+"ss = sekunnit\n"
+"mm = minuutit\n"
+"hh = tunnit (01 - 12)\n"
+"HH = tunnit (00-23)\n"
+"tt = AM/PM\n"
+"\n"
+"dd = päivä\n"
+"MM = kuukausi\n"
+"yy/yyyy = vuosi"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:31
 msgid "Persistency Type:"
@@ -329,8 +344,7 @@ msgstr "Tausta"
 msgid "<b> Color </b>"
 msgstr "<b> Väri </b>"
 
-#. This is a setting for character based line wrapping vs word based when
-#. showing messages
+#. This is a setting for character based line wrapping vs word based when showing messages
 #: ../glade/smuxi-frontend-gnome.glade.h:70
 msgid "_Wrap Mode:"
 msgstr "_Kietaisumoodi:"
@@ -426,29 +440,8 @@ msgstr "Kirjoita suodatetut viestit lokiin"
 msgid "_Logging"
 msgstr "_Loki"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:92
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
-msgid "Smuxi - Server"
-msgstr "Smuxi - Palvelin"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:93
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:293
-msgid "Automatically connect to server at startup"
-msgstr "Yhdistä palvelimeen automaattisesti käynnistyksen yhteydessä"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:94
-msgid "Protocol:"
-msgstr "Protokolla:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:95
-msgid "Network:"
-msgstr "Verkko:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:96
-msgid "Hostname:"
-msgstr "Isäntänimi:"
-
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
 msgid "Smuxi"
 msgstr "Smuxi"
 
@@ -458,35 +451,55 @@ msgstr "IRC-keskustelu"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:3
 msgid "Smuxi IRC Client"
-msgstr "Smuxi IRC-asiakasohjelma"
+msgstr "Smuxi-IRC-asiakasohjelma"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:4
 msgid "Chat with other people on IRC"
 msgstr "Juttele muiden kanssa IRC:ssä"
 
-#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:5
+msgid ""
+"chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;"
+"jabbr;"
+msgstr ""
+"chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;"
+"jabbr;keskustelu;viestintä;"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:2
+msgid "Chat with other people on IRC, Twitter, Jabber and Campfire"
+msgstr "Juttele muiden kanssa IRC:ssä, Twitterissä, Jabberissa ja Campfiressä"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:3
 msgid ""
 "Smuxi is an open-source, distributed and user-friendly chat client for IRC, "
 "Twitter, Jabber/XMPP, Campfire and SignalR's JabbR."
-msgstr "Smuxi on avoimen lähdekoodin, jaetun kuorman malliin perustuva ja käyttäjäystävällinen asiakasohjelma IRC, Twitter, Jabber/XMPP, Campfire ja SignalR:n JabbR -protokollille."
+msgstr ""
+"Smuxi on avoimen lähdekoodin, jaetun kuorman malliin perustuva ja "
+"käyttäjäystävällinen asiakasohjelma IRC, Twitter, Jabber/XMPP, Campfire ja "
+"SignalR:n JabbR -protokollille."
 
-#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:2
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:4
 msgid ""
 "Inspired by the combination of screen and irssi, Smuxi has a detachable "
 "server (or like a \"normal\" client) that stays connected when you aren't, "
 "and can allow multiple Smuxi frontends to be connected and in sync. This is "
 "similar to screen+irssi or IRC bouncers, but more elegant and powerful."
-msgstr "Inspiroituneena yhdistelmästä screen ja irssi, Smuxi:ssa on irroitettava palvelin (tai normaalissa ohjelmassa \"asiakasohjelma\") joka pystyy yhteydessä vaikka sinä et olisi, ja mahdollistaa useamman Smuxi-asiakasohjelman yhteyden ja synkronoinnin. Tämä vastaa screen+irssi -yhdistelmää tai IRC-bounceria, mutta elegantimmin ja vahvemmin."
+msgstr ""
+"Inspiroituneena yhdistelmästä screen ja irssi, Smuxi:ssa on irroitettava "
+"palvelin (tai normaalissa ohjelmassa \"asiakasohjelma\") joka pystyy "
+"yhteydessä vaikka sinä et olisi, ja mahdollistaa useamman Smuxi-"
+"asiakasohjelman yhteyden ja synkronoinnin. Tämä vastaa screen+irssi -"
+"yhdistelmää tai IRC-bounceria, mutta elegantimmin ja vahvemmin."
 
-#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:3
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:5
 msgid "The main window showing an IRC channel"
 msgstr "Pääikkuna joka näyttää IRC-kanavan"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:66
+#: ../src/Frontend-GNOME/AboutDialog.cs:70
 msgid "translator-credits"
 msgstr "kääntäjien tiedot"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:79
+#: ../src/Frontend-GNOME/AboutDialog.cs:83
 msgid "Smuxi Website"
 msgstr "Smuxi Web-sivu"
 
@@ -542,7 +555,10 @@ msgid ""
 "Your frontend is not compatible with the engine!\n"
 "Engine Version: {0} Frontend Version: {1}\n"
 "Engine Protocol: {2} Frontend Protocol: {3}"
-msgstr "Käyttöliittymäsi ei ole yhteensopiva moottorin kanssa!\nMoottorin versio: {0} Käyttöliittymän versio: {1}\nMoottorin protokolla: {2} Käyttöliittymän protokolla: {3}"
+msgstr ""
+"Käyttöliittymäsi ei ole yhteensopiva moottorin kanssa!\n"
+"Moottorin versio: {0} Käyttöliittymän versio: {1}\n"
+"Moottorin protokolla: {2} Käyttöliittymän protokolla: {3}"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:245
 msgid "An error occurred while connecting to the engine!"
@@ -563,18 +579,48 @@ msgstr "Virhe: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Haluatko varmasti poistaa moottorin \"{0}\"?"
 
-#: ../src/Frontend-GNOME/Entry.cs:484
+#: ../src/Frontend-GNOME/Entry.cs:492
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Aiot liittää {0} riviä. Haluatko varmasti jatkaa?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:601
+#: ../src/Frontend-GNOME/Entry.cs:609
 msgid "Frontend Commands"
 msgstr "Käyttöliittymän komennot"
 
-#: ../src/Frontend-GNOME/Main.cs:80
+#: ../src/Frontend-GNOME/Main.cs:49
+msgid "Enable debug output"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:56
+msgid "Show this help"
+msgstr "Näytä tämä ohje"
+
+#: ../src/Frontend-GNOME/Main.cs:60
+msgid "Options:"
+msgstr "Valinnat:"
+
+#: ../src/Frontend-GNOME/Main.cs:67
+msgid "Connect to engine"
+msgstr "Yhdistä moottoriin"
+
+#: ../src/Frontend-GNOME/Main.cs:74
+msgid "Opens the specified link in Smuxi"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:81
+msgid "Starts a new Smuxi instance and ignores an existing one"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:109
+#, fuzzy
+#| msgid "Bringing already running Smuxi instance to foreground..."
+msgid "Passing link to already running Smuxi instance..."
+msgstr "Tuodaan jo käynnissä oleva Smuxi-instanssi etualalle..."
+
+#: ../src/Frontend-GNOME/Main.cs:117
 msgid "Bringing already running Smuxi instance to foreground..."
 msgstr "Tuodaan jo käynnissä oleva Smuxi-instanssi etualalle..."
 
@@ -587,81 +633,9 @@ msgstr "{0} käyttäjää"
 msgid "Sorry, not implemented yet!"
 msgstr "Sori, tätä ei ole vielä sisällytetty!"
 
-#. fill ListStore
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:179
-msgid "Character"
-msgstr "Merkki"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:180
-msgid "Word"
-msgstr "Sana"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:187
-msgid ""
-"This setting specifies if Smuxi should store chat messages in memory (volatile) or to disk (persistent).\n"
-"For persistent you can choose between Db4o, an object database or SQLite, a relational database.\n"
-"The Db4o backend has known issues like high memory and CPU usage and can even lead to crashes and thus it is deprecated.\n"
-"The SQLite backend has no known performance or stability issues but is still an optional preview feature."
-msgstr "Tämä asetus määrää tallentaako Smuxi keskusteluviestit muistiin (epävakaa) tai levylle (pysyvä).\nPysyvään tallennukseen voit valita Db4o:n, objektitietokannan, tai SQLiten, relaatiotietokannan, väliltä.\nDb4o-taustajärjestelmässä on tunnettuja ongelmia, kuten korkea muistin ja prosessorin käyttö, jotka voivat johtaa jopa kaatuiluun, joten tätä ei enää päivitetä.\nSQLite-taustajärjestelmässä ei ole tunnettuja toimivuusongelmia mutta se on edelleen valinnainen esikatseluversioinen toiminto."
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:207
-msgid "Volatile"
-msgstr "Epävakaa"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:209
-msgid "Persistent (Preview)"
-msgstr "Pysyvä (esikatselu)"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:212
-msgid "Persistent: Db4o (Deprecated)"
-msgstr "Pysyvä: Db4o (vanhentunut)"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:214
-msgid "Persistent: SQLite (Preview)"
-msgstr "Pysyvä: SQLite (esikatselu)"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:238
-msgid "No Proxy"
-msgstr "Ei välityspalvelinta"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:240
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:336
-msgid "System Default"
-msgstr "Käyttöjärjestelmän oletus"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:254
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:134
-msgid "Connection"
-msgstr "Yhteys"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:258
-msgid "Interface"
-msgstr "Käyttöliittymä"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:262
-msgid "Servers"
-msgstr "Palvelimet"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:269
-msgid "Filters"
-msgstr "Suodattimet"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:273
-msgid "Logging"
-msgstr "Loki"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:692
-msgid "Nicknames(s) field must not be empty."
-msgstr "Lempinimi-kenttä ei saa olla tyhjä."
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:888
-#, csharp-format
-msgid "Invalid highlight regex: '{0}'. Reason: {1}"
-msgstr "Epäkelpo korostuksen regex: '{0}'. Syy: {1}"
-
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:100
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:265
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:103
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:293
 msgid "Name"
 msgstr "Nimi"
 
@@ -671,58 +645,78 @@ msgstr "Aihe"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:115
 msgid ""
-"Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
+"Searching for group chats without a filter is not recommended.  This may "
+"take a while, or may not work at all.\n"
 "Do you wish to continue?"
-msgstr "Ryhmäkeskusteluiden etsintää ilman suodatinta ei suositella. Tämä voi kestää hetken, tai ei välttämättä toimi ollenkaan. Haluatko jatkaa?"
+msgstr ""
+"Ryhmäkeskusteluiden etsintää ilman suodatinta ei suositella. Tämä voi kestää "
+"hetken, tai ei välttämättä toimi ollenkaan. Haluatko jatkaa?"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:156
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Virhe haettaessa ryhmäkeskusteluiden listaa palvelimelta."
 
-#: ../src/Frontend-GNOME/Frontend.cs:398
+#: ../src/Frontend-GNOME/Frontend.cs:390
 msgid "Disconnected from engine."
 msgstr "Yhteys moottoriin katkaistu."
 
-#: ../src/Frontend-GNOME/Frontend.cs:440
+#: ../src/Frontend-GNOME/Frontend.cs:433
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
 msgstr "Yhdistetään uudelleen moottoriin... (yritys {0})"
 
-#: ../src/Frontend-GNOME/Frontend.cs:542
+#: ../src/Frontend-GNOME/Frontend.cs:546
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Syy: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:675
+#: ../src/Frontend-GNOME/Frontend.cs:638
+msgid ""
+"A fatal error has been detected because of a protocol incompatibility with "
+"the smuxi-server!\n"
+"\n"
+"Please install Mono on the frontend side so it matches the smuxi-server.\n"
+"\n"
+"More details about this issue can be found here:\n"
+"https://smuxi.im/issues/show/589"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Frontend.cs:705
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
-msgstr "Käyttöliittymä on menettänyt yhteyden palvelimeen. Haluatko yhdistää uudelleen nyt?"
+msgstr ""
+"Käyttöliittymä on menettänyt yhteyden palvelimeen. Haluatko yhdistää "
+"uudelleen nyt?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:694
+#: ../src/Frontend-GNOME/Frontend.cs:724
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
-msgstr "Uudelleenyhdistäminen palvelimeen on epäonnistunut. Haluatko yrittää uudelleen?"
+msgstr ""
+"Uudelleenyhdistäminen palvelimeen on epäonnistunut. Haluatko yrittää "
+"uudelleen?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:1008
+#: ../src/Frontend-GNOME/Frontend.cs:1038
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
-msgstr "Palvelin on menettänyt yhteyden käyttöliittymään. Haluatko yhdistää uudelleen nyt?"
+msgstr ""
+"Palvelin on menettänyt yhteyden käyttöliittymään. Haluatko yhdistää "
+"uudelleen nyt?"
 
 #: ../src/Frontend-GNOME/NotifyManager.cs:338
 msgid "Show"
 msgstr "Näytä"
 
 #: ../src/Frontend-GNOME/QuickConnectDialog.cs:58
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:233
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:70
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:235
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:79
 msgid "Protocol"
 msgstr "Protokolla"
 
 #: ../src/Frontend-GNOME/QuickConnectDialog.cs:59
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:71
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:80
 msgid "Hostname"
 msgstr "Isäntänimi"
 
@@ -731,40 +725,44 @@ msgid "Unable to load server: "
 msgstr "Palvelinta ei voitu ladata:"
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:239
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:267
 msgid "Person / Private"
 msgstr "Henkilö / Yksityinen"
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:55
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:240
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:268
 msgid "Group / Public"
 msgstr "Ryhmä / Julkinen"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:65
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:67
 msgid "Engine Assistant - Smuxi"
 msgstr "Moottoriavustaja - Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:87
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:90
 msgid "Add Smuxi Engine"
 msgstr "Lisää Smuxi-moottori"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:89
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:92
 msgid "Edit Smuxi Engine"
 msgstr "Muokkaa Smuxi-moottoria"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:198
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:137
+msgid "Connection"
+msgstr "Yhteys"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:201
 msgid "Credentials"
 msgstr "Todennustiedot"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:278
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:303
 msgid "Now you can use the Smuxi Engine"
 msgstr "Voit nyt käyttää Smuxi-moottoria"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:281
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:306
 msgid "Thank you"
 msgstr "Kiitos"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:298
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:323
 msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr "Tämän niminen moottori on jo olemassa! Määritä toinen nimi."
@@ -782,29 +780,33 @@ msgstr "Tietoja Smuxista"
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:263
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:266
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:240
 msgid "Unable to add server: "
 msgstr "Palvelinta ei voitu lisätä:"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:384
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:391
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
-msgstr "Paikalliseen moottoriin vaihto katkaisee yhteytesi nykyiseen moottoriin! Haluatko varmasti tehdä tämän?"
+msgstr ""
+"Paikalliseen moottoriin vaihto katkaisee yhteytesi nykyiseen moottoriin! "
+"Haluatko varmasti tehdä tämän?"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:428
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:435
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
-msgstr "Etämoottorin vaihto katkaisee yhteyden nykyiseen moottoriin! Haluatko varmasti tehdä tämän?"
+msgstr ""
+"Etämoottorin vaihto katkaisee yhteyden nykyiseen moottoriin! Haluatko "
+"varmasti tehdä tämän?"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:412
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:443
 #, csharp-format
 msgid "Day changed from {0} to {1}"
 msgstr "Päivä vaihtui päivästä {0} päivään {1}"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:416
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:447
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Päivä vaihtui, {0}"
@@ -815,41 +817,65 @@ msgstr "Päivä vaihtui, {0}"
 msgid "Invalid filter regex: '{0}'. Reason: {1}"
 msgstr "Epäkelpo suodatuksen regex: '{0}'. Syy: {1}"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:199
 msgid "Are you sure you want to delete the selected filter?"
 msgstr "Haluatko varmasti poistaa valitun suodattimen?"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:241
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:251
+msgid "Network"
+msgstr "Verkko"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:269
 msgid "Protocol / Server"
 msgstr "Protokolla / Palvelin"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:248
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:276
 msgid "Chat Type"
 msgstr "Keskustelutyyppi"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:281
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:309
 msgid "Normal"
 msgstr "Normaali"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:282
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:310
 msgid "Event"
 msgstr "Tapahtuma"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:289
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:317
 msgid "Type"
 msgstr "Tyyppi"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:314
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:342
 msgid "Pattern"
 msgstr "Kuvio"
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:557
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:224
+msgid "No Proxy"
+msgstr "Ei välityspalvelinta"
+
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:226
+msgid "System Default"
+msgstr "Käyttöjärjestelmän oletus"
+
+#: ../src/Frontend-GNOME/Views/ServerDialog.cs:64
+msgid "Save"
+msgstr "Tallenna"
+
+#: ../src/Frontend-GNOME/Views/ServerDialog.cs:72
+msgid "Add"
+msgstr "Lisää"
+
+#: ../src/Frontend-GNOME/Views/ServerWidget.cs:81
+msgid "Unsupported"
+msgstr "Ei tuettu"
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:562
 msgid "Low Bandwidth Mode is active: no messages synced."
 msgstr "Alhaisen kaistan tila on päällä: Viestejä ei ole synkronoitu."
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:839
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:174
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:175
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:864
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
 msgid "Show _Menubar"
 msgstr "Näytä _valikkopalkki"
 
@@ -859,26 +885,28 @@ msgid "Retrieving user list for {0}..."
 msgstr "Noudetaan käyttäjälistaa {0}:lle..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:349
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:337
 msgid "done."
 msgstr "Valmis."
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:127
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:130
 msgid "Reconnect"
 msgstr "Yhdistä uudelleen"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:174
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:177
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
-msgstr "Protokollakeskustelun sulkeminen sulkee myös kaikki siihen liitetyt keskustelut! Haluatko varmasti tehdä tämän?"
+msgstr ""
+"Protokollakeskustelun sulkeminen sulkee myös kaikki siihen liitetyt "
+"keskustelut! Haluatko varmasti tehdä tämän?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:189
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:202
 msgid "Are you sure you want to delete the selected server?"
 msgstr "Haluatko varmasti poistaa valitun palvelimen?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:245
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:279
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:258
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:292
 msgid "Unable to edit server: "
 msgstr "Palvelinta ei voitu muokata:"
 
@@ -906,11 +934,11 @@ msgstr "_Kietaise ympäri"
 msgid "Use _Regular Expressions"
 msgstr "Käytä _Säännöllisiä lausekkeita"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:32
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:23
 msgid "Smuxi - Find Group Chat"
 msgstr "Smuxi - Etsi Ryhmäkeskustelua"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:56
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:47
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:73
 msgid "_Name:"
 msgstr "_Nimi:"
@@ -919,157 +947,157 @@ msgstr "_Nimi:"
 msgid "Join"
 msgstr "Liity"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:95
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:56
 msgid "_Smuxi"
 msgstr "_Smuxi"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:97
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:98
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:59
 msgid "_Server"
 msgstr "_Palvelin"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:101
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:62
 msgid "_Chat"
 msgstr "_Keskustelu"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:104
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:64
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:65
 msgid "_Engine"
 msgstr "_Moottori"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:107
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:67
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:68
 msgid "_View"
 msgstr "_Näytä"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:109
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:110
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:70
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:71
 msgid "_Help"
 msgstr "_Apua"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:112
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:114
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:75
 msgid "Connect"
 msgstr "Yhdistä"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:116
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:186
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:187
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:77
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:79
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
 msgid "Open Log"
 msgstr "Avaa loki"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:88
 msgid "_Preferences"
 msgstr "_Asetukset"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:90
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:91
 msgid "_Quit"
 msgstr "_Lopeta"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:132
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:133
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
 msgid "_Connect"
 msgstr "_Yhdistä"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:96
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:97
 msgid "_Add"
 msgstr "_Lisää"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:99
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
 msgid "_Manage"
 msgstr "_Hallinnoi"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:102
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
 msgid "_Open / Join Chat"
 msgstr "_Avaa / Liity keskusteluun"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:105
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
 msgid "_Find Group Chat"
 msgstr "_Etsi ryhmäkeskustelu"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:108
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:109
 msgid "C_lear All Activity"
 msgstr "P_uhdista kaikki aktiviteetti"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:150
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:151
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:111
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:112
 msgid "_Next Chat"
 msgstr "_Seuraava keskustelu"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:153
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:154
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:114
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:115
 msgid "_Previous Chat"
 msgstr "_Edellinen keskustelu"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:156
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
 msgid "_Close"
 msgstr "_Sulje"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:159
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:160
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
 msgid "_Use Local Engine"
 msgstr "_Käytä paikallista moottoria"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:162
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:163
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:123
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:124
 msgid "_Add Remote Engine"
 msgstr "_Lisää etämoottori"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:165
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:166
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
 msgid "Switch Remote Engine"
 msgstr "Vaihda etämoottoria"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:168
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:169
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
 msgid "_Caret Mode"
 msgstr "_Caret-moodi"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:171
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:172
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:132
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:133
 msgid "_Browse Mode"
 msgstr "_Browse-moodi"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:177
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:178
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
 msgid "Show _Statusbar"
-msgstr "Näytä _Statuspalkki"
+msgstr "Näytä _tilapalkki"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:180
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:181
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
 msgid "_Fullscreen"
-msgstr "_Kokoruudun tila"
+msgstr "_Koko näytön tila"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:183
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:184
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
 msgid "_About"
 msgstr "_Tietoja"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:189
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:191
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:150
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:152
 msgid "Find Group Chat"
 msgstr "Etsi ryhmäkeskustelu"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:193
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:194
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:154
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:155
 msgid "_Website"
-msgstr "_Web-sivu"
+msgstr "_Verkkosivusto"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:196
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:197
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:158
 msgid "Show _Toolbar"
-msgstr "Näytä _Työkalupalkki"
+msgstr "Näytä _työkalupalkki"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
 msgid "Smuxi - Connect"
@@ -1081,7 +1109,7 @@ msgstr "Smuxi - asetukset"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
 msgid "Nicknames:"
-msgstr "Lempinimet:"
+msgstr "Nimimerkit:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
 msgid "Tabs"
@@ -1112,91 +1140,106 @@ msgid ""
 "<span size=\"small\">Enables the use of SSH for the connection.  This has a "
 "small performance impact, but is more secure and required when using NAT or "
 "port-based firewalls</span>"
-msgstr "<span size=\"small\">Mahdollistaa SSH:n käytön yhteydessä. Tällä on pieni suorituskykyvaikutus, mutta tarjoaa lisäturvaa ja on pakollinen käytettäessä NAT:ia tai porttiperustaisia palomuureja</span>"
+msgstr ""
+"<span size=\"small\">Mahdollistaa SSH:n käytön yhteydessä. Tällä on pieni "
+"suorituskykyvaikutus, mutta tarjoaa lisäturvaa ja on pakollinen käytettäessä "
+"NAT:ia tai porttiperustaisia palomuureja</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
 msgid "SSH _Host:"
 msgstr "SSH-_Isäntä:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:146
-msgid "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
-msgstr "<span size=\"small\">DNS tai IP-osoite ja portti SSH-palvelimelle</span>"
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgstr ""
+"<span size=\"small\">DNS tai IP-osoite ja portti SSH-palvelimelle</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:159
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:213
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:183
 msgid "_Port:"
 msgstr "_Portti:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:186
-msgid "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
-msgstr "<span size=\"small\">DNS tai IP-osoite ja portti Smuxi-palvelimeen</span>"
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgstr ""
+"<span size=\"small\">DNS tai IP-osoite ja portti Smuxi-palvelimeen</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:199
 msgid "_Smuxi Host:"
 msgstr "_Smuxi-isäntä:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:52
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:54
 msgid "_SSH Username: (optional)"
 msgstr "_SSH-käyttäjänimi: (valinnainen)"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:75
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:77
 msgid ""
-"<span size=\"small\">Username which will be used to log into the SSH "
-"server</span>"
-msgstr "<span size=\"small\">Käyttäjänimi jolla kirjaudutaan sisään SSH-palvelimeen</span>"
+"<span size=\"small\">Username which will be used to log into the SSH server</"
+"span>"
+msgstr ""
+"<span size=\"small\">Käyttäjänimi jolla kirjaudutaan sisään SSH-palvelimeen</"
+"span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:95
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:97
 msgid "_SSH Password: (optional)"
 msgstr "_SSH-salasana: (valinnainen)"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:121
 msgid ""
-"<span size=\"small\">Password which will be used to log into the SSH server."
-" The password is optional if SSH key authorization is used (see "
-"below).</span>"
-msgstr "<span size=\"small\">Salasana jota käytetään SSH-palvelimelle kirjautumiseen. Tämä salasana on valinnainen jos SSH-avaintunnistautumista käytetään (katso alempaa).</span>"
+"<span size=\"small\">Password which will be used to log into the SSH server. "
+"The password is optional if SSH key authorization is used (see below).</span>"
+msgstr ""
+"<span size=\"small\">Salasana jota käytetään SSH-palvelimelle "
+"kirjautumiseen. Tämä salasana on valinnainen jos SSH-avaintunnistautumista "
+"käytetään (katso alempaa).</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:140
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:142
 msgid "_SSH Keyfile: (optional)"
 msgstr "_SSH-avaintiedosto: (valinnainen)"
 
 #. Container child vbox17.Gtk.Box+BoxChild
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:148
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:150
 msgid "Select a File"
 msgstr "Valitse tiedosto"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:161
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:163
 msgid ""
 "<span size=\"small\">SSH private keyfile which will be used to log into the "
 "SSH server</span>"
-msgstr "<span size=\"small\">Yksityinen SSH-avaintiedosto jota käytetään SSH-palvelimelle kirjautumiseen</span>"
+msgstr ""
+"<span size=\"small\">Yksityinen SSH-avaintiedosto jota käytetään SSH-"
+"palvelimelle kirjautumiseen</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:181
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:272
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:183
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:242
 msgid "_Username:"
 msgstr "_Käyttäjänimi:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:204
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:206
 msgid ""
 "<span size=\"small\">Username which will be used to log into the Smuxi "
 "server</span>"
-msgstr "<span size=\"small\">Käyttäjänimi jolla kirjaudutaan sisään Smuxi-palvelimeen</span>"
+msgstr ""
+"<span size=\"small\">Käyttäjänimi jolla kirjaudutaan sisään Smuxi-"
+"palvelimeen</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:224
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:146
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:226
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:116
 msgid "_Password:"
 msgstr "_Salasana:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:248
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:250
 msgid "<span size=\"small\">Password of the user</span>"
 msgstr "<span size=\"small\">Käyttäjän salasana</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:268
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:270
 msgid "_Verify Password:"
 msgstr "_Vahvista salasana:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:292
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:294
 msgid "<span size=\"small\">Repeat the password for verification</span>"
 msgstr "<span size=\"small\">Toista salasana sen varmentamiseksi</span>"
 
@@ -1206,7 +1249,12 @@ msgid ""
 "You need to enter some information before you can use the engine.\n"
 "\n"
 "Click \"Forward\" to begin."
-msgstr "Tervetuloa Smuxi-moottorin säätöavustajaan.\nSinun tulee syöttää muutamia tietoja ennen kuin pääset käyttämään moottoria.\n\nValitse \"Eteenpäin\" aloittaaksesi."
+msgstr ""
+"Tervetuloa Smuxi-moottorin säätöavustajaan.\n"
+"Sinun tulee syöttää muutamia tietoja ennen kuin pääset käyttämään "
+"moottoria.\n"
+"\n"
+"Valitse \"Eteenpäin\" aloittaaksesi."
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
 msgid "_Engine Name:"
@@ -1226,9 +1274,11 @@ msgstr "Käytä uutena oletusmoottorina"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:104
 msgid ""
-"<span size=\"small\">If enabled, the current engine will be the default next"
-" time Smuxi is started</span>"
-msgstr "<span size=\"small\">Jos valittu, nykyinen moottori on oletuksena käytössä seuraavalla Smuxin käynnistyskerralla</span>"
+"<span size=\"small\">If enabled, the current engine will be the default next "
+"time Smuxi is started</span>"
+msgstr ""
+"<span size=\"small\">Jos valittu, nykyinen moottori on oletuksena käytössä "
+"seuraavalla Smuxin käynnistyskerralla</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
 msgid "Smuxi - Open Chat"
@@ -1238,34 +1288,104 @@ msgstr "Smuxi - Avaa keskustelu"
 msgid "_Type:"
 msgstr "_Tyyppi:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:88
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
+msgid "Smuxi - Server"
+msgstr "Smuxi - Palvelin"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:58
 msgid "_Hostname:"
 msgstr "_Isäntänimi:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:109
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:79
 msgid "_Network:"
 msgstr "_Verkko:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:135
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:105
 msgid "Nickname:"
-msgstr "Lempinimi:"
+msgstr "Nimimerkki:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:282
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:252
 msgid "_Protocol:"
 msgstr "_Protokolla:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:306
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
+msgid "Automatically connect to server at startup"
+msgstr "Yhdistä palvelimeen automaattisesti käynnistyksen yhteydessä"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:276
 msgid "Use Encryption"
 msgstr "Käytä salausta"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:318
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:288
 msgid "Validate Server Certificate"
 msgstr "Vahvista palvelimen sertifikaatti"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:338
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:308
 msgid "_On Connect Commands:"
 msgstr "_Yhdistyksenaikaiset komennot:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:349
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
 msgid "_Ignore Commands"
 msgstr "_Jätä komennot suorittamatta"
+
+#~ msgid "Protocol:"
+#~ msgstr "Protokolla:"
+
+#~ msgid "Hostname:"
+#~ msgstr "Isäntänimi:"
+
+#~ msgid "Character"
+#~ msgstr "Merkki"
+
+#~ msgid "Word"
+#~ msgstr "Sana"
+
+#~ msgid ""
+#~ "This setting specifies if Smuxi should store chat messages in memory "
+#~ "(volatile) or to disk (persistent).\n"
+#~ "For persistent you can choose between Db4o, an object database or SQLite, "
+#~ "a relational database.\n"
+#~ "The Db4o backend has known issues like high memory and CPU usage and can "
+#~ "even lead to crashes and thus it is deprecated.\n"
+#~ "The SQLite backend has no known performance or stability issues but is "
+#~ "still an optional preview feature."
+#~ msgstr ""
+#~ "Tämä asetus määrää tallentaako Smuxi keskusteluviestit muistiin "
+#~ "(epävakaa) tai levylle (pysyvä).\n"
+#~ "Pysyvään tallennukseen voit valita Db4o:n, objektitietokannan, tai "
+#~ "SQLiten, relaatiotietokannan, väliltä.\n"
+#~ "Db4o-taustajärjestelmässä on tunnettuja ongelmia, kuten korkea muistin ja "
+#~ "prosessorin käyttö, jotka voivat johtaa jopa kaatuiluun, joten tätä ei "
+#~ "enää päivitetä.\n"
+#~ "SQLite-taustajärjestelmässä ei ole tunnettuja toimivuusongelmia mutta se "
+#~ "on edelleen valinnainen esikatseluversioinen toiminto."
+
+#~ msgid "Volatile"
+#~ msgstr "Epävakaa"
+
+#~ msgid "Persistent (Preview)"
+#~ msgstr "Pysyvä (esikatselu)"
+
+#~ msgid "Persistent: Db4o (Deprecated)"
+#~ msgstr "Pysyvä: Db4o (vanhentunut)"
+
+#~ msgid "Persistent: SQLite (Preview)"
+#~ msgstr "Pysyvä: SQLite (esikatselu)"
+
+#~ msgid "Interface"
+#~ msgstr "Käyttöliittymä"
+
+#~ msgid "Servers"
+#~ msgstr "Palvelimet"
+
+#~ msgid "Filters"
+#~ msgstr "Suodattimet"
+
+#~ msgid "Logging"
+#~ msgstr "Loki"
+
+#~ msgid "Nicknames(s) field must not be empty."
+#~ msgstr "Lempinimi-kenttä ei saa olla tyhjä."
+
+#~ msgid "Invalid highlight regex: '{0}'. Reason: {1}"
+#~ msgstr "Epäkelpo korostuksen regex: '{0}'. Syy: {1}"
