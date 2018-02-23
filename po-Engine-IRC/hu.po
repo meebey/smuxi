@@ -1,15 +1,15 @@
 # Hungarian translation for smuxi.
-# Copyright (C) 2015 Free Software Foundation, Inc.
+# Copyright (C) 2015, 2018 Free Software Foundation, Inc.
 # This file is distributed under the same license as the smuxi package.
 #
-# Balázs Úr <urbalazs@gmail.com>, 2015.
+# Balázs Úr <urbalazs at gmail dot com>, 2015, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-17 11:44+0000\n"
-"PO-Revision-Date: 2015-07-17 19:02+0200\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-11-04 05:44+0000\n"
+"PO-Revision-Date: 2018-02-24 00:43+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at gmail dot com>\n"
 "Language: hu\n"
@@ -19,269 +19,273 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.2\n"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:255
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:256
 #, csharp-format
 msgid "{0} invites you to {1}"
 msgstr "{0} meghívta önt ide: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:279
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:280
 msgid "Accept invite (join room)"
 msgstr "Meghívás elfogadása (belépés a szobába)"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:307
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1770
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:308
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1792
 msgid "away"
 msgstr "távol"
 
 #. TRANSLATOR: {0} is the amount of seconds
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:313
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:314
 #, csharp-format
 msgid "lag: {0} seconds"
 msgstr "késleltetés: {0} másodperc"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:319
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:320
 msgid "not connected"
 msgstr "nincs kapcsolódva"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:379
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:377
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
 msgstr "Proxy használata: {0}:{1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:386
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:384
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
 msgstr "Kapcsolódás ide: {0} port: {1}…"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:400
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:541
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:398
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:549
 #, csharp-format
 msgid "Connection to {0} established"
 msgstr "Kapcsolat létrehozva ezzel: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:409
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:407
 msgid "Logging in..."
 msgstr "Bejelentkezés…"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:449
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:447
 msgid "Connection failed!"
 msgstr "Kapcsolat meghiúsult!"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:453
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:451
 msgid "Connection failed! Reason: "
 msgstr "Kapcsolat meghiúsult! Ok: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:466
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:460
+msgid "Open Smuxi FAQ for help"
+msgstr "Smuxi GyIK megnyitása a súgóért"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:474
 msgid "Disconnecting..."
 msgstr "Leválasztás…"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:471
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:479
 #, csharp-format
 msgid "Disconnecting from {0}..."
 msgstr "Leválasztás innen: „{0}”…"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:478
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:486
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr "Leválasztva innen: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:484
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:492
 msgid "Connection closed"
 msgstr "Kapcsolat lezárva"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:493
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:568
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:501
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:576
 msgid "Not connected"
 msgstr "Nincs kapcsolódva"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:527
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:535
 msgid "Reconnecting..."
 msgstr "Újrakapcsolódás…"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:535
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:543
 #, csharp-format
 msgid "Reconnecting to {0}..."
 msgstr "Újrakapcsolódás ehhez: {0}…"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:554
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:562
 msgid "Reconnect Error"
 msgstr "Újrakapcsolódási hiba"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:948
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:960
 #, csharp-format
 msgid "Sleeping for {0} milliseconds"
 msgstr "Alvás {0} ezredmásodpercig"
 
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1033
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1045
 msgid "IrcProtocolManager Commands"
 msgstr "IrcProtocolManager parancsok"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1115
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1128
 #, csharp-format
 msgid "Invalid port: {0}"
 msgstr "Érvénytelen port: {0}"
 
 #. TRANSLATOR: some IRC networks dislike too many joins in a
 #. short period and thus Smuxi throttles/queues them
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1210
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1223
 #, csharp-format
 msgid "Queuing joins: {0}"
 msgstr "Csatlakozások sorba állítása: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1231
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1244
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
 msgstr ""
 "Már csatlakozott a csatornához: {0}. Adja ki a /window {0} parancsot az "
 "átlépéshez."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1265
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1278
 #, csharp-format
 msgid "Active joins: {0} - Queued joins: {1}"
 msgstr "Aktív csatlakozások: {0} - Sorba állított csatlakozások: {1}"
 
 #. TRANSLATORS: final message will look like this:
 #. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1289
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1319
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1302
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1332
 #, csharp-format
 msgid "Joining: {0}"
 msgstr "Csatlakozás: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1291
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1304
 msgid "Remaining"
 msgstr "Hátralévő"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1296
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1309
 #, csharp-format
 msgid "active joins: {0}"
 msgstr "aktív csatlakozások: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1305
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1318
 #, csharp-format
 msgid "queued joins: {0}"
 msgstr "sorba állított csatlakozások: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1751
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1773
 msgid "IRC Op"
 msgstr "IRC Op"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1753
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1775
 msgid "Owner"
 msgstr "Tulajdonos"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1755
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1777
 msgid "ChanAdmin"
 msgstr "CsatAdmin"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1757
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1779
 msgid "Op"
 msgstr "Op"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1759
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1781
 msgid "Halfop"
 msgstr "FélOp"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1761
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1783
 msgid "Voice"
 msgstr "Hang"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1824
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1846
 #, csharp-format
 msgid "Topic for {0}: {1}"
 msgstr "Téma ehhez: {0}: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1826
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1848
 #, csharp-format
 msgid "No topic set for {0}"
 msgstr "Nincs téma beállítva ennél: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1991
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2013
 msgid "ban"
 msgstr "kitiltás"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2002
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2024
 msgid "No bans in channel"
 msgstr "Nincsenek kitiltások a csatornán"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2039
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2061
 msgid "ban exception"
 msgstr "kitiltás kivétel"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2050
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2072
 msgid "No ban exceptions in channel"
 msgstr "Nincsenek kitiltás kivételek a csatornán"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2087
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2109
 msgid "invite exception"
 msgstr "meghívás kivétel"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2098
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2120
 msgid "No invite exceptions in channel"
 msgstr "Nincsenek meghívás kivételek a csatornán"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2212
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2234
 #, csharp-format
 msgid "Your user mode is {0}"
 msgstr "A felhasználómódja: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2238
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2260
 #, csharp-format
 msgid "{0} is already on {1}"
 msgstr "{0} már ezen van: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2246
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2268
 #, csharp-format
 msgid "Inviting {0} to {1}"
 msgstr "{0} meghívása ide: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2269
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2291
 msgid "Users"
 msgstr "Felhasználók"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2320
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2342
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
 msgstr "Összesen {0} felhasználó [{1} op, {2} hang, {3} normál]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2458
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2480
 msgid "Connection error! Reason: "
 msgstr "Kapcsolathiba! Ok: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2470
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2492
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Nincs elég paraméter a következő parancshoz: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2479
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2501
 msgid "Not connected to server"
 msgstr "Nincs kapcsolódva a kiszolgálóhoz"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2688
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2745
 #, csharp-format
 msgid "{0}: No such nick/channel"
 msgstr "{0}: Nincs ilyen becenév/csatorna"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2807
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2864
 #, csharp-format
 msgid ""
 "Increased send delay to {0}ms to avoid being flooded off the server again."
 msgstr ""
-"Küldési késleltetés megnövelve {0} ezredmásodpercre annak elkerüléséhez, hogy "
-"a kiszolgáló ismét el legyen árasztva."
+"Küldési késleltetés megnövelve {0} ezredmásodpercre annak elkerüléséhez, "
+"hogy a kiszolgáló ismét el legyen árasztva."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2822
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2879
 #, csharp-format
 msgid "Nick {0} is already in use"
 msgstr "A(z) {0} becenév már használatban van"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2838
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2895
 msgid "Cannot join to channel:"
 msgstr "Nem lehet csatlakozni a csatornához:"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2840
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2897
 msgid "You are banned"
 msgstr "Kitiltották"
 
@@ -289,73 +293,73 @@ msgstr "Kitiltották"
 #. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
 #. example:
 #. meebey [meebey@example.com] requested CTCP VERSION from meebey:
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2923
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2980
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
 msgstr "{0} [{1}] {2} CTCP parancsot kért tőle: {3}: {4}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2950
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3007
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
 msgstr "CTCP PING válasz tőle: {0}: {1} másodperc"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2959
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3016
 #, csharp-format
 msgid "CTCP {0} reply from {1}: {2}"
 msgstr "CTCP {0} válasz tőle: {1}: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3210
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3268
 #, csharp-format
 msgid "{0} [{1}] has joined {2}"
 msgstr "{0} [{1}] csatlakozott ehhez: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3355
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3417
 #, csharp-format
 msgid "{0} [{1}] has left {2}"
 msgstr "{0} [{1}] elhagyta ezt: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3380
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3442
 #, csharp-format
 msgid "You were kicked from {0} by {1}"
 msgstr "{1} kirúgta önt innen: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3388
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3450
 #, csharp-format
 msgid "{0} was kicked from {1} by {2}"
 msgstr "{2} kirúgta őt: {0} innen: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3406
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3438
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3468
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3500
 #, csharp-format
 msgid "You're now known as {0}"
 msgstr "Ön mostantól {0} néven ismert"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3441
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3503
 #, csharp-format
 msgid "{0} is now known as {1}"
 msgstr "{0} mostantól {1} néven ismert"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3475
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3537
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
 msgstr "{0} megváltoztatta a(z) {1} témáját erre: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3635
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3697
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
 msgstr "Módváltoztatás [{0}] a következő felhasználónál: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3666
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3728
 #, csharp-format
 msgid "mode/{0} [{1}] by {2}"
 msgstr "mód/{0} [{1}] - {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3702
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3764
 #, csharp-format
 msgid "{0} [{1}] has quit"
 msgstr "{0} [{1}] kilépett"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3801
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3863
 #, csharp-format
 msgid ""
 "Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
@@ -364,16 +368,16 @@ msgstr ""
 "A kapcsolódás ehhez: {0} port: {1} sikertelen ({2} kísérlet), újrapróbálás "
 "{3} másodperc múlva…"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3851
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3913
 #, csharp-format
 msgid "{0} is away: {1}"
 msgstr "{0} távol: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3861
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3923
 msgid "You are no longer marked as being away"
 msgstr "Többé nincs távollévőként megjelölve"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3871
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3933
 msgid "You have been marked as being away"
 msgstr "Meg lett jelölve távollévőként"
 
