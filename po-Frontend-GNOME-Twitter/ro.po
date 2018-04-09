@@ -1,0 +1,38 @@
+# Romanian translation for smuxi.
+# Copyright (C) 2018 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Floren <>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2018-03-10 16:21+0000\n"
+"PO-Revision-Date: 2018-04-05 17:49+0300\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > "
+"0 && n%100 < 20)) ? 1 : 2);;\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail."
+"com>\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:57
+msgid "Direct Message"
+msgstr "Mesaj direct"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:65
+msgid "Timeline"
+msgstr "Cronologie"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:70
+msgid "Unfollow"
+msgstr "Anulează urmărirea"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:74
+msgid "Follow"
+msgstr "Urmărește"
