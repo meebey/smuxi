@@ -1,0 +1,152 @@
+# Romanian translation for smuxi.
+# Copyright (C) 2018 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Floren <>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2018-03-10 16:20+0000\n"
+"PO-Revision-Date: 2018-04-06 23:40+0300\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: ../src/Frontend/CommandManager.cs:479
+#, csharp-format
+msgid "Unknown Command: {0}"
+msgstr "Comandă necunoscută: {0}"
+
+#: ../src/Frontend/CommandManager.cs:488
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Nu sunt suficienți parametri pentru comanda {0}"
+
+#: ../src/Frontend/EngineManager.cs:112
+msgid "Engine must not be empty."
+msgstr "Motorul nu trebuie să fie gol."
+
+#: ../src/Frontend/EngineManager.cs:123
+msgid "Engine does not exist."
+msgstr "Motorul nu există."
+
+#: ../src/Frontend/EngineManager.cs:313
+#, csharp-format
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
+msgstr ""
+"Canal necunoscut ({0}) - doar următoarele tipuri de canale sunt suportate:"
+
+#: ../src/Frontend/EngineManager.cs:322
+msgid ""
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
+msgstr ""
+"Înregistrarea cu motorul a eșuat!  Numele de utilizator și/sau parola au "
+"fost greșite - trebuie să le verificați."
+
+#: ../src/Frontend/SshTunnelManager.cs:147
+msgid "SSH client application was not found: "
+msgstr "Nu s-a găsit aplicația client SSH: "
+
+#: ../src/Frontend/SshTunnelManager.cs:150
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr ""
+"Clientul SSH trebuie să fie ori OpenSSH (ssh) ori Plink (plink.exe, nu putty."
+"exe)"
+
+#: ../src/Frontend/SshTunnelManager.cs:187
+#, csharp-format
+msgid ""
+"The local SSH forwarding port {0} is already in use. Is there an old SSH "
+"tunnel still active?"
+msgstr ""
+"Portul SSH local de înaintare {0} este deja în uz. Există un tunel SSH vechi "
+"încă activ?"
+
+#: ../src/Frontend/SshTunnelManager.cs:211
+#, csharp-format
+msgid ""
+"SSH tunnel setup failed (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"SSH parameters: {2}\n"
+"\n"
+"Program Error:\n"
+"{3}\n"
+"Program Output:\n"
+"{4}\n"
+msgstr ""
+"Configurarea tunelului SSH a eșuat (cod de ieșire: {0})\n"
+"\n"
+"Program SSH: {1}\n"
+"Parametri SSH: {2}\n"
+"\n"
+"Eroare de program:\n"
+"{3}\n"
+"Rezultat program:\n"
+"{4}\n"
+
+#: ../src/Frontend/SshTunnelManager.cs:332
+#: ../src/Frontend/SshTunnelManager.cs:481
+msgid "SSH keyfile not found."
+msgstr "Nu s-a găsit fișierul de cheie SSH."
+
+#: ../src/Frontend/SshTunnelManager.cs:338
+#: ../src/Frontend/SshTunnelManager.cs:487
+msgid "SSH keyfile could not be read."
+msgstr "Nu s-a putut citi fișierul de cheie SSH."
+
+#: ../src/Frontend/SshTunnelManager.cs:429
+#, csharp-format
+msgid ""
+"OpenSSH version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"Nu s-a găsit numărul de versiune al OpenSSH (cod de ieșire: {0})\n"
+"\n"
+"Program SSH: {1}\n"
+"\n"
+"Eroare de program:\n"
+"{2}\n"
+"Rezultat program:\n"
+"{3}\n"
+
+#: ../src/Frontend/SshTunnelManager.cs:472
+msgid "PuTTY / Plink requires a username to be set."
+msgstr "PuTTY / Plink necesită configurarea unui nume de utilizator."
+
+#: ../src/Frontend/SshTunnelManager.cs:560
+#, csharp-format
+msgid ""
+"Plink version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"Nu s-a găsit numărul de versiune al Plink (cod de ieșire: {0})\n"
+"\n"
+"Program SSH: {1}\n"
+"\n"
+"Eroare de program:\n"
+"{2}\n"
+"Rezultat program:\n"
+"{3}\n"
