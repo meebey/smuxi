@@ -1,0 +1,309 @@
+# Romanian translation for smuxi.
+# Copyright (C) 2018 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Floren <>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2018-03-10 16:18+0000\n"
+"PO-Revision-Date: 2018-04-15 21:07+0300\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: ../src/Engine/FrontendManager.cs:218
+msgid "No network connections"
+msgstr "Nu sunt conexiuni de rețea"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr "Se optimizează: {0}..."
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr "Nu s-a putut optimiza: {0}. Motivul: {1}"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:315
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr ""
+"Istoricul de discuție nu mai este disponibil din cauza unei erori dar va fi "
+"păstrat de acum înainte."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:789
+#, csharp-format
+msgid "{0} is typing..."
+msgstr "{0} tastează..."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:795
+#, csharp-format
+msgid "{0} has stopped typing..."
+msgstr "{0} nu mai tastează..."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:840
+#, csharp-format
+msgid "{0} is away"
+msgstr "{0} este absent"
+
+#: ../src/Engine/Messages/MessageBuilder.cs:846
+#, csharp-format
+msgid "{0} is offline"
+msgstr "{0} nu este conectat"
+
+#: ../src/Engine/Messages/MessageBuilder.cs:852
+#, csharp-format
+msgid "{0} is online"
+msgstr "{0} este conectat"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:162
+msgid "not connected"
+msgstr "neconectat"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:193
+msgid "Not connected to server"
+msgstr "Neconectat la server"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
+#: ../src/Engine/Session.cs:1083
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Nu sunt suficienți parametri pentru comanda {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:212
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "Conectat la {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:242
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Deconectat de la {0}"
+
+#: ../src/Engine/Session.cs:213
+#, csharp-format
+msgid "Automatically connecting to {0}..."
+msgstr "Se conectează automat la {0}..."
+
+#: ../src/Engine/Session.cs:248
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "Conectarea automată la {0} a eșuat!"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine/Session.cs:521
+msgid "Engine Commands"
+msgstr "Comenzi motor"
+
+#: ../src/Engine/Session.cs:650
+msgid "Connect failed!"
+msgstr "Conectarea a eșuat!"
+
+#: ../src/Engine/Session.cs:673
+#, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
+msgstr "Deconectarea a eșuat - nu s-a putut găsi serverul: {0}"
+
+#: ../src/Engine/Session.cs:715
+msgid "Reconnect failed!"
+msgstr "Reconectarea a eșuat!"
+
+#: ../src/Engine/Session.cs:739
+msgid "Configuration reloaded"
+msgstr "Configurație reîncărcată"
+
+#: ../src/Engine/Session.cs:743
+msgid "Configuration saved"
+msgstr "Configurație salvată"
+
+#: ../src/Engine/Session.cs:770
+msgid "Invalid key/value format."
+msgstr "Format de cheie/valoare nevalid."
+
+#: ../src/Engine/Session.cs:794
+#, csharp-format
+msgid "Invalid config key: '{0}'"
+msgstr "Cheie de configurare nevalidă: „{0}”"
+
+#: ../src/Engine/Session.cs:810 ../src/Engine/Session.cs:816
+#, csharp-format
+msgid "Could not convert config value: '{0}' to type: {1}"
+msgstr "Nu s-a putut converti valoarea de configurare: „{0}” la tipul: {1}"
+
+#: ../src/Engine/Session.cs:830
+#, csharp-format
+msgid ""
+"Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
+msgstr ""
+"Cheie de eliminare a configurării nevalidă: „{0}”. Chei de eliminare "
+"valide: MessagePatterns/{{ID}}."
+
+#: ../src/Engine/Session.cs:843
+#, csharp-format
+msgid "Message pattern with ID: '{0}' does not exist."
+msgstr "Modelul de mesaj cu ID-ul: „{0}” nu există."
+
+#: ../src/Engine/Session.cs:850
+#, csharp-format
+msgid "Message pattern with ID: '{0}' removed."
+msgstr "Model de mesaj cu ID-ul: „{0}” eliminat."
+
+#: ../src/Engine/Session.cs:858
+msgid "Invalid parameter for config; use load, save, get or set."
+msgstr ""
+"Parametru nevalid pentru configurare; utilizați load, save, get sau set."
+
+#: ../src/Engine/Session.cs:935
+msgid "Invalid parameter for network; use list, switch, or close"
+msgstr "Parametru nevalid pentru rețea; utilizați list, switch, sau close"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:965
+msgid "Connected Networks"
+msgstr "Rețele conectate"
+
+#: ../src/Engine/Session.cs:970 ../src/Engine/Session.cs:994
+msgid "Network"
+msgstr "Rețea"
+
+#: ../src/Engine/Session.cs:971
+msgid "Protocol"
+msgstr "Protocol"
+
+#: ../src/Engine/Session.cs:972
+msgid "Host"
+msgstr "Gazdă"
+
+#: ../src/Engine/Session.cs:973
+msgid "Port"
+msgstr "Port"
+
+#. TRANSLATOR: no connected networks
+#. TRANSLATOR: no available networks
+#: ../src/Engine/Session.cs:979 ../src/Engine/Session.cs:1000
+msgid "None"
+msgstr "Niciuna"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:986
+msgid "Available Networks"
+msgstr "Rețele disponibile"
+
+#: ../src/Engine/Session.cs:1014
+#, csharp-format
+msgid "Network close failed - could not find network: {0}"
+msgstr "Închiderea rețelei a eșuat - nu s-a putut găsi rețeaua: {0}"
+
+#: ../src/Engine/Session.cs:1058
+#, csharp-format
+msgid "Network switch failed - could not find network: {0}"
+msgstr "Comutarea rețelei a eșuat - nu s-a putut găsi rețeaua: {0}"
+
+#: ../src/Engine/Session.cs:1076
+msgid "Not connected to any network"
+msgstr "Nu este conectat la nicio rețea"
+
+#: ../src/Engine/Session.cs:1333
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Nu s-a putut scrie istoricul discuției. Istoricul de discuție nu va fi "
+"păstrat. Motivul: {0}"
+
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:1563
+msgid "Connect failed."
+msgstr "Conectarea a eșuat."
+
+#: ../src/Engine/Session.cs:1577
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr "Nu s-a găsit un manager de protocol pentru protocolul: {0}"
+
+#: ../src/Engine/Session.cs:1916
+msgid "Welcome to Smuxi"
+msgstr "Bine ați venit la Smuxi"
+
+#: ../src/Engine/Session.cs:1923
+msgid "Type /help to get a list of available commands."
+msgstr "Tastați /help pentru a obține o listă de comenzi disponibile."
+
+#: ../src/Engine/Session.cs:1929
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
+msgstr ""
+"După ce ați creat o conexiune lista de comenzi disponibile se modifică. "
+"Navigați la tabul de conexiune deschis recent și utilizați comanda /help "
+"din nou pentru a consulta lista de comenzi extinsă."
+
+#: ../src/Engine/Config/UserListController.cs:117
+msgid "Username must not be empty."
+msgstr "Numele de utilizator nu trebuie să fie gol."
+
+#: ../src/Engine/Config/UserListController.cs:127
+msgid "Password must not be empty."
+msgstr "Parola nu trebuie să fie goală."
+
+#: ../src/Engine/Config/UserListController.cs:136
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr "Utilizatorul „{0}” nu există."
+
+#: ../src/Engine/Config/UserListController.cs:145
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr "Utilizatorul „{0}” există deja."
+
+#: ../src/Engine/Config/ServerListController.cs:118
+msgid "Network must not be empty."
+msgstr "Rețeaua nu trebuie să fie goală."
+
+#: ../src/Engine/Config/ServerListController.cs:138
+msgid "Server hostname must not be empty."
+msgstr "Numele de gazdă al serverului nu trebuie să fie gol."
+
+#: ../src/Engine/Config/ServerListController.cs:141
+msgid "Server hostname contains invalid characters (newline)."
+msgstr "Numele de gazdă a serverului conține caractere nevalide (linie nouă)."
+
+#: ../src/Engine/Config/ServerListController.cs:148
+#, csharp-format
+msgid "Server ID '{0}' already exists."
+msgstr "ID-ul de server „{0}” există deja."
+
+#: ../src/Engine/Chats/ChatModel.cs:106
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Nu s-a putut încărca istoricul discuției. Istoricul de discuție nu va fi "
+"păstrat. Motivul: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:344
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr ""
+"Nu s-a putut deschide istoricul discuției pentru scriere. Istoricul de "
+"discuție nu va fi păstrat. Motivul: {0}"
