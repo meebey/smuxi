@@ -1,0 +1,333 @@
+# Romanian translation for smuxi.
+# Copyright (C) 2018 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Floren <>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2018-03-10 16:20+0000\n"
+"PO-Revision-Date: 2018-04-08 17:16+0300\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
+msgid "The server has shut down"
+msgstr "Serverul s-a oprit"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
+msgid ""
+"Another client logged in with the same resource, you have been disconnected"
+msgstr "Un alt client s-a autentificat cu aceeași resursă, ați fost deconectat"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:209
+msgid ""
+"Authentication failed, either username does not exist or invalid password"
+msgstr ""
+"Autentificarea a eșuat, fie numele de utilizator nu există fie parola nu "
+"este validă"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
+msgid ""
+"If you want to create an account with the specified user and password, type /"
+"register now"
+msgstr ""
+"Dacă doriți să creați un cont cu numele de utilizator și parola specificate, "
+"tastați /register now"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:320
+msgid "not connected"
+msgstr "neconectat"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:811
+#, csharp-format
+msgid "Could not find contact {0}"
+msgstr "Nu s-a putut găsi contactul {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:817
+#, csharp-format
+msgid "Contact {0} has {1} known resources"
+msgstr "Contactul {0} are {1} resurse cunoscute"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:821
+#, csharp-format
+msgid "{0} is not a known resource"
+msgstr "{0} nu este o resursă cunoscută"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
+#, csharp-format
+msgid "Contact's JID: {0}"
+msgstr "JID de contact: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:833
+msgid "You have a mutual subscription with this contact"
+msgstr "Aveți o abonare în comun cu acest contact"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:836
+msgid ""
+"You have no subscription with this contact and this contact is not "
+"subscribed to you"
+msgstr "Nu aveți nicio abonare cu acest contact și acesta nu vă este abonat"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:839
+msgid ""
+"You are subscribed to this contact, but the contact is not subscribed to you"
+msgstr "Sunteți abonat la acest contact, dar contactul nu vă este abonat"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:842
+msgid ""
+"You are not subscribed to this contact, but the contact is subscribed to you"
+msgstr "Nu sunteți abonat la acest contact, dar contactul vă este abonat"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:938
+#, csharp-format
+msgid "Invalid contact command: {0}"
+msgstr "Comandă de contact nevalidă: {0}"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:949
+#, csharp-format
+msgid "{0} Commands"
+msgstr "Comenzi {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:974
+#, csharp-format
+msgid "Advanced {0} Commands"
+msgstr "Comenzi avansate {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1009
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Port nevalid: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1044
+#, csharp-format
+msgid "Priority for Available is: {0}"
+msgstr "Prioritatea pentru disponibil este: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1047
+#, csharp-format
+msgid "Priority for Away is: {0}"
+msgstr "Prioritatea pentru absent este: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
+#, csharp-format
+msgid ""
+"Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
+msgstr ""
+"Prioritate nevalidă: {0} (prioritățile valide sunt între -128 și 127 "
+"inclusiv)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1636
+#, csharp-format
+msgid "{0}{1} is available"
+msgstr "{0}{1} este disponibil"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1640
+#, csharp-format
+msgid "{0}{1} is away"
+msgstr "{0}{1} este absent"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1644
+#, csharp-format
+msgid "{0}{1} is extended away"
+msgstr "{0}{1} este absent extins"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1648
+#, csharp-format
+msgid "{0}{1} wishes not to be disturbed"
+msgstr "{0}{1} nu dorește să fie deranjat"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1652
+#, csharp-format
+msgid "{0}{1} wants to chat"
+msgstr "{0}{1} vrea să discute"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1659
+#, csharp-format
+msgid "{0}{1} is offline"
+msgstr "{0}{1} este deconectat"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1665
+#, csharp-format
+msgid ""
+"Automatically allowed {0} to subscribe to you, since you are already asking "
+"to subscribe"
+msgstr ""
+"S-a permis automat ca {0} să vi se aboneze, din moment ce deja solicitați "
+"abonarea"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1669
+#, csharp-format
+msgid "{0}{1} wishes to subscribe to you"
+msgstr "{0}{1} dorește să vi se aboneze"
+
+#. you can now see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1677
+#, csharp-format
+msgid "{0}{1} allowed you to subscribe"
+msgstr "{0}{1} v-a permis să vă abonați"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1684
+#, csharp-format
+msgid ""
+"Automatically removed {0}'s subscription to your presences after losing the "
+"subscription to theirs"
+msgstr ""
+"S-a eliminat automat abonarea lui {0} de la prezențe după pierderea abonării "
+"la prezențele acestuia"
+
+#. you cannot (anymore?) see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1691
+#, csharp-format
+msgid "{0}{1} denied/removed your subscription"
+msgstr "{0}{1} a respins / eliminat abonarea"
+
+#. you might still be able to see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1696
+#, csharp-format
+msgid "{0}{1} unsubscribed from you"
+msgstr "{0}{1} s-a dezabonat"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1700
+#, csharp-format
+msgid "received a malformed error message: {0}"
+msgstr "s-a primit un mesaj de eroare eronat: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1707
+#, csharp-format
+msgid "{0}{1}'s server could not be found"
+msgstr "Nu s-a putut găsi serverul de {0}{1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1710
+#, csharp-format
+msgid "{0}{1} is already using your requested resource"
+msgstr "{0}{1} utilizează deja resursa cerută"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1717
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1739
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1753
+#, csharp-format
+msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
+msgstr ""
+"Nu există în prezent niciun mesaj de eroare util pentru {0}, {1}, {2}{3}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1730
+#, csharp-format
+msgid "You do not have permission to access {0}{1}"
+msgstr "Nu aveți permisiunea să accesați {0}{1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1780
+#, csharp-format
+msgid "{0} days"
+msgstr "{0} zile"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1786
+#, csharp-format
+msgid "{0} hours"
+msgstr "{0} ore"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1790
+#, csharp-format
+msgid "{0} minutes"
+msgstr "{0} minute"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1793
+#, csharp-format
+msgid "{0} seconds"
+msgstr "{0} secunde"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1805
+#, csharp-format
+msgid " since {0} ({1})"
+msgstr " de la {0} ({1})"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1890
+#, csharp-format
+msgid "An unknown groupchat error occurred: {0}"
+msgstr "A apărut o eroare de discuție de grup: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
+#, csharp-format
+msgid "Server of groupchat \"{0}\" not found."
+msgstr "Nu s-a găsit serverul pentru discuția de grup „{0}”."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1900
+#, csharp-format
+msgid "MUC service is not available for \"{0}\""
+msgstr "Serviciul MUC nu este disponibil pentru „{0}”"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1907
+#, csharp-format
+msgid "You do not have permission to join \"{0}\""
+msgstr "Nu aveți permisiunea de alăturare la „{0}”"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1913
+#, csharp-format
+msgid "An unhandled groupchat error occurred: {0}"
+msgstr "A apărut o eroare de discuție de grup nemanevrată: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2090
+#, csharp-format
+msgid ""
+"Received a presence update from {0}, but there's no corresponding chat window"
+msgstr ""
+"Ați primit o actualizare de prezență de la {0}, dar nu există o fereastră de "
+"discuție corespunzătoare"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2114
+#, csharp-format
+msgid ""
+"Received a groupchat message from {0} but there's no corresponding chat "
+"window: {1}"
+msgstr ""
+"Ați primit un mesaj de discuție de grup de la {0} dar nu există o fereastră "
+"de discuție corespunzătoare: {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2391
+#, csharp-format
+msgid "You have been invited to {2} by {0} because {1}"
+msgstr "Ați fost invitat la {2} de către {0} pentru că {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
+#, csharp-format
+msgid "You have been invited to {1} by {0}"
+msgstr "Ați fost invitat la {1} de către {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2418
+msgid "Accept invite (join room)"
+msgstr "Acceptă invitația (alăturare la cameră)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2556
+#, csharp-format
+msgid "Reconnecting to {0}"
+msgstr "Se reconectează la {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2570
+#, csharp-format
+msgid "Reconnecting to {0} in {1} seconds"
+msgstr "Se reconectează la {0} în {1} secunde"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2600
+#, csharp-format
+msgid "Error: {0}"
+msgstr "Eroare: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2612
+msgid "Authenticated"
+msgstr "Autentificat"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2663
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Se utilizează proxy: {0}:{1}"
