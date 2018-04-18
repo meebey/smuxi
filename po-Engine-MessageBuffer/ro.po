@@ -1,0 +1,135 @@
+# Romanian translation for smuxi.
+# Copyright (C) 2018 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Floren <>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2018-03-10 16:19+0000\n"
+"PO-Revision-Date: 2018-04-08 17:23+0300\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 "
+"&& n%100 < 20)) ? 1 : 2);;\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail."
+"com>\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: ../src/Engine-MessageBuffer/Main.cs:49
+msgid "Enable debug output"
+msgstr "Activează rezultat depanare"
+
+#: ../src/Engine-MessageBuffer/Main.cs:55
+#: ../src/Engine-MessageBuffer/Main.cs:141
+#: ../src/Engine-MessageBuffer/Main.cs:205
+msgid "Show this help"
+msgstr "Afișează acest ajutor"
+
+#: ../src/Engine-MessageBuffer/Main.cs:88
+#, csharp-format
+msgid "Unknown action: '{0}'"
+msgstr "Acțiune necunoscută: „{0}”"
+
+#: ../src/Engine-MessageBuffer/Main.cs:95
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Eroare în linia de comandă: {0}"
+
+#: ../src/Engine-MessageBuffer/Main.cs:104
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr ""
+"Mod de utilizare: smuxi-message-buffer [opțiuni] action action-"
+"options"
+
+#: ../src/Engine-MessageBuffer/Main.cs:106
+msgid "Actions:"
+msgstr "Acțiuni:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:110
+#: ../src/Engine-MessageBuffer/Main.cs:152
+#: ../src/Engine-MessageBuffer/Main.cs:217
+msgid "Options:"
+msgstr "Opțiuni:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:119
+msgid "Database format (valid values: auto, db4o, sqlite)"
+msgstr "Format bază de date (valori valide: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:134
+#: ../src/Engine-MessageBuffer/Main.cs:198
+#, csharp-format
+msgid "Unknown {0} option: '{1}'"
+msgstr "Opțiune {0} necunoscută: „{1}”"
+
+#: ../src/Engine-MessageBuffer/Main.cs:145
+#, csharp-format
+msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
+msgstr ""
+"Mod de utilizare: smuxi-message-buffer {0} [action-options] "
+"db_path"
+
+#: ../src/Engine-MessageBuffer/Main.cs:150
+msgid "Database path(s)"
+msgstr "Căi bază de date"
+
+#: ../src/Engine-MessageBuffer/Main.cs:161
+msgid "db_path is required"
+msgstr "este necesar db_path"
+
+#: ../src/Engine-MessageBuffer/Main.cs:175
+msgid "Source format (valid values: auto, db4o, sqlite)"
+msgstr "Format sursă (valori valide: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:183
+msgid "Destination format (valid values: auto, db4o, sqlite)"
+msgstr "Format destinație (valori valide: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:209
+#, csharp-format
+msgid ""
+"Usage: smuxi-message-buffer {0} [action-options] source_db(s)... "
+"destination_db"
+msgstr ""
+"Mod de utilizare: smuxi-message-buffer {0} [action-options] "
+"source_db(s)... destination_db"
+
+#: ../src/Engine-MessageBuffer/Main.cs:214
+msgid "Source file path(s)"
+msgstr "Căi fișier sursă"
+
+#: ../src/Engine-MessageBuffer/Main.cs:215
+msgid "Destination file path or -/empty for stdout"
+msgstr "Calea fișierului destinație sau -/empty pentru stdout"
+
+#: ../src/Engine-MessageBuffer/Main.cs:226
+msgid "source_db and destination_db are required"
+msgstr "sunt necesare source_db și destination_db"
+
+#: ../src/Engine-MessageBuffer/Main.cs:242
+msgid "sourceFile must not be empty."
+msgstr "sourceFile nu trebuie să fie gol."
+
+#: ../src/Engine-MessageBuffer/Main.cs:251
+msgid "sourceFiles must not be empty."
+msgstr "sourceFiles nu trebuie să fie goale."
+
+#: ../src/Engine-MessageBuffer/Main.cs:271
+#, csharp-format
+msgid "Destination database {0} must be empty!"
+msgstr "Baza de date destinație {0} nu trebuie să fie goală!"
+
+#: ../src/Engine-MessageBuffer/Main.cs:340
+#, csharp-format
+msgid "Unknown file format: '{0}'"
+msgstr "Format de fișier necunoscut: „{0}”"
+
+#: ../src/Engine-MessageBuffer/Main.cs:362
+#, csharp-format
+msgid "Unsupported buffer type: '{0}'"
+msgstr "Tip de preîncărcare nesuportat: „{0}”"
