@@ -1,0 +1,1333 @@
+# Romanian translation for smuxi.
+# Copyright (C) 2018 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Floren <>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2018-03-10 16:20+0000\n"
+"PO-Revision-Date: 2018-04-18 21:36+0300\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:1
+msgid "Smuxi Preferences"
+msgstr "Preferințe Smuxi"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:2
+msgid ""
+"The nickname to use. You can specify extra nicknames (separated by spaces) "
+"which will be used as fallbacks when the first choice is not available. By "
+"default $nick_ and $nick__ will be used as fallbacks."
+msgstr ""
+"Pseudonimul de utilizat. Puteți specifica pseudonime extra (separate prin "
+"spații) care vor fi utilizate ca rezerve când prima alegere nu este "
+"disponibilă. Implicit $nick_ și $nick__ vor fi utilizate ca rezerve."
+
+#: ../glade/smuxi-frontend-gnome.glade.h:3
+msgid "Nickname(s):"
+msgstr "Pseudonim(e):"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:4
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
+msgid "Username:"
+msgstr "Nume de utilizator:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:5
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
+msgid "Realname:"
+msgstr "Nume real:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:6
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
+msgid "Encoding:"
+msgstr "Codare:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:7
+msgid "Automatically convert UTF-8 characters"
+msgstr "Convertește automat caracterele UTF-8"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:8
+msgid "<b>General</b>"
+msgstr "<b>Generale</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:9
+msgid "Type:"
+msgstr "Tip:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:10
+msgid "Host:"
+msgstr "Gazdă:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:11
+msgid "Password:"
+msgstr "Parolă:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:12
+msgid "Port:"
+msgstr "Port:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:13
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
+msgid "Show Password"
+msgstr "Afișează parola"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:14
+msgid "<b>Network Proxy</b>"
+msgstr "<b>Proxy rețea</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:15
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
+msgid "On Connect Commands:"
+msgstr "Comenzi la conectare:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:16
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
+msgid "On Startup Commands:"
+msgstr "Comenzi la lansare:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:17
+msgid "<b>Global Commands</b>"
+msgstr "<b>Comenzi globale</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:18
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
+msgid "C_onnection"
+msgstr "C_onexiune"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:19
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
+msgid "Timestamp Format:"
+msgstr "Format datare:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:20
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
+msgid "Buffer Lines:"
+msgstr "Linii de preîncărcare:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:21
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
+msgid "Engine Buffer Lines:"
+msgstr "Linii de preîncărcare de motor:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:22
+msgid ""
+"ss = seconds\n"
+"mm = minutes\n"
+"hh = hours (01 - 12)\n"
+"HH = hours (00 - 23)\n"
+"tt = AM/PM\n"
+"\n"
+"dd = day\n"
+"MM = month\n"
+"yy/yyyy = year"
+msgstr ""
+"ss = secunde\n"
+"mm = minute\n"
+"hh = ore (01 - 12)\n"
+"HH = ore (00 - 23)\n"
+"tt = AM/PM\n"
+"\n"
+"dd = zi\n"
+"MM = lună\n"
+"yy/yyyy = an"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:31
+msgid "Persistency Type:"
+msgstr "Tip de persistență:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:32
+msgid "Volatile Buffer Lines:"
+msgstr "Linii de preîncărcare volatile:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:33
+msgid "Persistent Buffer Lines:"
+msgstr "Linii de preîncărcare persistente:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:34
+msgid "<b>Message Buffer</b>"
+msgstr "<b>Preîncărcare de mesaj</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:35
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
+msgid "Strip Colors"
+msgstr "Elimină culorile"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:36
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
+msgid "Strip Formattings"
+msgstr "Elimină formatările"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:37
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
+msgid "Strip UTF-8"
+msgstr "Elimină UTF-8"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:38
+msgid "Show Advanced Settings"
+msgstr "Arată configurările avansate"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:39
+msgid "<b>Advanced</b>"
+msgstr "<b>Avansate</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:40
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
+msgid "General"
+msgstr "Generale"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:41
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
+msgid "Top"
+msgstr "Sus"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:42
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
+msgid "Bottom"
+msgstr "Jos"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:43
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
+msgid "Left"
+msgstr "Stânga"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:44
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
+msgid "Right"
+msgstr "Dreapta"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:45
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
+msgid "None"
+msgstr "Nimic"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:46
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
+msgid "<b> Tabs Position </b>"
+msgstr "<b> Poziție taburi </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
+msgid "Highlight"
+msgstr "Evidențiază"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:48
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
+msgid "Activity"
+msgstr "Activitate"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:49
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
+msgid "No Activity"
+msgstr "Nicio activitate"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:50
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
+msgid "Join/Part/Mode"
+msgstr "Alăturare/Despărțire/Mod"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:51
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
+msgid "<b> Tab Colors </b>"
+msgstr "<b> Culori tab </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:52
+msgid "Automatically switch to newly opened person chats"
+msgstr "Comută automat la discuțiile de persoană deschise recent"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:53
+msgid "Automatically switch to newly opened group chats"
+msgstr "Comută automat la discuțiile de grup deschise recent"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:54
+msgid "Tree"
+msgstr "Arbore"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
+msgid "Completion Character:"
+msgstr "Caracter de completare:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:56
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
+msgid "Command Character:"
+msgstr "Caracter de comandă:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:57
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
+msgid "Command History Size:"
+msgstr "Dimensiunea istoricului de comandă:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
+msgid "Bash-Style Completion"
+msgstr "Completare în stil Bash"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:59
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
+msgid "<b> Entry Field </b>"
+msgstr "<b> Câmp intrare </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:60
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
+msgid "Input"
+msgstr "Intrare"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
+msgid "Nick Colors"
+msgstr "Culori pseudonim"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:62
+msgid "<b> Person List Position </b>"
+msgstr "<b> Poziția în lista de persoane </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:63
+msgid "Override"
+msgstr "Suprascrie"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:64
+msgid "<b> Font </b>"
+msgstr "<b> Font </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:65
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
+msgid "<b> Topic Position </b>"
+msgstr "<b> Poziție subiect </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:66
+msgid "Foreground"
+msgstr "Prim plan"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:67
+msgid "Background"
+msgstr "Plan secund"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:68
+msgid "<b> Color </b>"
+msgstr "<b> Culoare </b>"
+
+#. This is a setting for character based line wrapping vs word based when showing messages
+#: ../glade/smuxi-frontend-gnome.glade.h:70
+msgid "_Wrap Mode:"
+msgstr "Mod de î_ncadrare:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:71
+msgid "<b> Chat </b>"
+msgstr "<b> Discuție </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:72
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
+msgid "Highlight words:"
+msgstr "Evidențiază cuvintele:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
+msgid "Beep on highlight"
+msgstr "Bip la evidențiere"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:74
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
+msgid "<b> Highlighting </b>"
+msgstr "<b> Evidențiere </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:75
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
+msgid "Output"
+msgstr "Rezultat"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:76
+msgid "Enable"
+msgstr "Activează"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:77
+msgid "Show always"
+msgstr "Arată întotdeauna"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:78
+msgid "Show when window is minimized"
+msgstr "Arată când fereastra este minimizată"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:79
+msgid "Show when window is closed"
+msgstr "Arată când fereastra este închisă"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:80
+msgid "<b> Notification Area Icon </b>"
+msgstr "<b> Iconiță zonă de notificare </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:81
+msgid "Show Smuxi in the messaging menu"
+msgstr "Arată Smuxi în meniul de mesagerie"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:82
+msgid "<b>Messaging Menu</b>"
+msgstr "<b>Meniu de mesagerie</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:83
+msgid "Show notification popups"
+msgstr "Afișează meniurile contextuale de notificare"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:84
+msgid "<b>Notification Popups</b>"
+msgstr "<b>Meniuri contextuale de notificare</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:85
+msgid "Notification"
+msgstr "Notificare"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:86
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
+msgid "_Interface"
+msgstr "_Interfață"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
+msgid "_Servers"
+msgstr "_Servere"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:88
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
+msgid "_Filters"
+msgstr "_Filtre"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:89
+msgid "Enabled"
+msgstr "Activat"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:90
+msgid "Log Filtered Messages"
+msgstr "Adaugă la istoric mesajele filtrate"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:91
+msgid "_Logging"
+msgstr "Juna_lizare"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
+msgid "Smuxi"
+msgstr "Smuxi"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:2
+msgid "IRC Chat"
+msgstr "Discuție IRC"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:3
+msgid "Smuxi IRC Client"
+msgstr "Client IRC Smuxi"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:4
+msgid "Chat with other people on IRC"
+msgstr "Discutați cu alte persoane pe IRC"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:5
+msgid ""
+"chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;"
+"jabbr;"
+msgstr ""
+"chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;"
+"jabbr;discuție;mesagerie;"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:2
+msgid "Chat with other people on IRC, Twitter, Jabber and Campfire"
+msgstr "Discutați cu alte persoane pe IRC, Twitter, Jabber și Campfire"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:3
+msgid ""
+"Smuxi is an open-source, distributed and user-friendly chat client for IRC, "
+"Twitter, Jabber/XMPP, Campfire and SignalR's JabbR."
+msgstr ""
+"Smuxi este un client de discuție cu sursă deschisă, distribuit și ușor de "
+"utilizat pentru IRC, Twitter, Jabber/XMPP, Campfire și JabbR de SignalR."
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:4
+msgid ""
+"Inspired by the combination of screen and irssi, Smuxi has a detachable "
+"server (or like a \"normal\" client) that stays connected when you aren't, "
+"and can allow multiple Smuxi frontends to be connected and in sync. This is "
+"similar to screen+irssi or IRC bouncers, but more elegant and powerful."
+msgstr ""
+"Inspirat de combinația de ecran și irssi, Smuxi are un server detașabil (sau "
+"ca un client „normal”) care rămâne conectat când nu sunteți conectat, și "
+"poate permite interfețe Smuxi multiple să fie conectate și sincronizate. "
+"Aceasta este similară cu salturile ecran+irssi sau IRC, dar mai elegant și "
+"mai puternic."
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:5
+msgid "The main window showing an IRC channel"
+msgstr "Fereastra principală care arată un canal de IRC"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:70
+msgid "translator-credits"
+msgstr "Florentina Mușat <florentina.musat.28@gmail.com>, 2018"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:83
+msgid "Smuxi Website"
+msgstr "Pagină web Smuxi"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:46
+msgid "Oops, I did it again..."
+msgstr "S-a întâmplat din nou..."
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:59
+msgid "Smuxi crashed because an unhandled exception was thrown!"
+msgstr "Smuxi a căzut pentru că a fost aruncată o excepție negestionată!"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:63
+msgid "Here is the stacktrace, please report this bug!"
+msgstr "Aici este urma de stivă, raportați această defecțiune!"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:83
+msgid "_Report Bug"
+msgstr "_Raportează defecțiune"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:61
+msgid "Engine not found."
+msgstr "Nu s-a găsit motorul."
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:77
+msgid "Engine Manager"
+msgstr "Administrator de motor"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:96
+msgid "Select which Smuxi engine you want to connect to"
+msgstr "Selectați la care motor Smuxi doriți să vă conectați"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:102
+msgid "Engine:"
+msgstr "Motor:"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:113
+msgid "Use Low Bandwidth Mode"
+msgstr "Utilizează modul de lățime de bandă scăzută"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:137
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:197
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:382
+msgid "Local Engine"
+msgstr "Motor local"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:189
+msgid "Please select an engine!"
+msgstr "Selectați un motor!"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:212
+#, csharp-format
+msgid ""
+"Your frontend is not compatible with the engine!\n"
+"Engine Version: {0} Frontend Version: {1}\n"
+"Engine Protocol: {2} Frontend Protocol: {3}"
+msgstr ""
+"Interfața nu este compatibilă cu motorul!\n"
+"Versiune de motor: {0} Versiune de interfață: {1}\n"
+"Protocol de motor: {2} Protocol de interfață: {3}"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:245
+msgid "An error occurred while connecting to the engine!"
+msgstr "A apărut o eroare în timpul conectării la motor!"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:246
+#, csharp-format
+msgid "Engine URL: {0}"
+msgstr "URL motor: {0}"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:249
+#, csharp-format
+msgid "Error: {0}"
+msgstr "Eroare: {0}"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:319
+#, csharp-format
+msgid "Are you sure you want to delete the engine \"{0}\"?"
+msgstr "Sigur doriți să ștergeți motorul „{0}”?"
+
+#: ../src/Frontend-GNOME/Entry.cs:492
+#, csharp-format
+msgid "You are going to paste {0} lines. Do you want to continue?"
+msgstr "Veți lipi {0} linii. Doriți să continuați?"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Frontend-GNOME/Entry.cs:609
+msgid "Frontend Commands"
+msgstr "Comenzi de interfață"
+
+#: ../src/Frontend-GNOME/Main.cs:49
+msgid "Enable debug output"
+msgstr "Activează rezultatul depanării"
+
+#: ../src/Frontend-GNOME/Main.cs:56
+msgid "Show this help"
+msgstr "Afișează acest ajutor"
+
+#: ../src/Frontend-GNOME/Main.cs:60
+msgid "Options:"
+msgstr "Opțiuni:"
+
+#: ../src/Frontend-GNOME/Main.cs:67
+msgid "Connect to engine"
+msgstr "Conectează la motor"
+
+#: ../src/Frontend-GNOME/Main.cs:74
+msgid "Opens the specified link in Smuxi"
+msgstr "Deschide legătura specificată în Smuxi"
+
+#: ../src/Frontend-GNOME/Main.cs:81
+msgid "Starts a new Smuxi instance and ignores an existing one"
+msgstr "Începe o instanță Smuxi nouă și ignoră una existentă"
+
+#: ../src/Frontend-GNOME/Main.cs:109
+msgid "Passing link to already running Smuxi instance..."
+msgstr "Se transmite legătura la instanța Smuxi care rulează deja..."
+
+#: ../src/Frontend-GNOME/Main.cs:117
+msgid "Bringing already running Smuxi instance to foreground..."
+msgstr "Se aduce instanța Smuxi care rulează deja în prim plan..."
+
+#: ../src/Frontend-GNOME/MainWindow.cs:374
+#, csharp-format
+msgid "{0} Users"
+msgstr "{0} utilizatori"
+
+#: ../src/Frontend-GNOME/NotImplementedMessageDialog.cs:40
+msgid "Sorry, not implemented yet!"
+msgstr "Nu este implementat încă!"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:103
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:293
+msgid "Name"
+msgstr "Nume"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:86
+msgid "Topic"
+msgstr "Subiect"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:115
+msgid ""
+"Searching for group chats without a filter is not recommended.  This may "
+"take a while, or may not work at all.\n"
+"Do you wish to continue?"
+msgstr ""
+"Căutarea pentru discuții de grup fără un filtru nu este recomandată.  "
+"Aceasta poate să dureze o vreme, sau poate să nu funcționeze deloc.\n"
+"Doriți să continuați?"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:156
+msgid "Error while fetching the list of group chats from the server."
+msgstr "Eroare la aducerea listei de discuții de grup de pe server."
+
+#: ../src/Frontend-GNOME/Frontend.cs:390
+msgid "Disconnected from engine."
+msgstr "Deconectat de la motor."
+
+#: ../src/Frontend-GNOME/Frontend.cs:433
+#, csharp-format
+msgid "Reconnecting to engine... (attempt {0})"
+msgstr "Se reconectează la motor... (încercarea {0})"
+
+#: ../src/Frontend-GNOME/Frontend.cs:546
+#, csharp-format
+msgid "Cause: {0}"
+msgstr "Cauză: {0}"
+
+#: ../src/Frontend-GNOME/Frontend.cs:638
+msgid ""
+"A fatal error has been detected because of a protocol incompatibility with "
+"the smuxi-server!\n"
+"\n"
+"Please install Mono on the frontend side so it matches the smuxi-server.\n"
+"\n"
+"More details about this issue can be found here:\n"
+"https://smuxi.im/issues/show/589"
+msgstr ""
+"S-a detectat o eroare fatală din cauza unei incompatibilități de protocol cu "
+"smuxi-server!\n"
+"\n"
+"Instalați Mono pe partea de interfață pentru a se potrivi cu smuxi-server.\n"
+"\n"
+"Mai multe detalii despre această problemă pot fi găsite aici:\n"
+"https://smuxi.im/issues/show/589"
+
+#: ../src/Frontend-GNOME/Frontend.cs:705
+msgid ""
+"The frontend has lost the connection to the server.\n"
+"Do you want to reconnect now?"
+msgstr ""
+"Interfața a pierdut conexiunea la server.\n"
+"Sigur doriți să faceți asta?"
+
+#: ../src/Frontend-GNOME/Frontend.cs:724
+msgid ""
+"Reconnecting to the server has failed.\n"
+"Do you want to try again?"
+msgstr ""
+"Reconectarea la server a eșuat.\n"
+"Doriți să încercați din nou?"
+
+#: ../src/Frontend-GNOME/Frontend.cs:1038
+msgid ""
+"The server has lost the connection to the frontend.\n"
+"Do you want to reconnect now?"
+msgstr ""
+"Serverul a pierdut conexiunea la interfață.\n"
+"Doriți să reconectați acum?"
+
+#: ../src/Frontend-GNOME/NotifyManager.cs:338
+msgid "Show"
+msgstr "Arată"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:58
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:235
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:79
+msgid "Protocol"
+msgstr "Protocol"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:59
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:80
+msgid "Hostname"
+msgstr "Nume gazdă"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:162
+msgid "Unable to load server: "
+msgstr "Nu s-a putut încărca serverul: "
+
+#: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:267
+msgid "Person / Private"
+msgstr "Persoană / privat"
+
+#: ../src/Frontend-GNOME/ChatTypeWidget.cs:55
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:268
+msgid "Group / Public"
+msgstr "Grup / public"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:67
+msgid "Engine Assistant - Smuxi"
+msgstr "Asistent de motor - Smuxi"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:90
+msgid "Add Smuxi Engine"
+msgstr "Adaugă motor Smuxi"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:92
+msgid "Edit Smuxi Engine"
+msgstr "Editează motor Smuxi"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:137
+msgid "Connection"
+msgstr "Conexiune"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:201
+msgid "Credentials"
+msgstr "Certificări"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:303
+msgid "Now you can use the Smuxi Engine"
+msgstr "Acum puteți utiliza motorul Smuxi"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:306
+msgid "Thank you"
+msgstr "Mulțumesc"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:323
+msgid ""
+"An engine with this name already exists! Please specify a different one."
+msgstr "Un motor cu acest nume există deja! Specificați unul diferit."
+
+#: ../src/Frontend-GNOME/Views/JoinWidget.cs:89
+msgid "Enter which chat to join"
+msgstr "Introduceți la care discuție se alătură"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
+msgid "About Smuxi"
+msgstr "Despre Smuxi"
+
+#. TODO: add cmd+, accelerator
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
+msgid "Preferences"
+msgstr "Preferințe"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:266
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:240
+msgid "Unable to add server: "
+msgstr "Nu s-a putut adăuga serverul: "
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:391
+msgid ""
+"Switching to local engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr ""
+"Comutarea la motorul local va deconecta motorul curent!\n"
+"Sigur doriți să faceți asta?"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:435
+msgid ""
+"Switching the remote engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr ""
+"Comutarea motorului la distanță va deconecta motorul curent!\n"
+"Sigur doriți să faceți asta?"
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:443
+#, csharp-format
+msgid "Day changed from {0} to {1}"
+msgstr "Ziua s-a modificat de la {0} la {1}"
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:447
+#, csharp-format
+msgid "Day changed to {0}"
+msgstr "Ziua s-a modificat la {0}"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:120
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:130
+#, csharp-format
+msgid "Invalid filter regex: '{0}'. Reason: {1}"
+msgstr "Expresie regulară de filtru nevalidă: „{0}”. Motivul: {1}"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:199
+msgid "Are you sure you want to delete the selected filter?"
+msgstr "Sigur doriți să ștergeți filtrul selectat?"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:251
+msgid "Network"
+msgstr "Rețea"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:269
+msgid "Protocol / Server"
+msgstr "Protocol / server"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:276
+msgid "Chat Type"
+msgstr "Tip de discuție"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:309
+msgid "Normal"
+msgstr "Normal"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:310
+msgid "Event"
+msgstr "Eveniment"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:317
+msgid "Type"
+msgstr "Tip"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:342
+msgid "Pattern"
+msgstr "Mostră"
+
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:224
+msgid "No Proxy"
+msgstr "Niciun proxy"
+
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:226
+msgid "System Default"
+msgstr "Implicit de sistem"
+
+#: ../src/Frontend-GNOME/Views/ServerDialog.cs:64
+msgid "Save"
+msgstr "Salvează"
+
+#: ../src/Frontend-GNOME/Views/ServerDialog.cs:72
+msgid "Add"
+msgstr "Adaugă"
+
+#: ../src/Frontend-GNOME/Views/ServerWidget.cs:81
+msgid "Unsupported"
+msgstr "Nesuportat"
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:562
+msgid "Low Bandwidth Mode is active: no messages synced."
+msgstr "Modul lățime de bandă scăzută este activ: nu sunt mesaje sincronizate."
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:864
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
+msgid "Show _Menubar"
+msgstr "Arată bara de _meniu"
+
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:321
+#, csharp-format
+msgid "Retrieving user list for {0}..."
+msgstr "Se obține lista de utilizatori pentru {0}..."
+
+#. TRANSLATOR: this string will be appended to the one above
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:337
+msgid "done."
+msgstr "gata."
+
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:130
+msgid "Reconnect"
+msgstr "Reconectează"
+
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:177
+msgid ""
+"Closing the protocol chat will also close all open chats connected to it!\n"
+"Are you sure you want to do this?"
+msgstr ""
+"Închiderea discuției de protocol va închide și toate discuțiile deschise "
+"conectate la aceasta!\n"
+"Sigur doriți să faceți asta?"
+
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:202
+msgid "Are you sure you want to delete the selected server?"
+msgstr "Sigur doriți să ștergeți serverul selectat?"
+
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:258
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:292
+msgid "Unable to edit server: "
+msgstr "Nu se poate edita serverul: "
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:24
+msgid "Find"
+msgstr "Caută"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:44
+msgid "_Search for:"
+msgstr "_Caută după:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:73
+msgid "_Match Case"
+msgstr "Potrivește la _majuscule semnificative"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:85
+msgid "Search _Backwards"
+msgstr "Caută î_napoi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:97
+msgid "_Wrap Around"
+msgstr "Î_ncadrează în jurul"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:110
+msgid "Use _Regular Expressions"
+msgstr "Utilizează expresii _regulate"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:23
+msgid "Smuxi - Find Group Chat"
+msgstr "Smuxi - caută discuția de grup"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:73
+msgid "_Name:"
+msgstr "_Nume:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs:69
+msgid "Join"
+msgstr "Alăturare"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:56
+msgid "_Smuxi"
+msgstr "_Smuxi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:59
+msgid "_Server"
+msgstr "_Server"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:62
+msgid "_Chat"
+msgstr "Dis_cuție"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:64
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:65
+msgid "_Engine"
+msgstr "_Motor"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:67
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:68
+msgid "_View"
+msgstr "_Vizualizare"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:70
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:71
+msgid "_Help"
+msgstr "_Ajutor"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:75
+msgid "Connect"
+msgstr "Conectează"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:77
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:79
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
+msgid "Open Log"
+msgstr "Deschide istoricul"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:88
+msgid "_Preferences"
+msgstr "_Preferințe"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:90
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:91
+msgid "_Quit"
+msgstr "_Ieșire"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
+msgid "_Connect"
+msgstr "_Conectează"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:96
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:97
+msgid "_Add"
+msgstr "_Adaugă"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:99
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
+msgid "_Manage"
+msgstr "Ad_ministrează"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:102
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
+msgid "_Open / Join Chat"
+msgstr "_Deschide / Alăturare la discuție"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:105
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
+msgid "_Find Group Chat"
+msgstr "_Caută discuția de grup"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:108
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:109
+msgid "C_lear All Activity"
+msgstr "_Curăță toată activitatea"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:111
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:112
+msgid "_Next Chat"
+msgstr "Discuția _următoare"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:114
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:115
+msgid "_Previous Chat"
+msgstr "Discuția _anterioară"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
+msgid "_Close"
+msgstr "În_chide"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
+msgid "_Use Local Engine"
+msgstr "_Utilizează motor local"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:123
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:124
+msgid "_Add Remote Engine"
+msgstr "_Adaugă motor la distanță"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
+msgid "Switch Remote Engine"
+msgstr "Comută motorul la distanță"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
+msgid "_Caret Mode"
+msgstr "Modul _caret"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:132
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:133
+msgid "_Browse Mode"
+msgstr "Modul _navigare"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
+msgid "Show _Statusbar"
+msgstr "Arată bara de _stare"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
+msgid "_Fullscreen"
+msgstr "_Mod ecran complet"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
+msgid "_About"
+msgstr "_Despre"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:150
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:152
+msgid "Find Group Chat"
+msgstr "Caută discuția de grup"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:154
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:155
+msgid "_Website"
+msgstr "Pagină _web"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:158
+msgid "Show _Toolbar"
+msgstr "Arată bara de unel_te"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
+msgid "Smuxi - Connect"
+msgstr "Smuxi - conectează"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:206
+msgid "Smuxi - Preferences"
+msgstr "Smuxi - preferințe"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
+msgid "Nicknames:"
+msgstr "Pseudonime:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
+msgid "Tabs"
+msgstr "Taburi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
+msgid "<b> User List Position </b>"
+msgstr "<b> Poziția în listă a utilizatorului </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1441
+msgid "<b> Channel </b>"
+msgstr "<b> Canal </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1652
+msgid "<b>Channel Filters</b>"
+msgstr "<b>Filtre canal</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1669
+msgid "<b>User Filters</b>"
+msgstr "<b>Filtre utilizator</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:42
+msgid "Use _SSH Tunnel"
+msgstr "Utilizează tunel _SSH"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:56
+msgid ""
+"<span size=\"small\">Enables the use of SSH for the connection.  This has a "
+"small performance impact, but is more secure and required when using NAT or "
+"port-based firewalls</span>"
+msgstr ""
+"<span size=\"small\">Activează utilizarea de SSH pentru conexiune.  Aceasta "
+"are un impact mic de performanță, dar este mai sigur și necesar când se "
+"utilizează firewall-uri bazate pe NAT sau port</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
+msgid "SSH _Host:"
+msgstr "_Gazdă SSH:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:146
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgstr "<span size=\"small\">Adresa DNS sau IP și portul serverului SSH</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:159
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:183
+msgid "_Port:"
+msgstr "_Port:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:186
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgstr ""
+"<span size=\"small\">Adresa DNS sau IP și portul serverului Smuxi</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:199
+msgid "_Smuxi Host:"
+msgstr "Gazdă _Smuxi:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:54
+msgid "_SSH Username: (optional)"
+msgstr "Nume de utilizator _SSH: (opțional)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:77
+msgid ""
+"<span size=\"small\">Username which will be used to log into the SSH server</"
+"span>"
+msgstr ""
+"<span size=\"small\">Numele de utilizator care va fi utilizat pentru "
+"autentificarea la serverul SSH</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:97
+msgid "_SSH Password: (optional)"
+msgstr "Parolă _SSH: (opțional)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:121
+msgid ""
+"<span size=\"small\">Password which will be used to log into the SSH server. "
+"The password is optional if SSH key authorization is used (see below).</span>"
+msgstr ""
+"<span size=\"small\">Parola care va fi utilizată la autentificarea la "
+"serverul SSH. Parola este opțională dacă este utilizată autorizarea de cheie "
+"SSH (consultați mai jos).</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:142
+msgid "_SSH Keyfile: (optional)"
+msgstr "Fișier de cheie _SSH: (opțional)"
+
+#. Container child vbox17.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:150
+msgid "Select a File"
+msgstr "Selectați un fișier"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:163
+msgid ""
+"<span size=\"small\">SSH private keyfile which will be used to log into the "
+"SSH server</span>"
+msgstr ""
+"<span size=\"small\">Fișier de cheie privată SSH care va fi utilizată pentru "
+"autentificarea la serverul SSH</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:183
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:242
+msgid "_Username:"
+msgstr "N_ume de utilizator:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:206
+msgid ""
+"<span size=\"small\">Username which will be used to log into the Smuxi "
+"server</span>"
+msgstr ""
+"<span size=\"small\">Numele de utilizator care va fi utilizat pentru "
+"autentificarea la serverul Smuxi</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:226
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:116
+msgid "_Password:"
+msgstr "_Parolă:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:250
+msgid "<span size=\"small\">Password of the user</span>"
+msgstr "<span size=\"small\">Parola utilizatorului</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:270
+msgid "_Verify Password:"
+msgstr "_Verifică parola:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:294
+msgid "<span size=\"small\">Repeat the password for verification</span>"
+msgstr "<span size=\"small\">Repetați parola pentru verificare</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs:19
+msgid ""
+"Welcome to the Smuxi Engine Configuration Assistant.\n"
+"You need to enter some information before you can use the engine.\n"
+"\n"
+"Click \"Forward\" to begin."
+msgstr ""
+"Bine ați venit la asistentul de configurare de motor Smuxi.\n"
+"Trebuie să introduceți câteva informații înainte de a putea să utilizați "
+"motorul.\n"
+"\n"
+"Apăsați clic pe „Înainte” pentru a începe."
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
+msgid "_Engine Name:"
+msgstr "Num_e motor:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:59
+msgid "<span size=\"small\">Profile name of the new engine</span>"
+msgstr "<span size=\"small\">Numele de profil pentru motorul nou</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:80
+msgid "_Default Engine:"
+msgstr "_Motor implicit:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:91
+msgid "Use as new default engine"
+msgstr "Utilizează ca motor implicit nou"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:104
+msgid ""
+"<span size=\"small\">If enabled, the current engine will be the default next "
+"time Smuxi is started</span>"
+msgstr ""
+"<span size=\"small\">Dacă este activat, motorul curent va fi implicit pentru "
+"data următoare când Smuxi este pornit</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
+msgid "Smuxi - Open Chat"
+msgstr "Smuxi - deschide discuție"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:63
+msgid "_Type:"
+msgstr "_Tip:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
+msgid "Smuxi - Server"
+msgstr "Smuxi - server"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:58
+msgid "_Hostname:"
+msgstr "Nume de _gazdă:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:79
+msgid "_Network:"
+msgstr "_Rețea:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:105
+msgid "Nickname:"
+msgstr "Pseudonim:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:252
+msgid "_Protocol:"
+msgstr "_Protocol:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
+msgid "Automatically connect to server at startup"
+msgstr "Conectează automat la server la lansare"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:276
+msgid "Use Encryption"
+msgstr "Utilizează criptarea"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:288
+msgid "Validate Server Certificate"
+msgstr "Validează certificatul serverului"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:308
+msgid "_On Connect Commands:"
+msgstr "Comenzi la c_onectare:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
+msgid "_Ignore Commands"
+msgstr "Comenzile de _ignorare"
