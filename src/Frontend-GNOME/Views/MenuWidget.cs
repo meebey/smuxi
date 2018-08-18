@@ -112,6 +112,12 @@ namespace Smuxi.Frontend.Gnome
             f_OpenLogToolAction.IconName = Gtk.Stock.Open;
             f_FindGroupChatToolAction.IconName = Gtk.Stock.Find;
 
+            // disable the open log buttons initially as they will only be
+            // enabled for chats that have a log file in
+            // MainWindow.OnNotebookSwitchPage()
+            f_OpenLogAction.Sensitive = false;
+            f_OpenLogToolAction.Sensitive = false;
+
             f_MenuToolbar.ShowAll();
             f_MenuToolbar.NoShowAll = true;
             f_MenuToolbar.Visible = (bool) Frontend.FrontendConfig["ShowToolBar"];
