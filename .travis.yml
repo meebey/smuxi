@@ -6,7 +6,7 @@ before_install:
 
 mono:
     - latest
-    - 4.6.1
+    - 4.6.2
     - 4.2.3
     - 4.2.1
     - 4.0.0
