@@ -112,6 +112,12 @@ namespace Smuxi.Frontend.Gnome
             f_OpenLogToolAction.IconName = Gtk.Stock.Open;
             f_FindGroupChatToolAction.IconName = Gtk.Stock.Find;
 
+            // disable the open log buttons initially as they will only be
+            // enabled for chats that have a log file in
+            // MainWindow.OnNotebookSwitchPage()
+            f_OpenLogAction.Sensitive = false;
+            f_OpenLogToolAction.Sensitive = false;
+
             f_MenuToolbar.ShowAll();
             f_MenuToolbar.NoShowAll = true;
             f_MenuToolbar.Visible = (bool) Frontend.FrontendConfig["ShowToolBar"];
@@ -136,27 +142,31 @@ namespace Smuxi.Frontend.Gnome
             f_ShowStatusbarAction.Active = (bool) Frontend.FrontendConfig["ShowStatusBar"];
 
             if (Frontend.IsMacOSX) {
-                // Smuxi menu is already shown as app menu
-                f_SmuxiAction.Visible = false;
-                // About item is already shown in app menu
-                f_AboutAction.Visible = false;
+                try {
+                    IgeMacMenu.GlobalKeyHandlerEnabled = true;
+                    IgeMacMenu.MenuBar = f_MenuBar;
+                    f_ShowMenubarAction.Active = false;
+                    // no need for the menu bar as have the app menu
+                    f_ShowMenubarAction.Visible = false;
 
-                IgeMacMenu.GlobalKeyHandlerEnabled = true;
-                IgeMacMenu.MenuBar = f_MenuBar;
-                f_ShowMenubarAction.Active = false;
-                // no need for the menu bar as have the app menu
-                f_ShowMenubarAction.Visible = false;
+                    var appGroup = IgeMacMenu.AddAppMenuGroup();
+                    appGroup.AddMenuItem(
+                        (Gtk.MenuItem) f_AboutAction.CreateMenuItem(),
+                        _("About Smuxi")
+                    );
+                    var prefItem = (Gtk.MenuItem) f_PreferencesAction.CreateMenuItem();
+                    // TODO: add cmd+, accelerator
+                    appGroup.AddMenuItem(prefItem, _("Preferences"));
+                    IgeMacMenu.QuitMenuItem = (Gtk.MenuItem)
+                        f_QuitAction.CreateMenuItem();
 
-                var appGroup = IgeMacMenu.AddAppMenuGroup();
-                appGroup.AddMenuItem(
-                    (Gtk.MenuItem) f_AboutAction.CreateMenuItem(),
-                    _("About Smuxi")
-                );
-                var prefItem = (Gtk.MenuItem) f_PreferencesAction.CreateMenuItem();
-                // TODO: add cmd+, accelerator
-                appGroup.AddMenuItem(prefItem, _("Preferences"));
-                IgeMacMenu.QuitMenuItem = (Gtk.MenuItem)
-                    f_QuitAction.CreateMenuItem();
+                    // Smuxi menu is already shown as app menu
+                    f_SmuxiAction.Visible = false;
+                    // About item is already shown in app menu
+                    f_AboutAction.Visible = false;
+                } catch (EntryPointNotFoundException ex) {
+                    f_Logger.Error("Failed to initialize mac menu integration, disabling mac menu integration", ex);
+                }
             }
         }
 

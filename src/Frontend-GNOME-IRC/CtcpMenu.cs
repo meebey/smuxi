@@ -103,6 +103,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
+            var sourceChatModel = ChatViewManager.ActiveChat.ChatModel;
             foreach (PersonModel target in Targets) {
                 var targetId = target.ID;
                 ThreadPool.QueueUserWorkItem(delegate {
@@ -110,7 +111,7 @@ namespace Smuxi.Frontend.Gnome
                         ProtocolManager.CommandPing(
                             new CommandModel(
                                 Frontend.FrontendManager,
-                                ChatViewManager.ActiveChat.ChatModel,
+                                sourceChatModel,
                                 targetId
                             )
                         );
@@ -125,6 +126,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
+            var sourceChatModel = ChatViewManager.ActiveChat.ChatModel;
             foreach (PersonModel target in Targets) {
                 var targetId = target.ID;
                 ThreadPool.QueueUserWorkItem(delegate {
@@ -132,7 +134,7 @@ namespace Smuxi.Frontend.Gnome
                         ProtocolManager.CommandVersion(
                             new CommandModel(
                                 Frontend.FrontendManager,
-                                ChatViewManager.ActiveChat.ChatModel,
+                                sourceChatModel,
                                 targetId
                             )
                         );
@@ -147,6 +149,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
+            var sourceChatModel = ChatViewManager.ActiveChat.ChatModel;
             foreach (PersonModel target in Targets) {
                 var targetId = target.ID;
                 ThreadPool.QueueUserWorkItem(delegate {
@@ -154,7 +157,7 @@ namespace Smuxi.Frontend.Gnome
                         ProtocolManager.CommandTime(
                             new CommandModel(
                                 Frontend.FrontendManager,
-                                ChatViewManager.ActiveChat.ChatModel,
+                                sourceChatModel,
                                 targetId
                             )
                         );
@@ -169,6 +172,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
+            var sourceChatModel = ChatViewManager.ActiveChat.ChatModel;
             foreach (PersonModel target in Targets) {
                 var targetId = target.ID;
                 ThreadPool.QueueUserWorkItem(delegate {
@@ -176,7 +180,7 @@ namespace Smuxi.Frontend.Gnome
                         ProtocolManager.CommandFinger(
                             new CommandModel(
                                 Frontend.FrontendManager,
-                                ChatViewManager.ActiveChat.ChatModel,
+                                sourceChatModel,
                                 targetId
                             )
                         );
@@ -191,6 +195,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
+            var sourceChatModel = ChatViewManager.ActiveChat.ChatModel;
             foreach (PersonModel target in Targets) {
                 var targetId = target.ID;
                 ThreadPool.QueueUserWorkItem(delegate {
@@ -198,7 +203,7 @@ namespace Smuxi.Frontend.Gnome
                         ProtocolManager.CommandCtcp(
                             new CommandModel(
                                 Frontend.FrontendManager,
-                                ChatViewManager.ActiveChat.ChatModel,
+                                sourceChatModel,
                                 String.Format("{0} {1}", targetId, "USERINFO")
                             )
                         );
