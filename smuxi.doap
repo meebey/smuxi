@@ -46,8 +46,8 @@
   <!-- Version Control -->
   <repository>
     <GitRepository>
-      <browse rdf:resource="http://git.gnome.org/cgit/smuxi" />
-      <location rdf:resource="git://git.gnome.org/smuxi" />
+      <browse rdf:resource="https://gitlab.gnome.org/GNOME/smuxi" />
+      <location rdf:resource="https://gitlab.gnome.org/GNOME/smuxi.git" />
     </GitRepository>
   </repository>
 </Project>
