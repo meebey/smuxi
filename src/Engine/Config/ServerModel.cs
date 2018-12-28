@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007, 2010, 2012-2014, 2017 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010, 2012-2014, 2017-2018 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -161,7 +161,7 @@ namespace Smuxi.Engine
             // HACK: skip ClientCertificateFilename if it has no value as it
             // breaks older ServerModel implementations that relied on automatic
             // serialization which was the case in < 0.8.11
-            if (String.IsNullOrEmpty(ClientCertificateFilename)) {
+            if (!String.IsNullOrEmpty(ClientCertificateFilename)) {
                 info.AddValue("ClientCertificateFilename", ClientCertificateFilename);
             }
             info.AddValue("_Protocol", Protocol);
