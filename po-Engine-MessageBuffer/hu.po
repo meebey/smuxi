@@ -1,15 +1,15 @@
 # Hungarian translation for smuxi.
-# Copyright (C) 2015 Free Software Foundation, Inc.
+# Copyright (C) 2015, 2018 Free Software Foundation, Inc.
 # This file is distributed under the same license as the smuxi package.
 #
-# Balázs Úr <urbalazs@gmail.com>, 2015.
+# Balázs Úr <urbalazs@gmail.com>, 2015, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-17 11:44+0000\n"
-"PO-Revision-Date: 2015-07-17 19:16+0200\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-11-04 05:45+0000\n"
+"PO-Revision-Date: 2018-01-27 09:59+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at gmail dot com>\n"
 "Language: hu\n"
@@ -24,102 +24,112 @@ msgid "Enable debug output"
 msgstr "Hibakeresési kimenet engedélyezése"
 
 #: ../src/Engine-MessageBuffer/Main.cs:55
-#: ../src/Engine-MessageBuffer/Main.cs:131
-#: ../src/Engine-MessageBuffer/Main.cs:195
+#: ../src/Engine-MessageBuffer/Main.cs:141
+#: ../src/Engine-MessageBuffer/Main.cs:205
 msgid "Show this help"
 msgstr "Ezen súgó megjelenítése"
 
-#: ../src/Engine-MessageBuffer/Main.cs:57
-msgid "Usage: smuxi-message-buffer [options] action action-options"
-msgstr "Használat: smuxi-message-buffer [kapcsolók] művelet művelet-kapcsolók"
-
-#: ../src/Engine-MessageBuffer/Main.cs:59
-msgid "Actions:"
-msgstr "Műveletek:"
-
-#: ../src/Engine-MessageBuffer/Main.cs:63
-#: ../src/Engine-MessageBuffer/Main.cs:142
-#: ../src/Engine-MessageBuffer/Main.cs:207
-msgid "Options:"
-msgstr "Kapcsolók:"
-
-#: ../src/Engine-MessageBuffer/Main.cs:90
+#: ../src/Engine-MessageBuffer/Main.cs:88
 #, csharp-format
 msgid "Unknown action: '{0}'"
 msgstr "Ismeretlen művelet: „{0}”"
 
-#: ../src/Engine-MessageBuffer/Main.cs:97
+#: ../src/Engine-MessageBuffer/Main.cs:95
 #, csharp-format
 msgid "Command line error: {0}"
 msgstr "Parancssori hiba: {0}"
 
-#: ../src/Engine-MessageBuffer/Main.cs:109
+#: ../src/Engine-MessageBuffer/Main.cs:104
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr "Használat: smuxi-message-buffer [kapcsolók] művelet művelet-kapcsolók"
+
+#: ../src/Engine-MessageBuffer/Main.cs:106
+msgid "Actions:"
+msgstr "Műveletek:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:110
+#: ../src/Engine-MessageBuffer/Main.cs:152
+#: ../src/Engine-MessageBuffer/Main.cs:217
+msgid "Options:"
+msgstr "Kapcsolók:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:119
 msgid "Database format (valid values: auto, db4o, sqlite)"
 msgstr "Adatbázis-formátum (érvényes értékek: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:124
-#: ../src/Engine-MessageBuffer/Main.cs:188
+#: ../src/Engine-MessageBuffer/Main.cs:134
+#: ../src/Engine-MessageBuffer/Main.cs:198
 #, csharp-format
 msgid "Unknown {0} option: '{1}'"
 msgstr "Ismeretlen {0} kapcsoló: „{1}”"
 
-#: ../src/Engine-MessageBuffer/Main.cs:135
+#: ../src/Engine-MessageBuffer/Main.cs:145
 #, csharp-format
 msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
 msgstr ""
 "Használat: smuxi-message-buffer {0} [művelet-kapcsolók] adatbázis_útvonal"
 
-#: ../src/Engine-MessageBuffer/Main.cs:140
-msgid "Database path"
-msgstr "Adatbázis útvonala"
+#: ../src/Engine-MessageBuffer/Main.cs:150
+#| msgid "Database path"
+msgid "Database path(s)"
+msgstr "Adatbázis útvonalai"
 
-#: ../src/Engine-MessageBuffer/Main.cs:151
+#: ../src/Engine-MessageBuffer/Main.cs:161
 msgid "db_path is required"
 msgstr "Az adatbázis_útvonal kötelező"
 
-#: ../src/Engine-MessageBuffer/Main.cs:165
+#: ../src/Engine-MessageBuffer/Main.cs:175
 msgid "Source format (valid values: auto, db4o, sqlite)"
 msgstr "Forrásformátum (érvényes értékek: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:173
+#: ../src/Engine-MessageBuffer/Main.cs:183
 msgid "Destination format (valid values: auto, db4o, sqlite)"
 msgstr "Célformátum (érvényes értékek: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:199
+#: ../src/Engine-MessageBuffer/Main.cs:209
 #, csharp-format
+#| msgid ""
+#| "Usage: smuxi-message-buffer {0} [action-options] source_db destination_db"
 msgid ""
-"Usage: smuxi-message-buffer {0} [action-options] source_db destination_db"
+"Usage: smuxi-message-buffer {0} [action-options] source_db(s)... "
+"destination_db"
 msgstr ""
-"Használat: smuxi-message-buffer {0} [művelet-kapcsolók] forrás_adatbázis "
+"Használat: smuxi-message-buffer {0} [művelet-kapcsolók] forrás_adatbázisok... "
 "cél_adatbázis"
 
-#: ../src/Engine-MessageBuffer/Main.cs:204
-msgid "Source file path"
-msgstr "Forrásfájl útvonala"
+#: ../src/Engine-MessageBuffer/Main.cs:214
+#| msgid "Source file path"
+msgid "Source file path(s)"
+msgstr "Forrásfájl útvonalai"
 
-#: ../src/Engine-MessageBuffer/Main.cs:205
+#: ../src/Engine-MessageBuffer/Main.cs:215
 msgid "Destination file path or -/empty for stdout"
 msgstr "Célfájl útvonala vagy -/üres a szabványos kimenethez"
 
-#: ../src/Engine-MessageBuffer/Main.cs:216
+#: ../src/Engine-MessageBuffer/Main.cs:226
 msgid "source_db and destination_db are required"
 msgstr "A forrás_adatbázis és a cél_adatbázis kötelező"
 
-#: ../src/Engine-MessageBuffer/Main.cs:232
+#: ../src/Engine-MessageBuffer/Main.cs:242
 msgid "sourceFile must not be empty."
-msgstr "A forrás_fájl nem lehet üres."
+msgstr "A sourceFile nem lehet üres."
 
-#: ../src/Engine-MessageBuffer/Main.cs:248
+#: ../src/Engine-MessageBuffer/Main.cs:251
+#| msgid "sourceFile must not be empty."
+msgid "sourceFiles must not be empty."
+msgstr "A sourceFiles nem lehet üres."
+
+#: ../src/Engine-MessageBuffer/Main.cs:271
 #, csharp-format
 msgid "Destination database {0} must be empty!"
 msgstr "A(z) {0} céladatbázisnak üresnek kell lennie!"
 
-#: ../src/Engine-MessageBuffer/Main.cs:298
+#: ../src/Engine-MessageBuffer/Main.cs:340
 #, csharp-format
 msgid "Unknown file format: '{0}'"
 msgstr "Ismeretlen fájlformátum: „{0}”"
 
-#: ../src/Engine-MessageBuffer/Main.cs:320
+#: ../src/Engine-MessageBuffer/Main.cs:362
 #, csharp-format
 msgid "Unsupported buffer type: '{0}'"
 msgstr "Nem támogatott puffertípus: „{0}”"

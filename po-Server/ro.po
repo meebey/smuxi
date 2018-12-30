@@ -1,0 +1,144 @@
+# Romanian translation for smuxi.
+# Copyright (C) 2018 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Floren <>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2018-03-10 16:22+0000\n"
+"PO-Revision-Date: 2018-04-08 17:40+0300\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: ../src/Server/Main.cs:65
+msgid "Add user to Server"
+msgstr "Adaugă un utilizator la server"
+
+#: ../src/Server/Main.cs:74
+msgid "Modify existing user of Server"
+msgstr "Modifică un utilizator existent de pe server"
+
+#: ../src/Server/Main.cs:83
+msgid "Delete user from Server"
+msgstr "Șterge un utilizator de pe server"
+
+#: ../src/Server/Main.cs:92
+msgid "List all existing users of Server"
+msgstr "Listează toți utilizatorii existenți de pe server"
+
+#: ../src/Server/Main.cs:101
+msgid "User to create, modify or delete"
+msgstr "Utilizator de creat, modificat sau șters"
+
+#: ../src/Server/Main.cs:110
+msgid "Password of the user when creating or modifying a user"
+msgstr "Parola utilizatorului când se creează sau se modifică un utilizator"
+
+#: ../src/Server/Main.cs:119
+msgid "Enable debug output"
+msgstr "Activează rezultat depanare"
+
+#: ../src/Server/Main.cs:127
+msgid ""
+"Optimize message buffers and exit (valid values: none, defrag, index, all)"
+msgstr ""
+"Optimizează preîncărcările de mesaj și ieși (valori valide: none, defrag, "
+"index, all)"
+
+#: ../src/Server/Main.cs:140
+msgid "Show this help"
+msgstr "Afișează acest ajutor"
+
+#: ../src/Server/Main.cs:142
+msgid "Usage: smuxi-server [options]"
+msgstr "Mod de utilizare: smuxi-server [opțiuni]"
+
+#: ../src/Server/Main.cs:144
+msgid "Options:"
+msgstr "Opțiuni:"
+
+#: ../src/Server/Main.cs:152
+msgid "Show version"
+msgstr "Afișează versiunea"
+
+#: ../src/Server/Main.cs:165
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr "Opțiune necunoscută: „{0}”"
+
+#: ../src/Server/Main.cs:192
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Eroare în linia de comandă: {0}"
+
+#: ../src/Server/Main.cs:236
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
+msgstr ""
+"Cel mult una dintre --add-user, --modify-user, și --delete-user poate fi "
+"utilizată la un moment dat."
+
+#: ../src/Server/Main.cs:246
+msgid "You must specify a username with the --username option."
+msgstr "Trebuie să specificați un nume de utilizator cu opțiunea --username."
+
+#: ../src/Server/Main.cs:252
+msgid "Username must not be empty."
+msgstr "Numele de utilizator nu trebuie să fie gol."
+
+#: ../src/Server/Main.cs:262
+msgid "You must specify a password with the --password option."
+msgstr "Trebuie să specificați o parolă cu opțiunea --password."
+
+#: ../src/Server/Main.cs:268
+msgid "Password must not be empty."
+msgstr "Parola nu trebuie să fie goală."
+
+#: ../src/Server/Main.cs:287
+#, csharp-format
+msgid ""
+"Invalid optimization value passed to --optimize-message-buffer, valid values "
+"are: {0}"
+msgstr ""
+"Valoare de optimizare nevalidă transferată la --optimize-message-buffer, "
+"valorile valide sunt: {0}"
+
+#: ../src/Server/Main.cs:307
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "Utilizatorul „{0}” a fost adăugat cu succes la server."
+
+#: ../src/Server/Main.cs:316
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "Utilizatorul „{0}” a fost modificat cu succes."
+
+#: ../src/Server/Main.cs:325
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "Utilizatorul „{0}” a fost șters cu succes de pe server."
+
+#: ../src/Server/Main.cs:332
+msgid "Users:"
+msgstr "Utilizatori:"
+
+#: ../src/Server/Main.cs:380
+#, csharp-format
+msgid "Successfully optimized {0} message buffers."
+msgstr "S-au optimizat cu succes preîncărcările de mesaj {0}."
+
+#: ../src/Server/Main.cs:393
+#, csharp-format
+msgid "Failed to optimize message buffers: {0}"
+msgstr "Nu s-au putut optimiza preîncărcările de mesaj: {0}"

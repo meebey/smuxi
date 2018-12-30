@@ -1,24 +1,22 @@
 # Serbian translation for smuxi.
-# Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
+# Copyright © 2016 smuxi's COPYRIGHT HOLDER
 # This file is distributed under the same license as the smuxi package.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2016.
-#
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2016–2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-01-05 14:41+0000\n"
-"PO-Revision-Date: 2016-01-06 10:39+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
+"keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-11-04 05:44+0000\n"
+"PO-Revision-Date: 2018-02-24 09:01+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <gnom@prevod.org>\n"
+"Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:256
@@ -31,7 +29,7 @@ msgid "Accept invite (join room)"
 msgstr "Прихвати позив (приступи соби)"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:308
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1771
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1792
 msgid "away"
 msgstr "отсутан"
 
@@ -45,227 +43,231 @@ msgstr "кашњење: {0} секунде"
 msgid "not connected"
 msgstr "нисте повезани"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:380
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:377
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
 msgstr "Користим посредника: {0}:{1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:387
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:384
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
 msgstr "Повезујем се на {0} прикључник {1}..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:401
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:542
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:398
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:549
 #, csharp-format
 msgid "Connection to {0} established"
 msgstr "Веза са {0} је успостављена"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:410
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:407
 msgid "Logging in..."
 msgstr "Пријављујем се..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:450
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:447
 msgid "Connection failed!"
 msgstr "Повезивање није успело!"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:454
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:451
 msgid "Connection failed! Reason: "
 msgstr "Повезивање није успело! Разлог: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:467
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:460
+msgid "Open Smuxi FAQ for help"
+msgstr "Отворите ЧПП Смуксија за помоћ"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:474
 msgid "Disconnecting..."
 msgstr "Прекидам везу..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:472
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:479
 #, csharp-format
 msgid "Disconnecting from {0}..."
 msgstr "Прекидам везу са {0}..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:479
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:486
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr "Прекинута је веза са „{0}“"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:485
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:492
 msgid "Connection closed"
 msgstr "Веза је затворена"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:494
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:569
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:501
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:576
 msgid "Not connected"
 msgstr "Нисам повезан"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:528
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:535
 msgid "Reconnecting..."
 msgstr "Поново се повезујем..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:536
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:543
 #, csharp-format
 msgid "Reconnecting to {0}..."
 msgstr "Поново се повезујем са {0}..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:555
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:562
 msgid "Reconnect Error"
 msgstr "Грешка поновног повезивања"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:949
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:960
 #, csharp-format
 msgid "Sleeping for {0} milliseconds"
 msgstr "Спаваћу {0} милисекунде"
 
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1034
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1045
 msgid "IrcProtocolManager Commands"
 msgstr "Наредбе управника Ирц протокола"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1116
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1128
 #, csharp-format
 msgid "Invalid port: {0}"
 msgstr "Неисправан прикључник: {0}"
 
 #. TRANSLATOR: some IRC networks dislike too many joins in a
 #. short period and thus Smuxi throttles/queues them
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1211
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1223
 #, csharp-format
 msgid "Queuing joins: {0}"
 msgstr "Заказујем приступе: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1232
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1244
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
 msgstr ""
 "Већ сте приступили каналу: {0}. Укуцајте „/window {0}“ да се пребаците."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1266
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1278
 #, csharp-format
 msgid "Active joins: {0} - Queued joins: {1}"
 msgstr "Радни приступи: {0} — Заказани приступи: {1}"
 
 #. TRANSLATORS: final message will look like this:
 #. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1290
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1320
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1302
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1332
 #, csharp-format
 msgid "Joining: {0}"
 msgstr "Приступам: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1292
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1304
 msgid "Remaining"
 msgstr "Преостало"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1297
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1309
 #, csharp-format
 msgid "active joins: {0}"
 msgstr "радни приступ: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1306
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1318
 #, csharp-format
 msgid "queued joins: {0}"
 msgstr "заказани приступ: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1752
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1773
 msgid "IRC Op"
 msgstr "ИРЦ Оп"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1754
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1775
 msgid "Owner"
 msgstr "Власник"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1756
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1777
 msgid "ChanAdmin"
 msgstr "Админ канала"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1758
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1779
 msgid "Op"
 msgstr "Оп"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1760
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1781
 msgid "Halfop"
 msgstr "Полуоп"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1762
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1783
 msgid "Voice"
 msgstr "Глас"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1825
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1846
 #, csharp-format
 msgid "Topic for {0}: {1}"
 msgstr "Тема за {0}: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1827
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1848
 #, csharp-format
 msgid "No topic set for {0}"
 msgstr "Није подешена тема за {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1992
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2013
 msgid "ban"
 msgstr "забрана"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2003
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2024
 msgid "No bans in channel"
 msgstr "Нема забрана на каналу"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2040
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2061
 msgid "ban exception"
 msgstr "изузетак забране"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2051
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2072
 msgid "No ban exceptions in channel"
 msgstr "Нема изузетака забрана на каналу"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2088
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2109
 msgid "invite exception"
 msgstr "изузетак позива"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2099
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2120
 msgid "No invite exceptions in channel"
 msgstr "Нема изузетака позива на каналу"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2213
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2234
 #, csharp-format
 msgid "Your user mode is {0}"
 msgstr "Ваш кориснички режим је {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2239
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2260
 #, csharp-format
 msgid "{0} is already on {1}"
 msgstr "{0} је већ на {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2247
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2268
 #, csharp-format
 msgid "Inviting {0} to {1}"
 msgstr "Позивам {0} на {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2270
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2291
 msgid "Users"
 msgstr "Корисници"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2321
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2342
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
 msgstr "Укупно {0} корисника [{1} оп-ја, {2} гласа, {3} обична]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2459
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2480
 msgid "Connection error! Reason: "
 msgstr "Грешка везе! Разлог: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2471
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2492
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Нема довољно параметара за наредбу „{0}“"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2480
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2501
 msgid "Not connected to server"
 msgstr "Нисте повезани са сервером"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2724
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2745
 #, csharp-format
 msgid "{0}: No such nick/channel"
 msgstr "{0}: Нема таквог надимка/канала"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2843
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2864
 #, csharp-format
 msgid ""
 "Increased send delay to {0}ms to avoid being flooded off the server again."
@@ -273,16 +275,16 @@ msgstr ""
 "Повећао сам кашњење слања на {0} ms како бих избегао поновно одбацивање од "
 "стране сервера."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2858
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2879
 #, csharp-format
 msgid "Nick {0} is already in use"
 msgstr "Надимак „{0}“ је већ у употреби"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2874
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2895
 msgid "Cannot join to channel:"
 msgstr "Не могу да приступим каналу:"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2876
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2897
 msgid "You are banned"
 msgstr "Добили сте забрану"
 
@@ -290,73 +292,73 @@ msgstr "Добили сте забрану"
 #. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
 #. example:
 #. meebey [meebey@example.com] requested CTCP VERSION from meebey:
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2959
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2980
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
 msgstr "{0} [{1}] је затражио ЦТЦП {2} од {3}: {4}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2986
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3007
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
 msgstr "ЦТЦП ПИНГ одговор са {0}: {1} секунде"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2995
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3016
 #, csharp-format
 msgid "CTCP {0} reply from {1}: {2}"
 msgstr "ЦТЦП {0} одговор са {1}: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3246
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3268
 #, csharp-format
 msgid "{0} [{1}] has joined {2}"
 msgstr "{0} [{1}] је приступио {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3391
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3417
 #, csharp-format
 msgid "{0} [{1}] has left {2}"
 msgstr "{0} [{1}] је напустио {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3416
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3442
 #, csharp-format
 msgid "You were kicked from {0} by {1}"
 msgstr "{1} вас је избацио са {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3424
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3450
 #, csharp-format
 msgid "{0} was kicked from {1} by {2}"
 msgstr "{2} је избацио {0} са {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3442
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3474
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3468
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3500
 #, csharp-format
 msgid "You're now known as {0}"
 msgstr "Сада сте познати као {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3477
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3503
 #, csharp-format
 msgid "{0} is now known as {1}"
 msgstr "{0} је сада познат као {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3511
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3537
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
 msgstr "{0} је изменио тему од {1} у: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3671
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3697
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
 msgstr "Промена режима [{0}] за корисника {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3702
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3728
 #, csharp-format
 msgid "mode/{0} [{1}] by {2}"
 msgstr "режим/{0} [{1}] од {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3738
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3764
 #, csharp-format
 msgid "{0} [{1}] has quit"
 msgstr "{0} [{1}] је изашао"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3837
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3863
 #, csharp-format
 msgid ""
 "Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
@@ -365,15 +367,15 @@ msgstr ""
 "Повезивање на {0} прикључник {1} није успело (покушавам {2}), поново ћу "
 "покушати за {3} секунде..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3887
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3913
 #, csharp-format
 msgid "{0} is away: {1}"
 msgstr "{0} је одсутан: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3897
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3923
 msgid "You are no longer marked as being away"
 msgstr "Више нисте означени да сте одсутни"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3907
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3933
 msgid "You have been marked as being away"
 msgstr "Означени сте да сте одсутни"

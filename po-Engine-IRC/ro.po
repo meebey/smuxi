@@ -1,148 +1,151 @@
-# Indonesian translation for smuxi.
-# Copyright (C) 2017 smuxi's COPYRIGHT HOLDER
+# Romanian translation for smuxi.
+# Copyright (C) 2018 smuxi's COPYRIGHT HOLDER
 # This file is distributed under the same license as the smuxi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Floren <>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=smuxi&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-11-04 05:44+0000\n"
-"PO-Revision-Date: 2017-11-30 13:58+0700\n"
-"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
-"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
-"Language: id\n"
+"POT-Creation-Date: 2018-03-10 16:18+0000\n"
+"PO-Revision-Date: 2018-04-06 21:17+0300\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 "
+"< 20)) ? 1 : 2);;\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:256
 #, csharp-format
 msgid "{0} invites you to {1}"
-msgstr "{0} mengundang Anda ke {1}"
+msgstr "{0} vă invită la {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:280
 msgid "Accept invite (join room)"
-msgstr "Terima undangan (gabung kanal)"
+msgstr "Acceptați invitația (alăturare la cameră)"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:308
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1792
 msgid "away"
-msgstr "pergi"
+msgstr "absent"
 
 #. TRANSLATOR: {0} is the amount of seconds
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:314
 #, csharp-format
 msgid "lag: {0} seconds"
-msgstr "ketinggalan: {0} seconds"
+msgstr "întârziere: {0} secunde"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:320
 msgid "not connected"
-msgstr "tidak terhubung"
+msgstr "neconectat"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:377
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
-msgstr "Menggunakan proksi: {0}: {1}"
+msgstr "Utilizând proxy: {0}:{1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:384
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
-msgstr "Menghubungkan ke {0} port {1} ..."
+msgstr "Se conectează la {0} portul {1}..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:398
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:549
 #, csharp-format
 msgid "Connection to {0} established"
-msgstr "Sambungan ke {0} mapan"
+msgstr "Conexiune la {0} stabilită"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:407
 msgid "Logging in..."
-msgstr "Masuk..."
+msgstr "Se autentifică..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:447
 msgid "Connection failed!"
-msgstr "Koneksi gagal!"
+msgstr "Conexiunea a eșuat!"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:451
 msgid "Connection failed! Reason: "
-msgstr "Koneksi gagal! Alasan:"
+msgstr "Conexiunea a eșuat! Motivul: "
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:460
 msgid "Open Smuxi FAQ for help"
-msgstr "Buka Smuxi FAQ (Pertanyaan yang Sering Diajukan) untuk bantuan"
+msgstr "Deschide FAQ Smuxi pentru ajutor"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:474
 msgid "Disconnecting..."
-msgstr "Terputus..."
+msgstr "Se deconectează..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:479
 #, csharp-format
 msgid "Disconnecting from {0}..."
-msgstr "Terputus dari {0}..."
+msgstr "Se deconectează de la {0}..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:486
 #, csharp-format
 msgid "Disconnected from {0}"
-msgstr "Terputus dari {0}"
+msgstr "Deconectat de la {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:492
 msgid "Connection closed"
-msgstr "Sambungan ditutup"
+msgstr "Conexiune închisă"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:501
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:576
 msgid "Not connected"
-msgstr "Tidak terhubung"
+msgstr "Neconectat"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:535
 msgid "Reconnecting..."
-msgstr "Menghubungkan kembali..."
+msgstr "Se reconectează..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:543
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr "Menghubungkan kembali ke {0}..."
+msgstr "Se reconectează la {0}..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:562
 msgid "Reconnect Error"
-msgstr "Hubungkan kembali Gagal"
+msgstr "Eroare de reconectare"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:960
 #, csharp-format
 msgid "Sleeping for {0} milliseconds"
-msgstr "Tidur selama {0} milidetik"
+msgstr "Se doarme pentru {0} milisecunde"
 
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1045
 msgid "IrcProtocolManager Commands"
-msgstr "Perintah IrcProtocolManager"
+msgstr "Comenzi IrcProtocolManager"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1128
 #, csharp-format
 msgid "Invalid port: {0}"
-msgstr "Port tidak valid: {0}"
+msgstr "Port nevalid: {0}"
 
 #. TRANSLATOR: some IRC networks dislike too many joins in a
 #. short period and thus Smuxi throttles/queues them
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1223
 #, csharp-format
 msgid "Queuing joins: {0}"
-msgstr "Antrian bergabung: {0}"
+msgstr "Se plasează în așteptare alăturările: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1244
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
 msgstr ""
-"Sudah bergabung ke kanal: {0}. Ketik /window {0} untuk beralih ke sana."
+"Sunteți deja alăturat canalului: {0}. Tastați /window {0} pentru a comuta "
+"la acesta."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1278
 #, csharp-format
 msgid "Active joins: {0} - Queued joins: {1}"
-msgstr "Aktif bergabung: {0} - Antri bergabung: {1}"
+msgstr "Alăturări active: {0} - alăturări în așteptare: {1}"
 
 #. TRANSLATORS: final message will look like this:
 #. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
@@ -150,140 +153,142 @@ msgstr "Aktif bergabung: {0} - Antri bergabung: {1}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1332
 #, csharp-format
 msgid "Joining: {0}"
-msgstr "Bergabung: {0}"
+msgstr "Se alătură la: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1304
 msgid "Remaining"
-msgstr "Sisa"
+msgstr "Rămas"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1309
 #, csharp-format
 msgid "active joins: {0}"
-msgstr "aktif bergabung: {0}"
+msgstr "alăturări active: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1318
 #, csharp-format
 msgid "queued joins: {0}"
-msgstr "antri bergabung: {0}"
+msgstr "alăturări în așteptare: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1773
 msgid "IRC Op"
-msgstr "IRC Op"
+msgstr "Operator IRC"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1775
 msgid "Owner"
-msgstr "Pemilik"
+msgstr "Deținător"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1777
 msgid "ChanAdmin"
-msgstr "ChanAdmin"
+msgstr "Admin canal"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1779
 msgid "Op"
-msgstr "Op"
+msgstr "Operator"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1781
 msgid "Halfop"
-msgstr "Halfop"
+msgstr "Operator pe jumătate"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1783
 msgid "Voice"
-msgstr "Suara"
+msgstr "Voce"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1846
 #, csharp-format
 msgid "Topic for {0}: {1}"
-msgstr "Topik untuk {0}: {1}"
+msgstr "Subiect pentru {0}: {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1848
 #, csharp-format
 msgid "No topic set for {0}"
-msgstr "Tidak ada topik yang ditetapkan untuk {0}"
+msgstr "Niciun subiect stabilit pentru {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2013
 msgid "ban"
-msgstr "pencekalan"
+msgstr "blocare"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2024
 msgid "No bans in channel"
-msgstr "Tidak ada pencekalan di kanal"
+msgstr "Nu sunt blocări în canal"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2061
 msgid "ban exception"
-msgstr "pengecualian pencekalan"
+msgstr "excepție de la blocare"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2072
 msgid "No ban exceptions in channel"
-msgstr "Tidak ada pengecualian pencekalan di saluran"
+msgstr "Nu sunt excepții de blocare în canal"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2109
 msgid "invite exception"
-msgstr "mengundang pengecualian"
+msgstr "excepție de invitație"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2120
 msgid "No invite exceptions in channel"
-msgstr "Tidak ada pengecualian undangan di saluran"
+msgstr "Nu sunt excepții de invitație în canal"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2234
 #, csharp-format
 msgid "Your user mode is {0}"
-msgstr "Mode pengguna Anda adalah {0}"
+msgstr "Modul de utilizator este {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2260
 #, csharp-format
 msgid "{0} is already on {1}"
-msgstr "{0} sudah ada di {1}"
+msgstr "{0} este deja la {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2268
 #, csharp-format
 msgid "Inviting {0} to {1}"
-msgstr "Mengundang {0} ke {1}"
+msgstr "Se invită {0} la {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2291
 msgid "Users"
-msgstr "Pengguna"
+msgstr "Utilizatori"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2342
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
-msgstr "Total {0} pengguna [{1} ops, {2} suara, {3} normal]"
+msgstr "Total de {0} utilizatori [{1} operatori, {2} voci, {3} normal]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2480
 msgid "Connection error! Reason: "
-msgstr "Kesalahan koneksi! Alasan: "
+msgstr "Eroare de conexiune! Motivul: "
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2492
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr "Tidak cukup parameter untuk perintah {0}"
+msgstr "Nu sunt suficienți parametri pentru comanda {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2501
 msgid "Not connected to server"
-msgstr "Tidak terhubung ke peladen"
+msgstr "Nu este conectat la server"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2745
 #, csharp-format
 msgid "{0}: No such nick/channel"
-msgstr "{0}: Tidak ada nick/kanal seperti itu"
+msgstr "{0}: niciun astfel de pseudonim/canal"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2864
 #, csharp-format
 msgid ""
 "Increased send delay to {0}ms to avoid being flooded off the server again."
-msgstr "Meningkatnya jeda kirim ke {0}ms agar peladen tidak kebanjiran lagi."
+msgstr ""
+"S-a mărit întârzierea de trimitere la {0}ms pentru a evita să fiți dat "
+"afară de pe server din nou."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2879
 #, csharp-format
 msgid "Nick {0} is already in use"
-msgstr "Nick {0} sudah digunakan"
+msgstr "Pseudonimul {0} este deja în uz"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2895
 msgid "Cannot join to channel:"
-msgstr "Tidak dapat bergabung ke kanal:"
+msgstr "Nu se poate alătura la canalul:"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2897
 msgid "You are banned"
-msgstr "Anda dicekal"
+msgstr "Sunteți blocat"
 
 #. TRANSLATOR: {0}: nickname, {1}: ident@host,
 #. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
@@ -292,68 +297,68 @@ msgstr "Anda dicekal"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2980
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
-msgstr "{0} [{1}] meminta CTCP {2} dari {3}: {4}"
+msgstr "{0} [{1}] a cerut CTCP {2} de la {3}: {4}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3007
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
-msgstr "CTCP PING membalas dari {0}: {1} detik"
+msgstr "Răspuns PING CTCP de la {0}: {1} secunde"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3016
 #, csharp-format
 msgid "CTCP {0} reply from {1}: {2}"
-msgstr "CTCP {0} membalas dari {1}: {2}"
+msgstr "Răspuns CTCP {0} de la {1}: {2}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3268
 #, csharp-format
 msgid "{0} [{1}] has joined {2}"
-msgstr "{0} [{1}] telah bergabung {2}"
+msgstr "{0} [{1}] s-a alăturat la {2}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3417
 #, csharp-format
 msgid "{0} [{1}] has left {2}"
-msgstr "{0} [{1}] telah meninggalkan {2}"
+msgstr "{0} [{1}] a plecat din {2}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3442
 #, csharp-format
 msgid "You were kicked from {0} by {1}"
-msgstr "Anda ditendang dari {0} oleh {1}"
+msgstr "Ați fost dat afară de la {0} de către {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3450
 #, csharp-format
 msgid "{0} was kicked from {1} by {2}"
-msgstr "{0} ditendang dari {1} oleh {2}"
+msgstr "{0} a fost dat afară de la {1} de către {2}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3468
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3500
 #, csharp-format
 msgid "You're now known as {0}"
-msgstr "Anda sekarang dikenal sebagai {0}"
+msgstr "Sunteți cunoscut acum ca {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3503
 #, csharp-format
 msgid "{0} is now known as {1}"
-msgstr "{0} sekarang dikenal sebagai {1}"
+msgstr "{0} este cunoscut acum ca {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3537
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
-msgstr "{0} mengubah topik {1} menjadi: {2}"
+msgstr "{0} a modificat subiectul al {1} la: {2}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3697
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
-msgstr "Mode berubah [{0}] untuk pengguna {1}"
+msgstr "Modificare de mod [{0}] pentru utilizatorul {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3728
 #, csharp-format
 msgid "mode/{0} [{1}] by {2}"
-msgstr "mode/{0} [{1}] oleh {2}"
+msgstr "mode/{0} [{1}] de către {2}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3764
 #, csharp-format
 msgid "{0} [{1}] has quit"
-msgstr "{0} [{1}] telah keluar"
+msgstr "{0} [{1}] a ieșit"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3863
 #, csharp-format
@@ -361,18 +366,18 @@ msgid ""
 "Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
 "seconds..."
 msgstr ""
-"Sambungan ke {0} port {1} telah gagal (coba {2}), coba lagi dalam {3} "
-"detik..."
+"Conexiunea la {0} portul {1} a eșuat (încercarea {2}), se reîncearcă în "
+"{3} secunde..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3913
 #, csharp-format
 msgid "{0} is away: {1}"
-msgstr "{0} sedang pergi: {1}"
+msgstr "{0} este absent: {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3923
 msgid "You are no longer marked as being away"
-msgstr "Anda tidak lagi ditandai sebagai pergi"
+msgstr "Nu mai sunteți marcat ca fiind absent"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3933
 msgid "You have been marked as being away"
-msgstr "Anda telah ditandai sebagai pergi"
+msgstr "Ați fost marcat ca fiind absent"

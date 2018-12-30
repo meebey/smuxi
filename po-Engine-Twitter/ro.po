@@ -1,0 +1,216 @@
+# Romanian translation for smuxi.
+# Copyright (C) 2018 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Floren <>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2018-03-10 16:19+0000\n"
+"PO-Revision-Date: 2018-04-08 18:03+0300\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:124
+msgid "Home Timeline"
+msgstr "Cronologie acasă"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:135
+msgid "Replies & Mentions"
+msgstr "Răspunsuri și mențiuni"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:146
+msgid "Direct Messages"
+msgstr "Mesaje directe"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:194
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Se utilizează proxy: {0}:{1}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:216
+msgid "Connecting to Twitter..."
+msgstr "Se conectează la Twitter..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:258
+msgid "Twitter authorization required."
+msgstr "Autorizare Twitter necesară."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:265
+#, csharp-format
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr ""
+"Deschideți următorul URL și apăsați clic pe „Permite” pentru a autoriza "
+"Smuxi să se conecteze la contul de Twitter: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:281
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr ""
+"După ce ați permis ca Smuxi să acceseze contul de Twitter, Twitter va "
+"furniza un PIN."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:288
+msgid "Please type: /pin PIN_FROM_TWITTER"
+msgstr "Tastați: /pin PIN_DE_LA_TWITTER"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:296
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:358
+msgid "Connection failed!"
+msgstr "Conexiunea a eșuat!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:301
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:362
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Conexiunea a eșuat! Motivul: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:316
+msgid "Fetching user details from Twitter, please wait..."
+msgstr "Se aduc detaliile de utilizator de pe Twitter, așteptați..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:323
+msgid "Finished fetching user details."
+msgstr "S-a terminat aducerea detaliilor de utilizator."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:329
+msgid "Successfully connected to Twitter."
+msgstr "S-a conectat cu succes la Twitter."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:347
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr "Nu s-au putut aduce detaliile de utilizator de pe Twitter. Motivul: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:380
+msgid "Fetching friends from Twitter, please wait..."
+msgstr "Se aduc prietenii de pe Twitter, așteptați..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:389
+msgid "Finished fetching friends."
+msgstr "S-a terminat aducerea prietenilor."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:393
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr "Nu s-au putut aduce prietenii de pe Twitter. Motivul: "
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:738
+msgid "Twitter Commands"
+msgstr "Comenzi Twitter"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:787
+msgid "No pending authorization request!"
+msgstr "Nicio cerere de autorizare în așteptare!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:808
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr "Nu s-a putut autoriza cu Twitter: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr "Twitter nu a acceptat PIN-ul.  Sigur l-ați introdus corect?"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:824
+#, csharp-format
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr ""
+"Reîncercați prin închiderea acestui tab și reconectarea la contul de "
+"Twitter „{0}”."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
+msgid "Migrated Twitter account from basic auth to OAuth."
+msgstr "S-a migrat contul de Twitter de la simplu la OAuth."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr "S-a autorizat cu succes contul de Twitter „{0}” pentru Smuxi"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:902
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Nu s-a putut actualiza starea - motivul: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:913
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr ""
+"Nu se poate trimite mesajul - nicio țintă specificată. Utilizați: /msg "
+"$nick mesaj"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:930
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1025
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "Nu s-a putut trimite mesajul - motivul: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:950
+msgid "Other timelines"
+msgstr "Alte cronologii"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1008
+msgid "Could not send message - the specified user does not exist."
+msgstr "Nu s-a putut trimite mesajul - utilizatorul specificat nu există."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1122
+#, csharp-format
+msgid "Search {0}"
+msgstr "Caută {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
+#, csharp-format
+msgid "Successfully deleted tweet {0}."
+msgstr "S-a șters cu succes tweetul {0}."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1277
+#, csharp-format
+msgid "Successfully favorited tweet {0}."
+msgstr "S-a adăugat cu succes la favorite tweetul {0}."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1309
+#, csharp-format
+msgid "Successfully unfavorited tweet {0}."
+msgstr "S-a eliminat cu succes de la favorite tweetul {0}."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1371
+#, csharp-format
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+"{0}"
+msgstr ""
+"A apărut o eroare în timpul aducerii cronologiei prietenilor de pe Twitter. "
+"Motivul: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
+#, csharp-format
+msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
+msgstr ""
+"A apărut o eroare în timpul aducerii de răspunsuri de pe Twitter. Motivul: "
+"{0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1589
+#, csharp-format
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: {0}"
+msgstr ""
+"A apărut o eroare în timpul aducerii de mesaje directe de pe Twitter. "
+"Motivul: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1972
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr "Twitter nu a trimis un răspuns valid, probabil sunt supraîncărcați"
