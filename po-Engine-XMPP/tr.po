@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:33+0200\n"
-"PO-Revision-Date: 2015-05-14 21:36+0000\n"
+"POT-Creation-Date: 2015-07-14 19:40+0200\n"
+"PO-Revision-Date: 2017-09-19 22:25+0000\n"
 "Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/tr/)\n"
+"Language-Team: Turkish (http://www.transifex.com/meebey/smuxi/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
-msgid "The Server has shut down"
+msgid "The server has shut down"
 msgstr "Sunucu kapatıldı"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
@@ -34,15 +34,15 @@ msgstr "Kimlik doğrulama başarısız oldu, kullanıcı adı mevcut değil ya d
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
 msgid ""
-"if you want to create an account with the specified user and password, type "
+"If you want to create an account with the specified user and password, type "
 "/register now"
-msgstr "belirtilen kullanıcı adı ve parola ile hesap oluşturmak istiyorsanız şimdi /register yazın"
+msgstr "Belirtilen kullanıcı ve parola ile bir hesap oluşturmak istiyorsanız şimdi /register yazın"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
 msgid ""
 "This engine has native Facebook support, you should be using it instead of "
-"connecting to facebook with xmpp"
-msgstr "Bu motorda zaten yerleşik Facebook desteği bulunuyor, xmpp ile facebook bağlantısı kurmak yerine onu kullanmalısınız"
+"connecting to Facebook with XMPP"
+msgstr "Bu motorda yerleşik Facebook desteği bulunuyor, XMPP ile facebook bağlantısı kurmak yerine onu kullanmalısınız"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
 msgid "not connected"
@@ -65,8 +65,8 @@ msgstr "{0} bilinen bir kaynak değil"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
 #, csharp-format
-msgid "Contact's Jid: {0}"
-msgstr "Kişi'ye ait Jid: {0}"
+msgid "Contact's JID: {0}"
+msgstr "Kişi'ye ait JID: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
 msgid "You have a mutual subscription with this contact"
@@ -80,18 +80,18 @@ msgstr "Bu kişiye aboneliğiniz yok ve bu kişi size abone değil"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
 msgid ""
-"You are subscribed to this contact, but the contact is not subcribed to you"
-msgstr "Bu kişiye abonesiniz ancak bu kişi size abone değil"
+"You are subscribed to this contact, but the contact is not subscribed to you"
+msgstr "Bu kişiye abonesiniz ancak kişi size abone değil"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
 msgid ""
-"You are not subscribed to this contact, but the contact is subcribed to you"
-msgstr "Bu kişiye abone değilsiniz ancak bu kişi size abone"
+"You are not subscribed to this contact, but the contact is subscribed to you"
+msgstr "Bu kişiye abone değilsiniz ancak kişi size abone"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
 #, csharp-format
-msgid "Invalid Contact command: {0}"
-msgstr "Geçersiz Kişi komutu: {0}"
+msgid "Invalid contact command: {0}"
+msgstr "Geçersiz kişi komutu: {0}"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
@@ -123,8 +123,8 @@ msgstr "Uzakta için öncelik: {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
 #, csharp-format
 msgid ""
-"Invalid Priority: {0} (valid priorities are between -128 and 127 inclusive)"
-msgstr "Geçersiz Öncelik: {0} (geçerli öncelikler -128 ile 127 - dahil - arası)"
+"Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
+msgstr "Geçersiz öncelik: {0} (geçerli öncelikler -128 ile 127 - dahil - arası)"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
 #, csharp-format
@@ -257,8 +257,8 @@ msgstr "\"{0}\" toplu sohbetinin sunucusu bulunamadı."
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
 #, csharp-format
-msgid "Muc service is not available for \"{0}\""
-msgstr "\"{0}\" için Muc hizmeti mevcut değil"
+msgid "MUC service is not available for \"{0}\""
+msgstr "\"{0}\" için MUC hizmeti mevcut değil"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
 #, csharp-format

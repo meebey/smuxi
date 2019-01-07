@@ -8,19 +8,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:04+0100\n"
-"PO-Revision-Date: 2013-12-05 19:06+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
-"Language-Team: Persian (http://www.transifex.com/projects/p/smuxi/language/fa/)\n"
+"POT-Creation-Date: 2015-07-14 19:42+0200\n"
+"PO-Revision-Date: 2017-10-27 14:06+0000\n"
+"Last-Translator: Andres G. Aragoneses <knocte@gmail.com>\n"
+"Language-Team: Persian (http://www.transifex.com/meebey/smuxi/language/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:1
 msgid "Smuxi Preferences"
-msgstr ""
+msgstr "تنظیمات Smuxi"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:2
 msgid ""
@@ -40,6 +40,7 @@ msgstr ""
 
 #: ../glade/smuxi-frontend-gnome.glade.h:5
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
 msgid "Realname:"
 msgstr "نام حقیقی:"
 
@@ -50,7 +51,7 @@ msgstr "انکودینگ:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:7
 msgid "Automatically convert UTF-8 characters"
-msgstr ""
+msgstr "تبدیل خودکار حروف UTF-8"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:8
 msgid "<b>General</b>"
@@ -73,7 +74,7 @@ msgid "Port:"
 msgstr "درگاه:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:13
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:170
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
 msgid "Show Password"
 msgstr "نمایش رمز"
 
@@ -262,7 +263,7 @@ msgstr ""
 
 #: ../glade/smuxi-frontend-gnome.glade.h:54
 msgid "Tree"
-msgstr ""
+msgstr "درخت"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:55
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
@@ -431,7 +432,7 @@ msgid "Smuxi - Server"
 msgstr ""
 
 #: ../glade/smuxi-frontend-gnome.glade.h:93
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:209
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
 msgid "Automatically connect to server at startup"
 msgstr "وصل شدن خودکار به سرویس دهنده هنگام شروع"
 
@@ -448,8 +449,9 @@ msgid "Hostname:"
 msgstr "نام میزبان:"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
 msgid "Smuxi"
-msgstr ""
+msgstr "Smuxi"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:2
 msgid "IRC Chat"
@@ -463,11 +465,38 @@ msgstr ""
 msgid "Chat with other people on IRC"
 msgstr ""
 
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:5
+msgid ""
+"chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;jabbr;"
+msgstr ""
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:2
+msgid "Chat with other people on IRC, Twitter, Jabber and Campfire"
+msgstr ""
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:3
+msgid ""
+"Smuxi is an open-source, distributed and user-friendly chat client for IRC, "
+"Twitter, Jabber/XMPP, Campfire and SignalR's JabbR."
+msgstr ""
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:4
+msgid ""
+"Inspired by the combination of screen and irssi, Smuxi has a detachable "
+"server (or like a \"normal\" client) that stays connected when you aren't, "
+"and can allow multiple Smuxi frontends to be connected and in sync. This is "
+"similar to screen+irssi or IRC bouncers, but more elegant and powerful."
+msgstr ""
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:5
+msgid "The main window showing an IRC channel"
+msgstr ""
+
 #: ../src/Frontend-GNOME/AboutDialog.cs:66
 msgid "translator-credits"
 msgstr ""
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:73
+#: ../src/Frontend-GNOME/AboutDialog.cs:79
 msgid "Smuxi Website"
 msgstr ""
 
@@ -487,133 +516,189 @@ msgstr ""
 msgid "_Report Bug"
 msgstr ""
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:66
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:61
 msgid "Engine not found."
-msgstr ""
+msgstr "موتور یافت نشد"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:81
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:77
 msgid "Engine Manager"
 msgstr ""
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:100
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:96
 msgid "Select which Smuxi engine you want to connect to"
 msgstr ""
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:106
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:102
 msgid "Engine:"
 msgstr ""
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:117
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:113
 msgid "Use Low Bandwidth Mode"
-msgstr ""
+msgstr "استفاده از حالت پهنای باند کم"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:141
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:201
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:383
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:137
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:197
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:382
 msgid "Local Engine"
 msgstr ""
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:193
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:189
 msgid "Please select an engine!"
 msgstr ""
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:219
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:212
 #, csharp-format
-msgid "Your frontend version ({0}) does not match the engine version ({1})!"
+msgid ""
+"Your frontend is not compatible with the engine!\n"
+"Engine Version: {0} Frontend Version: {1}\n"
+"Engine Protocol: {2} Frontend Protocol: {3}"
 msgstr ""
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:246
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:245
 msgid "An error occurred while connecting to the engine!"
 msgstr ""
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:247
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:246
 #, csharp-format
 msgid "Engine URL: {0}"
 msgstr ""
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:250
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:249
 #, csharp-format
 msgid "Error: {0}"
-msgstr ""
+msgstr "خطا: {0}"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:320
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:319
 #, csharp-format
 msgid "Are you sure you want to delete the engine \"{0}\"?"
-msgstr ""
+msgstr "آیا مطمئن هستید که میخواهید موتور {0} را حذف کنید؟"
 
-#: ../src/Frontend-GNOME/Entry.cs:484
+#: ../src/Frontend-GNOME/Entry.cs:485
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
-msgstr ""
+msgstr "شما در جال جایگزاری {0} خط نوشته هستید.آیا میخواهید ادامه دهید؟"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:601
+#: ../src/Frontend-GNOME/Entry.cs:602
 msgid "Frontend Commands"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:49
+msgid "Enable debug output"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:56
+msgid "Show this help"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:60
+msgid "Options:"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:67
+msgid "Connect to engine"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:74
+msgid "Opens the specified link in Smuxi"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:81
+msgid "Starts a new Smuxi instance and ignores an existing one"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:109
+msgid "Passing link to already running Smuxi instance..."
+msgstr ""
+
+#: ../src/Frontend-GNOME/Main.cs:117
+msgid "Bringing already running Smuxi instance to foreground..."
+msgstr ""
+
+#: ../src/Frontend-GNOME/MainWindow.cs:374
+#, csharp-format
+msgid "{0} Users"
 msgstr ""
 
 #: ../src/Frontend-GNOME/NotImplementedMessageDialog.cs:40
 msgid "Sorry, not implemented yet!"
-msgstr ""
+msgstr "متاسفیم, هنوز پیاده سازی نشده!"
 
 #. fill ListStore
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:185
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:179
 msgid "Character"
-msgstr ""
+msgstr "حرف"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:186
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:180
 msgid "Word"
+msgstr "واژه"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:187
+msgid ""
+"This setting specifies if Smuxi should store chat messages in memory (volatile) or to disk (persistent).\n"
+"For persistent you can choose between Db4o, an object database or SQLite, a relational database.\n"
+"The Db4o backend has known issues like high memory and CPU usage and can even lead to crashes and thus it is deprecated.\n"
+"The SQLite backend has no known performance or stability issues and is the recommended setting."
 msgstr ""
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:203
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:208
+msgid "Persistent: SQLite (Recommended)"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:212
+msgid "Persistent: Db4o (Deprecated)"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:216
+msgid "Persistent (Preview)"
+msgstr ""
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:219
 msgid "Volatile"
-msgstr ""
+msgstr "فرار"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:205
-msgid "Persistent"
-msgstr ""
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:228
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:242
 msgid "No Proxy"
-msgstr ""
+msgstr "بدون واسطه"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:230
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:326
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:244
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:340
 msgid "System Default"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:244
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:140
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:258
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:134
 msgid "Connection"
-msgstr ""
+msgstr "ارتباط"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:248
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:262
 msgid "Interface"
-msgstr ""
+msgstr "رابط"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:252
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:266
 msgid "Servers"
-msgstr ""
+msgstr "سرویس دهنده ها"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:259
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:273
 msgid "Filters"
-msgstr ""
+msgstr "فیلتر ها"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:263
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:277
 msgid "Logging"
-msgstr ""
+msgstr "ثبت صورت عملیات"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:682
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:696
 msgid "Nicknames(s) field must not be empty."
 msgstr ""
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:878
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:892
 #, csharp-format
 msgid "Invalid highlight regex: '{0}'. Reason: {1}"
 msgstr ""
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:106
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:100
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:265
 msgid "Name"
 msgstr ""
@@ -630,35 +715,35 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:156
 msgid "Error while fetching the list of group chats from the server."
-msgstr ""
+msgstr "خطا در گرفتن لیست چت های گروهی از سرویس دهنده."
 
-#: ../src/Frontend-GNOME/Frontend.cs:401
+#: ../src/Frontend-GNOME/Frontend.cs:388
 msgid "Disconnected from engine."
-msgstr ""
+msgstr "از موتور قطع شد."
 
-#: ../src/Frontend-GNOME/Frontend.cs:443
+#: ../src/Frontend-GNOME/Frontend.cs:431
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
-msgstr ""
+msgstr "اتصال دوباره به موتور... (کوشش {0})"
 
-#: ../src/Frontend-GNOME/Frontend.cs:548
+#: ../src/Frontend-GNOME/Frontend.cs:542
 #, csharp-format
 msgid "Cause: {0}"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Frontend.cs:680
+#: ../src/Frontend-GNOME/Frontend.cs:675
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Frontend.cs:699
+#: ../src/Frontend-GNOME/Frontend.cs:694
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Frontend.cs:1007
+#: ../src/Frontend-GNOME/Frontend.cs:1008
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -681,7 +766,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/QuickConnectDialog.cs:162
 msgid "Unable to load server: "
-msgstr ""
+msgstr "خطا در بارگذاری سرویس دهنده: "
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:239
@@ -693,31 +778,31 @@ msgstr ""
 msgid "Group / Public"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:71
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:65
 msgid "Engine Assistant - Smuxi"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:93
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:87
 msgid "Add Smuxi Engine"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:95
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:89
 msgid "Edit Smuxi Engine"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:204
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:198
 msgid "Credentials"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:284
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:278
 msgid "Now you can use the Smuxi Engine"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:287
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:281
 msgid "Thank you"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:304
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:298
 msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr ""
@@ -728,39 +813,39 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
 msgid "About Smuxi"
-msgstr ""
+msgstr "درباره Smuxi"
 
 #. TODO: add cmd+, accelerator
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
 msgid "Preferences"
-msgstr ""
+msgstr "تنظیمات"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:251
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:263
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
 msgid "Unable to add server: "
-msgstr ""
+msgstr "ناتوان در اضافه کردن سرویس دهنده: "
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:372
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:384
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
-msgstr ""
+msgstr "راه گزینی به موتور محلی باعث میشود که از موتور فعلی قطع شوید!آیا برای اینجام این کار مطمئن هستید؟"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:416
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:428
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
-msgstr ""
+msgstr "راه گزینی به موتور دور باعث میشود که از موتور فعلی قطع شوید!آیا برای اینجام این کار مطمئن هستید؟"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:288
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:412
 #, csharp-format
 msgid "Day changed from {0} to {1}"
-msgstr ""
+msgstr "تاریخ از {0} به {1} تغییر کرد."
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:292
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:416
 #, csharp-format
 msgid "Day changed to {0}"
-msgstr ""
+msgstr "تاریخ به {0} تغییر کرد."
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:120
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:130
@@ -770,7 +855,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
 msgid "Are you sure you want to delete the selected filter?"
-msgstr ""
+msgstr "آیا مطمئن هستید که میخواهید فیلتر {0} را حذف کنید؟"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:241
 msgid "Protocol / Server"
@@ -782,49 +867,45 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:281
 msgid "Normal"
-msgstr ""
+msgstr "معمولی"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:282
 msgid "Event"
-msgstr ""
+msgstr "رویداد"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:289
 msgid "Type"
-msgstr ""
+msgstr "نوع"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:314
 msgid "Pattern"
-msgstr ""
+msgstr "طرح"
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:548
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:557
 msgid "Low Bandwidth Mode is active: no messages synced."
-msgstr ""
+msgstr "حالت پهنای پاند کم فعال است: هیچ پیغامی همگام نشده است."
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:792
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:859
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
 msgid "Show _Menubar"
-msgstr ""
+msgstr "نمایش نوار منو"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:337
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:321
 #, csharp-format
 msgid "Retrieving user list for {0}..."
-msgstr ""
+msgstr "در حال به درست آوردن لیست کاربران برای {0}"
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:366
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:349
 msgid "done."
-msgstr ""
+msgstr "پایان یافت"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:398
-msgid "Person"
-msgstr ""
-
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:131
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:127
 msgid "Reconnect"
-msgstr ""
+msgstr "اتصال دوباره"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:180
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:174
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
@@ -832,156 +913,156 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:189
 msgid "Are you sure you want to delete the selected server?"
-msgstr ""
+msgstr "مطمئن هستید که میخواهید سرویس دسهنده انتخاب شده رو حذف کنید؟"
 
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:245
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:279
 msgid "Unable to edit server: "
-msgstr ""
+msgstr "ناتوان در ویرایش سرویس دهنده:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:24
 msgid "Find"
-msgstr ""
+msgstr "یافتن"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:44
 msgid "_Search for:"
-msgstr ""
+msgstr "جست و جو برای:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:73
 msgid "_Match Case"
-msgstr ""
+msgstr "تطابق بزرگی و کوچکی حروف"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:85
 msgid "Search _Backwards"
-msgstr ""
+msgstr "جست و جو از انتها"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:97
 msgid "_Wrap Around"
-msgstr ""
+msgstr "چرخش"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:110
 msgid "Use _Regular Expressions"
-msgstr ""
+msgstr "استفاده از عبارات باقاعده"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:23
 msgid "Smuxi - Find Group Chat"
-msgstr ""
+msgstr "Smuxi - یافتن چت گروهی"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:47
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:73
 msgid "_Name:"
-msgstr ""
+msgstr "نام:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs:69
 msgid "Join"
-msgstr ""
+msgstr "ملحق شدن"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:55
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:56
 msgid "_Smuxi"
-msgstr ""
+msgstr "Smuxi"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:58
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:59
 msgid "_Server"
-msgstr ""
+msgstr "سرویس دهنده"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:61
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:62
 msgid "_Chat"
-msgstr ""
+msgstr "چت"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:64
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:65
 msgid "_Engine"
-msgstr ""
+msgstr "موتور"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:67
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:68
 msgid "_View"
-msgstr ""
+msgstr "نمایش"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:70
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:71
 msgid "_Help"
-msgstr ""
+msgstr "راهنما"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:73
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:75
 msgid "Connect"
-msgstr ""
+msgstr "اتصال"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:77
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:79
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
 msgid "Open Log"
-msgstr ""
+msgstr "باز کردن صورت عملیات"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:87
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:88
 msgid "_Preferences"
-msgstr ""
+msgstr "تنظیمات"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:90
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:91
 msgid "_Quit"
-msgstr ""
+msgstr "خروج"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:93
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
 msgid "_Connect"
-msgstr ""
+msgstr "اتصال"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:96
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:97
 msgid "_Add"
-msgstr ""
+msgstr "افزودن"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:99
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
 msgid "_Manage"
-msgstr ""
+msgstr "مدیریت"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:102
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
 msgid "_Open / Join Chat"
-msgstr ""
+msgstr "باز کردن / ملحق شدن به چت"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:105
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
 msgid "_Find Group Chat"
-msgstr ""
+msgstr "جست و جوی چت گروهی"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:108
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:109
 msgid "C_lear All Activity"
-msgstr ""
+msgstr "پاک کردن تمام فعالیتها"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:111
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:112
 msgid "_Next Chat"
-msgstr ""
+msgstr "چت بعدی"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:114
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:115
 msgid "_Previous Chat"
-msgstr ""
+msgstr "چت قبلی"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
 msgid "_Close"
-msgstr ""
+msgstr "بستن"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
 msgid "_Use Local Engine"
-msgstr ""
+msgstr "استفاده از موتور محلی"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:123
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:124
 msgid "_Add Remote Engine"
-msgstr ""
+msgstr "استفاده از موتور دور"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
@@ -991,46 +1072,46 @@ msgstr ""
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
 msgid "_Caret Mode"
-msgstr ""
+msgstr "سبک نشان"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:132
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:133
 msgid "_Browse Mode"
-msgstr ""
+msgstr "سبک مرورگر"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
 msgid "Show _Statusbar"
-msgstr ""
+msgstr "نمایش نوار وضعیت"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
 msgid "_Fullscreen"
-msgstr ""
+msgstr "تمام صفحه"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
 msgid "_About"
-msgstr ""
+msgstr "درباره"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:150
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:152
 msgid "Find Group Chat"
-msgstr ""
+msgstr "یافتن چت گروهی"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:154
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:155
 msgid "_Website"
-msgstr ""
+msgstr "وبسایت"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:158
 msgid "Show _Toolbar"
-msgstr ""
+msgstr "نمایش نوار ابزار"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
 msgid "Smuxi - Connect"
-msgstr ""
+msgstr "Smuxi - اتصال"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:206
 msgid "Smuxi - Preferences"
@@ -1038,7 +1119,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
 msgid "Nicknames:"
-msgstr ""
+msgstr "نامهای مستعار:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
 msgid "Tabs"
@@ -1062,7 +1143,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:42
 msgid "Use _SSH Tunnel"
-msgstr ""
+msgstr "استفاده از تونل SSH"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:56
 msgid ""
@@ -1073,7 +1154,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
 msgid "SSH _Host:"
-msgstr ""
+msgstr "درگاه SSH:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:146
 msgid "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
@@ -1081,9 +1162,9 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:159
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:129
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:183
 msgid "_Port:"
-msgstr ""
+msgstr "درگاه:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:186
 msgid "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
@@ -1091,11 +1172,11 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:199
 msgid "_Smuxi Host:"
-msgstr ""
+msgstr "میزبان Smuxi:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:52
 msgid "_SSH Username: (optional)"
-msgstr ""
+msgstr "نام کاربری SSH: (دلخواه)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:75
 msgid ""
@@ -1105,7 +1186,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:95
 msgid "_SSH Password: (optional)"
-msgstr ""
+msgstr "رمزعبور SSH: (دلخواه)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
 msgid ""
@@ -1116,12 +1197,12 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:140
 msgid "_SSH Keyfile: (optional)"
-msgstr ""
+msgstr "فایل کلید SSH: (دلخواه)"
 
 #. Container child vbox17.Gtk.Box+BoxChild
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:148
 msgid "Select a File"
-msgstr ""
+msgstr "یک فایل انتخاب کنید."
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:161
 msgid ""
@@ -1130,9 +1211,9 @@ msgid ""
 msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:181
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:188
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:242
 msgid "_Username:"
-msgstr ""
+msgstr "نام کاربری:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:204
 msgid ""
@@ -1141,9 +1222,9 @@ msgid ""
 msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:224
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:116
 msgid "_Password:"
-msgstr ""
+msgstr "رمز عبور:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:248
 msgid "<span size=\"small\">Password of the user</span>"
@@ -1151,7 +1232,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:268
 msgid "_Verify Password:"
-msgstr ""
+msgstr "تکرار رمز عبور:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:292
 msgid "<span size=\"small\">Repeat the password for verification</span>"
@@ -1175,11 +1256,11 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:80
 msgid "_Default Engine:"
-msgstr ""
+msgstr "موتور پیشفرض:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:91
 msgid "Use as new default engine"
-msgstr ""
+msgstr "استفاده به عنوان موتور پیشفرض جدید"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:104
 msgid ""
@@ -1189,36 +1270,40 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
 msgid "Smuxi - Open Chat"
-msgstr ""
+msgstr "Smuxi - باز کردن چت"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:63
 msgid "_Type:"
-msgstr ""
+msgstr "نوع:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:54
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:58
 msgid "_Hostname:"
-msgstr ""
+msgstr "نام میزبان:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:75
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:79
 msgid "_Network:"
+msgstr "شبکه:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:105
+msgid "Nickname:"
 msgstr ""
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:198
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:252
 msgid "_Protocol:"
-msgstr ""
+msgstr "پروتوکل:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:222
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:276
 msgid "Use Encryption"
-msgstr ""
+msgstr "استفاده از رمزنگاری"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:234
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:288
 msgid "Validate Server Certificate"
-msgstr ""
+msgstr "بررسی گواهینامه سرویس دهنده"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:254
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:308
 msgid "_On Connect Commands:"
-msgstr ""
+msgstr "دستورات موقع اتصال"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:265
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
 msgid "_Ignore Commands"
-msgstr ""
+msgstr "چشم پوشی از دستورات"

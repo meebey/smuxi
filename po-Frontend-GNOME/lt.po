@@ -1,26 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Moo, 2014-2015
-# Aurimas Černius <aurisc4@gmail.com>, 2018.
-#
+# aurisc4 <aurisc4@gmail.com>, 2018
+# Moo, 2014-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2018-06-10 18:19+0000\n"
-"PO-Revision-Date: 2018-11-25 19:19+0200\n"
-"Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
-"Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
-"Language: lt\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-14 19:42+0200\n"
+"PO-Revision-Date: 2017-10-27 14:06+0000\n"
+"Last-Translator: Andres G. Aragoneses <knocte@gmail.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/meebey/smuxi/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Gtranslator 3.30.1\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:1
 msgid "Smuxi Preferences"
@@ -31,11 +28,7 @@ msgid ""
 "The nickname to use. You can specify extra nicknames (separated by spaces) "
 "which will be used as fallbacks when the first choice is not available. By "
 "default $nick_ and $nick__ will be used as fallbacks."
-msgstr ""
-"Naudojamas slapyvardis. Galite nurodyti papildomus slapyvardžius, "
-"(atskirdami juos tarpais) kurie bus naudojami kaip atsarginiai variantai, "
-"kuomet pirmasis pasirinkimas nebus prieinamas. Pagal numatymą $nick_ ir "
-"$nick__ bus naudojami kaip atsarginiai variantai."
+msgstr "Naudojamas slapyvardis. Galite nurodyti papildomus slapyvardžius, (atskirdami juos tarpais) kurie bus naudojami kaip atsarginiai variantai, kuomet pirmasis pasirinkimas nebus prieinamas. Pagal numatymą $nick_ ir $nick__ bus naudojami kaip atsarginiai variantai."
 
 #: ../glade/smuxi-frontend-gnome.glade.h:3
 msgid "Nickname(s):"
@@ -135,16 +128,7 @@ msgid ""
 "dd = day\n"
 "MM = month\n"
 "yy/yyyy = year"
-msgstr ""
-"ss = sekundės\n"
-"mm = minutės\n"
-"hh = valandos (01 - 12)\n"
-"HH = valandos (00 - 23)\n"
-"tt = AM/PM\n"
-"\n"
-"dd = diena\n"
-"MM = mėnuo\n"
-"yy/yyyy = metai"
+msgstr "ss = sekundės\nmm = minutės\nhh = valandos (01 - 12)\nHH = valandos (00 - 23)\ntt = AM/PM\n\ndd = diena\nMM = mėnuo\nyy/yyyy = metai"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:31
 msgid "Persistency Type:"
@@ -346,7 +330,8 @@ msgstr "Fonas"
 msgid "<b> Color </b>"
 msgstr "<b> Spalva </b>"
 
-#. This is a setting for character based line wrapping vs word based when showing messages
+#. This is a setting for character based line wrapping vs word based when
+#. showing messages
 #: ../glade/smuxi-frontend-gnome.glade.h:70
 msgid "_Wrap Mode:"
 msgstr "_Laužymo Veiksena:"
@@ -442,6 +427,28 @@ msgstr "Protokoluoti Filtruotus Pranešimus"
 msgid "_Logging"
 msgstr "_Protokolavimas"
 
+#: ../glade/smuxi-frontend-gnome.glade.h:92
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
+msgid "Smuxi - Server"
+msgstr "Smuxi - Serveris"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
+msgid "Automatically connect to server at startup"
+msgstr "Paleidus programa, automatiškai jungtis prie serverio"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:94
+msgid "Protocol:"
+msgstr "Protokolas:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:95
+msgid "Network:"
+msgstr "Tinklas:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:96
+msgid "Hostname:"
+msgstr "Kompiuterio vardas:"
+
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
 msgid "Smuxi"
@@ -461,11 +468,8 @@ msgstr "Kalbėkite su kitais žmonėmis per IRC"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:5
 msgid ""
-"chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;"
-"jabbr;"
-msgstr ""
-"pokalbiai;susirašinėjimai;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;"
-"jabber;campfire;jabbr;"
+"chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;jabbr;"
+msgstr "pokalbiai;susirašinėjimai;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;jabbr;"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:2
 msgid "Chat with other people on IRC, Twitter, Jabber and Campfire"
@@ -475,9 +479,7 @@ msgstr "Kalbėkite su kitais žmonėmis per IRC, Twitter, Jabber ir Campfire"
 msgid ""
 "Smuxi is an open-source, distributed and user-friendly chat client for IRC, "
 "Twitter, Jabber/XMPP, Campfire and SignalR's JabbR."
-msgstr ""
-"Smuxi yra atviro kodo, platinama ir patogi pokalbių kliento programa, skirta "
-"IRC, Twitter, Jabber/XMPP, Campfire ir SignalR JabbR."
+msgstr "Smuxi yra atviro kodo, platinama ir patogi pokalbių kliento programa, skirta IRC, Twitter, Jabber/XMPP, Campfire ir SignalR JabbR."
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:4
 msgid ""
@@ -485,22 +487,17 @@ msgid ""
 "server (or like a \"normal\" client) that stays connected when you aren't, "
 "and can allow multiple Smuxi frontends to be connected and in sync. This is "
 "similar to screen+irssi or IRC bouncers, but more elegant and powerful."
-msgstr ""
-"Įkvėpta screen ir irssi kombinacijos, Smuxi turi atskiriamą serverį (arba "
-"tokią kaip \"normalią\" kliento programą), kuris, jums nesant, išlieka "
-"prisijungęs ir leidžia prisijungti ir likti sinchronizuotoms kelioms "
-"naudotojo sąsajoms. Tai yra panašu kaip screen+irssi arba IRC bouncers, tik "
-"yra elegantiškiau ir galingiau."
+msgstr "Įkvėpta screen ir irssi kombinacijos, Smuxi turi atskiriamą serverį (arba tokią kaip \"normalią\" kliento programą), kuris, jums nesant, išlieka prisijungęs ir leidžia prisijungti ir likti sinchronizuotoms kelioms naudotojo sąsajoms. Tai yra panašu kaip screen+irssi arba IRC bouncers, tik yra elegantiškiau ir galingiau."
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:5
 msgid "The main window showing an IRC channel"
 msgstr "Pagrindinis langas, rodantis IRC kanalą"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:70
+#: ../src/Frontend-GNOME/AboutDialog.cs:66
 msgid "translator-credits"
 msgstr "Moo"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:83
+#: ../src/Frontend-GNOME/AboutDialog.cs:79
 msgid "Smuxi Website"
 msgstr "Smuxi Tinklalapis"
 
@@ -556,10 +553,7 @@ msgid ""
 "Your frontend is not compatible with the engine!\n"
 "Engine Version: {0} Frontend Version: {1}\n"
 "Engine Protocol: {2} Frontend Protocol: {3}"
-msgstr ""
-"Jūsų vartotojo sąsaja nesuderinama su moduliu!\n"
-"Modulio Versija: {0} Vartotojo Sąsajos Versija: {1}\n"
-"Modulio Protokolas: {2} Vartotojo Sąsajos Protokolas: {3}"
+msgstr "Jūsų vartotojo sąsaja nesuderinama su moduliu!\nModulio Versija: {0} Vartotojo Sąsajos Versija: {1}\nModulio Protokolas: {2} Vartotojo Sąsajos Protokolas: {3}"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:245
 msgid "An error occurred while connecting to the engine!"
@@ -580,14 +574,14 @@ msgstr "Klaida: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Ar tikrai norite ištrinti modulį \"{0}\"?"
 
-#: ../src/Frontend-GNOME/Entry.cs:492
+#: ../src/Frontend-GNOME/Entry.cs:485
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Jūs bandote įdėti {0} eilutes. Ar norite tęsti?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:609
+#: ../src/Frontend-GNOME/Entry.cs:602
 msgid "Frontend Commands"
 msgstr "Vartotojo sąsajos Komandos"
 
@@ -632,9 +626,81 @@ msgstr "{0} Vartotojų"
 msgid "Sorry, not implemented yet!"
 msgstr "Atleiskite, dar neįgyvendinta!"
 
+#. fill ListStore
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:179
+msgid "Character"
+msgstr "Simbolis"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:180
+msgid "Word"
+msgstr "Žodis"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:187
+msgid ""
+"This setting specifies if Smuxi should store chat messages in memory (volatile) or to disk (persistent).\n"
+"For persistent you can choose between Db4o, an object database or SQLite, a relational database.\n"
+"The Db4o backend has known issues like high memory and CPU usage and can even lead to crashes and thus it is deprecated.\n"
+"The SQLite backend has no known performance or stability issues and is the recommended setting."
+msgstr "Šis nustatymas nurodo ar Smuxi turėtų laikyti pokalbių pranešimus atmintyje (neišliekamas) ar diske (ilgalaikis).\nIlgalaikiam laikymui galite rinktis tarp Db4o, objektinės duomenų bazės arba SQLite, sąryšinės duomenų bazės.\nDb4o vidinė pusė turi žinomų problemų, tokių kaip didelis atminties ir procesoriaus naudojimas, ir gali sąlygoti strigtis, todėl ji yra pasenusi.\nSQLite vidinė pusė neturi žinomų našumo ar stabilumo problemų ir yra rekomenduojamas nustatymas."
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:208
+msgid "Persistent: SQLite (Recommended)"
+msgstr "Ilgalaikis: SQLite (Rekomenduojamas)"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:212
+msgid "Persistent: Db4o (Deprecated)"
+msgstr "Ilgalaikis: Db4o (Pasenęs)"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:216
+msgid "Persistent (Preview)"
+msgstr "Ilgalaikis (Peržiūra)"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:219
+msgid "Volatile"
+msgstr "Neišliekamas"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:242
+msgid "No Proxy"
+msgstr "Nėra Įgaliotojo Serverio"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:244
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:340
+msgid "System Default"
+msgstr "Pagal Sistemos Numatymą"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:258
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:134
+msgid "Connection"
+msgstr "Ryšys"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:262
+msgid "Interface"
+msgstr "Sąsaja"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:266
+msgid "Servers"
+msgstr "Serveriai"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:273
+msgid "Filters"
+msgstr "Filtrai"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:277
+msgid "Logging"
+msgstr "Derinimas"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:696
+msgid "Nicknames(s) field must not be empty."
+msgstr "Slapyvardžio(-ių) laukas negali būti tuščias."
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:892
+#, csharp-format
+msgid "Invalid highlight regex: '{0}'. Reason: {1}"
+msgstr "Neteisingas paryškinimo reguliarusis reiškinys: '{0}'. Priežastis: {1}"
+
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:103
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:293
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:100
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:265
 msgid "Name"
 msgstr "Pavadinimas"
 
@@ -644,85 +710,58 @@ msgstr "Tema"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:115
 msgid ""
-"Searching for group chats without a filter is not recommended.  This may "
-"take a while, or may not work at all.\n"
+"Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
 "Do you wish to continue?"
-msgstr ""
-"Grupės pokalbių paieška be filtro yra nerekomenduojama. Tai gali šiek tiek "
-"užtrukti arba visai nesuveikti.\n"
-"Ar norite tęsti?"
+msgstr "Grupės pokalbių paieška be filtro yra nerekomenduojama. Tai gali šiek tiek užtrukti arba visai nesuveikti.\nAr norite tęsti?"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:156
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Klaida, gaunant grupės pokalbių sąrašą iš serverio."
 
-#: ../src/Frontend-GNOME/Frontend.cs:390
+#: ../src/Frontend-GNOME/Frontend.cs:388
 msgid "Disconnected from engine."
 msgstr "Atsijungta nuo modulio."
 
-#: ../src/Frontend-GNOME/Frontend.cs:433
+#: ../src/Frontend-GNOME/Frontend.cs:431
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
 msgstr "Iš naujo jungiamasi prie modulio... (bandymas {0})"
 
-#: ../src/Frontend-GNOME/Frontend.cs:546
+#: ../src/Frontend-GNOME/Frontend.cs:542
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Priežastis: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:638
-msgid ""
-"A fatal error has been detected because of a protocol incompatibility with "
-"the smuxi-server!\n"
-"\n"
-"Please install Mono on the frontend side so it matches the smuxi-server.\n"
-"\n"
-"More details about this issue can be found here:\n"
-"https://smuxi.im/issues/show/589"
-msgstr ""
-"Buvo aptikta lemtinga klaida dėl protokolo nesuderinamumo su smuxi-server!\n"
-"\n"
-"Įdiekite Mono kliento pusėje, kad ji sutaptų su smuxi-server.\n"
-"\n"
-"Daugiau informacijos rasite adresu:\n"
-"https://smuxi.im/issues/show/589"
-
-#: ../src/Frontend-GNOME/Frontend.cs:705
+#: ../src/Frontend-GNOME/Frontend.cs:675
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
-msgstr ""
-"Vartotojo sąsaja prarado ryšį su serveriu.\n"
-"Ar norite jungtis iš naujo dabar?"
+msgstr "Vartotojo sąsaja prarado ryšį su serveriu.\nAr norite jungtis iš naujo dabar?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:724
+#: ../src/Frontend-GNOME/Frontend.cs:694
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
-msgstr ""
-"Jungimasis iš naujo prie serverio nepavyko.\n"
-"Ar norite bandyti dar kartą?"
+msgstr "Jungimasis iš naujo prie serverio nepavyko.\nAr norite bandyti dar kartą?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:1038
+#: ../src/Frontend-GNOME/Frontend.cs:1008
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
-msgstr ""
-"Serveris prarado ryši su vartotojo sąsaja.\n"
-"Ar norite jungtis iš naujo dabar?"
+msgstr "Serveris prarado ryši su vartotojo sąsaja.\nAr norite jungtis iš naujo dabar?"
 
 #: ../src/Frontend-GNOME/NotifyManager.cs:338
 msgid "Show"
 msgstr "Rodyti"
 
 #: ../src/Frontend-GNOME/QuickConnectDialog.cs:58
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:235
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:79
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:233
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:70
 msgid "Protocol"
 msgstr "Protokolas"
 
 #: ../src/Frontend-GNOME/QuickConnectDialog.cs:59
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:80
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:71
 msgid "Hostname"
 msgstr "Kompiuterio vardas"
 
@@ -731,44 +770,40 @@ msgid "Unable to load server: "
 msgstr "Nepavyko įkelti serverio:"
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:267
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:239
 msgid "Person / Private"
 msgstr "Asmuo / Privatus"
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:55
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:268
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:240
 msgid "Group / Public"
 msgstr "Grupė / Viešas"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:67
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:65
 msgid "Engine Assistant - Smuxi"
 msgstr "Modulių Pagelbiklis - Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:90
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:87
 msgid "Add Smuxi Engine"
 msgstr "Pridėti Smuxi Modulį"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:92
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:89
 msgid "Edit Smuxi Engine"
 msgstr "Redaguoti Smuxi modulį"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:137
-msgid "Connection"
-msgstr "Ryšys"
-
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:201
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:198
 msgid "Credentials"
 msgstr "Kredencialai"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:303
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:278
 msgid "Now you can use the Smuxi Engine"
 msgstr "Dabar galite naudoti Smuxi modulį"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:306
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:281
 msgid "Thank you"
 msgstr "Ačiū"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:323
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:298
 msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr "Modulis tokiu pavadinimu jau yra! Prašome nurodyti kitą pavadinimą."
@@ -786,33 +821,29 @@ msgstr "Apie Smuxi"
 msgid "Preferences"
 msgstr "Nuostatos"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:266
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:240
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:263
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
 msgid "Unable to add server: "
 msgstr "Neįmanoma pridėti serverio:"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:391
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:384
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
-msgstr ""
-"Persijungimas į vietinį modulį, atjungs jus nuo dabartinio modulio!\n"
-"Ar tikrai norite tai padaryti?"
+msgstr "Persijungimas į vietinį modulį, atjungs jus nuo dabartinio modulio!\nAr tikrai norite tai padaryti?"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:435
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:428
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
-msgstr ""
-"Persijungimas į nuotolinį modulį, atjungs jus nuo dabartinio modulio!\n"
-"Ar tikrai norite tai padaryti?"
+msgstr "Persijungimas į nuotolinį modulį, atjungs jus nuo dabartinio modulio!\nAr tikrai norite tai padaryti?"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:443
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:412
 #, csharp-format
 msgid "Day changed from {0} to {1}"
 msgstr "Diena pasikeitė iš {0} į {1}"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:447
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:416
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Diena pasikeitė į {0}"
@@ -823,66 +854,39 @@ msgstr "Diena pasikeitė į {0}"
 msgid "Invalid filter regex: '{0}'. Reason: {1}"
 msgstr "Neteisingas filtro reguliarusis reiškinys: '{0}'. Priežastis: {1}"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:199
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
 msgid "Are you sure you want to delete the selected filter?"
 msgstr "Jūs tikri, kad norite ištrinti pasirinktą filtrą?"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:251
-#| msgid "Network:"
-msgid "Network"
-msgstr "Tinklas"
-
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:269
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:241
 msgid "Protocol / Server"
 msgstr "Protokolas / Serveris"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:276
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:248
 msgid "Chat Type"
 msgstr "Pokalbio Tipas"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:309
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:281
 msgid "Normal"
 msgstr "Normalus"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:310
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:282
 msgid "Event"
 msgstr "Įvykis"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:317
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:289
 msgid "Type"
 msgstr "Tipas"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:342
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:314
 msgid "Pattern"
 msgstr "Šablonas"
 
-#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:224
-msgid "No Proxy"
-msgstr "Nėra Įgaliotojo Serverio"
-
-#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:226
-msgid "System Default"
-msgstr "Pagal Sistemos Numatymą"
-
-#: ../src/Frontend-GNOME/Views/ServerDialog.cs:64
-msgid "Save"
-msgstr "Įrašyti"
-
-#: ../src/Frontend-GNOME/Views/ServerDialog.cs:72
-#| msgid "_Add"
-msgid "Add"
-msgstr "Pridėti"
-
-#: ../src/Frontend-GNOME/Views/ServerWidget.cs:81
-msgid "Unsupported"
-msgstr "Nepalaikoma"
-
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:562
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:557
 msgid "Low Bandwidth Mode is active: no messages synced."
-msgstr ""
-"Žemos Spartos Veiksena yra aktyvi: nebuvo sinchronizuota jokių pranešimų."
+msgstr "Žemos Spartos Veiksena yra aktyvi: nebuvo sinchronizuota jokių pranešimų."
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:864
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:859
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
 msgid "Show _Menubar"
@@ -894,29 +898,26 @@ msgid "Retrieving user list for {0}..."
 msgstr "Gaunamas vartotojų sąrašas kanalui {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:337
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:349
 msgid "done."
 msgstr "užbaigta."
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:130
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:127
 msgid "Reconnect"
 msgstr "Jungtis iš naujo"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:177
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:174
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
-msgstr ""
-"Uždarius protokolo pokalbį, bus uždaryti ir visi atverti, prie šio protokolo "
-"prijungti, pokalbiai!\n"
-"Ar tikrai norite tai padaryti?"
+msgstr "Uždarius protokolo pokalbį, bus uždaryti ir visi atverti, prie šio protokolo prijungti, pokalbiai!\nAr tikrai norite tai padaryti?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:202
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:189
 msgid "Are you sure you want to delete the selected server?"
 msgstr "Jūs tikri, kad norite ištrinti pasirinktą serverį?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:258
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:292
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:245
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:279
 msgid "Unable to edit server: "
 msgstr "Neįmanoma redaguoti serverio:"
 
@@ -1150,20 +1151,15 @@ msgid ""
 "<span size=\"small\">Enables the use of SSH for the connection.  This has a "
 "small performance impact, but is more secure and required when using NAT or "
 "port-based firewalls</span>"
-msgstr ""
-"<span size=\"small\">Įjungia ryšiui SSH naudojimą. Tai truputį sumažina "
-"greitį, tačiau yra saugiau ir yra reikalaujama, naudojant NAT ar prievadais "
-"pagrįstas užkardas</span>"
+msgstr "<span size=\"small\">Įjungia ryšiui SSH naudojimą. Tai truputį sumažina greitį, tačiau yra saugiau ir yra reikalaujama, naudojant NAT ar prievadais pagrįstas užkardas</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
 msgid "SSH _Host:"
 msgstr "SSH S_erveris:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:146
-msgid ""
-"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
-msgstr ""
-"<span size=\"small\">SSH serverio DNS arba IP adresas ir prievadas</span>"
+msgid "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgstr "<span size=\"small\">SSH serverio DNS arba IP adresas ir prievadas</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:159
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
@@ -1172,84 +1168,74 @@ msgid "_Port:"
 msgstr "_Prievadas:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:186
-msgid ""
-"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
-msgstr ""
-"<span size=\"small\">Smuxi serverio DNS arba IP adresas ir prievadas</span>"
+msgid "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgstr "<span size=\"small\">Smuxi serverio DNS arba IP adresas ir prievadas</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:199
 msgid "_Smuxi Host:"
 msgstr "_Smuxi Serveris:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:54
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:52
 msgid "_SSH Username: (optional)"
 msgstr "_SSH Vartotojo vardas: (nebūtina)"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:77
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:75
 msgid ""
-"<span size=\"small\">Username which will be used to log into the SSH server</"
-"span>"
-msgstr ""
-"<span size=\"small\">Vartotojo vardas, kuris bus naudojamas prisijungimui į "
-"SSH serverį</span>"
+"<span size=\"small\">Username which will be used to log into the SSH "
+"server</span>"
+msgstr "<span size=\"small\">Vartotojo vardas, kuris bus naudojamas prisijungimui į SSH serverį</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:97
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:95
 msgid "_SSH Password: (optional)"
 msgstr "_SSH Slaptažodis: (nebūtina)"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:121
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
 msgid ""
-"<span size=\"small\">Password which will be used to log into the SSH server. "
-"The password is optional if SSH key authorization is used (see below).</span>"
-msgstr ""
-"<span size=\"small\">Slaptažodis, kuris bus naudojamas, prisijungimui prie "
-"SSH serverio. Slaptažodis nėra būtinas jei naudojamas SSH prieigos teisės "
-"raktas (žr. žemiau).</span>"
+"<span size=\"small\">Password which will be used to log into the SSH server."
+" The password is optional if SSH key authorization is used (see "
+"below).</span>"
+msgstr "<span size=\"small\">Slaptažodis, kuris bus naudojamas, prisijungimui prie SSH serverio. Slaptažodis nėra būtinas jei naudojamas SSH prieigos teisės raktas (žr. žemiau).</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:142
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:140
 msgid "_SSH Keyfile: (optional)"
 msgstr "_SSH Rakto failas: (nebūtina)"
 
 #. Container child vbox17.Gtk.Box+BoxChild
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:150
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:148
 msgid "Select a File"
 msgstr "Pasirinkti failą"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:163
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:161
 msgid ""
 "<span size=\"small\">SSH private keyfile which will be used to log into the "
 "SSH server</span>"
-msgstr ""
-"<span size=\"small\">SSH privatus rakto failas, kuris bus naudojamas "
-"prisijungimui prie SSH serverio</span>"
+msgstr "<span size=\"small\">SSH privatus rakto failas, kuris bus naudojamas prisijungimui prie SSH serverio</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:183
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:181
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:242
 msgid "_Username:"
 msgstr "_Vartotojo vardas:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:206
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:204
 msgid ""
 "<span size=\"small\">Username which will be used to log into the Smuxi "
 "server</span>"
-msgstr ""
-"<span size=\"small\">Vartotojo vardas, kuris bus naudojamas prisijungimui "
-"prie Smuxi serverio</span>"
+msgstr "<span size=\"small\">Vartotojo vardas, kuris bus naudojamas prisijungimui prie Smuxi serverio</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:226
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:224
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:116
 msgid "_Password:"
 msgstr "Sla_ptažodis:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:250
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:248
 msgid "<span size=\"small\">Password of the user</span>"
 msgstr "<span size=\"small\">Vartotojo slaptažodis</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:270
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:268
 msgid "_Verify Password:"
 msgstr "_Patvirtinkite Slaptažodį:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:294
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:292
 msgid "<span size=\"small\">Repeat the password for verification</span>"
 msgstr "<span size=\"small\">Pakartokite slaptažodį, kad patvirtinti</span>"
 
@@ -1259,12 +1245,7 @@ msgid ""
 "You need to enter some information before you can use the engine.\n"
 "\n"
 "Click \"Forward\" to begin."
-msgstr ""
-"Sveiki atvykę į Smuxi Modulių Konfigūracijos Pagelbiklį.\n"
-"Prieš tai, kuomet galėsite naudotis varikliuku, turite įvesti kai kurią "
-"informaciją.\n"
-"\n"
-"Norėdami pradėti, spustelėkite \"Pirmyn\"."
+msgstr "Sveiki atvykę į Smuxi Modulių Konfigūracijos Pagelbiklį.\nPrieš tai, kuomet galėsite naudotis varikliuku, turite įvesti kai kurią informaciją.\n\nNorėdami pradėti, spustelėkite \"Pirmyn\"."
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
 msgid "_Engine Name:"
@@ -1284,11 +1265,9 @@ msgstr "Naudoti kaip naująjį numatytąjį modulį"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:104
 msgid ""
-"<span size=\"small\">If enabled, the current engine will be the default next "
-"time Smuxi is started</span>"
-msgstr ""
-"<span size=\"small\">Jei įjungta, kitą kartą paleidus Smuxi, dabartinis "
-"modulis taps numatytuoju</span>"
+"<span size=\"small\">If enabled, the current engine will be the default next"
+" time Smuxi is started</span>"
+msgstr "<span size=\"small\">Jei įjungta, kitą kartą paleidus Smuxi, dabartinis modulis taps numatytuoju</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
 msgid "Smuxi - Open Chat"
@@ -1297,10 +1276,6 @@ msgstr "Smuxi - Atidaryti Pokalbį"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:63
 msgid "_Type:"
 msgstr "_Tipas:"
-
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
-msgid "Smuxi - Server"
-msgstr "Smuxi - Serveris"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:58
 msgid "_Hostname:"
@@ -1318,10 +1293,6 @@ msgstr "Slapyvardis:"
 msgid "_Protocol:"
 msgstr "_Protokolas:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
-msgid "Automatically connect to server at startup"
-msgstr "Paleidus programa, automatiškai jungtis prie serverio"
-
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:276
 msgid "Use Encryption"
 msgstr "Naudoti Šifravimą"
@@ -1337,66 +1308,3 @@ msgstr "K_omandos, prisijungus:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
 msgid "_Ignore Commands"
 msgstr "_Nepaisyti Komandų"
-
-#~ msgid "Character"
-#~ msgstr "Simbolis"
-
-#~ msgid "Word"
-#~ msgstr "Žodis"
-
-#~ msgid ""
-#~ "This setting specifies if Smuxi should store chat messages in memory "
-#~ "(volatile) or to disk (persistent).\n"
-#~ "For persistent you can choose between Db4o, an object database or SQLite, "
-#~ "a relational database.\n"
-#~ "The Db4o backend has known issues like high memory and CPU usage and can "
-#~ "even lead to crashes and thus it is deprecated.\n"
-#~ "The SQLite backend has no known performance or stability issues and is "
-#~ "the recommended setting."
-#~ msgstr ""
-#~ "Šis nustatymas nurodo ar Smuxi turėtų laikyti pokalbių pranešimus "
-#~ "atmintyje (neišliekamas) ar diske (ilgalaikis).\n"
-#~ "Ilgalaikiam laikymui galite rinktis tarp Db4o, objektinės duomenų bazės "
-#~ "arba SQLite, sąryšinės duomenų bazės.\n"
-#~ "Db4o vidinė pusė turi žinomų problemų, tokių kaip didelis atminties ir "
-#~ "procesoriaus naudojimas, ir gali sąlygoti strigtis, todėl ji yra "
-#~ "pasenusi.\n"
-#~ "SQLite vidinė pusė neturi žinomų našumo ar stabilumo problemų ir yra "
-#~ "rekomenduojamas nustatymas."
-
-#~ msgid "Persistent: SQLite (Recommended)"
-#~ msgstr "Ilgalaikis: SQLite (Rekomenduojamas)"
-
-#~ msgid "Persistent: Db4o (Deprecated)"
-#~ msgstr "Ilgalaikis: Db4o (Pasenęs)"
-
-#~ msgid "Persistent (Preview)"
-#~ msgstr "Ilgalaikis (Peržiūra)"
-
-#~ msgid "Volatile"
-#~ msgstr "Neišliekamas"
-
-#~ msgid "Interface"
-#~ msgstr "Sąsaja"
-
-#~ msgid "Servers"
-#~ msgstr "Serveriai"
-
-#~ msgid "Filters"
-#~ msgstr "Filtrai"
-
-#~ msgid "Logging"
-#~ msgstr "Derinimas"
-
-#~ msgid "Nicknames(s) field must not be empty."
-#~ msgstr "Slapyvardžio(-ių) laukas negali būti tuščias."
-
-#~ msgid "Invalid highlight regex: '{0}'. Reason: {1}"
-#~ msgstr ""
-#~ "Neteisingas paryškinimo reguliarusis reiškinys: '{0}'. Priežastis: {1}"
-
-#~ msgid "Protocol:"
-#~ msgstr "Protokolas:"
-
-#~ msgid "Hostname:"
-#~ msgstr "Kompiuterio vardas:"

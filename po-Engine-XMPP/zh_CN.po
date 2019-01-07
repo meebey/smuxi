@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dean Lee <xslidian@gmail.com>, 2013-2015
+# Dian Li <xslidian@gmail.com>, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:33+0200\n"
-"PO-Revision-Date: 2015-05-03 19:53+0000\n"
-"Last-Translator: Dean Lee <xslidian@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
+"POT-Creation-Date: 2015-07-14 19:40+0200\n"
+"PO-Revision-Date: 2017-09-23 19:25+0000\n"
+"Last-Translator: Dian Li <xslidian@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/meebey/smuxi/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
-msgid "The Server has shut down"
+msgid "The server has shut down"
 msgstr "服务器已关闭"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
@@ -34,15 +34,15 @@ msgstr "身份认证失败，用户名不存在或密码无效"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
 msgid ""
-"if you want to create an account with the specified user and password, type "
+"If you want to create an account with the specified user and password, type "
 "/register now"
-msgstr "如果您希望指定用户名与密码创建账号，请输入 /register"
+msgstr "如果您希望以指定的用户名与密码创建账号，请输入 /register"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
 msgid ""
 "This engine has native Facebook support, you should be using it instead of "
-"connecting to facebook with xmpp"
-msgstr "本引擎原生支持 Facebook，您应该使用原生功能，不必  xmpp 连接到 facebook"
+"connecting to Facebook with XMPP"
+msgstr "该引擎有原生的 Facebook 支持，您应使用该引擎，而非通过 XMPP 连接到 Facebook"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
 msgid "not connected"
@@ -65,8 +65,8 @@ msgstr "{0} 不是已知资源"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
 #, csharp-format
-msgid "Contact's Jid: {0}"
-msgstr "联系人的 Jid: {0}"
+msgid "Contact's JID: {0}"
+msgstr "联系人的 JID: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
 msgid "You have a mutual subscription with this contact"
@@ -80,18 +80,18 @@ msgstr "您未订阅该联系人，该联系人也未订阅您"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
 msgid ""
-"You are subscribed to this contact, but the contact is not subcribed to you"
+"You are subscribed to this contact, but the contact is not subscribed to you"
 msgstr "您已订阅该联系人，但该联系人未订阅您"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
 msgid ""
-"You are not subscribed to this contact, but the contact is subcribed to you"
-msgstr "您未订阅该联系人，但该联系人订阅了您"
+"You are not subscribed to this contact, but the contact is subscribed to you"
+msgstr "您未订阅该联系人，但该联系人已订阅您"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
 #, csharp-format
-msgid "Invalid Contact command: {0}"
-msgstr "无效联系人命令: {0}"
+msgid "Invalid contact command: {0}"
+msgstr "无效的联系人命令: {0}"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
@@ -123,8 +123,8 @@ msgstr "离开优先级为: {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
 #, csharp-format
 msgid ""
-"Invalid Priority: {0} (valid priorities are between -128 and 127 inclusive)"
-msgstr "优先级无效: {0} (有效的优先级从 -128 到 127)"
+"Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
+msgstr "无效的优先级: {0} (有效的优先级介于 -128 与 127 之间，包含边界值)"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
 #, csharp-format
@@ -257,8 +257,8 @@ msgstr "未找到群聊“{0}”的服务器。"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
 #, csharp-format
-msgid "Muc service is not available for \"{0}\""
-msgstr "Muc 服务对“{0}”不可用"
+msgid "MUC service is not available for \"{0}\""
+msgstr "MUC 服务对于“{0}”不可用"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
 #, csharp-format

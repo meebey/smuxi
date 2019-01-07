@@ -3,174 +3,199 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Yuri Myasoedov <omerta13@yandex.ru>, 2012.
+# VsyachePuz <vsyachepuz@gmail.com>, 2015
+# Yuri Myasoedov <omerta13@yandex.ru>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:20+0100\n"
-"PO-Revision-Date: 2012-01-11 09:27+0000\n"
-"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
-"Language-Team: Russian (http://www.transifex.net/projects/p/smuxi/team/ru/)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-14 19:40+0200\n"
+"PO-Revision-Date: 2017-09-19 09:10+0000\n"
+"Last-Translator: VsyachePuz <vsyachepuz@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.com/meebey/smuxi/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:124
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
 msgid "Home Timeline"
-msgstr ""
+msgstr "История сообщений"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:135
-msgid "Replies"
-msgstr "Ответы"
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:136
+msgid "Replies & Mentions"
+msgstr "Ответы и упоминания"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:146
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:147
 msgid "Direct Messages"
 msgstr "Прямые сообщения"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:189
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:195
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Используется прокси: {0}:{1}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:217
 msgid "Connecting to Twitter..."
 msgstr "Подключение к Twitter…"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:228
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:259
 msgid "Twitter authorization required."
 msgstr "Twitter требует авторизацию."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:235
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:266
 #, csharp-format
 msgid ""
 "Please open the following URL and click \"Allow\" to allow Smuxi to connect "
 "to your Twitter account: {0}"
-msgstr ""
-"Откройте следующий URL и нажмите «Allow», чтобы разрешить Smuxi подключаться"
-" к вашей учётной записи в Twitter: {0}"
+msgstr "Откройте следующий URL и нажмите «Allow», чтобы разрешить Smuxi подключаться к вашей учётной записи в Twitter: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:251
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:282
 msgid ""
 "Once you have allowed Smuxi to access your Twitter account, Twitter will "
 "provide a PIN."
-msgstr ""
-"После того, как вы разрешите Smuxi получить доступ к учётной записи в "
-"Twitter, Twitter предложит PIN-код."
+msgstr "После того, как вы разрешите Smuxi получить доступ к учётной записи в Twitter, Twitter предложит PIN-код."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:258
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:289
 msgid "Please type: /pin PIN_FROM_TWITTER"
 msgstr "Введите: /pin PIN_КОД_TWITTER"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:265
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:305
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:297
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:359
 msgid "Connection failed!"
 msgstr "Сбой при подключении!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:267
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:307
-msgid "Connection failed! Reason: "
-msgstr "Сбой при подключении! Причина:  "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:302
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:363
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Сбой подключения! Причина: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:280
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:317
 msgid "Fetching user details from Twitter, please wait..."
 msgstr "Получение данных о пользователе с Twitter, подождите…"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:285
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:324
 msgid "Finished fetching user details."
 msgstr "Получение данных о пользователе завершено."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:290
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:330
 msgid "Successfully connected to Twitter."
 msgstr "Успешно подключено к Twitter."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:299
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:348
 msgid "Failed to fetch user details from Twitter. Reason: "
 msgstr "Сбой при получении данных о пользователе. Причина: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:320
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:381
 msgid "Fetching friends from Twitter, please wait..."
 msgstr "Получение друзей с Twitter, подождите…"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:325
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:390
 msgid "Finished fetching friends."
 msgstr "Получение друзей завершено."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:328
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:394
 msgid "Failed to fetch friends from Twitter. Reason: "
 msgstr "Сбой при получении друзей с Twitter. Причина: "
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:605
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:738
 msgid "Twitter Commands"
 msgstr "Команды Twitter"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:647
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:787
 msgid "No pending authorization request!"
-msgstr ""
+msgstr "Нет запросов на авторизацию!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:668
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:808
 #, csharp-format
 msgid "Failed to authorize with Twitter: {0}"
 msgstr "Сбой авторизации Twitter: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:676
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
 msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
 msgstr "Twitter не принял PIN-код.  Проверьте, что он введён правильно."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:684
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:824
 #, csharp-format
 msgid ""
 "Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
 "account."
-msgstr ""
-"Повторите, закрыв эту вкладку и переподключившись к учётной записи «{0}» в "
-"Twitter."
+msgstr "Повторите, закрыв эту вкладку и переподключившись к учётной записи «{0}» в Twitter."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:725
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
 msgid "Migrated Twitter account from basic auth to OAuth."
-msgstr ""
+msgstr "Аккаунт переключен с авторизации basic на OAuth."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:739
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
 #, csharp-format
 msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
 msgstr "Учётная запись «{0}» успешно авторизована в Twitter"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:761
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:902
 #, csharp-format
 msgid "Could not update status - Reason: {0}"
 msgstr "Не удалось обновить статус. Причина: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:770
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:913
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr ""
-"Не удалось отправить сообщение: не указано назначение. Используйте команду: "
-"/msg $псевдоним сообщение"
+msgstr "Не удалось отправить сообщение: не указано назначение. Используйте команду: /msg $псевдоним сообщение"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:783
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:820
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:930
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1025
 #, csharp-format
 msgid "Could not send message - Reason: {0}"
 msgstr "Не удалось отправить сообщение. Причина: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:807
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:950
+msgid "Other timelines"
+msgstr "История других людей"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1008
 msgid "Could not send message - the specified user does not exist."
 msgstr "Не удалось отправить сообщение: указанный пользователь не существует."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:896
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1122
+#, csharp-format
+msgid "Search {0}"
+msgstr "Искать {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
+#, csharp-format
+msgid "Successfully deleted tweet {0}."
+msgstr "Твит {0} успешно удалён."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1277
+#, csharp-format
+msgid "Successfully favorited tweet {0}."
+msgstr "Твит {0} добавлен в избранное."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1309
+#, csharp-format
+msgid "Successfully unfavorited tweet {0}."
+msgstr "Твит {0} удалён из избранного."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1371
+#, csharp-format
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
-msgstr ""
+"{0}"
+msgstr "Ошибка при получении истории сообщений друзей от Twitter. Причина: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1001
-msgid "An error occurred while fetching the replies from Twitter. Reason: "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
+#, csharp-format
+msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
 msgstr "Ошибка при получении ответов с Twitter. Причина:  "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1097
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1589
+#, csharp-format
 msgid ""
-"An error occurred while fetching direct messages from Twitter. Reason: "
-msgstr "Ошибка при получении прямых сообщений с Twitter. Причина:  "
+"An error occurred while fetching direct messages from Twitter. Reason: {0}"
+msgstr "Ошибка при получении прямых сообщений с Twitter. Причина: {0} "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1441
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1972
 msgid "Twitter didn't send a valid response, they're probably overloaded"
 msgstr "Twitter не отправил корректный ответ, возможно они перегружены"
-
-

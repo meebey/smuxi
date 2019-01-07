@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Clément Bourgeois <moonpyk@gmail.com>, 2013,2015
+# Clément Bourgeois <moonpyk@gmail.com>, 2013,2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:33+0200\n"
-"PO-Revision-Date: 2015-05-03 20:14+0000\n"
+"POT-Creation-Date: 2015-07-14 19:40+0200\n"
+"PO-Revision-Date: 2017-09-23 19:25+0000\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/smuxi/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/meebey/smuxi/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
-msgid "The Server has shut down"
-msgstr "Le serveur a été coupé"
+msgid "The server has shut down"
+msgstr "Le serveur s'est arreté"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
 msgid ""
@@ -34,15 +34,15 @@ msgstr "Authentification échouée, mot de passe ou nom d'utilisateur incorrect"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
 msgid ""
-"if you want to create an account with the specified user and password, type "
+"If you want to create an account with the specified user and password, type "
 "/register now"
-msgstr "si vous souhaitez créer un compte avec le nom d'utilisateur et le mot de passe spécifié, tapez /register maintenant"
+msgstr "Si vous voulez créer un compte avec le nom d'utilisateur et le mot de passe spécifié, tapez /register maintenant"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
 msgid ""
 "This engine has native Facebook support, you should be using it instead of "
-"connecting to facebook with xmpp"
-msgstr "Ce moteur a un support natif de Facebook, vous devrier l'utiliser directement plutôt que de vous connecter à Facebook avec XMPP"
+"connecting to Facebook with XMPP"
+msgstr "Ce moteur a le support natif de Facebook, vous devriez l'utiliser à la place d'une connexion à Facebook via XMPP"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
 msgid "not connected"
@@ -65,8 +65,8 @@ msgstr "{0} n'est pas une ressource connue"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
 #, csharp-format
-msgid "Contact's Jid: {0}"
-msgstr "Jid du contact : {0}"
+msgid "Contact's JID: {0}"
+msgstr "JID du contact: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
 msgid "You have a mutual subscription with this contact"
@@ -80,17 +80,17 @@ msgstr "Vous n'avez pas d'abonnement avec ce contact ou ce contact n'est pas abo
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
 msgid ""
-"You are subscribed to this contact, but the contact is not subcribed to you"
+"You are subscribed to this contact, but the contact is not subscribed to you"
 msgstr "Vous êtes abonné à ce contact, mais celui-ci ne s'est pas abonné à vous"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
 msgid ""
-"You are not subscribed to this contact, but the contact is subcribed to you"
+"You are not subscribed to this contact, but the contact is subscribed to you"
 msgstr "Vous n'êtes pas abonné à ce contact, mais lui est abonné à vous"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
 #, csharp-format
-msgid "Invalid Contact command: {0}"
+msgid "Invalid contact command: {0}"
 msgstr "Commande contact invalide : {0}"
 
 #. TRANSLATOR: this line is used as a label / category for a
@@ -123,7 +123,7 @@ msgstr "La priorité pour Parti est : {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
 #, csharp-format
 msgid ""
-"Invalid Priority: {0} (valid priorities are between -128 and 127 inclusive)"
+"Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
 msgstr "Priorité {0} invalide (les priorités valides sont comprises entre -128 et 127 inclus)"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
@@ -257,8 +257,8 @@ msgstr "Chat de groupe \"{0}\" non trouvé sur le serveur."
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
 #, csharp-format
-msgid "Muc service is not available for \"{0}\""
-msgstr "Le service Muc n'est pas disponible pour \"{0}\""
+msgid "MUC service is not available for \"{0}\""
+msgstr "Le service MUC n'est pas disponible pour \"{0}\""
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
 #, csharp-format
