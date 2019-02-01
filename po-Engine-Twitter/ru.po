@@ -188,7 +188,7 @@ msgstr "Ошибка при получении истории сообщений
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
 #, csharp-format
 msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
-msgstr "Ошибка при получении ответов с Twitter. Причина:  "
+msgstr "Ошибка при получении ответов с Twitter. Причина: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1589
 #, csharp-format
