@@ -1,0 +1,129 @@
+# Dutch translation for smuxi.
+# Copyright (C) 2019 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Nathan Follens <nthn@unseen.is>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/"
+"issues\n"
+"POT-Creation-Date: 2018-12-30 17:18+0000\n"
+"PO-Revision-Date: 2019-01-20 09:41+0100\n"
+"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
+"X-Generator: Poedit 2.2\n"
+
+#: ../src/Engine-MessageBuffer/Main.cs:49
+msgid "Enable debug output"
+msgstr "Debuguitvoer inschakelen"
+
+#: ../src/Engine-MessageBuffer/Main.cs:55
+#: ../src/Engine-MessageBuffer/Main.cs:141
+#: ../src/Engine-MessageBuffer/Main.cs:205
+msgid "Show this help"
+msgstr "Deze hulp tonen"
+
+#: ../src/Engine-MessageBuffer/Main.cs:88
+#, csharp-format
+msgid "Unknown action: '{0}'"
+msgstr "Onbekende actie: '{0}'"
+
+#: ../src/Engine-MessageBuffer/Main.cs:95
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Opdrachtregelfout: {0}"
+
+#: ../src/Engine-MessageBuffer/Main.cs:104
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr "Gebruik: smuxi-message-buffer [opties] actie actie-opties"
+
+#: ../src/Engine-MessageBuffer/Main.cs:106
+msgid "Actions:"
+msgstr "Acties:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:110
+#: ../src/Engine-MessageBuffer/Main.cs:152
+#: ../src/Engine-MessageBuffer/Main.cs:217
+msgid "Options:"
+msgstr "Opties:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:119
+msgid "Database format (valid values: auto, db4o, sqlite)"
+msgstr "Databaseformaat (geldige waarden: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:134
+#: ../src/Engine-MessageBuffer/Main.cs:198
+#, csharp-format
+msgid "Unknown {0} option: '{1}'"
+msgstr "Onbekende {0}-optie: '{1}'"
+
+#: ../src/Engine-MessageBuffer/Main.cs:145
+#, csharp-format
+msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
+msgstr "Gebruik: smuxi-message-buffer {0} [actie-opties] db_pad"
+
+#: ../src/Engine-MessageBuffer/Main.cs:150
+msgid "Database path(s)"
+msgstr "Databasepad(en)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:161
+msgid "db_path is required"
+msgstr "db_pad vereist"
+
+#: ../src/Engine-MessageBuffer/Main.cs:175
+msgid "Source format (valid values: auto, db4o, sqlite)"
+msgstr "Bronformaat (geldige waarden: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:183
+msgid "Destination format (valid values: auto, db4o, sqlite)"
+msgstr "Doelformaat (geldige waarden: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:209
+#, csharp-format
+msgid ""
+"Usage: smuxi-message-buffer {0} [action-options] source_db(s)... "
+"destination_db"
+msgstr ""
+"Gebruik: smuxi-message-buffer {0} [actie-opties] bron_db(en)... "
+"doel_db"
+
+#: ../src/Engine-MessageBuffer/Main.cs:214
+msgid "Source file path(s)"
+msgstr "Bronbestandspad(en)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:215
+msgid "Destination file path or -/empty for stdout"
+msgstr "Doelbestandspad of -/empty voor stdout"
+
+#: ../src/Engine-MessageBuffer/Main.cs:226
+msgid "source_db and destination_db are required"
+msgstr "bron_db en doel_db vereist"
+
+#: ../src/Engine-MessageBuffer/Main.cs:242
+msgid "sourceFile must not be empty."
+msgstr "bronBestand mag niet leeg zijn."
+
+#: ../src/Engine-MessageBuffer/Main.cs:251
+msgid "sourceFiles must not be empty."
+msgstr "bronBestanden mogen niet leeg zijn."
+
+#: ../src/Engine-MessageBuffer/Main.cs:271
+#, csharp-format
+msgid "Destination database {0} must be empty!"
+msgstr "Doeldatabase {0} moet leeg zijn!"
+
+#: ../src/Engine-MessageBuffer/Main.cs:340
+#, csharp-format
+msgid "Unknown file format: '{0}'"
+msgstr "Onbekend bestandsformaat: '{0}'"
+
+#: ../src/Engine-MessageBuffer/Main.cs:362
+#, csharp-format
+msgid "Unsupported buffer type: '{0}'"
+msgstr "Onbekend buffertype: '{0}'"
