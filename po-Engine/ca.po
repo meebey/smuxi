@@ -90,7 +90,7 @@ msgstr "S'ha desconnectat de {0}"
 #: ../src/Engine/Session.cs:247
 #, csharp-format
 msgid "Automatically connecting to {0}..."
-msgstr "S'està connectant automàticament a {0}.."
+msgstr "S'està connectant automàticament a {0}..."
 
 #: ../src/Engine/Session.cs:278
 #, csharp-format
@@ -126,17 +126,17 @@ msgstr "S'ha desat la configuració"
 
 #: ../src/Engine/Session.cs:754
 msgid "Invalid key/value format."
-msgstr "El format de clau/valor és invalid."
+msgstr "El format de clau/valor és invàlid."
 
 #: ../src/Engine/Session.cs:778
 #, csharp-format
 msgid "Invalid config key: '{0}'"
-msgstr "El valor de la clau de configuració és invàlida: {0}"
+msgstr "El valor de la clau de configuració és invàlida: «{0}»"
 
 #: ../src/Engine/Session.cs:794 ../src/Engine/Session.cs:800
 #, csharp-format
 msgid "Could not convert config value: '{0}' to type: {1}"
-msgstr "No s'ha pogut convertir el valor de configuració '{0}' al tipus {1}"
+msgstr "No s'ha pogut convertir el valor de configuració «{0}» al tipus {1}"
 
 #: ../src/Engine/Session.cs:814
 #, csharp-format
@@ -230,7 +230,7 @@ msgstr "No s'ha trobat cap gestor de protocol per al protocol: {0}"
 
 #: ../src/Engine/Session.cs:1896
 msgid "Welcome to Smuxi"
-msgstr "Benvinguts a l'Smuxi!"
+msgstr "Us donem la benvinguda a l'Smuxi!"
 
 #: ../src/Engine/Session.cs:1903
 msgid "Type /help to get a list of available commands."
@@ -263,7 +263,7 @@ msgstr "L'usuari «{0}» ja existeix."
 
 #: ../src/Engine/Config/ServerListController.cs:118
 msgid "Network must not be empty."
-msgstr "La xarxa no pot estar buida"
+msgstr "La xarxa no pot estar buida."
 
 #: ../src/Engine/Config/ServerListController.cs:138
 msgid "Server hostname must not be empty."
