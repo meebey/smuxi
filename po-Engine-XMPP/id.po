@@ -1,22 +1,21 @@
 # Indonesian translation for smuxi.
 # Copyright (C) 2017 smuxi's COPYRIGHT HOLDER
 # This file is distributed under the same license as the smuxi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-04-20 06:31+0000\n"
-"PO-Revision-Date: 2017-04-20 13:47+0700\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2018-06-10 18:19+0000\n"
+"PO-Revision-Date: 2019-05-22 13:11+0700\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
 msgid "The server has shut down"
@@ -30,7 +29,7 @@ msgstr "Klien lain masuk dengan sumber yang sama, Anda telah terputus"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:209
 msgid ""
 "Authentication failed, either username does not exist or invalid password"
-msgstr "Otentikasi gagal, nama pengguna tidak ada atau kata sandi salah"
+msgstr "Autentikasi gagal, nama pengguna tidak ada atau kata sandi salah"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
 msgid ""
@@ -40,43 +39,35 @@ msgstr ""
 "Jika Anda ingin membuat akun dengan pengguna dan kata sandi yang ditentukan, "
 "ketik /register sekarang"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
-msgid ""
-"This engine has native Facebook support, you should be using it instead of "
-"connecting to Facebook with XMPP"
-msgstr ""
-"Mesin ini memiliki dukungan Facebook asli, Anda harus menggunakannya alih-"
-"alih terhubung ke Facebook dengan XMPP"
-
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:320
 msgid "not connected"
 msgstr "tidak terhubung"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:819
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:811
 #, csharp-format
 msgid "Could not find contact {0}"
 msgstr "Tidak dapat menemukan kontak {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:825
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:817
 #, csharp-format
 msgid "Contact {0} has {1} known resources"
 msgstr "Kontak {0} memiliki {1} sumber yang diketahui"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:821
 #, csharp-format
 msgid "{0} is not a known resource"
 msgstr "{0} bukan sumber yang diketahui"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
 #, csharp-format
 msgid "Contact's JID: {0}"
 msgstr "JID Kontak: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:833
 msgid "You have a mutual subscription with this contact"
 msgstr "Anda memiliki langganan bersama dengan kontak ini"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:844
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:836
 msgid ""
 "You have no subscription with this contact and this contact is not "
 "subscribed to you"
@@ -84,51 +75,51 @@ msgstr ""
 "Anda tidak memiliki langganan dengan kontak ini dan kontak ini tidak "
 "berlangganan ke Anda"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:839
 msgid ""
 "You are subscribed to this contact, but the contact is not subscribed to you"
 msgstr ""
 "Anda berlangganan kontak ini, namun kontak ini tidak berlangganan ke Anda"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:842
 msgid ""
 "You are not subscribed to this contact, but the contact is subscribed to you"
 msgstr ""
 "Anda tidak berlangganan kontak ini, namun kontak ini berlangganan ke Anda"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:938
 #, csharp-format
 msgid "Invalid contact command: {0}"
 msgstr "Perintah kontak tidak valid: {0}"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:957
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:949
 #, csharp-format
 msgid "{0} Commands"
 msgstr "Perintah {0} "
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:982
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:974
 #, csharp-format
 msgid "Advanced {0} Commands"
 msgstr "Perintah Lanjutan {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1017
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1009
 #, csharp-format
 msgid "Invalid port: {0}"
 msgstr "Port tidak valid: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1052
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1044
 #, csharp-format
 msgid "Priority for Available is: {0}"
 msgstr "Prioritas untuk Tersedia adalah: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1047
 #, csharp-format
 msgid "Priority for Away is: {0}"
 msgstr "Prioritas untuk Pergi adalah: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
 #, csharp-format
 msgid ""
 "Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
@@ -136,37 +127,37 @@ msgstr ""
 "Prioritas tidak valid: {0} (prioritas yang valid adalah antara -128 dan 127 "
 "inklusif)"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1636
 #, csharp-format
 msgid "{0}{1} is available"
 msgstr "{0} {1} tersedia"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1637
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1640
 #, csharp-format
 msgid "{0}{1} is away"
 msgstr "{0} {1} sedang pergi"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1641
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1644
 #, csharp-format
 msgid "{0}{1} is extended away"
 msgstr "{0} {1} sedang pergi lama"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1645
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1648
 #, csharp-format
 msgid "{0}{1} wishes not to be disturbed"
 msgstr "{0} {1} tidak ingin diganggu"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1649
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1652
 #, csharp-format
 msgid "{0}{1} wants to chat"
 msgstr "{0} {1} ingin mengobrol"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1656
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1659
 #, csharp-format
 msgid "{0}{1} is offline"
 msgstr "{0}{1} sedang luring"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1662
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1665
 #, csharp-format
 msgid ""
 "Automatically allowed {0} to subscribe to you, since you are already asking "
@@ -175,18 +166,18 @@ msgstr ""
 "Izinkan secara otomatis {0} untuk berlangganan ke Anda, karena Anda sudah "
 "meminta untuk berlangganan"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1666
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1669
 #, csharp-format
 msgid "{0}{1} wishes to subscribe to you"
 msgstr "{0} {1} ingin berlangganan ke Anda"
 
 #. you can now see their presences
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1674
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1677
 #, csharp-format
 msgid "{0}{1} allowed you to subscribe"
 msgstr "{0} {1} memungkinkan Anda untuk berlangganan"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1681
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1684
 #, csharp-format
 msgid ""
 "Automatically removed {0}'s subscription to your presences after losing the "
@@ -196,95 +187,95 @@ msgstr ""
 "langganan mereka"
 
 #. you cannot (anymore?) see their presences
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1688
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1691
 #, csharp-format
 msgid "{0}{1} denied/removed your subscription"
 msgstr "{0} {1} menolak/menghapus langganan Anda"
 
 #. you might still be able to see their presences
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1693
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1696
 #, csharp-format
 msgid "{0}{1} unsubscribed from you"
 msgstr "{0} {1} berhenti berlangganan dari Anda"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1697
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1700
 #, csharp-format
 msgid "received a malformed error message: {0}"
 msgstr "Menerima pesan kesalahan yang salah: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1704
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1707
 #, csharp-format
 msgid "{0}{1}'s server could not be found"
 msgstr "Peladen {0} {1} tidak dapat ditemukan"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1707
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1710
 #, csharp-format
 msgid "{0}{1} is already using your requested resource"
 msgstr "{0} {1} sudah menggunakan sumber yang Anda minta"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1714
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1736
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1750
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1717
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1739
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1753
 #, csharp-format
 msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
 msgstr "Saat ini tidak ada pesan kesalahan yang berguna untuk {0}, {1}, {2}{3}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1727
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1730
 #, csharp-format
 msgid "You do not have permission to access {0}{1}"
 msgstr "Anda tidak memiliki izin untuk mengakses {0}{1}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1777
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1780
 #, csharp-format
 msgid "{0} days"
 msgstr "{0} hari"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1783
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1786
 #, csharp-format
 msgid "{0} hours"
 msgstr "{0} jam"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1787
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1790
 #, csharp-format
 msgid "{0} minutes"
 msgstr "{0} menit"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1790
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1793
 #, csharp-format
 msgid "{0} seconds"
 msgstr "{0} detik"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1802
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1805
 #, csharp-format
 msgid " since {0} ({1})"
 msgstr " sejak {0} ({1})"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1887
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1890
 #, csharp-format
 msgid "An unknown groupchat error occurred: {0}"
 msgstr "Kesalahan obrolan grup tidak dikenal terjadi: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1894
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
 #, csharp-format
 msgid "Server of groupchat \"{0}\" not found."
 msgstr "Peladen obrolan grup \"{0}\" tidak ditemukan."
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1900
 #, csharp-format
 msgid "MUC service is not available for \"{0}\""
 msgstr "Layanan MUC tidak tersedia untuk \"{0}\""
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1907
 #, csharp-format
 msgid "You do not have permission to join \"{0}\""
 msgstr "Anda tidak memiliki izin untuk bergabung \"{0}\""
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1910
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1913
 #, csharp-format
 msgid "An unhandled groupchat error occurred: {0}"
 msgstr "Terjadi kesalahan obrolan grup yang tidak ditangani: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2096
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2090
 #, csharp-format
 msgid ""
 "Received a presence update from {0}, but there's no corresponding chat window"
@@ -292,7 +283,7 @@ msgstr ""
 "Menerima pembaruan kehadiran dari {0}, namun tidak ada jendela obrolan yang "
 "sesuai"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2120
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2114
 #, csharp-format
 msgid ""
 "Received a groupchat message from {0} but there's no corresponding chat "
@@ -301,40 +292,47 @@ msgstr ""
 "Menerima pesan obrolan grup dari {0} tapi tidak ada jendela obrolan yang "
 "sesuai: {1}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2391
 #, csharp-format
 msgid "You have been invited to {2} by {0} because {1}"
 msgstr "Anda telah diundang ke {2} oleh {0} karena {1}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2403
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
 #, csharp-format
 msgid "You have been invited to {1} by {0}"
 msgstr "Anda telah diundang ke {1} oleh {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2424
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2418
 msgid "Accept invite (join room)"
 msgstr "Terima undangan (gabung kanal)"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2562
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2556
 #, csharp-format
 msgid "Reconnecting to {0}"
 msgstr "Menyambung kembali ke {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2576
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2570
 #, csharp-format
 msgid "Reconnecting to {0} in {1} seconds"
 msgstr "Menyambung kembali ke {0} dalam {1} detik"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2606
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2600
 #, csharp-format
 msgid "Error: {0}"
 msgstr "Kesalahan: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2618
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2612
 msgid "Authenticated"
-msgstr "Terotentikasi"
+msgstr "Terautentikasi"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2669
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2663
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
 msgstr "Menggunakan proksi: {0}:{1}"
+
+#~ msgid ""
+#~ "This engine has native Facebook support, you should be using it instead "
+#~ "of connecting to Facebook with XMPP"
+#~ msgstr ""
+#~ "Mesin ini memiliki dukungan Facebook asli, Anda harus menggunakannya alih-"
+#~ "alih terhubung ke Facebook dengan XMPP"
