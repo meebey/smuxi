@@ -19,8 +19,10 @@ install:
     - sudo apt-get install devscripts equivs > /dev/null
     - sudo mk-build-deps --install debian/control > /dev/null
     - sudo apt-get install mono-devel nunit-console moreutils gtk-sharp2-gapi libgtkspell-dev > /dev/null
+    - sudo apt-get install libnunit-cil-dev > /dev/null
 
 script:
+    - set -e
     - ./autogen.sh
     - find lib/ -name "*.csproj" -exec sed 's!<WarningLevel>[0-9]</WarningLevel>!<WarningLevel>0</WarningLevel>!' -i {} \;
     - sed 's!<Package>dbus-sharp-2.0</Package>!<Package>dbus-sharp-1.0</Package>!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
