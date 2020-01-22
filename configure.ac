@@ -243,6 +243,7 @@ AC_SUBST(XBUILD_FLAGS)
 
 # Required Libraries	
 PKG_CHECK_MODULES([LOG4NET], [log4net])
+PKG_CHECK_MODULES([NUNIT], [nunit])
 
 PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
 nini_files=
