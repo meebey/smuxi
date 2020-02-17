@@ -1,0 +1,18 @@
+name: macOS
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  macOS_build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: ./autogen.sh && make release
+
+  macOS_tests_unit:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: ./autogen.sh && make && make check
