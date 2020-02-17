@@ -100,6 +100,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(chat);
 
+            var inviteFromChatModel = ChatViewManager.ActiveChat.ChatModel;
             foreach (var invitee in Invitees) {
                 var inviteeId = invitee.ID;
                 ThreadPool.QueueUserWorkItem(delegate {
@@ -107,7 +108,7 @@ namespace Smuxi.Frontend.Gnome
                         ProtocolManager.CommandInvite(
                             new CommandModel(
                                 Frontend.FrontendManager,
-                                ChatViewManager.ActiveChat.ChatModel,
+                                inviteFromChatModel,
                                 String.Format("{0} {1}", inviteeId, chat.ID)
                             )
                         );

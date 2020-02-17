@@ -90,13 +90,14 @@ namespace Smuxi.Frontend.Gnome
                     item.Image = new Gtk.Image(GroupChatView.IconPixbuf);
                     var chatid = chatView.ID;
                     item.Activated += delegate {
+                        var inviteFromChatModel = ChatViewManager.ActiveChat.ChatModel;
                         ThreadPool.QueueUserWorkItem(delegate {
                             try {
                                 for (int i = 0; i < Invitees.Count; i++) {
                                     ProtocolManager.CommandInvite(
                                         new CommandModel(
                                             Frontend.FrontendManager,
-                                            ChatViewManager.ActiveChat.ChatModel,
+                                            inviteFromChatModel,
                                             chatid + " " + Invitees[i].ID
                                         )
                                      );

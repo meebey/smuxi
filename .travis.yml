@@ -1,7 +1,17 @@
-language: c
+language: csharp
+dist: xenial
 
 before_install:
   - git submodule update --init --recursive
+
+mono:
+    - latest
+    - 4.6.2
+    - 4.2.3
+    - 4.2.1
+    - 4.0.0
+    - 3.12.0
+    - 2.10.8
 
 install:
     - sudo apt-get update > /dev/null
@@ -11,7 +21,7 @@ install:
     - sudo apt-get install mono-devel nunit-console moreutils gtk-sharp2-gapi libgtkspell-dev > /dev/null
 
 script:
-    - ./autogen.sh MCS=/usr/bin/dmcs
+    - ./autogen.sh
     - find lib/ -name "*.csproj" -exec sed 's!<WarningLevel>[0-9]</WarningLevel>!<WarningLevel>0</WarningLevel>!' -i {} \;
     - sed 's!<Package>dbus-sharp-2.0</Package>!<Package>dbus-sharp-1.0</Package>!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
     - sed 's!<Package>dbus-sharp-glib-2.0</Package>!<Package>dbus-sharp-glib-1.0</Package>!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
@@ -28,7 +38,7 @@ script:
     - nunit-console bin/release/smuxi-frontend-tests.dll
     - nunit-console bin/release/smuxi-frontend-gnome-tests.dll
     - nunit-console bin/release/smuxi-frontend-stfl-tests.dll
-    - chronic make clean && chronic make distcheck MCS=/usr/bin/dmcs
+    - chronic make clean && chronic make distcheck
     - export DEB_UPSTREAM_VERSION=$(dpkg-parsechangelog -ldebian/changelog | grep ^Vers | cut -d\  -f2 | cut -d':' -f2 | sed 's,-.*,,' | sed 's,+dfsg.*,,')
     - mv smuxi-*.tar.gz ../smuxi_${DEB_UPSTREAM_VERSION}.orig.tar.gz
     - cd .. && tar -xzf smuxi_${DEB_UPSTREAM_VERSION}.orig.tar.gz
