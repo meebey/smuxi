@@ -9,10 +9,16 @@ jobs:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v1
-    - run: ./autogen.sh && make release
+    - name: Build only
+      run: |
+        ./build/install-deps-macos.sh
+        ./autogen.sh && make release
 
   macOS_tests_unit:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v1
-    - run: ./autogen.sh && make && make check
+    - name: Run unit test
+      run: |
+        ./build/install-deps-macos.sh
+        ./autogen.sh && make && make check
