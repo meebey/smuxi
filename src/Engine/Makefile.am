@@ -40,6 +40,13 @@ else
 LOG4NET_REF_LIBS=$(LOG4NET_LIBS)
 endif
 
+if BUNDLE_NINI_BLOB
+NINI_DLL_SOURCE=../../lib/Nini.dll
+NINI_REF_LIBS=-r:$(NINI_DLL_SOURCE)
+else
+NINI_REF_LIBS=$(NINI_LIBS)
+endif
+
 AL=al2
 SATELLITE_ASSEMBLY_NAME=.resources.dll
 
@@ -139,7 +146,7 @@ REFERENCES =  \
 	System.Xml \
 	Mono.Posix \
 	Mono.Data.Sqlite \
-	$(NINI_LIBS) \
+	$(NINI_REF_LIBS) \
 	$(LOG4NET_REF_LIBS) \
 	$(DB4O_LIBS) \
 	$(DB4O_INCLUDED_LIBS)

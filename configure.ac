@@ -261,21 +261,27 @@ else
 	AM_CONDITIONAL([ENABLE_TESTS], false)
 fi
 
-PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
 nini_files=
-if test "x$FOUND_NINI" = "xyes"; then
-	nini_files=`pkg-config --variable=Libraries nini-1.1`
-	if test -z "$nini_files" ; then
-		# Debian-based distros place Nini into the GAC
-		PKG_CHECK_MODULES([NINI], [nini-1.1])
+if test "x$(uname)" != "xDarwin"; then
+	PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
+	if test "x$FOUND_NINI" = "xyes"; then
+		nini_files=`pkg-config --variable=Libraries nini-1.1`
+		if test -z "$nini_files" ; then
+			# Debian-based distros place Nini into the GAC
+			PKG_CHECK_MODULES([NINI], [nini-1.1])
+		else
+			# openSUSE has Nini as a private assembly; need to copy it.
+			AC_SUBST([NINI_LIBS], "$nini_files")
+		fi
 	else
-		# openSUSE has Nini as a private assembly; need to copy it.
-		AC_SUBST([NINI_LIBS], "$nini_files")
+		PKG_CHECK_MODULES([NINI], [nini >= 1.1])
 	fi
+	AM_CONDITIONAL([BUNDLE_NINI], test -n "$nini_files")
+	AM_CONDITIONAL([BUNDLE_NINI_BLOB], false)
 else
-	PKG_CHECK_MODULES([NINI], [nini >= 1.1])
+	AM_CONDITIONAL([BUNDLE_NINI], false)
+	AM_CONDITIONAL([BUNDLE_NINI_BLOB], true)
 fi
-AM_CONDITIONAL([BUNDLE_NINI], test -n "$nini_files")
 
 AC_ARG_WITH([db4o],
 	AC_HELP_STRING([--with-db4o=auto|system|included], [Use system or included db4o @<:@default=auto@:>@]),
