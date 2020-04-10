@@ -242,13 +242,24 @@ fi
 AC_SUBST(XBUILD_FLAGS)
 
 # Required Libraries	
+
 if test "x$(uname)" != "xDarwin"; then
 	PKG_CHECK_MODULES([LOG4NET], [log4net])
 	AM_CONDITIONAL([BUNDLE_LOG4NET], false)
 else
 	AM_CONDITIONAL([BUNDLE_LOG4NET], true)
 fi
-PKG_CHECK_MODULES([NUNIT], [nunit])
+
+AC_MSG_CHECKING([for NUnit])
+if $PKG_CONFIG 'nunit'; then
+	AC_MSG_RESULT(yes)
+	FOUND_NUNIT=yes
+	AM_CONDITIONAL([ENABLE_TESTS], true)
+else
+	AC_MSG_RESULT(no)
+	FOUND_NUNIT=no
+	AM_CONDITIONAL([ENABLE_TESTS], false)
+fi
 
 PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
 nini_files=
@@ -788,6 +799,8 @@ AC_MSG_RESULT([
 	* Build profile:       $PROFILE
 	* Compiler:            $CSC
 	* Target CLI runtime:  $CLI_RUNTIME
+
+	* Tests:               $FOUND_NUNIT
 
 	* Engines
 	  -------

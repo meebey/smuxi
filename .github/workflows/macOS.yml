@@ -14,11 +14,12 @@ jobs:
         ./build/install-deps-macos.sh
         ./autogen.sh && make release
 
-  macOS_tests_unit:
-    runs-on: macOS-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Run unit test
-      run: |
-        ./build/install-deps-macos.sh
-        ./autogen.sh && make && make check
+# TODO:
+#  macOS_tests_unit:
+#    runs-on: macOS-latest
+#    steps:
+#    - uses: actions/checkout@v1
+#    - name: Run unit test
+#      run: |
+#        ./build/install-deps-macos.sh
+#        ./autogen.sh && make && make check
