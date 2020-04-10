@@ -1,3 +1,10 @@
+if BUNDLE_LOG4NET
+LOG4NET_DLL_SOURCE=../../lib/log4net.dll
+LOG4NET_REF_LIBS=-r:$(LOG4NET_DLL_SOURCE)
+else
+LOG4NET_REF_LIBS=$(LOG4NET_LIBS)
+endif
+
 TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
 ASSEMBLY_NAME = smuxi-engine-xmpp
 ASSEMBLY_FILENAME = $(ASSEMBLY_NAME).dll
@@ -15,7 +22,7 @@ REFERENCES = \
 	System \
 	System.Core \
 	Mono.Posix \
-	$(LOG4NET_LIBS)
+	$(LOG4NET_REF_LIBS)
 
 DLL_REFERENCES = \
 	$(TARGET_DIR)/smuxi-common.dll \

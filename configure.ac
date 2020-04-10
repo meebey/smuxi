@@ -242,7 +242,12 @@ fi
 AC_SUBST(XBUILD_FLAGS)
 
 # Required Libraries	
-PKG_CHECK_MODULES([LOG4NET], [log4net])
+if test "x$(uname)" != "xDarwin"; then
+	PKG_CHECK_MODULES([LOG4NET], [log4net])
+	AM_CONDITIONAL([BUNDLE_LOG4NET], false)
+else
+	AM_CONDITIONAL([BUNDLE_LOG4NET], true)
+fi
 PKG_CHECK_MODULES([NUNIT], [nunit])
 
 PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
