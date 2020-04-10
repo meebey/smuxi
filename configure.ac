@@ -689,6 +689,10 @@ AC_ARG_ENABLE([frontend-stfl],
 	ENABLE_FRONTEND_STFL=$enableval,
 	ENABLE_FRONTEND_STFL=yes
 )
+if test "x$(uname)" = "xDarwin"; then
+	ENABLE_FRONTEND_STFL=no
+fi
+
 if test "x$ENABLE_FRONTEND_STFL" != "xno"; then
 	PKG_CHECK_MODULES([STFL], [stfl >= 0.21])
 fi
