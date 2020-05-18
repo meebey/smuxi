@@ -242,24 +242,46 @@ fi
 AC_SUBST(XBUILD_FLAGS)
 
 # Required Libraries	
-PKG_CHECK_MODULES([LOG4NET], [log4net])
-PKG_CHECK_MODULES([NUNIT], [nunit])
 
-PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
-nini_files=
-if test "x$FOUND_NINI" = "xyes"; then
-	nini_files=`pkg-config --variable=Libraries nini-1.1`
-	if test -z "$nini_files" ; then
-		# Debian-based distros place Nini into the GAC
-		PKG_CHECK_MODULES([NINI], [nini-1.1])
-	else
-		# openSUSE has Nini as a private assembly; need to copy it.
-		AC_SUBST([NINI_LIBS], "$nini_files")
-	fi
+if test "x$(uname)" != "xDarwin"; then
+	PKG_CHECK_MODULES([LOG4NET], [log4net])
+	AM_CONDITIONAL([BUNDLE_LOG4NET], false)
 else
-	PKG_CHECK_MODULES([NINI], [nini >= 1.1])
+	AM_CONDITIONAL([BUNDLE_LOG4NET], true)
 fi
-AM_CONDITIONAL([BUNDLE_NINI], test -n "$nini_files")
+
+AC_MSG_CHECKING([for NUnit])
+if $PKG_CONFIG 'nunit'; then
+	AC_MSG_RESULT(yes)
+	FOUND_NUNIT=yes
+	AM_CONDITIONAL([ENABLE_TESTS], true)
+else
+	AC_MSG_RESULT(no)
+	FOUND_NUNIT=no
+	AM_CONDITIONAL([ENABLE_TESTS], false)
+fi
+
+nini_files=
+if test "x$(uname)" != "xDarwin"; then
+	PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
+	if test "x$FOUND_NINI" = "xyes"; then
+		nini_files=`pkg-config --variable=Libraries nini-1.1`
+		if test -z "$nini_files" ; then
+			# Debian-based distros place Nini into the GAC
+			PKG_CHECK_MODULES([NINI], [nini-1.1])
+		else
+			# openSUSE has Nini as a private assembly; need to copy it.
+			AC_SUBST([NINI_LIBS], "$nini_files")
+		fi
+	else
+		PKG_CHECK_MODULES([NINI], [nini >= 1.1])
+	fi
+	AM_CONDITIONAL([BUNDLE_NINI], test -n "$nini_files")
+	AM_CONDITIONAL([BUNDLE_NINI_BLOB], false)
+else
+	AM_CONDITIONAL([BUNDLE_NINI], false)
+	AM_CONDITIONAL([BUNDLE_NINI_BLOB], true)
+fi
 
 AC_ARG_WITH([db4o],
 	AC_HELP_STRING([--with-db4o=auto|system|included], [Use system or included db4o @<:@default=auto@:>@]),
@@ -667,6 +689,10 @@ AC_ARG_ENABLE([frontend-stfl],
 	ENABLE_FRONTEND_STFL=$enableval,
 	ENABLE_FRONTEND_STFL=yes
 )
+if test "x$(uname)" = "xDarwin"; then
+	ENABLE_FRONTEND_STFL=no
+fi
+
 if test "x$ENABLE_FRONTEND_STFL" != "xno"; then
 	PKG_CHECK_MODULES([STFL], [stfl >= 0.21])
 fi
@@ -783,6 +809,8 @@ AC_MSG_RESULT([
 	* Build profile:       $PROFILE
 	* Compiler:            $CSC
 	* Target CLI runtime:  $CLI_RUNTIME
+
+	* Tests:               $FOUND_NUNIT
 
 	* Engines
 	  -------

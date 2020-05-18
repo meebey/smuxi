@@ -15,7 +15,6 @@ PROJECT_REFERENCES =  \
 BUILD_DIR = ../../bin/release
 
 SMUXI_ENGINE_DLL_MDB=
-LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 NINI_DLL_SOURCE=../../lib/Nini.dll
 SMUXI_ENGINE_DLL_SOURCE=../../bin/release/smuxi-engine.dll
 SMUXI_COMMON_DLL_SOURCE=../../bin/release/smuxi-common.dll
@@ -35,11 +34,17 @@ BUILD_DIR = ../../bin/debug
 
 SMUXI_ENGINE_DLL_MDB_SOURCE=../../bin/debug/smuxi-engine.dll.mdb
 SMUXI_ENGINE_DLL_MDB=$(BUILD_DIR)/smuxi-engine.dll.mdb
-LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 NINI_DLL_SOURCE=../../lib/Nini.dll
 SMUXI_ENGINE_DLL_SOURCE=../../bin/debug/smuxi-engine.dll
 SMUXI_COMMON_DLL_SOURCE=../../bin/debug/smuxi-common.dll
 
+endif
+
+if BUNDLE_LOG4NET
+LOG4NET_DLL_SOURCE=../../lib/log4net.dll
+LOG4NET_REF_LIBS=-r:$(LOG4NET_DLL_SOURCE)
+else
+LOG4NET_REF_LIBS=$(LOG4NET_LIBS)
 endif
 
 AL=al2
@@ -80,7 +85,7 @@ REFERENCES =  \
 	System \
 	System.Core \
 	Mono.Posix \
-	$(LOG4NET_LIBS)
+	$(LOG4NET_REF_LIBS)
 
 DLL_REFERENCES = \
     $(BUILD_DIR)/Meebey.SmartIrc4net.dll

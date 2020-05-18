@@ -32,6 +32,9 @@ AC_DEFUN([SHAMROCK_FIND_MONO_RUNTIME],
 
 AC_DEFUN([SHAMROCK_CHECK_MONO_MODULE],
 [
+	if test "x$(uname)" = "xDarwin"; then
+		export PKG_CONFIG_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib/pkgconfig:$PKG_CONFIG_PATH
+	fi
 	PKG_CHECK_MODULES(MONO_MODULE, mono >= $1)
 ])
 

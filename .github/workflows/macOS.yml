@@ -1,0 +1,26 @@
+name: macOS
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  macOS_build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build only
+# TODO: `make release`
+      run: |
+        ./build/install-deps-macos.sh
+        ./autogen.sh && make
+
+# TODO:
+#  macOS_tests_unit:
+#    runs-on: macOS-latest
+#    steps:
+#    - uses: actions/checkout@v1
+#    - name: Run unit test
+#      run: |
+#        ./build/install-deps-macos.sh
+#        ./autogen.sh && make && make check

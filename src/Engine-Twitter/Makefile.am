@@ -1,3 +1,10 @@
+if BUNDLE_LOG4NET
+LOG4NET_DLL_SOURCE=../../lib/log4net.dll
+LOG4NET_REF_LIBS=-r:$(LOG4NET_DLL_SOURCE)
+else
+LOG4NET_REF_LIBS=$(LOG4NET_LIBS)
+endif
+
 TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
 ASSEMBLY_NAME = smuxi-engine-twitter
 ASSEMBLY_FILENAME = $(ASSEMBLY_NAME).dll
@@ -11,7 +18,7 @@ SOURCES = \
 		Protocols/Twitter/TwitterMessageBuilder.cs \
 		Protocols/Twitter/TwitterSearchStream.cs
 
-REFERENCES = 		$(LOG4NET_LIBS) \
+REFERENCES = 		$(LOG4NET_REF_LIBS) \
 			$(SMARTIRC4NET_LIBS) \
 			System.Web \
 			System.Core

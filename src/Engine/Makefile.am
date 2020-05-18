@@ -14,7 +14,6 @@ PROJECT_REFERENCES =  \
 	../../bin/release/smuxi-common.dll
 BUILD_DIR = ../../bin/release
 
-LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 SMUXI_COMMON_DLL_SOURCE=../../bin/release/smuxi-common.dll
 
 endif
@@ -30,9 +29,22 @@ PROJECT_REFERENCES =  \
 	../../bin/debug/smuxi-common.dll
 BUILD_DIR = ../../bin/debug
 
-LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 SMUXI_COMMON_DLL_SOURCE=../../bin/debug/smuxi-common.dll
 
+endif
+
+if BUNDLE_LOG4NET
+LOG4NET_DLL_SOURCE=../../lib/log4net.dll
+LOG4NET_REF_LIBS=-r:$(LOG4NET_DLL_SOURCE)
+else
+LOG4NET_REF_LIBS=$(LOG4NET_LIBS)
+endif
+
+if BUNDLE_NINI_BLOB
+NINI_DLL_SOURCE=../../lib/Nini.dll
+NINI_REF_LIBS=-r:$(NINI_DLL_SOURCE)
+else
+NINI_REF_LIBS=$(NINI_LIBS)
 endif
 
 AL=al2
@@ -134,8 +146,8 @@ REFERENCES =  \
 	System.Xml \
 	Mono.Posix \
 	Mono.Data.Sqlite \
-	$(NINI_LIBS) \
-	$(LOG4NET_LIBS) \
+	$(NINI_REF_LIBS) \
+	$(LOG4NET_REF_LIBS) \
 	$(DB4O_LIBS) \
 	$(DB4O_INCLUDED_LIBS)
 
