@@ -10,7 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build only
-# TODO: `make release`
       run: |
         ./build/install-deps-macos.sh
         ./autogen.sh && make
