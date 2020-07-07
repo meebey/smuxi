@@ -308,7 +308,6 @@ run: run-gnome
 run-gnome: all
 	if [ "x$(shell uname)" = "xDarwin" ]; then \
 		cp lib/Nini.dll bin/debug && cp lib/log4net.dll bin/debug; \
-	  export DYLD_FALLBACK_LIBRARY_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib:/lib:/usr/lib; \
 	fi; \
 	cd $(BUILD_DIR) && \
 		mono --debug ./smuxi-frontend-gnome.exe -d
