@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2019-02-01 13:37+0000\n"
+"POT-Creation-Date: 2019-12-26 21:00+0000\n"
 "PO-Revision-Date: 2019-02-19 15:58+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
@@ -836,7 +836,6 @@ msgid "Are you sure you want to delete the selected filter?"
 msgstr "¿Seguro que desea borrar el filtro seleccionado?"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:251
-#| msgid "Network:"
 msgid "Network"
 msgstr "Red"
 
@@ -877,7 +876,6 @@ msgid "Save"
 msgstr "Guardar"
 
 #: ../src/Frontend-GNOME/Views/ServerDialog.cs:72
-#| msgid "_Add"
 msgid "Add"
 msgstr "Añadir"
 
@@ -1265,7 +1263,7 @@ msgid ""
 "\n"
 "Click \"Forward\" to begin."
 msgstr ""
-"Bienvenido al asistente de configuración del motor de Smuxi.\n"
+"Bienvenido/a al asistente de configuración del motor de Smuxi.\n"
 "Necesita ingresar alguna información antes de poder utilizar el motor.\n"
 "\n"
 "Pulse en «Avanzar» para empezar."
