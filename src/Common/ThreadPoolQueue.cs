@@ -55,26 +55,35 @@ namespace Smuxi.Common
 
         void CheckQueue()
         {
+            var action = Dequeue();
+            if (action == null) {
+                return;
+            }
+
+            Interlocked.Increment(ref ActiveWorkers);
+
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    action();
+                } finally {
+                    Interlocked.Decrement(ref ActiveWorkers);
+                    CheckQueue();
+                }
+            });
+        }
+
+        Action Dequeue()
+        {
             lock (ActionQueue) {
                 if (ActionQueue.Count == 0) {
-                    return;
+                    return null;
                 }
 
                 if (ActiveWorkers >= MaxWorkers) {
-                    return;
+                    return null;
                 }
 
-                var action = ActionQueue.Dequeue();
-                Interlocked.Increment(ref ActiveWorkers);
-
-                ThreadPool.QueueUserWorkItem(delegate {
-                    try {
-                        action();
-                    } finally {
-                        Interlocked.Decrement(ref ActiveWorkers);
-                        CheckQueue();
-                    }
-                });
+                return ActionQueue.Dequeue();
             }
         }
     }
