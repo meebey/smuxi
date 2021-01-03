@@ -1,26 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
-# Jeroen Baten <jeroen@libreplan.nl>, 2013
+# Jeroen Baten <jeroen@libreplan.nl>, 2013.
+# Nathan Follens <nthn@unseen.is>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 16:59+0100\n"
-"PO-Revision-Date: 2013-12-26 12:54+0000\n"
-"Last-Translator: Jeroen Baten <jeroen@libreplan.nl>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/smuxi/language/nl/)\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2018-06-10 18:17+0000\n"
+"PO-Revision-Date: 2019-03-10 14:59+0100\n"
+"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/smuxi/language/"
+"nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
 msgid "Connecting to campfire... "
-msgstr "Verbinden met campfile..."
+msgstr "Verbinden met campfire… "
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:166
 msgid "Connected to campfire"
@@ -30,60 +33,65 @@ msgstr "Verbonden met campfire"
 #. list of commands below
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:200
 msgid "Campfire Commands"
-msgstr "Campfire commando's"
+msgstr "Campfire-opdrachten"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:262
 msgid "Upload"
-msgstr "Upload"
+msgstr "Uploaden"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:263
 #, csharp-format
 msgid "'{0}' ({1} B) {2}"
-msgstr "'{0}' ({1} B) {2}"
+msgstr "‘{0}’ ({1} B) {2}"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:367
 #, csharp-format
 msgid "Failed to post message: {0}"
-msgstr "Publicatie van boodschap niet gelukt: {0}"
+msgstr "Plaatsen van bericht mislukt: {0}"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:383
 #, csharp-format
 msgid "has uploaded '{0}' ({1} B) {2}"
-msgstr "heeft geupload '{0}' ({1} B) {2}"
+msgstr "heeft ‘{0}’ geüpload ({1} B) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:415
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:420
 #, csharp-format
 msgid "has joined {0}"
-msgstr "is verbonden met {0}"
+msgstr "neemt nu deel aan {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:424
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:429
 #, csharp-format
 msgid "has left {0}"
 msgstr "heeft {0} verlaten"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:432
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:437
 #, csharp-format
 msgid "has locked {0}"
-msgstr "heeft {0} gelocked"
+msgstr "heeft {0} vergrendeld"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
 #, csharp-format
 msgid "has unlocked {0}"
-msgstr "heeft {0} ontsloten"
+msgstr "heeft {0} ontgrendeld"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:446
 msgid "has changed the topic"
 msgstr "heeft het onderwerp gewijzigd"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:451
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:458
+#, csharp-format
+msgid "has pasted a tweet by {0}: {1}"
+msgstr "heeft een tweet door {0} geplakt: {1}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:465
 msgid "has performed an unknown action"
 msgstr "heeft een onbekende actie uitgevoerd"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:492
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:504
 #, csharp-format
 msgid "Error reading from stream: {0}"
 msgstr "Fout tijdens lezen van datastroom: {0}"

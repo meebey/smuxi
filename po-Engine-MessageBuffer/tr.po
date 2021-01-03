@@ -1,121 +1,131 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
+# Emin Tufan Çetin <etcetin@gmail.com>, 2019.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:31+0200\n"
-"PO-Revision-Date: 2015-01-17 13:20+0000\n"
-"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/tr/)\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2019-02-01 17:46+0000\n"
+"PO-Revision-Date: 2019-07-21 17:28+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 3.32.1\n"
 
 #: ../src/Engine-MessageBuffer/Main.cs:49
 msgid "Enable debug output"
 msgstr "Hata ayıklama çıktısını etkinleştir"
 
 #: ../src/Engine-MessageBuffer/Main.cs:55
-#: ../src/Engine-MessageBuffer/Main.cs:131
-#: ../src/Engine-MessageBuffer/Main.cs:195
+#: ../src/Engine-MessageBuffer/Main.cs:141
+#: ../src/Engine-MessageBuffer/Main.cs:205
 msgid "Show this help"
 msgstr "Yardımı göster"
 
-#: ../src/Engine-MessageBuffer/Main.cs:57
-msgid "Usage: smuxi-message-buffer [options] action action-options"
-msgstr "Kullanım: smuxi-message-buffer [seçenekler] eylem eylem-seçenekleri"
-
-#: ../src/Engine-MessageBuffer/Main.cs:59
-msgid "Actions:"
-msgstr "Eylemler:"
-
-#: ../src/Engine-MessageBuffer/Main.cs:63
-#: ../src/Engine-MessageBuffer/Main.cs:142
-#: ../src/Engine-MessageBuffer/Main.cs:207
-msgid "Options:"
-msgstr "Seçenekler:"
-
-#: ../src/Engine-MessageBuffer/Main.cs:90
+#: ../src/Engine-MessageBuffer/Main.cs:88
 #, csharp-format
 msgid "Unknown action: '{0}'"
 msgstr "Bilinmeyen eylem: '{0}'"
 
-#: ../src/Engine-MessageBuffer/Main.cs:97
+#: ../src/Engine-MessageBuffer/Main.cs:95
 #, csharp-format
 msgid "Command line error: {0}"
 msgstr "Komut satırı hatası: {0}"
 
-#: ../src/Engine-MessageBuffer/Main.cs:109
+#: ../src/Engine-MessageBuffer/Main.cs:104
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr "Kullanım: smuxi-message-buffer [seçenekler] eylem eylem-seçenekleri"
+
+#: ../src/Engine-MessageBuffer/Main.cs:106
+msgid "Actions:"
+msgstr "Eylemler:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:110
+#: ../src/Engine-MessageBuffer/Main.cs:152
+#: ../src/Engine-MessageBuffer/Main.cs:217
+msgid "Options:"
+msgstr "Seçenekler:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:119
 msgid "Database format (valid values: auto, db4o, sqlite)"
 msgstr "Veritabanı biçimi (geçerli değerler: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:124
-#: ../src/Engine-MessageBuffer/Main.cs:188
+#: ../src/Engine-MessageBuffer/Main.cs:134
+#: ../src/Engine-MessageBuffer/Main.cs:198
 #, csharp-format
 msgid "Unknown {0} option: '{1}'"
 msgstr "Bilinmeyen {0} seçeneği: '{1}'"
 
-#: ../src/Engine-MessageBuffer/Main.cs:135
+#: ../src/Engine-MessageBuffer/Main.cs:145
 #, csharp-format
 msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
 msgstr "Kullanım: smuxi-message-buffer {0} [eylem-seçenekleri] db_path"
 
-#: ../src/Engine-MessageBuffer/Main.cs:140
-msgid "Database path"
+#: ../src/Engine-MessageBuffer/Main.cs:150
+msgid "Database path(s)"
 msgstr "Veritabanı yolu"
 
-#: ../src/Engine-MessageBuffer/Main.cs:151
+#: ../src/Engine-MessageBuffer/Main.cs:161
 msgid "db_path is required"
 msgstr "db_path gereklidir"
 
-#: ../src/Engine-MessageBuffer/Main.cs:165
+#: ../src/Engine-MessageBuffer/Main.cs:175
 msgid "Source format (valid values: auto, db4o, sqlite)"
 msgstr "Kaynak biçimi (geçerli değerler: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:173
+#: ../src/Engine-MessageBuffer/Main.cs:183
 msgid "Destination format (valid values: auto, db4o, sqlite)"
 msgstr "Hedef biçimi (geçerli değerler: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:199
+#: ../src/Engine-MessageBuffer/Main.cs:209
 #, csharp-format
 msgid ""
-"Usage: smuxi-message-buffer {0} [action-options] source_db destination_db"
-msgstr "Kullanım: smuxi-message-buffer {0} [eylem-seçenekleri] source_db destination_db"
+"Usage: smuxi-message-buffer {0} [action-options] source_db(s)... "
+"destination_db"
+msgstr ""
+"Kullanım: smuxi-message-buffer {0} [eylem-seçenekleri] source_db(ler)... "
+"destination_db"
 
-#: ../src/Engine-MessageBuffer/Main.cs:204
-msgid "Source file path"
-msgstr "Kaynak dosyası yolu"
+#: ../src/Engine-MessageBuffer/Main.cs:214
+msgid "Source file path(s)"
+msgstr "Kaynak dosyası yolları"
 
-#: ../src/Engine-MessageBuffer/Main.cs:205
+#: ../src/Engine-MessageBuffer/Main.cs:215
 msgid "Destination file path or -/empty for stdout"
-msgstr "Hedef dosya yolu ya da standart çıktı için - veya boş"
+msgstr "Hedef dosya yolu ya da stdout için -/empty (boş)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:216
+#: ../src/Engine-MessageBuffer/Main.cs:226
 msgid "source_db and destination_db are required"
 msgstr "source_db ve destination_db gereklidir"
 
-#: ../src/Engine-MessageBuffer/Main.cs:232
+#: ../src/Engine-MessageBuffer/Main.cs:242
 msgid "sourceFile must not be empty."
 msgstr "kaynakDosya boş olamaz."
 
-#: ../src/Engine-MessageBuffer/Main.cs:248
+#: ../src/Engine-MessageBuffer/Main.cs:251
+msgid "sourceFiles must not be empty."
+msgstr "kaynakDosyalar boş olamaz."
+
+#: ../src/Engine-MessageBuffer/Main.cs:271
 #, csharp-format
 msgid "Destination database {0} must be empty!"
 msgstr "Hedef veritabanı {0} boş olmalıdır!"
 
-#: ../src/Engine-MessageBuffer/Main.cs:298
+#: ../src/Engine-MessageBuffer/Main.cs:340
 #, csharp-format
 msgid "Unknown file format: '{0}'"
 msgstr "Bilinmeyen dosya biçimi: '{0}'"
 
-#: ../src/Engine-MessageBuffer/Main.cs:320
+#: ../src/Engine-MessageBuffer/Main.cs:362
 #, csharp-format
 msgid "Unsupported buffer type: '{0}'"
 msgstr "Desteklenmeyen arabellek türü: '{0}'"

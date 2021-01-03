@@ -1,227 +1,263 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
-# Jeroen Baten <jeroen@libreplan.nl>, 2013
+# Jeroen Baten <jeroen@libreplan.nl>, 2013.
+# Nathan Follens <nthn@unseen.is>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 16:58+0100\n"
-"PO-Revision-Date: 2013-12-26 13:14+0000\n"
-"Last-Translator: Jeroen Baten <jeroen@libreplan.nl>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/smuxi/language/nl/)\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2018-06-10 18:16+0000\n"
+"PO-Revision-Date: 2019-03-10 14:55+0100\n"
+"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/smuxi/language/"
+"nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
 msgstr "Geen netwerkverbindingen"
 
-#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:295
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
 #, csharp-format
 msgid "Optimizing: {0}..."
-msgstr "Optimaliseren: {0}..."
+msgstr "Optimaliseren: {0}…"
 
-#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:313
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
 #, csharp-format
 msgid "Failed to optimize: {0}. Reason: {1}"
 msgstr "Optimaliseren niet gelukt: {0}. Reden: {1}"
 
-#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:347
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:315
 msgid ""
 "Your chat history is no longer available because of an error but will be "
 "preserved from now on."
-msgstr "Uw chathistorie is niet langer beschikbaar vanwege een fout maar zal van nu af weer vastgelegd worden."
+msgstr ""
+"Uw chatgeschiedenis is niet langer beschikbaar vanwege een fout, maar zal "
+"vanaf nu weer bijgehouden worden."
 
-#: ../src/Engine/Messages/MessageBuilder.cs:782
+#: ../src/Engine/Messages/MessageBuilder.cs:789
 #, csharp-format
 msgid "{0} is typing..."
-msgstr "{0} is aan het typen..."
+msgstr "{0} is aan het typen…"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:788
+#: ../src/Engine/Messages/MessageBuilder.cs:795
 #, csharp-format
 msgid "{0} has stopped typing..."
-msgstr "{0} has gestopt met typen..."
+msgstr "{0} is gestopt met typen…"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:831
+#: ../src/Engine/Messages/MessageBuilder.cs:840
 #, csharp-format
 msgid "{0} is away"
 msgstr "{0} is afwezig"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:837
+#: ../src/Engine/Messages/MessageBuilder.cs:846
 #, csharp-format
 msgid "{0} is offline"
-msgstr "{0} is niet online"
+msgstr "{0} is offline"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:843
+#: ../src/Engine/Messages/MessageBuilder.cs:852
 #, csharp-format
 msgid "{0} is online"
 msgstr "{0} is online"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:170
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:162
+msgid "not connected"
+msgstr "niet verbonden"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:193
 msgid "Not connected to server"
 msgstr "Niet verbonden met server"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:178
-#: ../src/Engine/Session.cs:998
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
+#: ../src/Engine/Session.cs:1083
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr "NIet genoeg parameters voor {0} commando"
+msgstr "NIet genoeg parameters voor opdracht {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:212
 #, csharp-format
 msgid "Connected to {0}"
 msgstr "Verbonden met {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:219
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:242
 #, csharp-format
 msgid "Disconnected from {0}"
-msgstr "Verbinding verbroken met {0}"
+msgstr "Verbinding met {0} verbroken"
 
-#: ../src/Engine/Session.cs:237
+#: ../src/Engine/Session.cs:213
 #, csharp-format
 msgid "Automatically connecting to {0}..."
-msgstr "Automatisch verbinden met {0}..."
+msgstr "Automatisch verbinden met {0}…"
 
-#: ../src/Engine/Session.cs:268
+#: ../src/Engine/Session.cs:248
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
-msgstr "Automatisch verbinden met {0} niet gelukt!"
+msgstr "Automatisch verbinden met {0} mislukt!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:471
+#: ../src/Engine/Session.cs:521
 msgid "Engine Commands"
-msgstr "Engine Commando's"
+msgstr "Engine-opdrachten"
 
-#: ../src/Engine/Session.cs:599
+#: ../src/Engine/Session.cs:650
 msgid "Connect failed!"
-msgstr "Verbinden niet gelukt!"
+msgstr "Verbinden mislukt!"
 
-#: ../src/Engine/Session.cs:622
+#: ../src/Engine/Session.cs:673
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr "Verbinding verbreken is niet gelukt - kon server  \"{0}\" niet vinden."
+msgstr "Verbinding verbreken is mislukt - kon server niet vinden: {0}"
 
-#: ../src/Engine/Session.cs:664
+#: ../src/Engine/Session.cs:715
 msgid "Reconnect failed!"
-msgstr "Herverbinden niet gelukt!"
+msgstr "Herverbinden mislukt!"
 
-#: ../src/Engine/Session.cs:688
+#: ../src/Engine/Session.cs:739
 msgid "Configuration reloaded"
-msgstr "Configuratie herladen"
+msgstr "Configuratie is herladen"
 
-#: ../src/Engine/Session.cs:692
+#: ../src/Engine/Session.cs:743
 msgid "Configuration saved"
-msgstr "Configuratie opgeslagen"
+msgstr "Configuratie is opgeslagen"
 
-#: ../src/Engine/Session.cs:723
+#: ../src/Engine/Session.cs:770
 msgid "Invalid key/value format."
-msgstr "Ongeldige sleutel/waarde combinatie."
+msgstr "Ongeldig sleutel-/waarde-formaat."
 
-#: ../src/Engine/Session.cs:733
+#: ../src/Engine/Session.cs:794
 #, csharp-format
 msgid "Invalid config key: '{0}'"
-msgstr "Ongeldige configuratiesleutel: '{0}'"
+msgstr "Ongeldige configuratiesleutel: ‘{0}’"
 
-#: ../src/Engine/Session.cs:743 ../src/Engine/Session.cs:749
+#: ../src/Engine/Session.cs:810 ../src/Engine/Session.cs:816
 #, csharp-format
 msgid "Could not convert config value: '{0}' to type: {1}"
-msgstr "Kon configuratiesleurel: '{0}' niet converteren naar type: {1}"
+msgstr "Kon configuratiewaarde: ‘{0}’ niet omzetten naar type: {1}"
 
-#: ../src/Engine/Session.cs:758
-msgid "Invalid parameter for config; use load, save, get or set."
-msgstr "Ongeldige parameter voor configuratie; gebruik \"load\", \"save\", \"get\" of \"set\"."
+#: ../src/Engine/Session.cs:830
+#, csharp-format
+msgid ""
+"Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
+msgstr ""
+"Ongeldige configuratieverwijderingssleutel: ‘{0}’. Geldige "
+"verwijderingssleutels: MessagePatterns/{{ID}}."
+
+#: ../src/Engine/Session.cs:843
+#, csharp-format
+msgid "Message pattern with ID: '{0}' does not exist."
+msgstr "Berichtpatroon met ID ‘{0}’ bestaat niet."
 
 #: ../src/Engine/Session.cs:850
+#, csharp-format
+msgid "Message pattern with ID: '{0}' removed."
+msgstr "Berichtpatroon met ID ‘{0}’ verwijderd."
+
+#: ../src/Engine/Session.cs:858
+msgid "Invalid parameter for config; use load, save, get or set."
+msgstr ""
+"Ongeldige parameter voor configuratie; gebruik ‘load’ (laden), "
+"‘save’ (opslaan), ‘get’ (verkrijgen) of ‘set’ (instellen)."
+
+#: ../src/Engine/Session.cs:935
 msgid "Invalid parameter for network; use list, switch, or close"
-msgstr "Ongeldige parameter voor netwerk; gebruik \"list\", \"switch\" of \"close\""
+msgstr ""
+"Ongeldige parameter voor netwerk; gebruik ‘list’ (lijst), "
+"‘switch’ (omschakelen) of ‘close’ (sluiten)"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:880
+#: ../src/Engine/Session.cs:965
 msgid "Connected Networks"
 msgstr "Verbonden netwerken"
 
-#: ../src/Engine/Session.cs:885 ../src/Engine/Session.cs:909
+#: ../src/Engine/Session.cs:970 ../src/Engine/Session.cs:994
 msgid "Network"
-msgstr "Network"
+msgstr "Netwerk"
 
-#: ../src/Engine/Session.cs:886
+#: ../src/Engine/Session.cs:971
 msgid "Protocol"
 msgstr "Protocol"
 
-#: ../src/Engine/Session.cs:887
+#: ../src/Engine/Session.cs:972
 msgid "Host"
 msgstr "Host"
 
-#: ../src/Engine/Session.cs:888
+#: ../src/Engine/Session.cs:973
 msgid "Port"
 msgstr "Poort"
 
 #. TRANSLATOR: no connected networks
 #. TRANSLATOR: no available networks
-#: ../src/Engine/Session.cs:894 ../src/Engine/Session.cs:915
+#: ../src/Engine/Session.cs:979 ../src/Engine/Session.cs:1000
 msgid "None"
 msgstr "Geen"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:901
+#: ../src/Engine/Session.cs:986
 msgid "Available Networks"
 msgstr "Beschikbare netwerken"
 
-#: ../src/Engine/Session.cs:929
+#: ../src/Engine/Session.cs:1014
 #, csharp-format
 msgid "Network close failed - could not find network: {0}"
-msgstr "Netwerksluiting niet gelukt - kon netwerk niet vinden: {0}"
+msgstr "Netwerksluiting mislukt - kon netwerk niet vinden: {0}"
 
-#: ../src/Engine/Session.cs:973
+#: ../src/Engine/Session.cs:1058
 #, csharp-format
 msgid "Network switch failed - could not find network: {0}"
-msgstr "Netwerkomschakeling niet gelukt - kon netwerk niet vinden: {0}"
+msgstr "Netwerkomschakeling mislukt - kon netwerk niet vinden: {0}"
 
-#: ../src/Engine/Session.cs:991
+#: ../src/Engine/Session.cs:1076
 msgid "Not connected to any network"
-msgstr "Niet verbonden met enig netwerk"
+msgstr "Niet verbonden met een netwerk"
 
-#: ../src/Engine/Session.cs:1245
+#: ../src/Engine/Session.cs:1333
 #, csharp-format
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr "Wegschrijven van chathistorie niet niet gelukt. Uw chathistorie zal niet bewaard blijven. Reden: {0}"
+msgstr ""
+"Wegschrijven van chatgeschiedenis is mislukt. Uw chatgeschiedenis zal niet "
+"worden bijgehouden. Reden: {0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1446
+#: ../src/Engine/Session.cs:1563
 msgid "Connect failed."
-msgstr "Verbinden niet gelukt."
+msgstr "Verbinden mislukt."
 
-#: ../src/Engine/Session.cs:1460
+#: ../src/Engine/Session.cs:1577
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
-msgstr "Geen protocol manager gebonden voor protocol: {0}"
+msgstr "Geen protocolbeheerder gevonden voor protocol: {0}"
 
-#: ../src/Engine/Session.cs:1734
+#: ../src/Engine/Session.cs:1916
 msgid "Welcome to Smuxi"
 msgstr "Welkom bij Smuxi"
 
-#: ../src/Engine/Session.cs:1741
+#: ../src/Engine/Session.cs:1923
 msgid "Type /help to get a list of available commands."
-msgstr "Type /help om een lijst met beschikbare commando's te krijgen."
+msgstr "Typ /help om een lijst met beschikbare opdrachten te krijgen."
 
-#: ../src/Engine/Session.cs:1747
+#: ../src/Engine/Session.cs:1929
 msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
 "the extended command list."
-msgstr "Na het maken van een verbinding zal de lijst met mogelijke commando's wijzigen. Ga naar het recentst geopende verbindingstabblad en gebruik het /help commando opnieuw om de actuele commandolijst te zien."
+msgstr ""
+"Na het maken van een verbinding zal de lijst met beschikbare opdrachten "
+"wijzigen. Ga naar het recentst geopende verbindingstabblad en gebruik de "
+"opdracht ‘/help’ opnieuw om de uitgebreide opdrachtenlijst te zien."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
@@ -234,12 +270,12 @@ msgstr "Wachtwoord mag niet leeg zijn."
 #: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr "Gebruiker \"{0}\" bestaat niet."
+msgstr "Gebruiker ‘{0}’ bestaat niet."
 
 #: ../src/Engine/Config/UserListController.cs:145
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr "Gebruiker \"{0}\" bestaat al."
+msgstr "Gebruiker ‘{0}’ bestaat al."
 
 #: ../src/Engine/Config/ServerListController.cs:118
 msgid "Network must not be empty."
@@ -251,23 +287,27 @@ msgstr "Servernaam mag niet leeg zijn."
 
 #: ../src/Engine/Config/ServerListController.cs:141
 msgid "Server hostname contains invalid characters (newline)."
-msgstr "Servernaam bevat ongeldige tekens (nieuwe-regel)."
+msgstr "Servernaam bevat ongeldige tekens (nieuwe regel)."
 
 #: ../src/Engine/Config/ServerListController.cs:148
 #, csharp-format
 msgid "Server ID '{0}' already exists."
-msgstr "Server ID '{0}' bestaat reeds."
+msgstr "Server-ID ‘{0}’ bestaat reeds."
 
-#: ../src/Engine/Chats/ChatModel.cs:108
+#: ../src/Engine/Chats/ChatModel.cs:106
 #, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr "Laden van chathistorie is niet gelukt. Uw chathistorie zal niet bewaard blijven. Reden: {0}"
+msgstr ""
+"Laden van chatgeschiedenis is mislukt. Uw chatgeschiedenis zal niet worden "
+"bijgehouden. Reden: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:305
+#: ../src/Engine/Chats/ChatModel.cs:344
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
-msgstr "Het openen van uw chathistorie om te schrijven is niet gelukt. Uw chathistorie zal niet bewaard blijven. Reden: {0}"
+msgstr ""
+"Het openen van uw chatgeschiedenis om te schrijven is mislukt. Uw "
+"chatgeschiedenis zal niet worden bijgehouden. Reden: {0}"

@@ -1,140 +1,127 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
-# Matías Bellone, 2014
-# Matías Bellone, 2014
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2018-2019.
+# Dutch translation for smuxi.
+# Copyright (C) 2019 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Nathan Follens <nthn@unseen.is>, 2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi - IRC client\n"
+"Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2019-02-01 13:35+0000\n"
-"PO-Revision-Date: 2019-02-19 15:55+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: es <gnome-es-list@gnome.org>\n"
-"Language: es\n"
+"POT-Creation-Date: 2019-03-09 18:10+0000\n"
+"PO-Revision-Date: 2019-03-10 15:04+0100\n"
+"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
+"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.31.90\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../src/Engine-MessageBuffer/Main.cs:49
 msgid "Enable debug output"
-msgstr "Activar salida de depuración"
+msgstr "Debuguitvoer inschakelen"
 
 #: ../src/Engine-MessageBuffer/Main.cs:55
 #: ../src/Engine-MessageBuffer/Main.cs:141
 #: ../src/Engine-MessageBuffer/Main.cs:205
 msgid "Show this help"
-msgstr "Mostrar esta ayuda"
+msgstr "Deze hulp tonen"
 
 #: ../src/Engine-MessageBuffer/Main.cs:88
 #, csharp-format
 msgid "Unknown action: '{0}'"
-msgstr "Acción desconocida: «{0}»"
+msgstr "Onbekende actie: ‘{0}’"
 
 #: ../src/Engine-MessageBuffer/Main.cs:95
 #, csharp-format
 msgid "Command line error: {0}"
-msgstr "Error de línea de órdenes: {0}"
+msgstr "Opdrachtregelfout: {0}"
 
 #: ../src/Engine-MessageBuffer/Main.cs:104
 msgid "Usage: smuxi-message-buffer [options] action action-options"
-msgstr "Uso: smuxi-message-buffer [opciones] acción opciones-de-acción"
+msgstr "Gebruik: smuxi-message-buffer [opties] actie actie-opties"
 
 #: ../src/Engine-MessageBuffer/Main.cs:106
 msgid "Actions:"
-msgstr "Acciones:"
+msgstr "Acties:"
 
 #: ../src/Engine-MessageBuffer/Main.cs:110
 #: ../src/Engine-MessageBuffer/Main.cs:152
 #: ../src/Engine-MessageBuffer/Main.cs:217
 msgid "Options:"
-msgstr "Opciones:"
+msgstr "Opties:"
 
 #: ../src/Engine-MessageBuffer/Main.cs:119
 msgid "Database format (valid values: auto, db4o, sqlite)"
-msgstr "Formato de base de datos (valores válidos: auto, db4o, sqlite)"
+msgstr "Databaseformaat (geldige waarden: auto, db4o, sqlite)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:134
 #: ../src/Engine-MessageBuffer/Main.cs:198
 #, csharp-format
 msgid "Unknown {0} option: '{1}'"
-msgstr "Opción de {0} desconocida: «{1}»"
+msgstr "Onbekende {0}-optie: ‘{1}’"
 
 #: ../src/Engine-MessageBuffer/Main.cs:145
 #, csharp-format
 msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
-msgstr ""
-"Uso: smuxi-message-buffer {0} [opciones-de-acción] ruta_a_base_de_datos"
+msgstr "Gebruik: smuxi-message-buffer {0} [actie-opties] db_pad"
 
 #: ../src/Engine-MessageBuffer/Main.cs:150
-#| msgid "Database path"
 msgid "Database path(s)"
-msgstr "Rutas a bases de datos"
+msgstr "Databasepad(en)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:161
 msgid "db_path is required"
-msgstr "ruta_a_base_de_datos es obligatorio"
+msgstr "db_pad vereist"
 
 #: ../src/Engine-MessageBuffer/Main.cs:175
 msgid "Source format (valid values: auto, db4o, sqlite)"
-msgstr "Formato de origen (valores válidos: auto, db4o, sqlite)"
+msgstr "Bronformaat (geldige waarden: auto, db4o, sqlite)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:183
 msgid "Destination format (valid values: auto, db4o, sqlite)"
-msgstr "Formato de destino (valores válidos: auto, db4o, sqlite)"
+msgstr "Doelformaat (geldige waarden: auto, db4o, sqlite)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:209
 #, csharp-format
-#| msgid ""
-#| "Usage: smuxi-message-buffer {0} [action-options] source_db destination_db"
 msgid ""
 "Usage: smuxi-message-buffer {0} [action-options] source_db(s)... "
 "destination_db"
 msgstr ""
-"Uso: smuxi-message-buffer {0} [opciones-acción] basesdedatos_origen "
-"basededatos_destino"
+"Gebruik: smuxi-message-buffer {0} [actie-opties] bron_db(es)… doel_db"
 
 #: ../src/Engine-MessageBuffer/Main.cs:214
-#| msgid "Source file path"
 msgid "Source file path(s)"
-msgstr "Rutas a archivos de origen"
+msgstr "Bronbestandspad(en)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:215
 msgid "Destination file path or -/empty for stdout"
-msgstr ""
-"Ruta al archivo de destino o utilice «-» o ningún valor para la salida "
-"estándar"
+msgstr "Doelbestandspad of -/empty voor stdout"
 
 #: ../src/Engine-MessageBuffer/Main.cs:226
 msgid "source_db and destination_db are required"
-msgstr "basededatos_origen y basededatos_destino son obligatorios"
+msgstr "bron_db en doel_db vereist"
 
 #: ../src/Engine-MessageBuffer/Main.cs:242
 msgid "sourceFile must not be empty."
-msgstr "El archivo de origen no puede no puede estar vacío."
+msgstr "bronBestand mag niet leeg zijn."
 
 #: ../src/Engine-MessageBuffer/Main.cs:251
-#| msgid "sourceFile must not be empty."
 msgid "sourceFiles must not be empty."
-msgstr "Los archivos de origen no pueden estar vacíos."
+msgstr "bronBestanden mogen niet leeg zijn."
 
 #: ../src/Engine-MessageBuffer/Main.cs:271
 #, csharp-format
 msgid "Destination database {0} must be empty!"
-msgstr "¡La base de datos de destino {0} debe estar vacía!"
+msgstr "Doeldatabase {0} moet leeg zijn!"
 
 #: ../src/Engine-MessageBuffer/Main.cs:340
 #, csharp-format
 msgid "Unknown file format: '{0}'"
-msgstr "Formato de archivo desconocido: «{0}»"
+msgstr "Onbekend bestandsformaat: ‘{0}’"
 
 #: ../src/Engine-MessageBuffer/Main.cs:362
 #, csharp-format
 msgid "Unsupported buffer type: '{0}'"
-msgstr "Tipo de búfer incompatible: «{0}»"
+msgstr "Onbekend buffertype: ‘{0}’"

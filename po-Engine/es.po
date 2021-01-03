@@ -8,9 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-06-30 06:58+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2018-06-10 18:16+0000\n"
 "PO-Revision-Date: 2014-03-16 15:56+0000\n"
 "Last-Translator: Matías Bellone\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/smuxi/language/"
@@ -43,27 +42,27 @@ msgstr ""
 "Su historial de chat no está disponible debido a un error, pero será "
 "preservado desde ahora en adelante."
 
-#: ../src/Engine/Messages/MessageBuilder.cs:771
+#: ../src/Engine/Messages/MessageBuilder.cs:789
 #, csharp-format
 msgid "{0} is typing..."
 msgstr "{0} está escribiendo..."
 
-#: ../src/Engine/Messages/MessageBuilder.cs:777
+#: ../src/Engine/Messages/MessageBuilder.cs:795
 #, csharp-format
 msgid "{0} has stopped typing..."
 msgstr "{0} dejó de escribir..."
 
-#: ../src/Engine/Messages/MessageBuilder.cs:820
+#: ../src/Engine/Messages/MessageBuilder.cs:840
 #, csharp-format
 msgid "{0} is away"
 msgstr "{0} está ausente"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:826
+#: ../src/Engine/Messages/MessageBuilder.cs:846
 #, csharp-format
 msgid "{0} is offline"
 msgstr "{0} está desconectado"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:832
+#: ../src/Engine/Messages/MessageBuilder.cs:852
 #, csharp-format
 msgid "{0} is online"
 msgstr "{0} está conectado"
@@ -77,7 +76,7 @@ msgid "Not connected to server"
 msgstr "No conectado al servidor"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
-#: ../src/Engine/Session.cs:1067
+#: ../src/Engine/Session.cs:1083
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Parámetros insuficientes para la orden {0}"
@@ -92,58 +91,58 @@ msgstr "Conectado a {0}"
 msgid "Disconnected from {0}"
 msgstr "Desconectado de {0}"
 
-#: ../src/Engine/Session.cs:247
+#: ../src/Engine/Session.cs:213
 #, csharp-format
 msgid "Automatically connecting to {0}..."
 msgstr "Conectando automáticamente a {0}..."
 
-#: ../src/Engine/Session.cs:278
+#: ../src/Engine/Session.cs:248
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "¡Falló la conexión automática a {0}!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:505
+#: ../src/Engine/Session.cs:521
 msgid "Engine Commands"
 msgstr "Órdenes del motor"
 
-#: ../src/Engine/Session.cs:634
+#: ../src/Engine/Session.cs:650
 msgid "Connect failed!"
 msgstr "¡Falló la conexión!"
 
-#: ../src/Engine/Session.cs:657
+#: ../src/Engine/Session.cs:673
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Falló la desconexión, no se encontró el servidor: {0}"
 
-#: ../src/Engine/Session.cs:699
+#: ../src/Engine/Session.cs:715
 msgid "Reconnect failed!"
 msgstr "¡Falló la reconexión!"
 
-#: ../src/Engine/Session.cs:723
+#: ../src/Engine/Session.cs:739
 msgid "Configuration reloaded"
 msgstr "Se  recargó la configuración"
 
-#: ../src/Engine/Session.cs:727
+#: ../src/Engine/Session.cs:743
 msgid "Configuration saved"
 msgstr "Se guardó la configuración"
 
-#: ../src/Engine/Session.cs:754
+#: ../src/Engine/Session.cs:770
 msgid "Invalid key/value format."
 msgstr "Formato de clave/valor no válido."
 
-#: ../src/Engine/Session.cs:778
+#: ../src/Engine/Session.cs:794
 #, csharp-format
 msgid "Invalid config key: '{0}'"
 msgstr "Clave de configuración no válido: «{0}»"
 
-#: ../src/Engine/Session.cs:794 ../src/Engine/Session.cs:800
+#: ../src/Engine/Session.cs:810 ../src/Engine/Session.cs:816
 #, csharp-format
 msgid "Could not convert config value: '{0}' to type: {1}"
 msgstr "Fallo al convertir el valor de configuración «{0}» al tipo {1}"
 
-#: ../src/Engine/Session.cs:814
+#: ../src/Engine/Session.cs:830
 #, csharp-format
 msgid ""
 "Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
@@ -151,74 +150,74 @@ msgstr ""
 "Clave de eliminación inválida en la configuración: «{0}». Claves de "
 "eliminación válidas: MessagePatterns/{{ID}}."
 
-#: ../src/Engine/Session.cs:827
+#: ../src/Engine/Session.cs:843
 #, csharp-format
 msgid "Message pattern with ID: '{0}' does not exist."
 msgstr "No existe un patrón de mensajes con ID «{0}»."
 
-#: ../src/Engine/Session.cs:834
+#: ../src/Engine/Session.cs:850
 #, csharp-format
 msgid "Message pattern with ID: '{0}' removed."
 msgstr "Se eliminó el patrón de mensaje con ID «{0}»."
 
-#: ../src/Engine/Session.cs:842
+#: ../src/Engine/Session.cs:858
 msgid "Invalid parameter for config; use load, save, get or set."
 msgstr ""
 "Parámetro no válido para la configuración: utilice load, save, get o set."
 
-#: ../src/Engine/Session.cs:919
+#: ../src/Engine/Session.cs:935
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "Parámetro no válido para la red; utilice list, switch o close"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:949
+#: ../src/Engine/Session.cs:965
 msgid "Connected Networks"
 msgstr "Redes conectadas"
 
-#: ../src/Engine/Session.cs:954 ../src/Engine/Session.cs:978
+#: ../src/Engine/Session.cs:970 ../src/Engine/Session.cs:994
 msgid "Network"
 msgstr "Red"
 
-#: ../src/Engine/Session.cs:955
+#: ../src/Engine/Session.cs:971
 msgid "Protocol"
 msgstr "Protocolo"
 
-#: ../src/Engine/Session.cs:956
+#: ../src/Engine/Session.cs:972
 msgid "Host"
 msgstr "Servidor"
 
-#: ../src/Engine/Session.cs:957
+#: ../src/Engine/Session.cs:973
 msgid "Port"
 msgstr "Puerto"
 
 #. TRANSLATOR: no connected networks
 #. TRANSLATOR: no available networks
-#: ../src/Engine/Session.cs:963 ../src/Engine/Session.cs:984
+#: ../src/Engine/Session.cs:979 ../src/Engine/Session.cs:1000
 msgid "None"
 msgstr "Ninguna"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:970
+#: ../src/Engine/Session.cs:986
 msgid "Available Networks"
 msgstr "Redes disponibles"
 
-#: ../src/Engine/Session.cs:998
+#: ../src/Engine/Session.cs:1014
 #, csharp-format
 msgid "Network close failed - could not find network: {0}"
 msgstr "Falló el cierre de la red - no se pudo encontrar la red: {0}"
 
-#: ../src/Engine/Session.cs:1042
+#: ../src/Engine/Session.cs:1058
 #, csharp-format
 msgid "Network switch failed - could not find network: {0}"
 msgstr "Falló el cambio de red - no se pudo encontrar la red: {0}"
 
-#: ../src/Engine/Session.cs:1060
+#: ../src/Engine/Session.cs:1076
 msgid "Not connected to any network"
 msgstr "No conectado a ninguna red"
 
-#: ../src/Engine/Session.cs:1317
+#: ../src/Engine/Session.cs:1333
 #, csharp-format
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
@@ -229,24 +228,24 @@ msgstr ""
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1550
+#: ../src/Engine/Session.cs:1563
 msgid "Connect failed."
 msgstr "Falló la conexión."
 
-#: ../src/Engine/Session.cs:1564
+#: ../src/Engine/Session.cs:1577
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "No se encontró un gestor para el protocolo: {0}"
 
-#: ../src/Engine/Session.cs:1896
+#: ../src/Engine/Session.cs:1916
 msgid "Welcome to Smuxi"
-msgstr "Bienvenido a Smuxi"
+msgstr "Bienvenido/a a Smuxi"
 
-#: ../src/Engine/Session.cs:1903
+#: ../src/Engine/Session.cs:1923
 msgid "Type /help to get a list of available commands."
 msgstr "Escribe /help para obtener una lista de órdenes disponibles."
 
-#: ../src/Engine/Session.cs:1909
+#: ../src/Engine/Session.cs:1929
 msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
@@ -301,7 +300,7 @@ msgstr ""
 "Falló la carga del historial de chat. Su historial no será preservado. "
 "Razón: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:322
+#: ../src/Engine/Chats/ChatModel.cs:344
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
