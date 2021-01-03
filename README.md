@@ -3,10 +3,10 @@ Software Requirements
 First you will need to install a few libraries to compile the source
 
 Libraries:
-* Mono SDK (>= 1.9.1)
+* Mono SDK (>= 4.6.2)
 * Nini (>= 1.1)
 * log4net
-* GTK# (>= 2.10)
+* GTK# (>= 2.10) (optional, but required for the GNOME frontend)
 * Notify# (optional)
 * Indicate# / MessagingMenu# (optional)
 * DBus# / NDesk.DBus (optional)
