@@ -1,8 +1,10 @@
 name: Notify IRC
 on:
-  - push
-  - pull_request
-  - create
+  push:
+  pull_request:
+  create:
+  issues:
+    types: [opened, reopened, closed]
 
 jobs:
   notify:
@@ -35,3 +37,12 @@ jobs:
           nickname: github-ci
           message: |
             ${{ github.actor }} tagged ${{ github.repository }} ${{ github.event.ref }}
+      - name: irc issues
+        uses: rectalogic/notify-irc@v1
+        if: github.event_name == 'issues'
+        with:
+          channel: "#smuxi-devel"
+          notice: true
+          nickname: github-ci
+          message: |
+            ${{ github.actor }} ${{ github.event.action }} issue #${{ github.event.issue.number }} in ${{ github.repository }} with title "${{ github.event.issue.title }}" ${{ github.event.issue.html_url }}
