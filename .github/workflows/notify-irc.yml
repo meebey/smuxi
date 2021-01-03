@@ -9,15 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: irc push
-        uses: rectalogic/notify-irc@v1
+        uses: vmiklos/notify-irc@a52a197c9507ad7a81c1a9295c9ed24786e396b3
         if: github.event_name == 'push'
         with:
           channel: "#smuxi-devel"
           notice: true
           nickname: github-ci
           message: |
-            ${{ github.actor }} pushed ${{ github.event.ref }} ${{ github.event.compare }}
-            ${{ join(github.event.commits.*.message) }}
+            ${{ toJson(github.event) }}
       - name: irc pull request
         uses: rectalogic/notify-irc@v1
         if: github.event_name == 'pull_request'
