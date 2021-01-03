@@ -304,6 +304,16 @@ dist-linux-debs:
 		"Building git snapshot."
 	dpkg-buildpackage -b -us -uc
 
+dist-docker:
+	DIST_VERSION=$$(git describe); \
+	GIT_COMMIT=$$(git rev-parse HEAD); \
+	docker build \
+	    --label org.opencontainers.image.source=https://github.com/meebey/smuxi \
+		--label org.opencontainers.image.created="$$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+		--label org.opencontainers.image.revision="$$GIT_COMMIT" \
+		--build-arg DIST_VERSION="$$DIST_VERSION" \
+		-f docker/smuxi-server/Dockerfile .
+
 run: run-gnome
 run-gnome: all
 	if [ "x$(shell uname)" = "xDarwin" ]; then \
