@@ -7,8 +7,14 @@ before_install:
 mono:
     - latest
     - 6.8.0
-    - 5.18.0
-    - 4.6.2
+    - 6.8.0.105 # Ubuntu 20.04 LTS (focal)  / Debian bullseye
+    - 5.18.0    #                           / Debian 10 (buster)
+    - 5.18.0.268
+    - 5.18.0.240
+    - 5.18.0.225
+    - 5.18
+    - 5.18.1.3
+    - 4.6.2.7   # Ubuntu 18.04 LTS (bionic) / Debian 9 (strech)
 
 addons:
     apt:
