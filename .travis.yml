@@ -30,10 +30,6 @@ script:
     - set -e
     - ./autogen.sh
     - find lib/ -name "*.csproj" -exec sed 's!<WarningLevel>[0-9]</WarningLevel>!<WarningLevel>0</WarningLevel>!' -i {} \;
-    - sed 's!<Package>dbus-sharp-2.0</Package>!<Package>dbus-sharp-1.0</Package>!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
-    - sed 's!<Package>dbus-sharp-glib-2.0</Package>!<Package>dbus-sharp-glib-1.0</Package>!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
-    - sed 's!dbus-sharp, Version=2.0.0.0,!dbus-sharp, Version=1.0.0.0,!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
-    - sed 's!dbus-sharp-glib, Version=2.0.0.0,!dbus-sharp-glib, Version=1.0.0.0,!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
     - |
       if test -e /usr/lib/mono/4.5/mscorlib.dll; then
         xbuild /p:Warn=0 src/smuxi.sln
