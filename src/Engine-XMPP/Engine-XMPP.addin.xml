@@ -18,6 +18,5 @@
 
   <Extension path="/Smuxi/Server/Engine">
     <Engine class="Smuxi.Engine.XmppProtocolManager"/>
-    <Engine class="Smuxi.Engine.FacebookProtocolManager"/>
   </Extension>
 </Addin>
