@@ -2,10 +2,12 @@ Software Requirements
 =====================
 First you will need to install a few libraries to compile the source
 
-Libraries:
+Build tools & libraries:
+* Automake, Autoconf, gettext, pkg-config
 * Mono SDK (>= 4.6.2)
 * Nini (>= 1.1)
 * log4net
+* SQLite3
 * GTK# (>= 2.10) (optional, but required for the GNOME frontend)
 * Notify# (optional)
 * Indicate# / MessagingMenu# (optional)
@@ -15,7 +17,7 @@ Libraries:
 
 Depending on your operating system and favorite distribution the installation of the listed applications varies. For Debian based distributions it's just a matter of the following commands:
 
-    apt-get install mono-devel mono-xbuild libnini-cil-dev liblog4net-cil-dev libgtk2.0-cil-dev libglade2.0-cil-dev libnotify-cil-dev libindicate0.1-cil-dev libndesk-dbus-glib1.0-cil-dev libndesk-dbus1.0-cil-dev lsb-release
+    apt-get install mono-devel mono-xbuild libnini-cil-dev liblog4net-cil-dev libgtk2.0-cil-dev libglade2.0-cil-dev libnotify-cil-dev libdbus2.0-cil-dev libdbus2.0-cil-dev lsb-release
 
 Compiling Source
 ================
