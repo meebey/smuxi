@@ -310,7 +310,7 @@ run-gnome: all
 		cp lib/Nini.dll bin/debug && cp lib/log4net.dll bin/debug; \
 	fi; \
 	cd $(BUILD_DIR) && \
-		mono --debug ./smuxi-frontend-gnome.exe -d
+		mono --debug ./smuxi-frontend-gnome.exe -d --new-instance
 
 run-stfl: all
 	cd $(BUILD_DIR) && \
