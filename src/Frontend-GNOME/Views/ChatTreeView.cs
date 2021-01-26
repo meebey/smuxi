@@ -49,12 +49,11 @@ namespace Smuxi.Frontend.Gnome
                         return;
                     }
                 } else {
-                    iter = FindChatIter(value);
-                    if (Gtk.TreeIter.Zero.Equals(iter)) {
+                    if (!TryFindChatIter(value, out iter)) {
 #if LOG4NET
                         f_Logger.ErrorFormat(
-                            "set_CurrentChatView(): FindChatIter({0}) " +
-                            "returned Gtk.TreeIter.Zero, ignoring...", value
+                            "set_CurrentChatView(): TryFindChatIter({0}) " +
+                            "found no matching chat, ignoring...", value
                         );
 #endif
                         return;
@@ -173,7 +172,8 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("chatView");
             }
 
-            var iter = FindChatIter(chatView);
+            Gtk.TreeIter iter;
+            TryFindChatIter(chatView, out iter);
             if (!TreeStore.IterIsValid(iter)) {
                 return;
             }
@@ -188,7 +188,8 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("chatView");
             }
 
-            var iter = FindChatIter(chatView);
+            Gtk.TreeIter iter;
+            TryFindChatIter(chatView, out iter);
             //var path = TreeStore.GetPath(iter);
             //TreeStore.EmitRowChanged(path, iter);
             // HACK: this emits row_changed _and_ sort_iter_changed and there is
@@ -207,7 +208,8 @@ namespace Smuxi.Frontend.Gnome
             if (!GetVisibleRange(out visibleStart, out visibleEnd)) {
                 return false;
             }
-            var chatIter = FindChatIter(chatView);
+            Gtk.TreeIter chatIter;
+            TryFindChatIter(chatView, out chatIter);
             var chatPath = TreeStore.GetPath(chatIter);
             // we ignore 0 on purpose, say if a few pixels of a row are returned
             // as visible by GetVisibleRange() that is not good enough for us
@@ -467,18 +469,21 @@ namespace Smuxi.Frontend.Gnome
             return parentIter;
         }
 
-        Gtk.TreeIter FindChatIter(ChatView view)
+        bool TryFindChatIter(ChatView view, out Gtk.TreeIter chatIter)
         {
-            Gtk.TreeIter chatIter = Gtk.TreeIter.Zero;
+			var found = false;
+			var foundIter = Gtk.TreeIter.Zero;
             TreeStore.Foreach((model, path, iter) => {
                 var candidate = (ChatView) model.GetValue(iter, 0);
                 if (candidate == view) {
-                    chatIter = iter;
+                    foundIter = iter;
+                    found = true;
                     return true;
                 }
                 return false;
             });
-            return chatIter;
+            chatIter = foundIter;
+            return found;
         }
 
         int GetRowNumber(Gtk.TreePath path)
