@@ -64,9 +64,11 @@ namespace Smuxi.Frontend.Gnome
         public static bool IsDisconnecting { get; private set; }
         public static bool IsGtkInitialized { get; private set; }
         public static bool InGtkApplicationRun { get; private set; }
-        public static bool IsWindows { get; private set; }
+        public static bool IsWindows => Platform.IsWindows;
         public static bool IsUnity { get; private set; }
-        public static bool IsMacOSX { get; private set; }
+        public static bool IsMacOSX => Platform.IsMacOSX;
+        public static bool IsLinux => Platform.IsLinux;
+        public static bool IsMono => Platform.IsMono;
         public static Version EngineAssemblyVersion { get; set; }
         public static Version EngineProtocolVersion { get; set; }
 
@@ -172,8 +174,6 @@ namespace Smuxi.Frontend.Gnome
 
         static Frontend()
         {
-            IsWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
-            IsMacOSX = Platform.OperatingSystem == "Darwin";
             var desktop = Environment.GetEnvironmentVariable("XDG_CURRENT_DESKTOP");
             if (!String.IsNullOrEmpty(desktop) && desktop.ToLower().Contains("unity")) {
 #if LOG4NET
@@ -299,7 +299,7 @@ namespace Smuxi.Frontend.Gnome
             _FrontendManager.Sync();
 
             // MS .NET doesn't like this with Remoting?
-            if (Type.GetType("Mono.Runtime") != null) {
+            if (Frontend.IsMono) {
                 // when are running on Mono, all should be good
                 if (_UserConfig.IsCaching) {
                     // when our UserConfig is cached, we need to invalidate the cache
@@ -630,8 +630,7 @@ namespace Smuxi.Frontend.Gnome
 
             // we are using a remote engine, we are not running on Mono and an
             // IConvertible issue happened
-            if (!Frontend.IsLocalEngine &&
-                Type.GetType("Mono.Runtime") == null &&
+            if (!Frontend.IsLocalEngine && !IsMono &&
                 ex is InvalidCastException &&
                 ex.Message.Contains("IConvertible")) {
                 var msg = _(
@@ -1090,7 +1089,7 @@ namespace Smuxi.Frontend.Gnome
 #else
             // with GTK# 2.8 we can do this better, see above
             // GTK# 2.7.1 for MS .NET doesn't support that though.
-            if (Type.GetType("Mono.Runtime") == null) {
+            if (!IsMono) {
                 // when we don't run on Mono, we need to initialize glib ourself
                 GLib.Thread.Init();
             }

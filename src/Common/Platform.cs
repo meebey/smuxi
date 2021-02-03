@@ -1,6 +1,6 @@
 // This file is part of Smuxi and is licensed under the terms of MIT/X11
 // 
-// Copyright (c) 2010-2012 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2013, 2021 Mirco Bauer <meebey@meebey.net>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,92 +28,12 @@ namespace Smuxi.Common
 {
     public static class Platform
     {
-        public static string OperatingSystem {
-            get {
-                if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
-                    return Environment.OSVersion.Platform.ToString();
-                }
+        public static string OperatingSystem { get; private set; }
+        public static bool IsWindows { get; private set; }
+        public static bool IsMacOSX { get; private set; }
+        public static bool IsLinux { get; private set; }
+        public static bool IsMono { get; private set; }
 
-                // uname present?
-                try {
-                    var pinfo = new ProcessStartInfo("uname");
-                    pinfo.UseShellExecute = false;
-                    pinfo.RedirectStandardOutput = true;
-                    pinfo.RedirectStandardError = true;
-                    Process.Start(pinfo).WaitForExit();
-                } catch (Exception) {
-                    // fall back to runtime detector
-                    return Environment.OSVersion.Platform.ToString();
-                }
-
-                string os = null;
-                // GNU/Linux
-                // GNU/kFreeBSD
-                // Cygwin
-                var info = new ProcessStartInfo("uname", "-o");
-                info.UseShellExecute = false;
-                info.RedirectStandardOutput = true;
-                info.RedirectStandardError = true;
-                var process = Process.Start(info);
-                process.WaitForExit();
-                if (process.ExitCode == 0) {
-                    os = process.StandardOutput.ReadLine();
-                    // HACK: if Cygwin was installed on Windows and is in PATH
-                    // we should not trust uname and ask the runtime instead
-                    if (os == "Cygwin") {
-                        return Environment.OSVersion.Platform.ToString();
-                    }
-                }
-
-                if (String.IsNullOrEmpty(os)) {
-                    // not all operating systems support -o so lets fallback to -s
-                    // Linux
-                    // FreeBSD
-                    // Darwin
-                    info = new ProcessStartInfo("uname", "-s");
-                    info.UseShellExecute = false;
-                    info.RedirectStandardOutput = true;
-                    info.RedirectStandardError = true;
-                    process = Process.Start(info);
-                    process.WaitForExit();
-                    if (process.ExitCode == 0) {
-                        os = process.StandardOutput.ReadLine();
-                    }
-                }
-
-                if (String.IsNullOrEmpty(os)) {
-                    return "Unknown";
-                }
-
-                string distro = null;
-                try {
-                    info = new ProcessStartInfo("lsb_release", "-i");
-                    info.UseShellExecute = false;
-                    info.RedirectStandardOutput = true;
-                    info.RedirectStandardError = true;
-                    process = Process.Start(info);
-                    process.WaitForExit();
-                    if (process.ExitCode == 0) {
-                        distro = process.StandardOutput.ReadLine();
-                        var match = Regex.Match(distro,
-                                                @"^Distributor ID:\s+(.+)");
-                        if (match.Success && match.Groups.Count > 1) {
-                            distro = match.Groups[1].Value;
-                        } else {
-                            distro = null;
-                        }
-                    }
-                } catch (Exception) {
-                }
-
-                if (String.IsNullOrEmpty(distro)) {
-                    return os;
-                }
-
-                return String.Format("{0} ({1})", os, distro);
-            }
-        }
-        
         public static string Architecture {
             get {
                 if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
@@ -190,6 +110,101 @@ namespace Smuxi.Common
                 }
                 return cachePath;
             }
+        }
+
+        static Platform()
+        {
+            OperatingSystem = GetOperatingSystem();
+            IsWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
+            IsMacOSX = OperatingSystem == "Darwin";
+            // OS might return GNU/Linux or Linux
+            IsLinux = OperatingSystem.Contains("Linux");
+            IsMono = Type.GetType("Mono.Runtime") != null;
+        }
+
+        public static string GetOperatingSystem()
+        {
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
+                return Environment.OSVersion.Platform.ToString();
+            }
+
+            // uname present?
+            try {
+                var pinfo = new ProcessStartInfo("uname");
+                pinfo.UseShellExecute = false;
+                pinfo.RedirectStandardOutput = true;
+                pinfo.RedirectStandardError = true;
+                Process.Start(pinfo).WaitForExit();
+            } catch (Exception) {
+                // fall back to runtime detector
+                return Environment.OSVersion.Platform.ToString();
+            }
+
+            string os = null;
+            // GNU/Linux
+            // GNU/kFreeBSD
+            // Cygwin
+            var info = new ProcessStartInfo("uname", "-o");
+            info.UseShellExecute = false;
+            info.RedirectStandardOutput = true;
+            info.RedirectStandardError = true;
+            var process = Process.Start(info);
+            process.WaitForExit();
+            if (process.ExitCode == 0) {
+                os = process.StandardOutput.ReadLine();
+                // HACK: if Cygwin was installed on Windows and is in PATH
+                // we should not trust uname and ask the runtime instead
+                if (os == "Cygwin") {
+                    return Environment.OSVersion.Platform.ToString();
+                }
+            }
+
+            if (String.IsNullOrEmpty(os)) {
+                // not all operating systems support -o so lets fallback to -s
+                // Linux
+                // FreeBSD
+                // Darwin
+                info = new ProcessStartInfo("uname", "-s");
+                info.UseShellExecute = false;
+                info.RedirectStandardOutput = true;
+                info.RedirectStandardError = true;
+                process = Process.Start(info);
+                process.WaitForExit();
+                if (process.ExitCode == 0) {
+                    os = process.StandardOutput.ReadLine();
+                }
+            }
+
+            if (String.IsNullOrEmpty(os)) {
+                return "Unknown";
+            }
+
+            string distro = null;
+            try {
+                info = new ProcessStartInfo("lsb_release", "-i");
+                info.UseShellExecute = false;
+                info.RedirectStandardOutput = true;
+                info.RedirectStandardError = true;
+                process = Process.Start(info);
+                process.WaitForExit();
+                if (process.ExitCode == 0) {
+                    distro = process.StandardOutput.ReadLine();
+                    var match = Regex.Match(distro,
+                                            @"^Distributor ID:\s+(.+)");
+                    if (match.Success && match.Groups.Count > 1) {
+                        distro = match.Groups[1].Value;
+                    } else {
+                        distro = null;
+                    }
+                }
+            } catch (Exception) {
+            }
+
+            if (String.IsNullOrEmpty(distro)) {
+                return os;
+            }
+
+            return String.Format("{0} ({1})", os, distro);
         }
 
         public static string GetBuffersPath(string username)
