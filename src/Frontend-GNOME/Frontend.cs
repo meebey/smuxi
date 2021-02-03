@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015, 2021 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -938,16 +938,32 @@ namespace Smuxi.Frontend.Gnome
             if (TryOpenChatLink(link)) {
                 return;
             }
-
+            var escapedUrl = Uri.EscapeUriString(link.ToString());
             // hopefully MS .NET / Mono finds some way to handle the URL
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    var url = link.ToString();
-                    using (var process = SysDiag.Process.Start(url)) {
+                    using (var process = SysDiag.Process.Start(escapedUrl)) {
                         // Start() might return null in case it re-used a
                         // process instead of starting one
                         if (process != null) {
                             process.WaitForExit();
+                        }
+                    }
+                } catch (System.ComponentModel.Win32Exception ex) when (IsMono && IsLinux) {
+                    // HACK: Mono >= 6.6 has a regression where Process.Start() can
+                    // no longer open URLs on Linux and just throws a Win32Exception.
+                    // To workaround this issue we call xdg-open directly :(
+                    // For the bug in Mono see:
+                    // https://github.com/mono/mono/commit/5d088cf0de7f3e50e3547dba361af4401e938dd4#diff-c1ecca7d198c8f4922767c6c350edb3d1f7bbd59524f36f73d34f973d2f42a2eR2069
+#if LOG4NET
+                    _Logger.Warn("OpenLink(): buggy Mono version detected, failing back to xdg-open. Exception:", ex);
+#endif
+                    var info = new SysDiag.ProcessStartInfo("xdg-open", escapedUrl) {
+                        UseShellExecute = false
+                    };
+                    using (var process = SysDiag.Process.Start(info)) {
+                        if (process != null) {
+                            process.WaitForExit ();
                         }
                     }
                 } catch (Exception ex) {
