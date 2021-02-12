@@ -312,3 +312,11 @@ if BUNDLE_DB4O
 #	$(XBUILD) $(DB4O_NQ_XBUILD_FLAGS) /t:Clean $(DB4O_NQ_BUILD_FILE)
 endif
 
+# filter all .git files/directories from tarball
+dist-hook:
+	for GIT_DIR in $$(find $(distdir) -name ".git"); do \
+		echo "filtering $$GIT_DIR from tarball..."; \
+		chmod -R u+w $(distdir)/$$GIR_DIR; \
+		rm -rf $$GIT_DIR; \
+	done
+
