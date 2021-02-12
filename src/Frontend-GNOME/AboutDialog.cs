@@ -46,7 +46,7 @@ namespace Smuxi.Frontend.Gnome
             if (!Frontend.IsLocalEngine) {
                 Version += "\n Protocol: " + Frontend.EngineProtocolVersion;
             }
-            Copyright = "Copyright © 2005-2018 Mirco Bauer <meebey@meebey.net> and other contributors";
+            Copyright = "Copyright © 2005-2021 Mirco Bauer <meebey@meebey.net> and other contributors";
             Authors = new string[] {
                 "Mirco Bauer <meebey@meebey.net>",
                 "David Paleino <dapal@debian.org>",
