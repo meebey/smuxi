@@ -1,4 +1,4 @@
-#'smuxi/po-Engine-Twitter/
+# 'smuxi/po-Engine-Twitter/
 # Slovenian translation for smuxi.
 # Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
 # This file is distributed under the same license as the smuxi package.
@@ -11,20 +11,21 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=smuxi&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2016-03-11 21:40+0000\n"
-"PO-Revision-Date: 2016-03-11 21:40+0000\n"
+"PO-Revision-Date: 2021-04-15 20:10+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
 msgid "Home Timeline"
-msgstr ""
+msgstr "Časovnica"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:136
 msgid "Replies & Mentions"
@@ -32,7 +33,7 @@ msgstr ""
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:147
 msgid "Direct Messages"
-msgstr ""
+msgstr "Neposredna sporočila"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:195
 #, csharp-format
@@ -41,7 +42,7 @@ msgstr ""
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:217
 msgid "Connecting to Twitter..."
-msgstr ""
+msgstr "Poteka povezovanje s strežnikom Twitter..."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:259
 msgid "Twitter authorization required."
