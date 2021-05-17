@@ -3,7 +3,7 @@
 # Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
 # This file is distributed under the same license as the smuxi package.
 #
-# Matej Urbančič <mateju@svn.gnome.org>, 2016.
+# Matej Urbančič <mateju@svn.gnome.org>, 2016–2021.
 #
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=smuxi&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2016-03-11 21:40+0000\n"
-"PO-Revision-Date: 2016-03-11 22:57+0100\n"
+"PO-Revision-Date: 2021-05-17 18:32+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
 msgid "The server has shut down"
@@ -228,12 +228,12 @@ msgstr ""
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1777
 #, csharp-format
 msgid "{0} days"
-msgstr ""
+msgstr "{0} dni"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1783
 #, csharp-format
 msgid "{0} hours"
-msgstr ""
+msgstr "{0} ur"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1787
 #, csharp-format
@@ -300,22 +300,22 @@ msgstr ""
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2424
 msgid "Accept invite (join room)"
-msgstr ""
+msgstr "Sprejmi povabilo (pridruži se sobi)"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2562
 #, csharp-format
 msgid "Reconnecting to {0}"
-msgstr ""
+msgstr "Ponovno vzpostavljanje povezave s strežnikom {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2576
 #, csharp-format
 msgid "Reconnecting to {0} in {1} seconds"
-msgstr ""
+msgstr "Ponovno vzpostavljanje povezave s strežnikom {0} čez {1} sek"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2606
 #, csharp-format
 msgid "Error: {0}"
-msgstr ""
+msgstr "Napaka: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2618
 msgid "Authenticated"
@@ -324,4 +324,4 @@ msgstr "Overjeno"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2669
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
-msgstr ""
+msgstr "Uporaba posredniškega strežnika: {0}:{1}"
