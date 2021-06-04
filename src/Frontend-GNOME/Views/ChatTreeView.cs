@@ -96,15 +96,16 @@ namespace Smuxi.Frontend.Gnome
             Selection.Mode = Gtk.SelectionMode.Browse;
             Selection.Changed += (sender, e) => {
                 Gtk.TreeIter iter;
-                if (!Selection.GetSelected(out iter) &&
-                    TreeStore.GetIterFirst(out iter)) {
+                if (!Selection.GetSelected(out iter)) {
+                    // select the first chat view if none is selected
+                    if (!TreeStore.GetIterFirst (out iter)) {
+                        // no chat views available, nothing to do; this happens during shutdown
+                        return;
+                    }
                     Selection.SelectIter(iter);
                     return;
                 }
-                if (Gtk.TreeIter.Zero.Equals(iter)) {
-                    // no chat views available; this happens during shutdown
-                    return;
-                }
+
                 var path = TreeStore.GetPath(iter);
                 f_CurrentChatNumber = GetRowNumber(path);
             };
