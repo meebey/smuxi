@@ -98,6 +98,11 @@ namespace Smuxi.Engine
                 return obj;
             }
             set {
+#if LOG4NET
+                if (value == null) {
+                    _Logger.Error($"set_Item[{key}]: value is null");
+                }
+#endif
                 Set(key, value);
             }
         }
