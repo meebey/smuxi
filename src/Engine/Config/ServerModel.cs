@@ -229,8 +229,10 @@ namespace Smuxi.Engine
             config[ConfigKeyPrefix + "UseEncryption"] = UseEncryption;
             config[ConfigKeyPrefix + "ValidateServerCertificate"] =
                 ValidateServerCertificate;
+            // ClientCertificateFilename is an internal setting which not
+            // exposed in the UI, thus the value remains null
             config[ConfigKeyPrefix + "ClientCertificateFilename"] =
-                ClientCertificateFilename;
+                ClientCertificateFilename ?? String.Empty;
             config[ConfigKeyPrefix + "OnStartupConnect"] = OnStartupConnect;
             config[ConfigKeyPrefix + "OnConnectCommands"] = OnConnectCommands;
         }
