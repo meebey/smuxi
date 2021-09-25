@@ -1,4 +1,4 @@
-#'smuxi/po-Frontend/
+# 'smuxi/po-Frontend/
 # Slovenian translation for smuxi.
 # Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
 # This file is distributed under the same license as the smuxi package.
@@ -8,37 +8,37 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-11 21:40+0000\n"
-"PO-Revision-Date: 2016-03-11 21:40+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2020-09-04 11:27+0000\n"
+"PO-Revision-Date: 2021-04-15 20:53+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 2.4.1\n"
 
-#: ../src/Frontend/CommandManager.cs:466
+#: ../src/Frontend/CommandManager.cs:479
 #, csharp-format
 msgid "Unknown Command: {0}"
-msgstr ""
+msgstr "Neznan ukaz: {0}"
 
-#: ../src/Frontend/CommandManager.cs:475
+#: ../src/Frontend/CommandManager.cs:488
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr ""
 
 #: ../src/Frontend/EngineManager.cs:112
 msgid "Engine must not be empty."
-msgstr ""
+msgstr "Programnik ne sme biti prazen."
 
 #: ../src/Frontend/EngineManager.cs:123
 msgid "Engine does not exist."
-msgstr ""
+msgstr "Programnik ne obstaja."
 
 #: ../src/Frontend/EngineManager.cs:313
 #, csharp-format
@@ -84,12 +84,12 @@ msgstr ""
 #: ../src/Frontend/SshTunnelManager.cs:332
 #: ../src/Frontend/SshTunnelManager.cs:481
 msgid "SSH keyfile not found."
-msgstr ""
+msgstr "Datoteke ključa SSH ni mogoče najti."
 
 #: ../src/Frontend/SshTunnelManager.cs:338
 #: ../src/Frontend/SshTunnelManager.cs:487
 msgid "SSH keyfile could not be read."
-msgstr ""
+msgstr "Datoteke ključa SSH ni mogoče prebrati."
 
 #: ../src/Frontend/SshTunnelManager.cs:429
 #, csharp-format
@@ -106,7 +106,7 @@ msgstr ""
 
 #: ../src/Frontend/SshTunnelManager.cs:472
 msgid "PuTTY / Plink requires a username to be set."
-msgstr ""
+msgstr "Program PuTTY / Plink zahteva nastavitev uporabniškega imena."
 
 #: ../src/Frontend/SshTunnelManager.cs:560
 #, csharp-format
