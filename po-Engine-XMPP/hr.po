@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
 "POT-Creation-Date: 2021-10-02 11:10+0000\n"
-"PO-Revision-Date: 2021-10-02 13:56+0200\n"
+"PO-Revision-Date: 2021-10-02 14:00+0200\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
 msgid "The server has shut down"
-msgstr "Server je isključen"
+msgstr "Poslužitelj je isključen"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
 msgid ""
@@ -287,7 +287,7 @@ msgid ""
 "Received a groupchat message from {0} but there's no corresponding chat "
 "window: {1}"
 msgstr ""
-"Primljena j poruka grupnog razgovora s {0} ali tamo nema odgovarajućeg "
+"Primljena je poruka grupnog razgovora s {0} ali tamo nema odgovarajućeg "
 "prozora za razgovor: {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2391
