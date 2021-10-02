@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
 "POT-Creation-Date: 2020-09-04 11:27+0000\n"
-"PO-Revision-Date: 2021-10-01 20:25+0200\n"
+"PO-Revision-Date: 2021-10-02 14:21+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian (http://www.transifex.net/projects/p/smuxi/team/"
 "hr/)\n"
@@ -1073,7 +1073,6 @@ msgstr "Promijeni udaljeni pogon"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
-#, fuzzy
 msgid "_Caret Mode"
 msgstr "_Način sa znakom za umetanje"
 
