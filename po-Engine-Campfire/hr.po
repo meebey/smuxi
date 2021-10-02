@@ -1,0 +1,94 @@
+# Croatian translation for smuxi.
+# Copyright (C) 2021 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2021-10-02 10:18+0000\n"
+"PO-Revision-Date: 2021-10-02 12:22+0200\n"
+"Language-Team: Croatian <hr@li.org>\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Last-Translator: gogo <trebelnik2@gmail.com>\n"
+"X-Generator: Poedit 2.3\n"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
+msgid "Connecting to campfire... "
+msgstr "Povezivanje s campfire... "
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:166
+msgid "Connected to campfire"
+msgstr "Povezano s campfire"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:200
+msgid "Campfire Commands"
+msgstr "Campfire naredbe"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:262
+msgid "Upload"
+msgstr "Pošalji"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:263
+#, csharp-format
+msgid "'{0}' ({1} B) {2}"
+msgstr "'{0}' ({1} B) {2}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:367
+#, csharp-format
+msgid "Failed to post message: {0}"
+msgstr "Neuspjela objava poruke: {0}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:383
+#, csharp-format
+msgid "has uploaded '{0}' ({1} B) {2}"
+msgstr "je poslao '{0}' ({1} B) {2}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:420
+#, csharp-format
+msgid "has joined {0}"
+msgstr "se pridružio {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:429
+#, csharp-format
+msgid "has left {0}"
+msgstr "je napustio {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:437
+#, csharp-format
+msgid "has locked {0}"
+msgstr "je zaključan {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
+#, csharp-format
+msgid "has unlocked {0}"
+msgstr "je otključan {0}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:446
+msgid "has changed the topic"
+msgstr "je promijenio temu"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:458
+#, csharp-format
+msgid "has pasted a tweet by {0}: {1}"
+msgstr "je objavio tweet od {0}: {1}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:465
+msgid "has performed an unknown action"
+msgstr "je obavio nepoznatu radnju"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:504
+#, csharp-format
+msgid "Error reading from stream: {0}"
+msgstr "Greška čitanja iz strujanja: {0}"
