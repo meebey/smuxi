@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
 "POT-Creation-Date: 2020-09-04 11:24+0000\n"
-"PO-Revision-Date: 2021-10-02 12:43+0200\n"
+"PO-Revision-Date: 2021-10-02 12:47+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian (http://www.transifex.net/projects/p/smuxi/team/"
 "hr/)\n"
@@ -280,7 +280,7 @@ msgstr ""
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2879
 #, csharp-format
 msgid "Nick {0} is already in use"
-msgstr "Nadimak {0} se već joristi"
+msgstr "Nadimak {0} se već koristi"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2895
 msgid "Cannot join to channel:"
@@ -288,7 +288,7 @@ msgstr "Nemoguće povezivanje s kanalom:"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2897
 msgid "You are banned"
-msgstr "Zabranjeni ste"
+msgstr "Dobili ste zabranu"
 
 #. TRANSLATOR: {0}: nickname, {1}: ident@host,
 #. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
