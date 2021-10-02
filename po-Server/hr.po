@@ -1,140 +1,145 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <tty@live.nl>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:21+0100\n"
-"PO-Revision-Date: 2012-01-08 10:34+0000\n"
-"Last-Translator: Matias M. <tty@live.nl>\n"
-"Language-Team: Croatian (http://www.transifex.net/projects/p/smuxi/team/hr/)\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2020-09-04 11:30+0000\n"
+"PO-Revision-Date: 2021-10-02 14:13+0200\n"
+"Last-Translator: gogo <trebelnik2@gmail.com>\n"
+"Language-Team: Croatian (http://www.transifex.net/projects/p/smuxi/team/"
+"hr/)\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hr\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 2.3\n"
 
-#: ../src/Server/Main.cs:71
+#: ../src/Server/Main.cs:65
 msgid "Add user to Server"
 msgstr "Dodaj korisnika na poslužitelj"
 
-#: ../src/Server/Main.cs:80
+#: ../src/Server/Main.cs:74
 msgid "Modify existing user of Server"
 msgstr "Uredi postojećeg korisnika poslužitelja"
 
-#: ../src/Server/Main.cs:89
+#: ../src/Server/Main.cs:83
 msgid "Delete user from Server"
-msgstr "Ukloni korisnika sa poslužitelja"
+msgstr "Ukloni korisnika s poslužitelja"
 
-#: ../src/Server/Main.cs:98
+#: ../src/Server/Main.cs:92
 msgid "List all existing users of Server"
-msgstr "Ispiši sve postojeće korisnike poslužitelja"
+msgstr "Prikaži sve postojeće korisnike poslužitelja"
 
-#: ../src/Server/Main.cs:107
+#: ../src/Server/Main.cs:101
 msgid "User to create, modify or delete"
 msgstr "Korisnik za stvaranje, uređivanje ili uklanjanje"
 
-#: ../src/Server/Main.cs:116
+#: ../src/Server/Main.cs:110
 msgid "Password of the user when creating or modifying a user"
 msgstr "Lozinka korisnika pri stvaranju ili uređivanju korisnika"
 
-#: ../src/Server/Main.cs:125
+#: ../src/Server/Main.cs:119
 msgid "Enable debug output"
-msgstr "Omogući debug ispis"
+msgstr "Omogući ispis otklanjanja greške"
 
-#: ../src/Server/Main.cs:133
+#: ../src/Server/Main.cs:127
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
 msgstr ""
-"Optimiziraj međuspremnike poruka i zatvori (važeće vrijednosti: none, "
+"Optimiziraj međuspremnike poruka i zatvori (valjane vrijednosti: none, "
 "defrag, index, all)"
 
-#: ../src/Server/Main.cs:146
+#: ../src/Server/Main.cs:140
 msgid "Show this help"
 msgstr "Prikaži ovu pomoć"
 
-#: ../src/Server/Main.cs:148
+#: ../src/Server/Main.cs:142
 msgid "Usage: smuxi-server [options]"
-msgstr "Upotreba: smuxi-server [opcije]"
+msgstr "Upotreba: smuxi-server [mogućnosti]"
 
-#: ../src/Server/Main.cs:150
+#: ../src/Server/Main.cs:144
 msgid "Options:"
-msgstr "Opcije:"
+msgstr "Mogućnosti:"
 
-#: ../src/Server/Main.cs:161
+#: ../src/Server/Main.cs:152
+msgid "Show version"
+msgstr "Prikaži inačicu"
+
+#: ../src/Server/Main.cs:165
 #, csharp-format
 msgid "Unknown option: '{0}'"
-msgstr "Nepoznata opcija: '{0}'"
+msgstr "Nepoznata mogućnost: '{0}'"
 
-#: ../src/Server/Main.cs:188
+#: ../src/Server/Main.cs:192
 #, csharp-format
 msgid "Command line error: {0}"
-msgstr "Pogreška komandne linije: {0}"
+msgstr "Greška naredbenog redka: {0}"
 
-#: ../src/Server/Main.cs:232
+#: ../src/Server/Main.cs:236
 msgid ""
-"At most one of --add-user, --modify-user, and --delete-user may be used at a"
-" time."
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
 msgstr ""
-"Najviše jedna naredba --add-user, --modify-user, ili --delete-user mogu biti"
-" korištene istovremeno."
+"Istovremeno se može koristiti jedna od --add-user, --modify-user, ili --"
+"delete-user naredbi."
 
-#: ../src/Server/Main.cs:242
+#: ../src/Server/Main.cs:246
 msgid "You must specify a username with the --username option."
-msgstr "Morate odrediti korisničko ime sa --username opcijom."
+msgstr "Morate navesti korisničko ime sa --username mogućnosti."
 
-#: ../src/Server/Main.cs:248
+#: ../src/Server/Main.cs:252
 msgid "Username must not be empty."
 msgstr "Korisničko ime ne smije biti prazno."
 
-#: ../src/Server/Main.cs:258
+#: ../src/Server/Main.cs:262
 msgid "You must specify a password with the --password option."
-msgstr "Morate odrediti lozinku sa --password opcijom."
+msgstr "Morate navesti lozinku sa --password mogućnosti."
 
-#: ../src/Server/Main.cs:264
+#: ../src/Server/Main.cs:268
 msgid "Password must not be empty."
 msgstr "Lozinka ne smije biti prazna."
 
-#: ../src/Server/Main.cs:283
+#: ../src/Server/Main.cs:287
 #, csharp-format
 msgid ""
-"Invalid optimization value passed to --optimize-message-buffer, valid values"
-" are: {0}"
+"Invalid optimization value passed to --optimize-message-buffer, valid values "
+"are: {0}"
 msgstr ""
-"Nevažeća optimizacijska vrijednost dodijeljena --optimize-message-bufferu, "
-"važeće vrijednosti su: {0}"
+"Nevaljana vrijednost optimizacije za --optimize-message-bufferu, valjane "
+"vrijednosti su: {0}"
 
-#: ../src/Server/Main.cs:303
+#: ../src/Server/Main.cs:307
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
-msgstr "Dodavanje korisnika \"{0}\" na poslužitelj uspješno izvršeno."
+msgstr "Korisnik \"{0}\" je uspješno dodan na poslužitelj."
 
-#: ../src/Server/Main.cs:312
+#: ../src/Server/Main.cs:316
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
-msgstr "Uređivanje korisnika \"{0}\" uspješno izvršeno."
+msgstr "Korisnik \"{0}\" je uspješno uređen."
 
-#: ../src/Server/Main.cs:321
+#: ../src/Server/Main.cs:325
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
-msgstr "Uklanjanje korisnika \"{0}\" sa poslužitelja uspješno izvršeno."
+msgstr "Korisnik \"{0}\" je uspješno uklonjen s poslužitelja."
 
-#: ../src/Server/Main.cs:328
+#: ../src/Server/Main.cs:332
 msgid "Users:"
 msgstr "Korisnici:"
 
-#: ../src/Server/Main.cs:376
+#: ../src/Server/Main.cs:380
 #, csharp-format
 msgid "Successfully optimized {0} message buffers."
 msgstr "Međuspremnici poruka {0} uspješno optimizirani."
 
-#: ../src/Server/Main.cs:389
+#: ../src/Server/Main.cs:393
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
 msgstr "Optimizacija međuspremnika poruka {0} nije uspjela."
-
-
