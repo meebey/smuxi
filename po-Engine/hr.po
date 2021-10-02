@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
 "POT-Creation-Date: 2020-09-04 11:23+0000\n"
-"PO-Revision-Date: 2021-10-02 12:11+0200\n"
+"PO-Revision-Date: 2021-10-02 12:15+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian (http://www.transifex.net/projects/p/smuxi/team/"
 "hr/)\n"
@@ -74,7 +74,7 @@ msgstr "nije povezano"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:193
 msgid "Not connected to server"
-msgstr "Nema povezano s poslužiteljem"
+msgstr "Nema povezivanja s poslužiteljem"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
 #: ../src/Engine/Session.cs:1083
@@ -216,7 +216,7 @@ msgstr "Neuspjelo prebacivanje mreže - nemoguć pronalazak mreže: {0}"
 
 #: ../src/Engine/Session.cs:1076
 msgid "Not connected to any network"
-msgstr "Nema povezivanja sa nijednom mrežom"
+msgstr "Nema povezivanja s nijednom mrežom"
 
 #: ../src/Engine/Session.cs:1333
 #, csharp-format
@@ -224,7 +224,7 @@ msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
 msgstr ""
-"Neuspjelo zapisivanje povijest razgovora. Vaša povijest razgovora neće biti "
+"Neuspjelo zapisivanje povijesti razgovora. Vaša povijest razgovora neće biti "
 "očuvana. Razlog: {0}"
 
 #. just in case the ProtocolManager is not setting the
