@@ -1,0 +1,134 @@
+# Croatian translation for smuxi.
+# Copyright (C) 2021 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/"
+"issues\n"
+"POT-Creation-Date: 2021-10-02 10:50+0000\n"
+"PO-Revision-Date: 2021-10-02 13:04+0200\n"
+"Language-Team: Croatian <hr@li.org>\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Last-Translator: gogo <trebelnik2@gmail.com>\n"
+"X-Generator: Poedit 2.3\n"
+
+#: ../src/Engine-MessageBuffer/Main.cs:49
+msgid "Enable debug output"
+msgstr "Omogući ispis otklanjanja greške"
+
+#: ../src/Engine-MessageBuffer/Main.cs:55
+#: ../src/Engine-MessageBuffer/Main.cs:141
+#: ../src/Engine-MessageBuffer/Main.cs:205
+msgid "Show this help"
+msgstr "Prikaži ovu pomoć"
+
+#: ../src/Engine-MessageBuffer/Main.cs:88
+#, csharp-format
+msgid "Unknown action: '{0}'"
+msgstr "Nepoznata radnja: '{0}'"
+
+#: ../src/Engine-MessageBuffer/Main.cs:95
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Greška naredbenog redka: {0}"
+
+#: ../src/Engine-MessageBuffer/Main.cs:104
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr ""
+"Upotreba: smuxi-message-buffer [mogućnosti] radnja mogućnosti-"
+"radnje"
+
+#: ../src/Engine-MessageBuffer/Main.cs:106
+msgid "Actions:"
+msgstr "Radnje:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:110
+#: ../src/Engine-MessageBuffer/Main.cs:152
+#: ../src/Engine-MessageBuffer/Main.cs:217
+msgid "Options:"
+msgstr "Mogućnosti:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:119
+msgid "Database format (valid values: auto, db4o, sqlite)"
+msgstr ""
+"Format baze podataka (valjane vrijednosti: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:134
+#: ../src/Engine-MessageBuffer/Main.cs:198
+#, csharp-format
+msgid "Unknown {0} option: '{1}'"
+msgstr "Nepoznato {0} mogućnost: '{1}'"
+
+#: ../src/Engine-MessageBuffer/Main.cs:145
+#, csharp-format
+msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
+msgstr ""
+"Upotreba: smuxi-message-buffer {0} [mogućnosti-radnje] putanja_bp"
+
+#: ../src/Engine-MessageBuffer/Main.cs:150
+msgid "Database path(s)"
+msgstr "Putanje baze podataka"
+
+#: ../src/Engine-MessageBuffer/Main.cs:161
+msgid "db_path is required"
+msgstr "putanja_bp je potrebna"
+
+#: ../src/Engine-MessageBuffer/Main.cs:175
+msgid "Source format (valid values: auto, db4o, sqlite)"
+msgstr "Formati izvora (valjane vrijednosti: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:183
+msgid "Destination format (valid values: auto, db4o, sqlite)"
+msgstr "Format odredišta (valjane vrijednosti: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:209
+#, csharp-format
+msgid ""
+"Usage: smuxi-message-buffer {0} [action-options] source_db(s)... "
+"destination_db"
+msgstr ""
+"Upotreba: smuxi-message-buffer {0} [mogućnosti-radnje] "
+"bp_izvora(s)... bp_odredišta"
+
+#: ../src/Engine-MessageBuffer/Main.cs:214
+msgid "Source file path(s)"
+msgstr "Putanje datoteke izvora"
+
+#: ../src/Engine-MessageBuffer/Main.cs:215
+msgid "Destination file path or -/empty for stdout"
+msgstr "Putanja datoteke odredišta ili -/empty za stdout"
+
+#: ../src/Engine-MessageBuffer/Main.cs:226
+msgid "source_db and destination_db are required"
+msgstr "bp_izvora i bp_odredišta su potrebni"
+
+#: ../src/Engine-MessageBuffer/Main.cs:242
+msgid "sourceFile must not be empty."
+msgstr "Datoteka izvora ne smije biti prazna."
+
+#: ../src/Engine-MessageBuffer/Main.cs:251
+msgid "sourceFiles must not be empty."
+msgstr "Datoteke izvora ne smiju biti prazne."
+
+#: ../src/Engine-MessageBuffer/Main.cs:271
+#, csharp-format
+msgid "Destination database {0} must be empty!"
+msgstr "Baza podataka odredišta {0} mora biti prazna!"
+
+#: ../src/Engine-MessageBuffer/Main.cs:340
+#, csharp-format
+msgid "Unknown file format: '{0}'"
+msgstr "Nepoznata vrsta datoteke: '{0}'"
+
+#: ../src/Engine-MessageBuffer/Main.cs:362
+#, csharp-format
+msgid "Unsupported buffer type: '{0}'"
+msgstr "Nepodržana vrsta međuspremnika: '{0}'"
