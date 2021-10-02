@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
 "POT-Creation-Date: 2020-09-04 11:26+0000\n"
-"PO-Revision-Date: 2021-10-02 13:25+0200\n"
+"PO-Revision-Date: 2021-10-02 13:28+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian (http://www.transifex.net/projects/p/smuxi/team/"
 "hr/)\n"
@@ -141,7 +141,7 @@ msgstr "Migracija Twitter računa sa basic auth na OAuth."
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
 #, csharp-format
 msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
-msgstr "Twitter račun \"{0}\" je uspješno ovjeren je za Smuxi"
+msgstr "Twitter račun \"{0}\" je uspješno ovjeren za Smuxi"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:902
 #, csharp-format
