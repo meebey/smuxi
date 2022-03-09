@@ -79,6 +79,7 @@ namespace Smuxi.Frontend.Gnome
             NetworkWebsiteUrls.Add("ustream", "http://www.ustream.tv/");
             NetworkWebsiteUrls.Add("Infinity-IRC", "http://www.infinityirc.com/");
             NetworkWebsiteUrls.Add("GeekShed", "http://www.geekshed.net/");
+            NetworkWebsiteUrls.Add("Libera.Chat", "https://libera.chat/");
 
             // IRC bridges
             NetworkWebsiteUrls.Add("Slack", "https://slack.com/");

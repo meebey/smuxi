@@ -391,18 +391,18 @@ namespace Smuxi.Engine
             Get(prefix + "Password", String.Empty);
             Get(prefix + "UseEncryption", false);
             Get(prefix + "ValidateServerCertificate", false);
-                
-            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.freenode.net/";
-            Get(prefix + "Hostname", "irc.freenode.net");
-            Get(prefix + "Port", 6667);
-            Get(prefix + "Network", "freenode");
-            Get(prefix + "Nickname", String.Empty);
-            Get(prefix + "Realname", String.Empty);
-            Get(prefix + "Username", String.Empty);
-            Get(prefix + "Password", String.Empty);
-            Get(prefix + "UseEncryption", false);
-            Get(prefix + "ValidateServerCertificate", false);
-            
+
+            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.libera.chat/";
+            Get (prefix + "Hostname", "irc.libera.chat");
+            Get (prefix + "Port", 6667);
+            Get (prefix + "Network", "Libera.Chat");
+            Get (prefix + "Nickname", String.Empty);
+            Get (prefix + "Realname", String.Empty);
+            Get (prefix + "Username", String.Empty);
+            Get (prefix + "Password", String.Empty);
+            Get (prefix + "UseEncryption", false);
+            Get (prefix + "ValidateServerCertificate", false);
+
             prefix = "Engine/Users/";
             Get(prefix+"Users", new string[] { "local" });
             
