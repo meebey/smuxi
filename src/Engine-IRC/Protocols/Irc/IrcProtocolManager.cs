@@ -3858,6 +3858,10 @@ namespace Smuxi.Engine
         {
             Trace.Call(sender, e);
 
+#if LOG4NET
+            _Logger.Debug("OnAutoConnectError(): exception:", e.Exception);
+#endif
+
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
             builder.AppendText(_("Connection to {0} port {1} has failed " +
