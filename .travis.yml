@@ -46,7 +46,7 @@ script:
 
 notifications:
     irc:
-        channels: "chat.freenode.net#smuxi-devel"
+        channels: "irc.oftc.net#smuxi"
         use_notice: true
         skip_join: true
         template:
