@@ -14,7 +14,8 @@ jobs:
         uses: vmiklos/notify-irc@a52a197c9507ad7a81c1a9295c9ed24786e396b3
         if: github.event_name == 'push'
         with:
-          channel: "#smuxi-devel"
+          server: "irc.oftc.net"
+          channel: "#smuxi"
           notice: true
           nickname: github-ci
           message: |
@@ -23,7 +24,8 @@ jobs:
         uses: rectalogic/notify-irc@v1
         if: github.event_name == 'pull_request'
         with:
-          channel: "#smuxi-devel"
+          server: "irc.oftc.net"
+          channel: "#smuxi"
           notice: true
           nickname: github-ci
           message: |
@@ -32,7 +34,8 @@ jobs:
         uses: rectalogic/notify-irc@v1
         if: github.event_name == 'create' && github.event.ref_type == 'tag'
         with:
-          channel: "#smuxi-devel"
+          server: "irc.oftc.net"
+          channel: "#smuxi"
           notice: true
           nickname: github-ci
           message: |
@@ -41,7 +44,8 @@ jobs:
         uses: rectalogic/notify-irc@v1
         if: github.event_name == 'issues'
         with:
-          channel: "#smuxi-devel"
+          server: "irc.oftc.net"
+          channel: "#smuxi"
           notice: true
           nickname: github-ci
           message: |
