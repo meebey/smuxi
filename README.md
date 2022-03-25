@@ -8,7 +8,7 @@ Build tools & libraries:
 * Nini (>= 1.1)
 * log4net
 * SQLite3
-* GTK# (>= 2.10) (optional, but required for the GNOME frontend)
+* GTK# (>= 2.12.39) (optional, but required for the GNOME frontend)
 * Notify# (optional)
 * Indicate# / MessagingMenu# (optional)
 * DBus# / NDesk.DBus (optional)
@@ -62,4 +62,4 @@ via `sudo add-apt-repository -y ppa:meebey/smuxi-daily && sudo apt update`).
 The official (downstream) Debian packaging can be found on [here][].
 
   [launchpad]: https://launchpad.net/~meebey/+archive/smuxi-daily
-  [here]: http://git.debian.org/?p=pkg-cli-apps/packages/smuxi.git
+  [here]: https://salsa.debian.org/dotnet-team/smuxi
