@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-03-27 04:36+0000\n"
-"PO-Revision-Date: 2022-03-27 18:08+0000\n"
+"POT-Creation-Date: 2022-03-27 12:54+0000\n"
+"PO-Revision-Date: 2022-04-04 18:08+0000\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -23,42 +23,42 @@ msgstr "Komando ezezaguna: {0}"
 #: ../src/Frontend/CommandManager.cs:488
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr ""
+msgstr "Ez dago aski parametrorik {0} komandorako"
 
 #: ../src/Frontend/EngineManager.cs:112
 msgid "Engine must not be empty."
-msgstr ""
+msgstr "Motorrak ezin du hutsik egon."
 
 #: ../src/Frontend/EngineManager.cs:123
 msgid "Engine does not exist."
-msgstr ""
+msgstr "Ez dago motorrik."
 
 #: ../src/Frontend/EngineManager.cs:313
 #, csharp-format
 msgid "Unknown channel ({0}) - only the following channel types are supported:"
-msgstr ""
+msgstr "Kanal ezezaguna ({0}) - honako kanal motak soilik onartzen dira:"
 
 #: ../src/Frontend/EngineManager.cs:322
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
-msgstr ""
+msgstr "Motorrarekin erregistratzeak huts egin du! Erabiltzaile-izena eta/edo pasahitza okerrak ziren, egiaztatu zuzenak direla."
 
 #: ../src/Frontend/SshTunnelManager.cs:147
 msgid "SSH client application was not found: "
-msgstr ""
+msgstr "SSH aplikazio bezeroa ez da aurkitu: "
 
 #: ../src/Frontend/SshTunnelManager.cs:150
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
-msgstr ""
+msgstr "SSH bezeroak OpenSSH (ssh) edo Plink (plink.exe, ez putty.exe) izan behar du"
 
 #: ../src/Frontend/SshTunnelManager.cs:187
 #, csharp-format
 msgid ""
 "The local SSH forwarding port {0} is already in use. Is there an old SSH "
 "tunnel still active?"
-msgstr ""
+msgstr "SSH birbidalketetarako ataka lokala {0} dagoeneko erabiltzen ari da. SSH tunel zaharren bat oraindik aktibo al dago?"
 
 #: ../src/Frontend/SshTunnelManager.cs:211
 #, csharp-format
@@ -72,17 +72,25 @@ msgid ""
 "{3}\n"
 "Program Output:\n"
 "{4}\n"
-msgstr ""
+msgstr "SSH tunela konfiguratzeak hutz egin du (irteera-kodea: {0})\n"
+"\n"
+"SSH programa: {1}\n"
+"SSH parametroak: {2}\n"
+"\n"
+"Programaren errorea:\n"
+"{3}\n"
+"Programaren irteera:\n"
+"{4}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:332
 #: ../src/Frontend/SshTunnelManager.cs:481
 msgid "SSH keyfile not found."
-msgstr ""
+msgstr "Ez da SSH gako-fitxategia aurkitu."
 
 #: ../src/Frontend/SshTunnelManager.cs:338
 #: ../src/Frontend/SshTunnelManager.cs:487
 msgid "SSH keyfile could not be read."
-msgstr ""
+msgstr "SSH gako-fitxategia ezin da irakurri."
 
 #: ../src/Frontend/SshTunnelManager.cs:429
 #, csharp-format
@@ -95,11 +103,18 @@ msgid ""
 "{2}\n"
 "Program Output:\n"
 "{3}\n"
-msgstr ""
+msgstr "OpenSSH bertsio-zenbakia ez da aurkitu (irteera-kodea: {0})\n"
+"\n"
+"SSH programa: {1}\n"
+"\n"
+"Programaren errorea:\n"
+"{2}\n"
+"Programaren irteera:\n"
+"{3}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:472
 msgid "PuTTY / Plink requires a username to be set."
-msgstr ""
+msgstr "PuTTY / Plink aplikazioak erabiltzaile-izen bat behar du."
 
 #: ../src/Frontend/SshTunnelManager.cs:560
 #, csharp-format
@@ -112,4 +127,11 @@ msgid ""
 "{2}\n"
 "Program Output:\n"
 "{3}\n"
-msgstr ""
+msgstr "Plink bertsio-zenbakia ez da aurkitu (irteera-kodea: {0})\n"
+"\n"
+"SSH programa: {1}\n"
+"\n"
+"Programaren errorea:\n"
+"{2}\n"
+"Programaren irteera:\n"
+"{3}\n"
