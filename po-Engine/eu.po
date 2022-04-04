@@ -1,0 +1,290 @@
+# Basque translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2022.
+#
+msgid ""
+msgstr "Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-04-04 16:11+0000\n"
+"PO-Revision-Date: 2022-04-04 18:08+0000\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"Language-Team: Basque <librezale@librezale.eus>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Engine/FrontendManager.cs:218
+msgid "No network connections"
+msgstr "Ez dago sareko konexiorik"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr "Optimizatzen: {0}..."
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr "Optimizazioak huts egin du: {0}. Arrazoia: {1}"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:315
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:789
+#, csharp-format
+msgid "{0} is typing..."
+msgstr "{0} idazten ari da..."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:795
+#, csharp-format
+msgid "{0} has stopped typing..."
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:840
+#, csharp-format
+msgid "{0} is away"
+msgstr "{0} kanpoan dago"
+
+#: ../src/Engine/Messages/MessageBuilder.cs:846
+#, csharp-format
+msgid "{0} is offline"
+msgstr "{0} lineaz kanpo dago"
+
+#: ../src/Engine/Messages/MessageBuilder.cs:852
+#, csharp-format
+msgid "{0} is online"
+msgstr "{0} linean dago"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:162
+msgid "not connected"
+msgstr "ez dago konektatuta"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:193
+msgid "Not connected to server"
+msgstr "Ez dago zerbitzariarekin konektatuta"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
+#: ../src/Engine/Session.cs:1083
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Nahiko parametrorik ez {0} komandorako"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:212
+#, csharp-format
+msgid "Connected to {0}"
+msgstr ""
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:242
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:213
+#, csharp-format
+msgid "Automatically connecting to {0}..."
+msgstr ""
+
+#: ../src/Engine/Session.cs:248
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr ""
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine/Session.cs:521
+msgid "Engine Commands"
+msgstr "Motorraren komandoak"
+
+#: ../src/Engine/Session.cs:650
+msgid "Connect failed!"
+msgstr "Konexioak huts egin du!"
+
+#: ../src/Engine/Session.cs:673
+#, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:715
+msgid "Reconnect failed!"
+msgstr ""
+
+#: ../src/Engine/Session.cs:739
+msgid "Configuration reloaded"
+msgstr "Konfigurazioa birkargatu da"
+
+#: ../src/Engine/Session.cs:743
+msgid "Configuration saved"
+msgstr "Konfigurazioa gorde da"
+
+#: ../src/Engine/Session.cs:770
+msgid "Invalid key/value format."
+msgstr "Gako/balio formatu baliogabea."
+
+#: ../src/Engine/Session.cs:794
+#, csharp-format
+msgid "Invalid config key: '{0}'"
+msgstr ""
+
+#: ../src/Engine/Session.cs:810 ../src/Engine/Session.cs:816
+#, csharp-format
+msgid "Could not convert config value: '{0}' to type: {1}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:830
+#, csharp-format
+msgid ""
+"Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
+msgstr ""
+
+#: ../src/Engine/Session.cs:843
+#, csharp-format
+msgid "Message pattern with ID: '{0}' does not exist."
+msgstr ""
+
+#: ../src/Engine/Session.cs:850
+#, csharp-format
+msgid "Message pattern with ID: '{0}' removed."
+msgstr ""
+
+#: ../src/Engine/Session.cs:858
+msgid "Invalid parameter for config; use load, save, get or set."
+msgstr ""
+
+#: ../src/Engine/Session.cs:935
+msgid "Invalid parameter for network; use list, switch, or close"
+msgstr ""
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:965
+msgid "Connected Networks"
+msgstr "Konektatutako sareak"
+
+#: ../src/Engine/Session.cs:970 ../src/Engine/Session.cs:994
+msgid "Network"
+msgstr "Sarea"
+
+#: ../src/Engine/Session.cs:971
+msgid "Protocol"
+msgstr "Protokoloa"
+
+#: ../src/Engine/Session.cs:972
+msgid "Host"
+msgstr "Ostalaria"
+
+#: ../src/Engine/Session.cs:973
+msgid "Port"
+msgstr "Ataka"
+
+#. TRANSLATOR: no connected networks
+#. TRANSLATOR: no available networks
+#: ../src/Engine/Session.cs:979 ../src/Engine/Session.cs:1000
+msgid "None"
+msgstr "Bat ere ez"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:986
+msgid "Available Networks"
+msgstr "Sare erabilgarriak"
+
+#: ../src/Engine/Session.cs:1014
+#, csharp-format
+msgid "Network close failed - could not find network: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:1058
+#, csharp-format
+msgid "Network switch failed - could not find network: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:1076
+msgid "Not connected to any network"
+msgstr "Ez dago konexiorik inolako sarerekin"
+
+#: ../src/Engine/Session.cs:1333
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:1563
+msgid "Connect failed."
+msgstr "Konexioak huts egin du."
+
+#: ../src/Engine/Session.cs:1577
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:1916
+msgid "Welcome to Smuxi"
+msgstr "Ongi etorri Smuxi aplikaziora"
+
+#: ../src/Engine/Session.cs:1923
+msgid "Type /help to get a list of available commands."
+msgstr ""
+
+#: ../src/Engine/Session.cs:1929
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:117
+msgid "Username must not be empty."
+msgstr "Erabiltzaile-izenak ez du hutsik egon behar."
+
+#: ../src/Engine/Config/UserListController.cs:127
+msgid "Password must not be empty."
+msgstr "Pasahitzak ez du hutsik egon behar."
+
+#: ../src/Engine/Config/UserListController.cs:136
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr "\"{0}\" erabiltzailerik ez dago."
+
+#: ../src/Engine/Config/UserListController.cs:145
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr "\"{0}\" erabiltzailea badago lehendik."
+
+#: ../src/Engine/Config/ServerListController.cs:118
+msgid "Network must not be empty."
+msgstr "Sareak ez du hutsik egon behar."
+
+#: ../src/Engine/Config/ServerListController.cs:138
+msgid "Server hostname must not be empty."
+msgstr "Zerbitzariaren ostalari-izenak ez du hutsik egon behar."
+
+#: ../src/Engine/Config/ServerListController.cs:141
+msgid "Server hostname contains invalid characters (newline)."
+msgstr ""
+
+#: ../src/Engine/Config/ServerListController.cs:148
+#, csharp-format
+msgid "Server ID '{0}' already exists."
+msgstr ""
+
+#: ../src/Engine/Chats/ChatModel.cs:106
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+
+#: ../src/Engine/Chats/ChatModel.cs:344
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr ""
