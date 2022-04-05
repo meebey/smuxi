@@ -1,0 +1,313 @@
+# Basque translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2022.
+#
+msgid ""
+msgstr "Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-04-04 20:39+0000\n"
+"PO-Revision-Date: 2022-04-05 18:08+0000\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"Language-Team: Basque <librezale@librezale.eus>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
+msgid "The server has shut down"
+msgstr "Zerbitzaria itzali da"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
+msgid ""
+"Another client logged in with the same resource, you have been disconnected"
+msgstr "Beste bezero batek baliabide berarekin hasi du saioa, zure kontua deskonektatu da"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:209
+msgid ""
+"Authentication failed, either username does not exist or invalid password"
+msgstr "Autentifikazioak huts egin du: erabiltzaile-izen hori ez dago edo pasahitza baliogabea da"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
+msgid ""
+"If you want to create an account with the specified user and password, type /"
+"register now"
+msgstr "Zehaztutako erabiltzailearekin eta pasahitzarekin kontu bat sortu nahi baduzu, idatzi / erregistratu orain"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:320
+msgid "not connected"
+msgstr "ez konektatua"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:811
+#, csharp-format
+msgid "Could not find contact {0}"
+msgstr "Ez da {0} kontaktua aurkitu"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:817
+#, csharp-format
+msgid "Contact {0} has {1} known resources"
+msgstr "{0} kontaktuak {1} baliabide ezagun bat du"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:821
+#, csharp-format
+msgid "{0} is not a known resource"
+msgstr "{0} ez da baliabide ezaguna"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
+#, csharp-format
+msgid "Contact's JID: {0}"
+msgstr "Kontaktuaren JIDa: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:833
+msgid "You have a mutual subscription with this contact"
+msgstr "Elkarri harpidetuta zaudeta kontaktu hau eta zu"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:836
+msgid ""
+"You have no subscription with this contact and this contact is not "
+"subscribed to you"
+msgstr "Kontaktu hau eta zu ez zaudete elkarri harpidetuta"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:839
+msgid ""
+"You are subscribed to this contact, but the contact is not subscribed to you"
+msgstr "Kontaktu honi harpidetuta zaude, baina bera ez dago zuri harpidetuta"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:842
+msgid ""
+"You are not subscribed to this contact, but the contact is subscribed to you"
+msgstr "Ez zaude kontaktu honi harpidetuta, baina kontaktua zuri harpidetuta dago"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:938
+#, csharp-format
+msgid "Invalid contact command: {0}"
+msgstr "Kontaktu-komando baliogabea: {0}"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:949
+#, csharp-format
+msgid "{0} Commands"
+msgstr "{0} komandoak"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:974
+#, csharp-format
+msgid "Advanced {0} Commands"
+msgstr "{0} komando aurreratuak"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1009
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Ataka baliogabea: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1044
+#, csharp-format
+msgid "Priority for Available is: {0}"
+msgstr ""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1047
+#, csharp-format
+msgid "Priority for Away is: {0}"
+msgstr ""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
+#, csharp-format
+msgid ""
+"Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
+msgstr "Lehentasun baliogabea: {0} (baliozko lehentasunak -128 eta 127 artean daude, biak barne)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1636
+#, csharp-format
+msgid "{0}{1} is available"
+msgstr "{0}{1} eskuragarri dago"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1640
+#, csharp-format
+msgid "{0}{1} is away"
+msgstr "{0}{1} kanpoan dago"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1644
+#, csharp-format
+msgid "{0}{1} is extended away"
+msgstr "{0}{1} kanpoan dago denbora luzez"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1648
+#, csharp-format
+msgid "{0}{1} wishes not to be disturbed"
+msgstr "{0}{1} erabiltzaileak ez du gogaitua izan nahi"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1652
+#, csharp-format
+msgid "{0}{1} wants to chat"
+msgstr "{0}{1} erabiltzaileak berriketan aritu nahi du"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1659
+#, csharp-format
+msgid "{0}{1} is offline"
+msgstr "{0}{1} lineaz kanpo dago"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1665
+#, csharp-format
+msgid ""
+"Automatically allowed {0} to subscribe to you, since you are already asking "
+"to subscribe"
+msgstr ""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1669
+#, csharp-format
+msgid "{0}{1} wishes to subscribe to you"
+msgstr "{0}{1} erabiltzailea zure kontuaren harpidetza egin nahi du"
+
+#. you can now see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1677
+#, csharp-format
+msgid "{0}{1} allowed you to subscribe"
+msgstr "{0}{1} erabiltzaileak bere kontuaren harpidetza egin dezazun onartu du"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1684
+#, csharp-format
+msgid ""
+"Automatically removed {0}'s subscription to your presences after losing the "
+"subscription to theirs"
+msgstr ""
+
+#. you cannot (anymore?) see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1691
+#, csharp-format
+msgid "{0}{1} denied/removed your subscription"
+msgstr "{0}{1} erabiltzaileak zure harpidetza ukatu du"
+
+#. you might still be able to see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1696
+#, csharp-format
+msgid "{0}{1} unsubscribed from you"
+msgstr "{0}{1} erabiltzaileak zure harpidetza eten du"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1700
+#, csharp-format
+msgid "received a malformed error message: {0}"
+msgstr "formatu okerreko errore-mezua jaso da: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1707
+#, csharp-format
+msgid "{0}{1}'s server could not be found"
+msgstr "ezin da aurkitu {0}{1} erabiltzailearen zerbitzaria"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1710
+#, csharp-format
+msgid "{0}{1} is already using your requested resource"
+msgstr "{0}{1} zuk eskatutako baliabidea erabiltzen ari da jadanik"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1717
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1739
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1753
+#, csharp-format
+msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
+msgstr ""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1730
+#, csharp-format
+msgid "You do not have permission to access {0}{1}"
+msgstr "Ez duzu baimenik {0}{1} atzitzeko"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1780
+#, csharp-format
+msgid "{0} days"
+msgstr "{0} egun"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1786
+#, csharp-format
+msgid "{0} hours"
+msgstr "{0} ordu"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1790
+#, csharp-format
+msgid "{0} minutes"
+msgstr "{0} minutu"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1793
+#, csharp-format
+msgid "{0} seconds"
+msgstr "{0} segundo"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1805
+#, csharp-format
+msgid " since {0} ({1})"
+msgstr " une honetatik: {0} ({1})"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1890
+#, csharp-format
+msgid "An unknown groupchat error occurred: {0}"
+msgstr "Talde-berriketaren errore ezezaguna gertatu da: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
+#, csharp-format
+msgid "Server of groupchat \"{0}\" not found."
+msgstr "\"{0}\" talde-berriketaren zerbitzaria ez da aurkitu."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1900
+#, csharp-format
+msgid "MUC service is not available for \"{0}\""
+msgstr "MUC zerbitzaria ez dago erabilgarri honetarako: \"{0}\""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1907
+#, csharp-format
+msgid "You do not have permission to join \"{0}\""
+msgstr "Ez duzu baimenik \"{0}\"(r)ekin elkartzeko"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1913
+#, csharp-format
+msgid "An unhandled groupchat error occurred: {0}"
+msgstr "Talde-berriketaren errore maneiatu gabea gertatu da: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2090
+#, csharp-format
+msgid ""
+"Received a presence update from {0}, but there's no corresponding chat window"
+msgstr ""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2114
+#, csharp-format
+msgid ""
+"Received a groupchat message from {0} but there's no corresponding chat "
+"window: {1}"
+msgstr ""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2391
+#, csharp-format
+msgid "You have been invited to {2} by {0} because {1}"
+msgstr ""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
+#, csharp-format
+msgid "You have been invited to {1} by {0}"
+msgstr ""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2418
+msgid "Accept invite (join room)"
+msgstr "Onartu gonbidapena (elkartu gelarekin)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2556
+#, csharp-format
+msgid "Reconnecting to {0}"
+msgstr ""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2570
+#, csharp-format
+msgid "Reconnecting to {0} in {1} seconds"
+msgstr ""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2600
+#, csharp-format
+msgid "Error: {0}"
+msgstr "Errorea: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2612
+msgid "Authenticated"
+msgstr "Autentifikatuta"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2663
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Proxya erabilita: {0}:{1}"
