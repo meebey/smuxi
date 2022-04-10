@@ -1,130 +1,123 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Basque translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2022.
 #
-# Translators:
-# Alan Mortensen <alanmortensen.am@gmail.com>, 2018, 2022
-# Joe Hansen <joedalton2@yahoo.dk>, 2015
 msgid ""
-msgstr ""
-"Project-Id-Version: Smuxi - IRC client\n"
+msgstr "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2020-09-04 11:25+0000\n"
-"PO-Revision-Date: 2022-04-07 19:17+0200\n"
-"Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
-"Language-Team: Danish (http://www.transifex.com/meebey/smuxi/"
-"language/da/)\n"
-"Language: da\n"
+"POT-Creation-Date: 2022-04-04 20:37+0000\n"
+"PO-Revision-Date: 2022-04-05 18:08+0000\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"Language-Team: Basque <librezale@librezale.eus>\n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
 
 #: ../src/Engine-MessageBuffer/Main.cs:49
 msgid "Enable debug output"
-msgstr "Aktiver fejlsøgningsuddata"
+msgstr "Gaitu arazketaren irteera"
 
 #: ../src/Engine-MessageBuffer/Main.cs:55
 #: ../src/Engine-MessageBuffer/Main.cs:141
 #: ../src/Engine-MessageBuffer/Main.cs:205
 msgid "Show this help"
-msgstr "Vis denne hjælp"
+msgstr "Erakutsi laguntza hau"
 
 #: ../src/Engine-MessageBuffer/Main.cs:88
 #, csharp-format
 msgid "Unknown action: '{0}'"
-msgstr "Ukendt handling: »{0}«"
+msgstr "Ekintza ezezaguna: '{0}'"
 
 #: ../src/Engine-MessageBuffer/Main.cs:95
 #, csharp-format
 msgid "Command line error: {0}"
-msgstr "Kommandolinjefejl: {0}"
+msgstr "Komando-lerroko errorea: {0}"
 
 #: ../src/Engine-MessageBuffer/Main.cs:104
 msgid "Usage: smuxi-message-buffer [options] action action-options"
-msgstr "Brug: smuxi-message-buffer [tilvalg] handling handlingstilvalg"
+msgstr "Erabilera: smuxi-message-buffer [aukerak] ekintza ekintza-aukerak"
 
 #: ../src/Engine-MessageBuffer/Main.cs:106
 msgid "Actions:"
-msgstr "Handlinger:"
+msgstr "Ekintzak:"
 
 #: ../src/Engine-MessageBuffer/Main.cs:110
 #: ../src/Engine-MessageBuffer/Main.cs:152
 #: ../src/Engine-MessageBuffer/Main.cs:217
 msgid "Options:"
-msgstr "Tilvalg:"
+msgstr "Aukerak:"
 
 #: ../src/Engine-MessageBuffer/Main.cs:119
 msgid "Database format (valid values: auto, db4o, sqlite)"
-msgstr "Databaseformat (gyldige værdier: auto, db4o, sqlite)"
+msgstr "Datu-basearen formatua (baliozko balioak: auto, db4o, sqlite)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:134
 #: ../src/Engine-MessageBuffer/Main.cs:198
 #, csharp-format
 msgid "Unknown {0} option: '{1}'"
-msgstr "Ukendt {0} tilvalg: »{1}"
+msgstr "{0} aukera ezezaguna: '{1}'"
 
 #: ../src/Engine-MessageBuffer/Main.cs:145
 #, csharp-format
 msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
-msgstr "Brug: smuxi-message-buffer {0} [handlingstilvalg] db_sti"
+msgstr "Erabilera: smuxi-message-buffer {0} [ekintza-aukerak] db_bidea"
 
 #: ../src/Engine-MessageBuffer/Main.cs:150
 msgid "Database path(s)"
-msgstr "Databasestier"
+msgstr "Datu-basearen bidea-izena(k)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:161
 msgid "db_path is required"
-msgstr "db_sti er krævet"
+msgstr "db_bidea derrigorrezkoa da"
 
 #: ../src/Engine-MessageBuffer/Main.cs:175
 msgid "Source format (valid values: auto, db4o, sqlite)"
-msgstr "Kildeformat (gyldige værdier: auto, db4o, sqlite)"
+msgstr "Iturburuko formatua (baliozko balioak: auto, db4o, sqlite)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:183
 msgid "Destination format (valid values: auto, db4o, sqlite)"
-msgstr "Destinationsformat (gyldige værdier: auto, db4o, sqlite)"
+msgstr "Helburuko formatua (baliozko balioak: auto, db4o, sqlite)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:209
 #, csharp-format
 msgid ""
 "Usage: smuxi-message-buffer {0} [action-options] source_db(s)... "
 "destination_db"
-msgstr ""
-"Brug: smuxi-message-buffer {0} [handlingstilvalg] kilde-db'er… mål_db"
+msgstr "Erabilera: smuxi-message-buffer {0} [ekintza-aukerak] iturburu_db(ak)... helburu_db"
 
 #: ../src/Engine-MessageBuffer/Main.cs:214
 msgid "Source file path(s)"
-msgstr "Kildefilstier"
+msgstr "Iturburu-fitxategiaren bidea-izena(k)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:215
 msgid "Destination file path or -/empty for stdout"
-msgstr "Destinationsfilsti eller /empty for standardud"
+msgstr "Helburu-fitxategiaren bide-izena edo -/empty ezarri stdout lortzeko"
 
 #: ../src/Engine-MessageBuffer/Main.cs:226
 msgid "source_db and destination_db are required"
-msgstr "source_db og destination_db er krævet"
+msgstr "iturburu_db eta helburu_db derrigorrezkoak dira"
 
 #: ../src/Engine-MessageBuffer/Main.cs:242
 msgid "sourceFile must not be empty."
-msgstr "kildefil må ikke være tom."
+msgstr "Iturburu-fitxategiak ez du hutsik egon behar."
 
 #: ../src/Engine-MessageBuffer/Main.cs:251
 msgid "sourceFiles must not be empty."
-msgstr "kildefiler må ikke være tom."
+msgstr "Iturburu-fitxategiek ez dute hutsik egon behar."
 
 #: ../src/Engine-MessageBuffer/Main.cs:271
 #, csharp-format
 msgid "Destination database {0} must be empty!"
-msgstr "Destinationsdatabase {0} skal være tom!"
+msgstr "Helburuko {0} datu-baseak hutsik egon behar du!"
 
 #: ../src/Engine-MessageBuffer/Main.cs:340
 #, csharp-format
 msgid "Unknown file format: '{0}'"
-msgstr "Ukendt filformat: »{0}«"
+msgstr "Fitxategi-formatu ezezaguna: '{0}'"
 
 #: ../src/Engine-MessageBuffer/Main.cs:362
 #, csharp-format
 msgid "Unsupported buffer type: '{0}'"
-msgstr "Ikke understøttet buffertype: »{0}«"
+msgstr "Onartzen ez den buffer mota: '{0}'"

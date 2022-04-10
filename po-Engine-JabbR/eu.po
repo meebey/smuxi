@@ -1,0 +1,54 @@
+# Basque translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2022.
+#
+msgid ""
+msgstr "Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-04-04 20:36+0000\n"
+"PO-Revision-Date: 2022-04-05 18:08+0000\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"Language-Team: Basque <librezale@librezale.eus>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:103
+msgid "JabbR Commands"
+msgstr "JabbR komandoak"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:136
+#, csharp-format
+msgid "Joining room failed. Reason: {0}"
+msgstr "Gelarekin elkartzeak huts egin du. Arrazoia: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:162
+#, csharp-format
+msgid "Sending message failed. Reason: {0}"
+msgstr "Mezua bidaltzeak huts egin du. Arrazoia: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:230
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Konexioak huts egin du. Arrazoia: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
+#, csharp-format
+msgid "Connecting to {0}..."
+msgstr "Konektatzen {0}(r)ekin..."
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
+#, csharp-format
+msgid "Reconnecting to {0}..."
+msgstr "Birkonektatzen {0}(r)ekin..."
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
+msgid "not connected"
+msgstr "ez konektatua"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
+#, csharp-format
+msgid "Retrieving chat information failed. Reason: {0}"
+msgstr "Berriketaren informazioa eskuratzeak huts egin du. Arrazoia: {0}"

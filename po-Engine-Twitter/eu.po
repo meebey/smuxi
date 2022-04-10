@@ -1,0 +1,197 @@
+# Basque translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2022.
+#
+msgid ""
+msgstr "Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-04-04 20:38+0000\n"
+"PO-Revision-Date: 2022-04-05 18:08+0000\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"Language-Team: Basque <librezale@librezale.eus>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:124
+msgid "Home Timeline"
+msgstr "Kontuaren denbora-lerroa"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:135
+msgid "Replies & Mentions"
+msgstr "Erantzunak eta aipamenak"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:146
+msgid "Direct Messages"
+msgstr "Mezu zuzenak"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:194
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Proxya erabiltzen: {0}:{1}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:216
+msgid "Connecting to Twitter..."
+msgstr "Twitterrekin konektatzen..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:258
+msgid "Twitter authorization required."
+msgstr "Twitterren baimena behar da."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:265
+#, csharp-format
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr "Ireki honako URLa eta egin klik \"Onartu\" aukeran Smuxi zure Twitter kontuarekin konektatu dadin: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:281
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr "Smuxi aplikazioari zure Twitter kontuan sartzea utzi ondoren, Twitterrek PIN bat emango dizu."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:288
+msgid "Please type: /pin PIN_FROM_TWITTER"
+msgstr "Idatzi: /pin PIN_FROM_TWITTER"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:296
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:358
+msgid "Connection failed!"
+msgstr "Konexioak huts egin du."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:301
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:362
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Konexioak huts egin du. Arrazoia: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:316
+msgid "Fetching user details from Twitter, please wait..."
+msgstr "Twitterretik erabiltzailearen xehetasunak jasotzen, itxaron..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:323
+msgid "Finished fetching user details."
+msgstr "Amaitu da erabiltzaile-datuen atzipena."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:329
+msgid "Successfully connected to Twitter."
+msgstr "Ongi konektatu da Twitterrekin."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:347
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr "Huts egin du Twitterretik erabiltzailearen datuak jasotzeak. Arrazoia: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:380
+msgid "Fetching friends from Twitter, please wait..."
+msgstr "Twitterreko lagunak atzitzen, itxaron..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:389
+msgid "Finished fetching friends."
+msgstr "Amaitu da lagunen atzipena."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:393
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr "Huts egin du Twitterretik lagunak jasotzeak. Arrazoia: "
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:738
+msgid "Twitter Commands"
+msgstr "Twitter komandoak"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:787
+msgid "No pending authorization request!"
+msgstr "Ez dago baimen-eskaririk zain."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:808
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr "Huts egin du Twitteretik baimena jasotzeak: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr "Twitterrek ez du zure PINa onartu. Ongi sartu al duzu?"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:824
+#, csharp-format
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr "Saiatu berriro, horretarako itxi fitxa hau eta konektatu berriro Twitterreko \"{0}\" kontuarekin."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
+msgid "Migrated Twitter account from basic auth to OAuth."
+msgstr "Twitterreko kontua oinarrizko baimenetik OAuth sistemara migratu da."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr "Ongi baimendu da\"{0}\" Twitter kontua Smuxi aplikaziorako"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:902
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Ezin da egoera eguneratu. Arrazoia: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:913
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr "Ezin da mezurik bidali, ez baita helbururik zehaztu. Erabilera: /msg $nick mezua"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:930
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1025
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "Ezin da mezua bidali. Arrazoia: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:950
+msgid "Other timelines"
+msgstr "Beste denbora-lerro batzuk"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1008
+msgid "Could not send message - the specified user does not exist."
+msgstr "Ezin da mezua bidali, zehaztutako erabiltzailea ez dago."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1122
+#, csharp-format
+msgid "Search {0}"
+msgstr "Bilatu {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
+#, csharp-format
+msgid "Successfully deleted tweet {0}."
+msgstr "{0} txioa ongi ezabatu da."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1277
+#, csharp-format
+msgid "Successfully favorited tweet {0}."
+msgstr "{0} txioa gogoko gisa markatu da."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1309
+#, csharp-format
+msgid "Successfully unfavorited tweet {0}."
+msgstr "{0} txioari gogokoaren marka kendu zaio."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1371
+#, csharp-format
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+"{0}"
+msgstr "Errorea gertatu da lagunen denbora-lerroa Twitteretik atzitzean. Arrazoia: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
+#, csharp-format
+msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
+msgstr "Errorea gertatu da erantzunak Twitteretik atzitzean. Arrazoia: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1589
+#, csharp-format
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: {0}"
+msgstr "Errorea gertatu da mezu zuzenak Twitteretik atzitzean. Arrazoia: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1988
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr "Twitterrek ez du bidali baliozko erantzunik, ziur aski lanpetuta dabiltza"
