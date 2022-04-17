@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-03-27 04:40+0000\n"
-"PO-Revision-Date: 2022-03-27 18:08+0000\n"
+"POT-Creation-Date: 2022-03-30 15:52+0000\n"
+"PO-Revision-Date: 2022-04-17 18:08+0000\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -37,7 +37,7 @@ msgstr "Sortu, aldatu edo ezabatuko den erabiltzailea"
 
 #: ../src/Server/Main.cs:110
 msgid "Password of the user when creating or modifying a user"
-msgstr ""
+msgstr "Erabiltzailearen pasahitza beste erabiltzaile bat sortzen edo aldatzen duenean"
 
 #: ../src/Server/Main.cs:119
 msgid "Enable debug output"
@@ -46,7 +46,7 @@ msgstr "Gaitu arazketaren irteera"
 #: ../src/Server/Main.cs:127
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
-msgstr ""
+msgstr "Optimizatu mezu-bufferrak eta irten (baliozko balioak: none, defrag, index, all)"
 
 #: ../src/Server/Main.cs:140
 msgid "Show this help"
@@ -78,11 +78,11 @@ msgstr "Komando-lerroaren errorea: {0}"
 msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a "
 "time."
-msgstr ""
+msgstr "Gehienez hautako bat soilik erabili daiteke aldi berean: '--add-user', '--modify-user' eta '--delete-user'."
 
 #: ../src/Server/Main.cs:246
 msgid "You must specify a username with the --username option."
-msgstr ""
+msgstr "Erabiltzaile-izen bat zehaztu behar da '--username' aukerarekin."
 
 #: ../src/Server/Main.cs:252
 msgid "Username must not be empty."
@@ -90,7 +90,7 @@ msgstr "Erabiltzaile-izenak ez du hutsik egon behar."
 
 #: ../src/Server/Main.cs:262
 msgid "You must specify a password with the --password option."
-msgstr ""
+msgstr "Pasahitz bat zehaztu behar da '--password' aukerarekin."
 
 #: ../src/Server/Main.cs:268
 msgid "Password must not be empty."
@@ -101,22 +101,22 @@ msgstr "Pasahitzak ez du hutsik egon behar."
 msgid ""
 "Invalid optimization value passed to --optimize-message-buffer, valid values "
 "are: {0}"
-msgstr ""
+msgstr "Optimizazio-balio baliogabea eman da '--optimize-message-buffer' aukerarekin, baliozko balioak: {0}"
 
 #: ../src/Server/Main.cs:307
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
-msgstr ""
+msgstr "\"{0}\" erabiltzailea ongi gehitu zaio zerbitzariari."
 
 #: ../src/Server/Main.cs:316
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
-msgstr ""
+msgstr "\"{0}\" erabiltzailea ongi aldatu da."
 
 #: ../src/Server/Main.cs:325
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
-msgstr ""
+msgstr "\"{0}\" erabiltzailea ongi ezabatu da zerbitzaritik"
 
 #: ../src/Server/Main.cs:332
 msgid "Users:"
@@ -125,9 +125,9 @@ msgstr "Erabiltzaileak:"
 #: ../src/Server/Main.cs:380
 #, csharp-format
 msgid "Successfully optimized {0} message buffers."
-msgstr ""
+msgstr "{0} mezu-buffer ongi optimizatu dira."
 
 #: ../src/Server/Main.cs:393
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
-msgstr ""
+msgstr "Huts egin du mezu-bufferrak optimizatzeak: {0}"
