@@ -7,7 +7,7 @@ msgid ""
 msgstr "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
 "POT-Creation-Date: 2022-03-30 15:59+0000\n"
-"PO-Revision-Date: 2022-04-04 18:08+0000\n"
+"PO-Revision-Date: 2022-04-17 18:08+0000\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -21,35 +21,35 @@ msgstr "Kontsulta"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
 msgid "Op"
-msgstr ""
+msgstr "Bihurtu operadore"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
 msgid "Deop"
-msgstr ""
+msgstr "Kendu operadore funtzioa"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
 msgid "Voice"
-msgstr ""
+msgstr "Eman ahotsa"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
 msgid "Devoice"
-msgstr ""
+msgstr "Kendu ahotsa"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
 msgid "Kick"
-msgstr ""
+msgstr "Bota"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:416
 msgid "Kick + Ban"
-msgstr ""
+msgstr "Bota +  debekatu"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:420
 msgid "Ban"
-msgstr ""
+msgstr "Debekatu"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:424
 msgid "Unban"
-msgstr ""
+msgstr "Kendu debekua"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:92
@@ -80,8 +80,8 @@ msgstr "Ordua"
 
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:88
 msgid "Finger"
-msgstr ""
+msgstr "Finger"
 
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:93
 msgid "Userinfo"
-msgstr ""
+msgstr "Erabiltzaile-informazioa"
