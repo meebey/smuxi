@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-04-04 20:39+0000\n"
-"PO-Revision-Date: 2022-04-05 18:08+0000\n"
+"POT-Creation-Date: 2022-05-06 10:02+0000\n"
+"PO-Revision-Date: 2022-05-14 18:08+0000\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -104,12 +104,12 @@ msgstr "Ataka baliogabea: {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1044
 #, csharp-format
 msgid "Priority for Available is: {0}"
-msgstr ""
+msgstr "Lehentasuna 'Eskuragarri' egoerarako: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1047
 #, csharp-format
 msgid "Priority for Away is: {0}"
-msgstr ""
+msgstr "Lehentasuna 'Kanpoan' egoerarako: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
 #, csharp-format
@@ -152,7 +152,7 @@ msgstr "{0}{1} lineaz kanpo dago"
 msgid ""
 "Automatically allowed {0} to subscribe to you, since you are already asking "
 "to subscribe"
-msgstr ""
+msgstr "Automatikoki onartu {0} erabiltzailea zure harpidedun egin dadin, zu dagoeneko eskatzen ari baitzara harpidetzeko"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1669
 #, csharp-format
@@ -170,7 +170,7 @@ msgstr "{0}{1} erabiltzaileak bere kontuaren harpidetza egin dezazun onartu du"
 msgid ""
 "Automatically removed {0}'s subscription to your presences after losing the "
 "subscription to theirs"
-msgstr ""
+msgstr "Automatikoki kendu da {0} erabiltzaileen harpidetza zure presentzietatik, beren harpidetza galdu baituzu"
 
 #. you cannot (anymore?) see their presences
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1691
@@ -204,7 +204,7 @@ msgstr "{0}{1} zuk eskatutako baliabidea erabiltzen ari da jadanik"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1753
 #, csharp-format
 msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
-msgstr ""
+msgstr "Ez dago erore-mezu erabilgarririk huetarako: {0}, {1}, {2}{3}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1730
 #, csharp-format
@@ -265,24 +265,24 @@ msgstr "Talde-berriketaren errore maneiatu gabea gertatu da: {0}"
 #, csharp-format
 msgid ""
 "Received a presence update from {0}, but there's no corresponding chat window"
-msgstr ""
+msgstr "Presentzia-eguneratze bat jaso da {0} erabiltzailetik, baina ez dago hari dagokion berriketa-leihorik"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2114
 #, csharp-format
 msgid ""
 "Received a groupchat message from {0} but there's no corresponding chat "
 "window: {1}"
-msgstr ""
+msgstr "Talde-berriketarako mezu bat jaso da {0} aldetik, baina ez dago hari dagokion berriketa-leihorik: {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2391
 #, csharp-format
 msgid "You have been invited to {2} by {0} because {1}"
-msgstr ""
+msgstr "{0} erabiltzaileak {2} erabiltzera gonbidatu zaitu, honengatik: {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
 #, csharp-format
 msgid "You have been invited to {1} by {0}"
-msgstr ""
+msgstr "{0} erabiltzaileak {1} erabiltzera gonbidatu zaitu"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2418
 msgid "Accept invite (join room)"
@@ -291,12 +291,12 @@ msgstr "Onartu gonbidapena (elkartu gelarekin)"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2556
 #, csharp-format
 msgid "Reconnecting to {0}"
-msgstr ""
+msgstr "{0}(r)ekin berriro konektatzen"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2570
 #, csharp-format
 msgid "Reconnecting to {0} in {1} seconds"
-msgstr ""
+msgstr "{0}(r9ekin berriro konektatzen {1} segundotan"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2600
 #, csharp-format
