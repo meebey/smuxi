@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-03-30 15:58+0000\n"
-"PO-Revision-Date: 2022-04-09 18:08+0000\n"
+"POT-Creation-Date: 2022-05-06 10:02+0000\n"
+"PO-Revision-Date: 2022-06-19 18:08+0000\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -153,17 +153,17 @@ msgstr "<b>Mezu-bufferra</b>"
 #: ../glade/smuxi-frontend-gnome.glade.h:35
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
 msgid "Strip Colors"
-msgstr ""
+msgstr "Kendu koloreak"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:36
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
 msgid "Strip Formattings"
-msgstr ""
+msgstr "Kendu formatuak"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:37
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
 msgid "Strip UTF-8"
-msgstr ""
+msgstr "Kendu UTF-8"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:38
 msgid "Show Advanced Settings"
@@ -251,7 +251,7 @@ msgstr "Jarduerarik ez"
 #: ../glade/smuxi-frontend-gnome.glade.h:50
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
 msgid "Join/Part/Mode"
-msgstr ""
+msgstr "Elkartzea/Zatia/Modua"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:51
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
@@ -461,7 +461,7 @@ msgstr "Egin berriketan jendearekin IRC, Twitter, Jabber eta Campfire bidez"
 msgid ""
 "Smuxi is an open-source, distributed and user-friendly chat client for IRC, "
 "Twitter, Jabber/XMPP, Campfire and SignalR's JabbR."
-msgstr ""
+msgstr "Smuxi kode irekiko berriketa-bezero banatu eta erabilerraza da. IRC, Twitter, Jabber/XMPP, Campfire eta SignalRen JabbR protokoloekin erabili daiteke.."
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:4
 msgid ""
@@ -469,7 +469,7 @@ msgid ""
 "server (or like a \"normal\" client) that stays connected when you aren't, "
 "and can allow multiple Smuxi frontends to be connected and in sync. This is "
 "similar to screen+irssi or IRC bouncers, but more elegant and powerful."
-msgstr ""
+msgstr "screen eta irssi aplikazioen konbinazioan oinarritutako, Smuxik zerbitzari askagarria du (bezero \"normal\" baten antzekoa) konektatuta jarraitzen duena zu ez zaudenean eta Smuxi interfaze grafiko anitz onartzen dituena konektatu eta sinkronizatuta egoteko. screen+irssi edo IRC bouncerren parekoa da, baina dotoreagoa eta indartsuagoa."
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:5
 msgid "The main window showing an IRC channel"
@@ -655,7 +655,11 @@ msgid ""
 "\n"
 "More details about this issue can be found here:\n"
 "https://smuxi.im/issues/show/589"
-msgstr ""
+msgstr "Errore larria detektatu da smuxi-zerbitzariarekin protokolo-bateraezintasun bat dagoelako.\n"
+"Instalatu Mono interfaz grafikoaren aldean, smuxi-zerbitzariarekin bat egin dezan.\n"
+"\n"
+"Arazo honi buruzko xehetasun gehiago:\n"
+"https://smuxi.im/issues/show/589"
 
 #: ../src/Frontend-GNOME/Frontend.cs:704
 msgid ""
@@ -1110,7 +1114,7 @@ msgid ""
 "<span size=\"small\">Enables the use of SSH for the connection.  This has a "
 "small performance impact, but is more secure and required when using NAT or "
 "port-based firewalls</span>"
-msgstr ""
+msgstr "<span size=\"small\">Konexioan SSH erabiltzea gaitzen du. Horrek eragin txiki bat du errendimenduan, baina seguruagoa da eta beharrezkoa da NAT edo atakan oinarritutako suebakiak erabiltzean</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
 msgid "SSH _Host:"
@@ -1119,7 +1123,7 @@ msgstr "SSH _ostalaria:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:146
 msgid ""
 "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
-msgstr ""
+msgstr "<span size=\"small\">SSH zerbitzariaren DNS edo IP helbidea eta ataka</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:159
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
@@ -1130,7 +1134,7 @@ msgstr "_Ataka:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:186
 msgid ""
 "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
-msgstr ""
+msgstr "<span size=\"small\">Smuxi zerbitzariaren DNS edo IP helbidea eta ataka</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:199
 msgid "_Smuxi Host:"
@@ -1144,7 +1148,7 @@ msgstr "_SSH erabiltzaile-izena: (aukerakoa)"
 msgid ""
 "<span size=\"small\">Username which will be used to log into the SSH server</"
 "span>"
-msgstr ""
+msgstr "<span size=\"small\">SSH zerbitzarian saioa hasteko erabiliko den erabiltzaile-izena</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:97
 msgid "_SSH Password: (optional)"
@@ -1154,7 +1158,7 @@ msgstr "_SSH pasahitza: (aukerakoa)"
 msgid ""
 "<span size=\"small\">Password which will be used to log into the SSH server. "
 "The password is optional if SSH key authorization is used (see below).</span>"
-msgstr ""
+msgstr "<span size=\"small\">SSH zerbitzarian saioa hasteko erabiliko den pasahitza. Aukerakoa da SSH gako-baimena erabiltzen bada (ikus behean).</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:142
 msgid "_SSH Keyfile: (optional)"
@@ -1169,7 +1173,7 @@ msgstr "Hautatu fitxategi bat"
 msgid ""
 "<span size=\"small\">SSH private keyfile which will be used to log into the "
 "SSH server</span>"
-msgstr ""
+msgstr "<span size=\"small\">SSH gako-fitxategi pribatua erabiliko da SSH zerbitzarian saioa hasteko</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:183
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:242
@@ -1180,7 +1184,7 @@ msgstr "_Erabiltzaile-izena"
 msgid ""
 "<span size=\"small\">Username which will be used to log into the Smuxi "
 "server</span>"
-msgstr ""
+msgstr "<span size=\"small\">Smuxi zerbitzarian saioa hasteko erabiliko den erabiltzaile-izena</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:226
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:116
@@ -1205,7 +1209,10 @@ msgid ""
 "You need to enter some information before you can use the engine.\n"
 "\n"
 "Click \"Forward\" to begin."
-msgstr ""
+msgstr "Ongi etorri Smuxi motorra konfiguratzeko morroira.\n"
+"Datu batzuk sartu behar dira motorra erabiltzen hasi baino lehen.\n"
+"\n"
+"Sakatu \"Aurrera\" hasteko."
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
 msgid "_Engine Name:"
