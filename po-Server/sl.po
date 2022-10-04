@@ -4,15 +4,15 @@
 # This file is distributed under the same license as the smuxi package.
 #
 # Matej Urbančič <mateju@svn.gnome.org>, 2016.
+# Martin Srebotnjak <miles@filmsi.net>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-11 14:43+0000\n"
-"PO-Revision-Date: 2016-03-11 23:36+0100\n"
-"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-07-11 15:38+0000\n"
+"PO-Revision-Date: 2022-10-04 17:28+0200\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -21,54 +21,52 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: ../src/Server/Main.cs:65
 msgid "Add user to Server"
 msgstr "Dodaj uporabnika na strežnik"
 
 #: ../src/Server/Main.cs:74
-#, fuzzy
 msgid "Modify existing user of Server"
-msgstr "Vsili obstoječi uporabniški način"
+msgstr "Spremeni obstoječega uporabnika strežnika"
 
 #: ../src/Server/Main.cs:83
-#, fuzzy
 msgid "Delete user from Server"
-msgstr "_Izbriši s strežnika"
+msgstr "Izbriši uporabnika s strežnika"
 
 #: ../src/Server/Main.cs:92
 msgid "List all existing users of Server"
-msgstr ""
+msgstr "Izpiši vse uporabnike strežnika"
 
 #: ../src/Server/Main.cs:101
 #, fuzzy
 msgid "User to create, modify or delete"
-msgstr "Ustvari in spremeni arhiv"
+msgstr "Uporabnik za ustvarjanje, spreminjanje ali brisanje"
 
 #: ../src/Server/Main.cs:110
-#, fuzzy
 msgid "Password of the user when creating or modifying a user"
-msgstr "Pri ustvarjanju datoteke omogoči dostop le trenutnemu uporabniku"
+msgstr "Geslo uporabnika za ustvarjanje ali spreminjanje uporabnika"
 
 #: ../src/Server/Main.cs:119
-#, fuzzy
 msgid "Enable debug output"
-msgstr "Omogoči odvod razhroščevanja"
+msgstr "Omogoči izhod razhroščevanja"
 
 #: ../src/Server/Main.cs:127
+#, fuzzy
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
 msgstr ""
+"Optimiziraj medpomnilnik sporočil in izhod (veljavne vrednosti: none, "
+"defrag, index, all)"
 
 #: ../src/Server/Main.cs:140
 msgid "Show this help"
 msgstr "Pokaži to pomoč"
 
 #: ../src/Server/Main.cs:142
-#, fuzzy
 msgid "Usage: smuxi-server [options]"
-msgstr "Uporaba: gbrainy [možnosti ...]"
+msgstr "Uporaba: smuxi-server [možnosti]"
 
 #: ../src/Server/Main.cs:144
 msgid "Options:"
@@ -79,64 +77,62 @@ msgid "Show version"
 msgstr "Pokaži različico"
 
 #: ../src/Server/Main.cs:165
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Unknown option: '{0}'"
-msgstr "Neznana možnost: %s"
+msgstr "Neznana možnost: »{0}«"
 
 #: ../src/Server/Main.cs:192
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Command line error: {0}"
-msgstr "Neznan parameter v ukazni vrstici {0}"
+msgstr "Napaka ukazne vrstice: {0}"
 
 #: ../src/Server/Main.cs:236
 msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a "
 "time."
 msgstr ""
+"Naenkrat lahko uporabite največ enega od --add-user, --modify-user in --"
+"delete-user."
 
 #: ../src/Server/Main.cs:246
-#, fuzzy
 msgid "You must specify a username with the --username option."
-msgstr ""
-"Dovoljenje za poizvedovanje o uporabniku imajo le pooblaščene osebe in "
-"osebe, ki navedejo uporabniško ime."
+msgstr "Uporabniško ime morate navesti z možnostjo --username."
 
 #: ../src/Server/Main.cs:252
-#, fuzzy
 msgid "Username must not be empty."
-msgstr "Seznam mora biti prazen"
+msgstr "Uporabniško ime ne sme biti prazno."
 
 #: ../src/Server/Main.cs:262
-#, fuzzy
 msgid "You must specify a password with the --password option."
-msgstr "Vnesti je treba podatke OpenID ali pa geslo"
+msgstr "Določiti morate geslo z možnostjo —password."
 
 #: ../src/Server/Main.cs:268
-#, fuzzy
 msgid "Password must not be empty."
-msgstr "Imena delovnih listov ne morejo biti prazna."
+msgstr "Geslo ne sme biti prazno."
 
 #: ../src/Server/Main.cs:287
-#, csharp-format
+#, fuzzy, csharp-format
 msgid ""
 "Invalid optimization value passed to --optimize-message-buffer, valid values "
 "are: {0}"
 msgstr ""
+"Neveljavna vrednost optimizacije, podana z --optimize-message-buffer, "
+"veljavne vrednosti so: {0}"
 
 #: ../src/Server/Main.cs:307
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
-msgstr ""
+msgstr "Uporabnik »{0}« je uspešno dodan na strežnik."
 
 #: ../src/Server/Main.cs:316
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "User \"{0}\" successfully modified."
-msgstr "Ali lahko uporabnik spremeni besedilo"
+msgstr "Uporabnik \"{0}\" je uspešno spremenjen."
 
 #: ../src/Server/Main.cs:325
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
-msgstr ""
+msgstr "Uporabnik »{0}« je uspešno izbrisan s strežnika."
 
 #: ../src/Server/Main.cs:332
 msgid "Users:"
@@ -145,9 +141,9 @@ msgstr "Uporabniki:"
 #: ../src/Server/Main.cs:380
 #, csharp-format
 msgid "Successfully optimized {0} message buffers."
-msgstr ""
+msgstr "Uspešno optimiziranih {0} medpomnilnikov sporočil."
 
 #: ../src/Server/Main.cs:393
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
-msgstr ""
+msgstr "Optimizacija medpomnilnikov sporočil ni uspela: {0}"
