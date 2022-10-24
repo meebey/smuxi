@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2020-09-04 11:27+0000\n"
-"PO-Revision-Date: 2022-03-27 16:38+0200\n"
+"POT-Creation-Date: 2022-07-11 15:38+0000\n"
+"PO-Revision-Date: 2022-10-24 19:37+0200\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/meebey/smuxi/language/da/)\n"
 "Language: da\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:1
 msgid "Smuxi Preferences"
@@ -672,7 +672,7 @@ msgstr "Forbinder til motor igen … (forsøg {0})"
 msgid "Cause: {0}"
 msgstr "Årsag: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:638
+#: ../src/Frontend-GNOME/Frontend.cs:637
 msgid ""
 "A fatal error has been detected because of a protocol incompatibility with "
 "the smuxi-server!\n"
@@ -691,7 +691,7 @@ msgstr ""
 "Flere detaljer om dette problem kan findes her:\n"
 "https://smuxi.im/issues/show/589"
 
-#: ../src/Frontend-GNOME/Frontend.cs:705
+#: ../src/Frontend-GNOME/Frontend.cs:704
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -699,7 +699,7 @@ msgstr ""
 "Grænsefladen har mistet forbindelsen til serveren.\n"
 "Ønsker du at tilslutte nu?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:724
+#: ../src/Frontend-GNOME/Frontend.cs:723
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
@@ -707,7 +707,7 @@ msgstr ""
 "Gentilslutning til serveren mislykkedes.\n"
 "Ønsker du at forsøge igen?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:1038
+#: ../src/Frontend-GNOME/Frontend.cs:1053
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -899,11 +899,11 @@ msgstr "Henter brugerlsite for {0} …"
 msgid "done."
 msgstr "færdig."
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:130
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:131
 msgid "Reconnect"
 msgstr "Genforbind"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:177
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:178
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
@@ -943,7 +943,7 @@ msgstr "_Ombryd"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:110
 msgid "Use _Regular Expressions"
-msgstr "Brug _reuglære udtryk"
+msgstr "Brug _regulære udtryk"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:23
 msgid "Smuxi - Find Group Chat"
