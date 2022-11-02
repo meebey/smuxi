@@ -1,101 +1,107 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
+# Turkish translation for smuxi.
+# Copyright (C) 2014-2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+#
 # Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:32+0200\n"
+"Project-Id-Version: Smuxi - Twitter\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-07-11 15:37+0000\n"
 "PO-Revision-Date: 2015-05-14 21:29+0000\n"
 "Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/tr/)\n"
+"Language-Team: Turkish <gnome-turk@gnome.org>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:124
 msgid "Home Timeline"
 msgstr "Anasayfa Zaman Akışı"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:136
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:135
 msgid "Replies & Mentions"
 msgstr "Yanıtlar & Bahsedenler"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:147
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:146
 msgid "Direct Messages"
 msgstr "Direkt Mesajlar"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:195
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:194
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
 msgstr "{0}:{1} vekil sunucusu kullanılıyor"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:217
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:216
 msgid "Connecting to Twitter..."
 msgstr "Twitter ile bağlantı kuruluyor..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:259
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:258
 msgid "Twitter authorization required."
 msgstr "Twitter yetkilendirmesi gerekiyor."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:266
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:265
 #, csharp-format
 msgid ""
 "Please open the following URL and click \"Allow\" to allow Smuxi to connect "
 "to your Twitter account: {0}"
-msgstr "Lütfen verilen bağlantıyı açın ve Smuxi'nin Twitter hesabınıza bağlanmasına izin vermek için \"İzin ver\" 'e tıklayın: {0}"
+msgstr ""
+"Lütfen verilen bağlantıyı açın ve Smuxi'nin Twitter hesabınıza bağlanmasına "
+"izin vermek için \"İzin ver\" 'e tıklayın: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:282
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:281
 msgid ""
 "Once you have allowed Smuxi to access your Twitter account, Twitter will "
 "provide a PIN."
-msgstr "Smuxi'ye Twitter hesabınıza erişim izni verdiğinizde, Twitter bir PIN sağlayacak."
+msgstr ""
+"Smuxi'ye Twitter hesabınıza erişim izni verdiğinizde, Twitter bir PIN "
+"sağlayacak."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:289
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:288
 msgid "Please type: /pin PIN_FROM_TWITTER"
 msgstr "Lütfen şunu yazın: /pin TWITTERDAN_VERİLEN_PIN"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:297
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:359
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:296
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:358
 msgid "Connection failed!"
 msgstr "Bağlantı başarısız oldu!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:302
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:363
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:301
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:362
 #, csharp-format
 msgid "Connection failed! Reason: {0}"
 msgstr "Bağlantı başarısız oldu! Neden: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:317
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:316
 msgid "Fetching user details from Twitter, please wait..."
 msgstr "Twitter'dan kullanıcı ayrıntıları getiriliyor, lütfen bekleyin..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:324
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:323
 msgid "Finished fetching user details."
 msgstr "Kullanıcı ayrıntılarının getirilmesi tamamlandı."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:330
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:329
 msgid "Successfully connected to Twitter."
 msgstr "Twitter ile başarıyla bağlantı kuruldu."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:348
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:347
 msgid "Failed to fetch user details from Twitter. Reason: "
-msgstr "Twitter'dan kullanıcı ayrıntılarının getirilmesi başarısız oldu. Neden:"
+msgstr ""
+"Twitter'dan kullanıcı ayrıntılarının getirilmesi başarısız oldu. Neden:"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:381
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:380
 msgid "Fetching friends from Twitter, please wait..."
 msgstr "Twitter'dan arkadaşlar getiriliyor, lütfen bekleyin..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:390
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:389
 msgid "Finished fetching friends."
 msgstr "Arkadaş getirilmesi tamamlandı."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:394
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:393
 msgid "Failed to fetch friends from Twitter. Reason: "
 msgstr "Twitter'dan arkadaş getirilmesi başarısız oldu. Neden:"
 
@@ -123,11 +129,14 @@ msgstr "Twitter PIN'inizi kabul etmedi. Doğru girdiniz mi?"
 msgid ""
 "Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
 "account."
-msgstr "Lütfen bu sekmeyi kapatıp \"{0}\" Twitter hesabı ile yeniden bağlantı kurarak yeniden deneyin."
+msgstr ""
+"Lütfen bu sekmeyi kapatıp \"{0}\" Twitter hesabı ile yeniden bağlantı "
+"kurarak yeniden deneyin."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
 msgid "Migrated Twitter account from basic auth to OAuth."
-msgstr "Twitter hesabı temel yetkilendirmeden OAuth yetkilendirmesine geçirildi."
+msgstr ""
+"Twitter hesabı temel yetkilendirmeden OAuth yetkilendirmesine geçirildi."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
 #, csharp-format
@@ -141,7 +150,8 @@ msgstr "Durum güncellenemedi - Neden: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:913
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr "Mesaj gönderilemedi - hedef belirtilmedi. Şunu kullanın: /msg $takma_ad mesaj"
+msgstr ""
+"Mesaj gönderilemedi - hedef belirtilmedi. Şunu kullanın: /msg $takma_ad mesaj"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:930
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1025
@@ -182,7 +192,8 @@ msgstr "{0} tweeti başarıyla favorilerden çıkarıldı."
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
 "{0}"
-msgstr "Twitter'dan arkadaşların zaman akışı getirilirken bir hata oluştu. Neden: {0}"
+msgstr ""
+"Twitter'dan arkadaşların zaman akışı getirilirken bir hata oluştu. Neden: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
 #, csharp-format
@@ -195,6 +206,6 @@ msgid ""
 "An error occurred while fetching direct messages from Twitter. Reason: {0}"
 msgstr "Twitter'dan direkt mesajlar getirilirken bir hata oluştu. Neden: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1972
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1988
 msgid "Twitter didn't send a valid response, they're probably overloaded"
 msgstr "Twitter geçerli bir yanıt göndermedi, büyük olasılıkla yoğunluk var"
