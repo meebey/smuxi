@@ -1,16 +1,15 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Turkish translation for smuxi.
+# Copyright (C) 2014-2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
 #
-# Translators:
 # Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
 # Emin Tufan Çetin <etcetin@gmail.com>, 2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi - IRC client\n"
+"Project-Id-Version: Smuxi - Engine-MessageBuffer\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2019-02-01 17:46+0000\n"
+"POT-Creation-Date: 2022-07-11 15:37+0000\n"
 "PO-Revision-Date: 2019-07-21 17:28+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
