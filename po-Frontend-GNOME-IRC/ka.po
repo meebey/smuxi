@@ -1,0 +1,89 @@
+# Georgian translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# NorwayFun <temuri.doghonadze@gmail.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-11-18 12:49+0000\n"
+"PO-Revision-Date: 2022-11-20 19:01+0100\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.2\n"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:390
+msgid "Query"
+msgstr "მოთხოვნა"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
+msgid "Op"
+msgstr "ოპი"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
+msgid "Deop"
+msgstr "დეოპი"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
+msgid "Voice"
+msgstr "ხმა"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
+msgid "Devoice"
+msgstr "დევოისი"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
+msgid "Kick"
+msgstr "გაგდება"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:416
+msgid "Kick + Ban"
+msgstr "გაგდება + ბანი"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:420
+msgid "Ban"
+msgstr "ბანი"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:424
+msgid "Unban"
+msgstr "ბანის მოხსნა"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:92
+msgid "Whois"
+msgstr "Whois"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:434
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:96
+msgid "CTCP"
+msgstr "CTCP"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:443
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:103
+msgid "Invite to"
+msgstr "მოწვევა"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:73
+msgid "Ping"
+msgstr "პინგი"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:78
+msgid "Version"
+msgstr "ვერსია"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:83
+msgid "Time"
+msgstr "დრო"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:88
+msgid "Finger"
+msgstr "Finger"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:93
+msgid "Userinfo"
+msgstr "მომხმარებლის ინფორმაცია"
