@@ -1,26 +1,25 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Turkish translation for smuxi.
+# Copyright (C) 2013-2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
 #
-# Translators:
+# U, 2013
 # zeugma <sunder67@hotmail.com>, 2013
 # Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
-# U, 2013
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi - IRC client\n"
+"Project-Id-Version: Smuxi - IRC\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2018-06-10 18:17+0000\n"
+"POT-Creation-Date: 2022-07-11 15:36+0000\n"
 "PO-Revision-Date: 2019-01-08 12:01+0200\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/"
-"tr/)\n"
+"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 3.32.1\n"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:256
 #, csharp-format
@@ -360,7 +359,7 @@ msgstr "{2} tarafından mod/{0} [{1}]"
 msgid "{0} [{1}] has quit"
 msgstr "{0} [{1}] çıktı"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3863
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3867
 #, csharp-format
 msgid ""
 "Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
@@ -369,15 +368,15 @@ msgstr ""
 "{0} port {1} ile bağlantı başarısız oldu ({2}. girişim), {3} saniye içinde "
 "yeniden denenecek..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3913
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3917
 #, csharp-format
 msgid "{0} is away: {1}"
 msgstr "{0} uzakta: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3923
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3927
 msgid "You are no longer marked as being away"
 msgstr "Artık uzakta olarak işaretli değilsiniz"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3933
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3937
 msgid "You have been marked as being away"
 msgstr "Uzakta olarak işaretlendiniz"
