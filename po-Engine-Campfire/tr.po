@@ -1,6 +1,6 @@
-# Turkish translation for Smuxi.
-# Copyright (C) 2018 Smuxi's COPYRIGHT HOLDER
-# This file is distributed under the same license as the Smuxi package.
+# Turkish translation for smuxi.
+# Copyright (C) 2014-2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
 #
 # Ş. Uzun <hashirrrt@gmail.com>, 2014-2015.
 # Sabri Ünal <libreajans@gmail.com>, 2019.
@@ -8,9 +8,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi - IRC client\n"
+"Project-Id-Version: Smuxi - Campfire\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2019-03-06 18:39+0000\n"
+"POT-Creation-Date: 2022-07-11 15:36+0000\n"
 "PO-Revision-Date: 2019-03-09 17:28+0200\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
 msgid "Connecting to campfire... "
