@@ -1,0 +1,379 @@
+# Georgian translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# NorwayFun <temuri.doghonadze@gmail.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-11-22 19:35+0000\n"
+"PO-Revision-Date: 2022-11-23 02:50+0100\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.2\n"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:256
+#, csharp-format
+msgid "{0} invites you to {1}"
+msgstr "{0} გიწვევთ {1} -ზე"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:280
+msgid "Accept invite (join room)"
+msgstr "მოწვევის მიღება (ოთახში შესვლა)"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:308
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1792
+msgid "away"
+msgstr "გასული"
+
+#. TRANSLATOR: {0} is the amount of seconds
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:314
+#, csharp-format
+msgid "lag: {0} seconds"
+msgstr "ლაგი: {0} წმ"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:320
+msgid "not connected"
+msgstr "არაა დაკავშირებული"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:377
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "გამოიყენება პროქსი: {0}:{1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:384
+#, csharp-format
+msgid "Connecting to {0} port {1}..."
+msgstr "მივუერთდი {0} პორტი {1}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:398
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:549
+#, csharp-format
+msgid "Connection to {0} established"
+msgstr "მიერთება {0} -მდე დამყარებულია"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:407
+msgid "Logging in..."
+msgstr "შესვლა..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:447
+msgid "Connection failed!"
+msgstr "დაკავშირება ვერ მოხერხდა!"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:451
+msgid "Connection failed! Reason: "
+msgstr "დაკავშირება ვერ მოხერხდა! მიზეზი: "
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:460
+msgid "Open Smuxi FAQ for help"
+msgstr "დახმარებისთვის Smuxi-ის ხდკ გახსენით"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:474
+msgid "Disconnecting..."
+msgstr "კავშირის გაწყვეტა..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:479
+#, csharp-format
+msgid "Disconnecting from {0}..."
+msgstr "{0}-სგან გათიშვა..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:486
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "{0}-დან გათიშვა"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:492
+msgid "Connection closed"
+msgstr "კავშირი დახურულია"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:501
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:576
+msgid "Not connected"
+msgstr "დაკავშირებული არაა"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:535
+msgid "Reconnecting..."
+msgstr "ხელახლა დაკავშირება..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:543
+#, csharp-format
+msgid "Reconnecting to {0}..."
+msgstr "{0} ხელახლა დაკავშირება..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:562
+msgid "Reconnect Error"
+msgstr "ხელახლა დაკავშირების შეცდომა"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:960
+#, csharp-format
+msgid "Sleeping for {0} milliseconds"
+msgstr "ძილი {0} მილიწამით"
+
+#. TRANSLATOR: this line is used as label / category for a
+#. list of commands below
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1045
+msgid "IrcProtocolManager Commands"
+msgstr "IrcProtocolManager -ის ბრძანებები"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1128
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "არასწორი პორტი: {0}"
+
+#. TRANSLATOR: some IRC networks dislike too many joins in a
+#. short period and thus Smuxi throttles/queues them
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1223
+#, csharp-format
+msgid "Queuing joins: {0}"
+msgstr "შეერთებების რიგი: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1244
+#, csharp-format
+msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
+msgstr ""
+"არხზე: {0} უკვე მიერთებული ბრძანდებით. მასზე გადასასვლელად აკრიფეთ /"
+"window {0} ."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1278
+#, csharp-format
+msgid "Active joins: {0} - Queued joins: {1}"
+msgstr "აქტიური შეერთებები: {0} - შეერთებები რიგში: {1}"
+
+#. TRANSLATORS: final message will look like this:
+#. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1302
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1332
+#, csharp-format
+msgid "Joining: {0}"
+msgstr "შეერთება: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1304
+msgid "Remaining"
+msgstr "დარჩენილი დრო"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1309
+#, csharp-format
+msgid "active joins: {0}"
+msgstr "აქტიური შეერთება: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1318
+#, csharp-format
+msgid "queued joins: {0}"
+msgstr "შეერთება რიგში: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1773
+msgid "IRC Op"
+msgstr "IRC ოპი"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1775
+msgid "Owner"
+msgstr "მფლობელი"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1777
+msgid "ChanAdmin"
+msgstr "არხის ადმინი"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1779
+msgid "Op"
+msgstr "ოპი"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1781
+msgid "Halfop"
+msgstr "ნახევრადადმინი"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1783
+msgid "Voice"
+msgstr "ხმა"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1846
+#, csharp-format
+msgid "Topic for {0}: {1}"
+msgstr "{0}-ის სათაური: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1848
+#, csharp-format
+msgid "No topic set for {0}"
+msgstr "{0}-ის სათაური დაყენებული არაა"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2013
+msgid "ban"
+msgstr "ბანი"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2024
+msgid "No bans in channel"
+msgstr "არხზე ბანი ვერ ვიპოვე"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2061
+msgid "ban exception"
+msgstr "ბანის გამონაკლისი"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2072
+msgid "No ban exceptions in channel"
+msgstr "არხზე ბანის გამონაკლისი ვერ ვიპოვე"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2109
+msgid "invite exception"
+msgstr "მოსაწვევის გამონაკლისი"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2120
+msgid "No invite exceptions in channel"
+msgstr "არხზე მოსაწვევის გამონაკლისი ვერ ვიპოვე"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2234
+#, csharp-format
+msgid "Your user mode is {0}"
+msgstr "თქვენი მომხმარებლის რეჟიმია {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2260
+#, csharp-format
+msgid "{0} is already on {1}"
+msgstr "{0} უკვე {1}-ზეა"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2268
+#, csharp-format
+msgid "Inviting {0} to {1}"
+msgstr "{0}-ის მოწვევა {1}-ზე"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2291
+msgid "Users"
+msgstr "მომხმარებლები"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2342
+#, csharp-format
+msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
+msgstr "სულ {0} მომხმარებელი [{1} ოპი, {2} ვოისი, {3} ნორმალური]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2480
+msgid "Connection error! Reason: "
+msgstr "დაკავშირების შეცდომა! მიზეზი: "
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2492
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "{0} ბრძანების არასაკმარისი პარამეტრები"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2501
+msgid "Not connected to server"
+msgstr "სერვერთან მიერთებული არ ბრძანდებით"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2745
+#, csharp-format
+msgid "{0}: No such nick/channel"
+msgstr "{0}: ასეთი მეტსახელი/არხი არ არსებობს"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2864
+#, csharp-format
+msgid ""
+"Increased send delay to {0}ms to avoid being flooded off the server again."
+msgstr ""
+"გაგზავნის დაყოვნება სერვერიდან მორიგი ფლუდის თავიდან ასაცილებლად {0}მწმ-"
+"მდე გაიზარდა."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2879
+#, csharp-format
+msgid "Nick {0} is already in use"
+msgstr "მეტსახელი {0} უკვე გამოიყენება"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2895
+msgid "Cannot join to channel:"
+msgstr "არხთან მიერთება შეუძლებელია:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2897
+msgid "You are banned"
+msgstr "თქვენ დაბანილი ბრძანდებით"
+
+#. TRANSLATOR: {0}: nickname, {1}: ident@host,
+#. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
+#. example:
+#. meebey [meebey@example.com] requested CTCP VERSION from meebey:
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2980
+#, csharp-format
+msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
+msgstr "{0} [{1}] -მა მოითხოვა CTCP {2} {3}-იდან: {4}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3007
+#, csharp-format
+msgid "CTCP PING reply from {0}: {1} seconds"
+msgstr "CTCP PING პასუხი {0}-დან: {1} წმ"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3016
+#, csharp-format
+msgid "CTCP {0} reply from {1}: {2}"
+msgstr "CTCP {0} პასუხი {1}-იდან: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3268
+#, csharp-format
+msgid "{0} [{1}] has joined {2}"
+msgstr "{0} [{1}] შეუერთდა {2}-ს"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3417
+#, csharp-format
+msgid "{0} [{1}] has left {2}"
+msgstr "{0} [{1}] გავიდა {2} -დან"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3442
+#, csharp-format
+msgid "You were kicked from {0} by {1}"
+msgstr "{0}-დან გამოგაგდოთ {1} -მა"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3450
+#, csharp-format
+msgid "{0} was kicked from {1} by {2}"
+msgstr "{0} გააგდო {1} -დან {2} -მა"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3468
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3500
+#, csharp-format
+msgid "You're now known as {0}"
+msgstr "ახლა ცნობილი ბრძანდებით, როგორც {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3503
+#, csharp-format
+msgid "{0} is now known as {1}"
+msgstr "{0} ახლა ცნობილია, როგორც {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3537
+#, csharp-format
+msgid "{0} changed the topic of {1} to: {2}"
+msgstr "{0} -მა {1}-ის თემა შეცვალა : {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3697
+#, csharp-format
+msgid "Mode change [{0}] for user {1}"
+msgstr "რეჟიმის ცვლილება [{0}] მომხმარებლისთვის {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3728
+#, csharp-format
+msgid "mode/{0} [{1}] by {2}"
+msgstr "რეჟიმი/{0} [{1}] {2}-სგან"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3764
+#, csharp-format
+msgid "{0} [{1}] has quit"
+msgstr "{0} [{1}] გავიდა"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3867
+#, csharp-format
+msgid ""
+"Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
+"seconds..."
+msgstr ""
+"{0} -ის პორტთან {1} მიერთების შეცდომა (მცდელობა {2}), ვცდი {3} წამში..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3917
+#, csharp-format
+msgid "{0} is away: {1}"
+msgstr "{0} გასულია: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3927
+msgid "You are no longer marked as being away"
+msgstr "თქვენ აღარ ხართ მონიშნული, როგორც გასული"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3937
+msgid "You have been marked as being away"
+msgstr "თქვენ მოინიშნეთ, როგორც გასული"
