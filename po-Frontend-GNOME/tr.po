@@ -1,8 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Turkish translation for smuxi.
+# Copyright (C) 2012-2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
 #
-# Translators:
 # Mirco Bauer <meebey@gmail.com>, 2012
 # zeugma <sunder67@hotmail.com>, 2013
 # Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
@@ -10,18 +9,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi - IRC client\n"
+"Project-Id-Version: Smuxi - GNOME Frontend\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2019-02-01 17:47+0000\n"
+"POT-Creation-Date: 2022-07-11 15:38+0000\n"
 "PO-Revision-Date: 2019-05-07 09:36+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
-"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
+"Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Gtranslator 3.32.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:1
 msgid "Smuxi Preferences"
@@ -672,7 +671,7 @@ msgstr "Motora yeniden bağlanılıyor... ({0}. girişim)"
 msgid "Cause: {0}"
 msgstr "Neden: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:638
+#: ../src/Frontend-GNOME/Frontend.cs:637
 msgid ""
 "A fatal error has been detected because of a protocol incompatibility with "
 "the smuxi-server!\n"
@@ -689,7 +688,7 @@ msgstr ""
 "Bu konuda ayrıntılı bilgiyi şurada bulabilirsiniz:\n"
 "https://smuxi.im/issues/show/589"
 
-#: ../src/Frontend-GNOME/Frontend.cs:705
+#: ../src/Frontend-GNOME/Frontend.cs:704
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -697,7 +696,7 @@ msgstr ""
 "Ön ucun sunucuyla bağlantısı koptu.\n"
 "Şimdi yeniden bağlanmak istiyor musunuz?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:724
+#: ../src/Frontend-GNOME/Frontend.cs:723
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
@@ -705,7 +704,7 @@ msgstr ""
 "Sunucuya yeniden bağlantı başarısız oldu.\n"
 "Yeniden denemek istiyor musunuz?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:1038
+#: ../src/Frontend-GNOME/Frontend.cs:1053
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -897,11 +896,11 @@ msgstr "{0} için kullanıcı listesi alınıyor..."
 msgid "done."
 msgstr "bitti."
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:130
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:131
 msgid "Reconnect"
 msgstr "Yeniden Bağlan"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:177
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:178
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
@@ -1334,65 +1333,3 @@ msgstr "Bağlanma _Anı Komutları:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
 msgid "_Ignore Commands"
 msgstr "Komutları _Yok Say"
-
-#~ msgid "Protocol:"
-#~ msgstr "Protokol:"
-
-#~ msgid "Hostname:"
-#~ msgstr "Host Adı:"
-
-#~ msgid "Character"
-#~ msgstr "Karakter"
-
-#~ msgid "Word"
-#~ msgstr "Sözcük"
-
-#~ msgid ""
-#~ "This setting specifies if Smuxi should store chat messages in memory "
-#~ "(volatile) or to disk (persistent).\n"
-#~ "For persistent you can choose between Db4o, an object database or SQLite, "
-#~ "a relational database.\n"
-#~ "The Db4o backend has known issues like high memory and CPU usage and can "
-#~ "even lead to crashes and thus it is deprecated.\n"
-#~ "The SQLite backend has no known performance or stability issues but is "
-#~ "still an optional preview feature."
-#~ msgstr ""
-#~ "Bu ayar Smuxi'nin sohbet mesajlarını bellekte mi (geçici) yoksa diskte mi "
-#~ "(kalıcı) depolayacağını belirler.\n"
-#~ "Kalıcı için Db4o, bir nesne veritabanı ya da SQLite, bir ilişkisel "
-#~ "veritabanı arasında seçim yapabilirsiniz.\n"
-#~ "Db4o arka ucunun yüksek bellek ve CPU kullanımı gibi bilinen sorunları "
-#~ "bulunmaktadır ve çökmelere bile yol açabilir, bu yüzden de kullanım "
-#~ "dışıdır.\n"
-#~ "SQLite arka ucunun bilinen performans ya da kararlılık sorunları "
-#~ "bulunmamaktadır ama yine de isteğe bağlı bir önizleme özelliğidir."
-
-#~ msgid "Volatile"
-#~ msgstr "Geçici"
-
-#~ msgid "Persistent (Preview)"
-#~ msgstr "Kalıcı (Önizleme)"
-
-#~ msgid "Persistent: Db4o (Deprecated)"
-#~ msgstr "Kalıcı: Db4o (Kullanım dışı)"
-
-#~ msgid "Persistent: SQLite (Preview)"
-#~ msgstr "Kalıcı: SQLite (Önizleme)"
-
-#~ msgid "Interface"
-#~ msgstr "Arayüz"
-
-#~ msgid "Servers"
-#~ msgstr "Sunucular"
-
-#~ msgid "Filters"
-#~ msgstr "Süzgeçler"
-
-#~ msgid "Logging"
-#~ msgstr "Günlük Tutma"
-
-#~ msgid "Nicknames(s) field must not be empty."
-#~ msgstr "Kullanıcı ad(lar)ı alanı boş bırakılamaz."
-
-#~ msgid "Invalid highlight regex: '{0}'. Reason: {1}"
-#~ msgstr "Geçersiz vurgulama düzenli ifadesi: '{0}'. Neden: {1}"
