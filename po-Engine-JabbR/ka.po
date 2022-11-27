@@ -1,0 +1,56 @@
+# Georgian translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Ekaterine Papava <papava.e@gtu.ge>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-11-23 20:30+0000\n"
+"PO-Revision-Date: 2022-11-27 18:17+0100\n"
+"Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.2\n"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:103
+msgid "JabbR Commands"
+msgstr "JabbR -ის ბრძანებები"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:136
+#, csharp-format
+msgid "Joining room failed. Reason: {0}"
+msgstr "ოთახში შესვლის შეცდომა. მიზეზი: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:162
+#, csharp-format
+msgid "Sending message failed. Reason: {0}"
+msgstr "შეტყობინების გაგზავნის შეცდომა. მიზეზი: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:230
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "მიერთების შეცდომა. მიზეზი: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
+#, csharp-format
+msgid "Connecting to {0}..."
+msgstr "{0}-თან მიერთება..."
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
+#, csharp-format
+msgid "Reconnecting to {0}..."
+msgstr "{0} ხელახლა დაკავშირება..."
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
+msgid "not connected"
+msgstr "არაა დაკავშირებული"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
+#, csharp-format
+msgid "Retrieving chat information failed. Reason: {0}"
+msgstr "საუბრის ინფორმაციის მიღების შეცდომა. მიზეზი: {0}"
