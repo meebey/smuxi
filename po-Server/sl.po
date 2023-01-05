@@ -10,18 +10,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:38+0000\n"
-"PO-Revision-Date: 2022-10-04 17:28+0200\n"
+"POT-Creation-Date: 2022-10-04 15:33+0000\n"
+"PO-Revision-Date: 2023-01-05 19:42+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: ../src/Server/Main.cs:65
 msgid "Add user to Server"
@@ -57,7 +57,7 @@ msgstr "Omogoči izhod razhroščevanja"
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
 msgstr ""
-"Optimiziraj medpomnilnik sporočil in izhod (veljavne vrednosti: none, "
+"Optimiziraj medpomnilnik sporočil in končaj (veljavne vrednosti: none, "
 "defrag, index, all)"
 
 #: ../src/Server/Main.cs:140
@@ -111,12 +111,12 @@ msgid "Password must not be empty."
 msgstr "Geslo ne sme biti prazno."
 
 #: ../src/Server/Main.cs:287
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "Invalid optimization value passed to --optimize-message-buffer, valid values "
 "are: {0}"
 msgstr ""
-"Neveljavna vrednost optimizacije, podana z --optimize-message-buffer, "
+"Neveljavna vrednost optimizacije podana z --optimize-message-buffer, "
 "veljavne vrednosti so: {0}"
 
 #: ../src/Server/Main.cs:307
