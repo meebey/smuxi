@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - Engine\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:36+0000\n"
-"PO-Revision-Date: 2015-02-07 18:15+0000\n"
-"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
+"POT-Creation-Date: 2022-11-02 06:17+0000\n"
+"PO-Revision-Date: 2023-02-23 07:05+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
@@ -114,11 +114,11 @@ msgstr "Bağlantı başarısız oldu!"
 #: ../src/Engine/Session.cs:673
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr "Bağlantı kesilmesi başarısız oldu - {0} sunucusu bulunamadı."
+msgstr "Bağlantı kesilemedi - {0} sunucusu bulunamadı."
 
 #: ../src/Engine/Session.cs:715
 msgid "Reconnect failed!"
-msgstr "Yeniden bağlantı başarısız oldu!"
+msgstr "Yeniden bağlanamadı!"
 
 #: ../src/Engine/Session.cs:739
 msgid "Configuration reloaded"
@@ -208,12 +208,12 @@ msgstr "Kullanılabilir Ağlar"
 #: ../src/Engine/Session.cs:1014
 #, csharp-format
 msgid "Network close failed - could not find network: {0}"
-msgstr "Ağ sonlandırma başarısız oldu - {0} ağı bulunamadı"
+msgstr "Ağ kapatılamadı - {0} ağı bulunamadı"
 
 #: ../src/Engine/Session.cs:1058
 #, csharp-format
 msgid "Network switch failed - could not find network: {0}"
-msgstr "Ağ değişimi başarısız oldu - {0} ağı bulunamadı"
+msgstr "Ağ değiştirilemedi - {0} ağı bulunamadı"
 
 #: ../src/Engine/Session.cs:1076
 msgid "Not connected to any network"
@@ -225,8 +225,7 @@ msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
 msgstr ""
-"Sohbet geçmişine yazım işlemi başarısız oldu. Sohbet geçmişiniz "
-"tutulmayacak. Neden: {0}"
+"Sohbet geçmişine yazılamadı. Sohbet geçmişiniz tutulmayacak. Neden: {0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
@@ -297,9 +296,7 @@ msgstr "Sunucu kimliği '{0}' zaten mevcut."
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr ""
-"Sohbet geçmişi yüklemesi başarısız oldu. Sohbet geçmişiniz tutulmayacak. "
-"Neden: {0}"
+msgstr "Sohbet geçmişi yüklenemedi. Sohbet geçmişiniz tutulmayacak. Neden: {0}"
 
 #: ../src/Engine/Chats/ChatModel.cs:344
 #, csharp-format
@@ -307,5 +304,5 @@ msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
 msgstr ""
-"Yazım için sohbet geçmişinin açılması başarısız oldu. Sohbet geçmişiniz "
-"tutulmayacak. Neden: {0}"
+"Yazım için sohbet geçmişi açılamadı. Sohbet geçmişiniz tutulmayacak. Neden: "
+"{0}"
