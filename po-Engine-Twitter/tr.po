@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - Twitter\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:37+0000\n"
-"PO-Revision-Date: 2015-05-14 21:29+0000\n"
-"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
+"POT-Creation-Date: 2022-11-02 06:18+0000\n"
+"PO-Revision-Date: 2023-02-23 07:11+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:124
 msgid "Home Timeline"
@@ -90,8 +90,7 @@ msgstr "Twitter ile başarıyla bağlantı kuruldu."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:347
 msgid "Failed to fetch user details from Twitter. Reason: "
-msgstr ""
-"Twitter'dan kullanıcı ayrıntılarının getirilmesi başarısız oldu. Neden:"
+msgstr "Twitter'dan kullanıcı ayrıntıları getirilemedi. Neden:"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:380
 msgid "Fetching friends from Twitter, please wait..."
@@ -103,7 +102,7 @@ msgstr "Arkadaş getirilmesi tamamlandı."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:393
 msgid "Failed to fetch friends from Twitter. Reason: "
-msgstr "Twitter'dan arkadaş getirilmesi başarısız oldu. Neden:"
+msgstr "Twitter'dan arkadaşlar getirilemedi. Neden:"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
@@ -118,7 +117,7 @@ msgstr "Bekleyen yetkilendirme isteği yok!"
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:808
 #, csharp-format
 msgid "Failed to authorize with Twitter: {0}"
-msgstr "Twitter yetkilendirmesi başarısız oldu: {0}"
+msgstr "Twitter ile yetkilendirilemedi: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
 msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
