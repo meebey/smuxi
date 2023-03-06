@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - Campfire\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:36+0000\n"
-"PO-Revision-Date: 2019-03-09 17:28+0200\n"
+"POT-Creation-Date: 2022-11-23 20:26+0000\n"
+"PO-Revision-Date: 2023-02-23 07:12+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
 msgid "Connecting to campfire... "
@@ -47,7 +47,7 @@ msgstr "'{0}' ({1} B) {2}"
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:367
 #, csharp-format
 msgid "Failed to post message: {0}"
-msgstr "İleti gönderimi başarısız oldu: {0}"
+msgstr "İleti gönderilemedi: {0}"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:383
 #, csharp-format
