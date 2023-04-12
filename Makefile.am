@@ -232,7 +232,7 @@ LINUX_STATIC_FILES = \
 
 dist-win32:
 	DIST_VERSION=$$(git describe); \
-	./autogen.sh --disable-frontend-stfl \
+	./autogen.sh MCS=$$(which dmcs) --disable-frontend-stfl \
 	  --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
 	  --with-vendor-package-version="dist-win32 $$DIST_VERSION"
