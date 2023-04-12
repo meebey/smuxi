@@ -1,3 +1,9 @@
+smuxi (2:1.2+master-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Mirco Bauer <meebey@debian.org>  Wed, 12 Apr 2023 08:52:00 +0800
+
 smuxi (2:1.1+master-1) unstable; urgency=medium
 
   * New upstream release
