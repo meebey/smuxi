@@ -13,11 +13,14 @@ Build tools & libraries:
 * Indicate# / MessagingMenu# (optional)
 * DBus# / NDesk.DBus (optional)
 * GtkSpell (optional)
-* STFL (optional)
+* STFL (optional, but enabled by default)
 
-Depending on your operating system and favorite distribution the installation of the listed applications varies. For Debian based distributions it's just a matter of the following commands:
+Depending on your operating system and favorite distribution the installation of
+the listed applications varies.
 
-    apt-get install mono-devel mono-xbuild libnini-cil-dev liblog4net-cil-dev libgtk2.0-cil-dev libglade2.0-cil-dev libnotify-cil-dev libdbus2.0-cil-dev libdbus2.0-cil-dev lsb-release
+For Debian based distributions it's just a matter of the following commands:
+
+    apt-get install build-essential git autoconf automake intltool mono-devel mono-xbuild libnini-cil-dev liblog4net-cil-dev libgtk2.0-cil-dev libglade2.0-cil-dev libnotify-cil-dev libdbus2.0-cil-dev libdbus2.0-cil-dev lsb-release
 
 Compiling Source
 ================
