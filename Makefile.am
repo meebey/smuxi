@@ -232,7 +232,8 @@ LINUX_STATIC_FILES = \
 
 dist-win32:
 	DIST_VERSION=$$(git describe); \
-	./autogen.sh --without-indicate --without-messaging-menu --without-notify --without-dbus \
+	./autogen.sh --disable-frontend-stfl \
+	  --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
 	  --with-vendor-package-version="dist-win32 $$DIST_VERSION"
 	$(MAKE)
@@ -250,7 +251,8 @@ dist-win32:
 
 dist-osx:
 	DIST_VERSION=$$(git describe); \
-	./autogen.sh --without-indicate --without-messaging-menu --without-notify --without-dbus \
+	./autogen.sh --disable-frontend-stfl \
+	  --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
 	  --with-vendor-package-version="dist-osx $$DIST_VERSION"
 	$(MAKE)
