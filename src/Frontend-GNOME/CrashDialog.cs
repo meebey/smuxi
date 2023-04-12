@@ -139,10 +139,9 @@ namespace Smuxi.Frontend.Gnome
                     try {
                         System.Diagnostics.Process.Start(
                             String.Format(
-                                "http://www.smuxi.org/issues/new" +
-                                    "?issue[tracker_id]=1" +
-                                    "&issue[subject]={0}" +
-                                    "&issue[description]={1}",
+                                "https://github.com/meebey/smuxi/issues/new" +
+                                    "&title={0}" +
+                                    "&body={1}",
                                 ReportSubject,
                                 ReportDescription
                             )
