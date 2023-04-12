@@ -115,7 +115,7 @@ call-po: update-po
 	
 install-po:
 	for PODIR in $(PODIRS); do \
-		$(MAKE) -C $$PODIR install itlocaledir=$(abs_top_builddir)/bin/$(PROFILE)/locale; \
+		$(MAKE) -C $$PODIR install localedir=$(abs_top_builddir)/bin/$(PROFILE)/locale; \
 	done
 
 LIB_DIR = $(top_builddir)/lib
@@ -242,7 +242,7 @@ dist-win32:
 		cp $$FILE $(WIN32_BUILD_DIR); \
 	done
 	for PODIR in $(PODIRS); do \
-		$(MAKE) -C $$PODIR install itlocaledir=$(abs_top_builddir)/$(WIN32_BUILD_DIR)/locale; \
+		$(MAKE) -C $$PODIR install localedir=$(abs_top_builddir)/$(WIN32_BUILD_DIR)/locale; \
 	done
 	mkdir -p $(WIN32_BUILD_DIR)/icons
 	cp -r $(WIN32_ICON_THEME_DIR) $(WIN32_BUILD_DIR)/icons
