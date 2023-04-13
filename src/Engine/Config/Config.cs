@@ -321,16 +321,6 @@ namespace Smuxi.Engine
             prefix = "Engine/Users/DEFAULT/MessageBuffer/Persistent/";
             Get(prefix+"MaxCapacity", 50 * 1000);
 
-            prefix = "Engine/Users/DEFAULT/Servers/";
-            Get(prefix + "Servers", new string[] {
-                "IRC/irc.oftc.net",
-                "IRC/irc.gimp.org",
-                "IRC/irc.geekshed.net",
-                "IRC/irc.efnet.org",
-                "IRC/irc.ircnet.org",
-                "IRC/irc.freenode.net"
-            });
-            
             prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.oftc.net/";
             Get(prefix + "Hostname", "irc.oftc.net");
             Get(prefix + "Port", 6667);
@@ -402,6 +392,16 @@ namespace Smuxi.Engine
             Get (prefix + "Password", String.Empty);
             Get (prefix + "UseEncryption", false);
             Get (prefix + "ValidateServerCertificate", false);
+
+            prefix = "Engine/Users/DEFAULT/Servers/";
+            Get(prefix + "Servers", new string[] {
+                "IRC/irc.oftc.net",
+                "IRC/irc.gimp.org",
+                "IRC/irc.geekshed.net",
+                "IRC/irc.efnet.org",
+                "IRC/irc.ircnet.org",
+                "IRC/irc.libera.chat"
+            });
 
             prefix = "Engine/Users/";
             Get(prefix+"Users", new string[] { "local" });
