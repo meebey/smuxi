@@ -1,27 +1,25 @@
-# Turkish translation for smuxi.
-# Copyright (C) 2014-2022 smuxi's COPYRIGHT HOLDER
+# Georgian translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
 # This file is distributed under the same license as the smuxi package.
-#
-# Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
+# NorwayFun <temuri.doghonadze@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi - GNOME XMPP\n"
+"Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:38+0000\n"
-"PO-Revision-Date: 2015-05-14 20:46+0000\n"
-"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
-"Language-Team: Turkish <gnome-turk@gnome.org>\n"
-"Language: tr\n"
+"POT-Creation-Date: 2022-11-18 12:50+0000\n"
+"PO-Revision-Date: 2022-11-20 18:59+0100\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:247
 msgid "Query"
-msgstr "Özel Sohbet"
+msgstr "მოთხოვნა"
 
 #: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:255
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
@@ -31,17 +29,17 @@ msgstr "Whois"
 #: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:261
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:221
 msgid "Add To Contacts"
-msgstr "Rehber'e Ekle"
+msgstr "კონტაქტებში ჩამატება"
 
 #: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:267
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:227
 msgid "Invite to"
-msgstr "Şuraya Davet Et"
+msgstr "მოწვევა"
 
 #: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:285
 msgid "Rename"
-msgstr "Yeniden Adlandır"
+msgstr "სახელის გადარქმევა"
 
 #: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:297
 msgid "Remove"
-msgstr "Kaldır"
+msgstr "წაშლა"

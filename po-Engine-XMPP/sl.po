@@ -8,11 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-11 21:40+0000\n"
-"PO-Revision-Date: 2021-05-17 18:32+0200\n"
-"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-07-11 15:37+0000\n"
+"PO-Revision-Date: 2022-11-17 09:34+0100\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -21,307 +20,314 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2\n"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
 msgid "The server has shut down"
-msgstr ""
+msgstr "Strežnik se je izklopil"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
 msgid ""
 "Another client logged in with the same resource, you have been disconnected"
 msgstr ""
+"Drugi odjemalec se je prijavil z istim virom, vaša povezava je bila "
+"prekinjena"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:209
 msgid ""
 "Authentication failed, either username does not exist or invalid password"
 msgstr ""
+"Preverjanje pristnosti ni uspelo, uporabniško ime ne obstaja ali pa geslo ni "
+"veljavno"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
 msgid ""
 "If you want to create an account with the specified user and password, type /"
 "register now"
 msgstr ""
+"Če želite ustvariti račun z določenim uporabnikom in geslom, zdaj vnesite /"
+"register"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
-msgid ""
-"This engine has native Facebook support, you should be using it instead of "
-"connecting to Facebook with XMPP"
-msgstr ""
-
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:320
 msgid "not connected"
-msgstr ""
+msgstr "brez povezave"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:819
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:811
 #, csharp-format
 msgid "Could not find contact {0}"
-msgstr ""
+msgstr "Ni bilo mogoče najti stika {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:825
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:817
 #, csharp-format
 msgid "Contact {0} has {1} known resources"
-msgstr ""
+msgstr "Stik {0} ima {1} znanih virov"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:821
+#, csharp-format
+msgid "{0} is not a known resource"
+msgstr "{0} ni znan vir"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
 #, csharp-format
-msgid "{0} is not a known resource"
-msgstr ""
-
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
-#, csharp-format
 msgid "Contact's JID: {0}"
-msgstr ""
+msgstr "JID stika: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:833
 msgid "You have a mutual subscription with this contact"
-msgstr ""
+msgstr "S tem stikom imata vzajemno naročnino"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:844
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:836
 msgid ""
 "You have no subscription with this contact and this contact is not "
 "subscribed to you"
-msgstr ""
+msgstr "S tem stikom nimate naročnine in ta stik ni naročen na vas"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:839
 msgid ""
 "You are subscribed to this contact, but the contact is not subscribed to you"
-msgstr ""
+msgstr "Naročeni ste na ta stik, vendar ta stik ni naročen na vas"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:842
 msgid ""
 "You are not subscribed to this contact, but the contact is subscribed to you"
-msgstr ""
+msgstr "Niste naročeni na ta stik, vendar je stik naročen na vas"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:938
 #, csharp-format
 msgid "Invalid contact command: {0}"
-msgstr ""
+msgstr "Neveljaven ukaz stika: {0}"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:957
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:949
 #, csharp-format
 msgid "{0} Commands"
-msgstr ""
+msgstr "Ukazi {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:982
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:974
 #, csharp-format
 msgid "Advanced {0} Commands"
-msgstr ""
+msgstr "Napredni ukazi {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1017
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1009
 #, csharp-format
 msgid "Invalid port: {0}"
-msgstr ""
+msgstr "Neveljavna vrata: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1052
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1044
 #, csharp-format
 msgid "Priority for Available is: {0}"
-msgstr ""
+msgstr "Prednost za »na voljo« je: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1047
 #, csharp-format
 msgid "Priority for Away is: {0}"
-msgstr ""
+msgstr "Prednost za »odsoten« je: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
 #, csharp-format
 msgid ""
 "Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
 msgstr ""
+"Neveljavna prednost: {0} (veljavne prednosti so med vključno -128 in 127)"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1636
 #, csharp-format
 msgid "{0}{1} is available"
-msgstr ""
+msgstr "{0}{1} je na voljo"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1637
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1640
 #, csharp-format
 msgid "{0}{1} is away"
-msgstr ""
+msgstr "{0}{1} je odsoten"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1641
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1644
 #, csharp-format
 msgid "{0}{1} is extended away"
-msgstr ""
+msgstr "{0}{1} je podaljšano odsoten"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1645
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1648
 #, csharp-format
 msgid "{0}{1} wishes not to be disturbed"
-msgstr ""
+msgstr "{0}{1} ne želi biti moten"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1649
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1652
 #, csharp-format
 msgid "{0}{1} wants to chat"
-msgstr ""
+msgstr "{0}{1} želi klepetati"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1656
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1659
 #, csharp-format
 msgid "{0}{1} is offline"
-msgstr ""
+msgstr "{0}{1} ni povezan"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1662
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1665
 #, csharp-format
 msgid ""
 "Automatically allowed {0} to subscribe to you, since you are already asking "
 "to subscribe"
 msgstr ""
+"Samodejno dovolil {0}, da se naroči na vas, saj že prosite za naročnino"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1666
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1669
 #, csharp-format
 msgid "{0}{1} wishes to subscribe to you"
-msgstr ""
+msgstr "{0}{1} se želi naročiti na vas"
 
 #. you can now see their presences
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1674
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1677
 #, csharp-format
 msgid "{0}{1} allowed you to subscribe"
-msgstr ""
+msgstr "{0}{1} vam je dovolil, da se naročite"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1681
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1684
 #, csharp-format
 msgid ""
 "Automatically removed {0}'s subscription to your presences after losing the "
 "subscription to theirs"
 msgstr ""
+"Samodejno odstranil naročnino {0} na vaše prisotnosti po izgubi naročnine na "
+"njihovo"
 
 #. you cannot (anymore?) see their presences
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1688
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1691
 #, csharp-format
 msgid "{0}{1} denied/removed your subscription"
-msgstr ""
+msgstr "{0}{1} je zavrnil/odstranil vašo naročnino"
 
 #. you might still be able to see their presences
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1693
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1696
 #, csharp-format
 msgid "{0}{1} unsubscribed from you"
-msgstr ""
+msgstr "{0}{1} se je od vas odnaročil"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1697
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1700
 #, csharp-format
 msgid "received a malformed error message: {0}"
-msgstr ""
-
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1704
-#, csharp-format
-msgid "{0}{1}'s server could not be found"
-msgstr ""
+msgstr "je prejel okvarjeno poročilo o napaki: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1707
 #, csharp-format
-msgid "{0}{1} is already using your requested resource"
-msgstr ""
+msgid "{0}{1}'s server could not be found"
+msgstr "Strežnika {0}{1} ni bilo mogoče najti"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1714
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1736
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1750
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1710
+#, csharp-format
+msgid "{0}{1} is already using your requested resource"
+msgstr "{0}{1} že uporablja vaš zahtevani vir"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1717
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1739
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1753
 #, csharp-format
 msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
-msgstr ""
+msgstr "Trenutno ni uporabnega sporočila o napaki za {0}, {1}, {2}{3}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1727
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1730
 #, csharp-format
 msgid "You do not have permission to access {0}{1}"
-msgstr ""
+msgstr "Nimate pravic za dostop do {0}{1}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1777
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1780
 #, csharp-format
 msgid "{0} days"
 msgstr "{0} dni"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1783
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1786
 #, csharp-format
 msgid "{0} hours"
 msgstr "{0} ur"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1787
-#, csharp-format
-msgid "{0} minutes"
-msgstr ""
-
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1790
 #, csharp-format
-msgid "{0} seconds"
-msgstr ""
+msgid "{0} minutes"
+msgstr "{0} minut"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1802
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1793
+#, csharp-format
+msgid "{0} seconds"
+msgstr "{0} sekund"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1805
 #, csharp-format
 msgid " since {0} ({1})"
-msgstr ""
+msgstr " od {0} ({1})"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1887
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1890
 #, csharp-format
 msgid "An unknown groupchat error occurred: {0}"
-msgstr ""
-
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1894
-#, csharp-format
-msgid "Server of groupchat \"{0}\" not found."
-msgstr ""
+msgstr "Pojavila se je neznana napaka skupinskega klepeta: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
 #, csharp-format
-msgid "MUC service is not available for \"{0}\""
-msgstr ""
+msgid "Server of groupchat \"{0}\" not found."
+msgstr "Strežnik skupinskega klepeta »{0}« ni bil najden."
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1900
+#, csharp-format
+msgid "MUC service is not available for \"{0}\""
+msgstr "Storitev MUC ni na voljo za »{0}«"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1907
 #, csharp-format
 msgid "You do not have permission to join \"{0}\""
-msgstr ""
+msgstr "Nimate pravic, da se pridružite »{0}«"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1910
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1913
 #, csharp-format
 msgid "An unhandled groupchat error occurred: {0}"
-msgstr ""
+msgstr "Pojavila se je neobravnavana napaka skupinskega klepeta: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2096
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2090
 #, csharp-format
 msgid ""
 "Received a presence update from {0}, but there's no corresponding chat window"
 msgstr ""
+"Prejeli smo posodobitev prisotnosti {0}, vendar ni ustreznega okna za klepet"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2120
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2114
 #, csharp-format
 msgid ""
 "Received a groupchat message from {0} but there's no corresponding chat "
 "window: {1}"
 msgstr ""
+"Prejeli smo sporočilo skupinskega klepeta {0}, vendar ni ustreznega okna za "
+"klepet: {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2391
+#, csharp-format
+msgid "You have been invited to {2} by {0} because {1}"
+msgstr "{0} vas je povabil na {2}, razlog: {1}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
 #, csharp-format
-msgid "You have been invited to {2} by {0} because {1}"
-msgstr ""
-
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2403
-#, csharp-format
 msgid "You have been invited to {1} by {0}"
-msgstr ""
+msgstr "{0} vas je povabil na {1}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2424
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2418
 msgid "Accept invite (join room)"
 msgstr "Sprejmi povabilo (pridruži se sobi)"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2562
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2556
 #, csharp-format
 msgid "Reconnecting to {0}"
 msgstr "Ponovno vzpostavljanje povezave s strežnikom {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2576
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2570
 #, csharp-format
 msgid "Reconnecting to {0} in {1} seconds"
 msgstr "Ponovno vzpostavljanje povezave s strežnikom {0} čez {1} sek"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2606
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2600
 #, csharp-format
 msgid "Error: {0}"
 msgstr "Napaka: {0}"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2618
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2612
 msgid "Authenticated"
 msgstr "Overjeno"
 
-#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2669
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2663
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
 msgstr "Uporaba posredniškega strežnika: {0}:{1}"

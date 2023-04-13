@@ -1,60 +1,57 @@
-# Turkish translation for smuxi.
-# Copyright (C) 2013-2022 smuxi's COPYRIGHT HOLDER
+# Georgian translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
 # This file is distributed under the same license as the smuxi package.
-#
-# zeugma <sunder67@hotmail.com>, 2013
-# Ş. Uzun <hashirrrt@gmail.com>, 2014
+# NorwayFun <temuri.doghonadze@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi - GNOME IRC\n"
+"Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:38+0000\n"
-"PO-Revision-Date: 2014-11-12 09:51+0000\n"
-"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
-"Language-Team: Turkish <gnome-turk@gnome.org>\n"
-"Language: tr\n"
+"POT-Creation-Date: 2022-11-18 12:49+0000\n"
+"PO-Revision-Date: 2022-11-20 19:01+0100\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:390
 msgid "Query"
-msgstr "Özel Sohbet"
+msgstr "მოთხოვნა"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
 msgid "Op"
-msgstr "Op Ver"
+msgstr "ოპი"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
 msgid "Deop"
-msgstr "Op Kaldır"
+msgstr "დეოპი"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
 msgid "Voice"
-msgstr "Voice Ver"
+msgstr "ხმა"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
 msgid "Devoice"
-msgstr "Voice Kaldır"
+msgstr "დევოისი"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
 msgid "Kick"
-msgstr "At"
+msgstr "გაგდება"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:416
 msgid "Kick + Ban"
-msgstr "At + Yasakla"
+msgstr "გაგდება + ბანი"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:420
 msgid "Ban"
-msgstr "Yasakla"
+msgstr "ბანი"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:424
 msgid "Unban"
-msgstr "Yasak Kaldır"
+msgstr "ბანის მოხსნა"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:92
@@ -69,19 +66,19 @@ msgstr "CTCP"
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:443
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:103
 msgid "Invite to"
-msgstr "Şuraya davet et"
+msgstr "მოწვევა"
 
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:73
 msgid "Ping"
-msgstr "Ping"
+msgstr "პინგი"
 
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:78
 msgid "Version"
-msgstr "Version"
+msgstr "ვერსია"
 
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:83
 msgid "Time"
-msgstr "Time"
+msgstr "დრო"
 
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:88
 msgid "Finger"
@@ -89,4 +86,4 @@ msgstr "Finger"
 
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:93
 msgid "Userinfo"
-msgstr "Userinfo"
+msgstr "მომხმარებლის ინფორმაცია"

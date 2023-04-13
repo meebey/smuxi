@@ -7,7 +7,7 @@ msgid ""
 msgstr "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
 "POT-Creation-Date: 2022-04-04 20:36+0000\n"
-"PO-Revision-Date: 2022-04-05 18:08+0000\n"
+"PO-Revision-Date: 2022-04-17 18:08+0000\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr "Project-Id-Version: smuxi master\n"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:256
 #, csharp-format
 msgid "{0} invites you to {1}"
-msgstr ""
+msgstr "{0} erabiltzaileak honetara gonbidatu zaitu: {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:280
 msgid "Accept invite (join room)"
@@ -27,7 +27,7 @@ msgstr "Onartu gonbidapena (elkartu gelara)"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:308
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1792
 msgid "away"
-msgstr ""
+msgstr "kanpoan"
 
 #. TRANSLATOR: {0} is the amount of seconds
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:314
@@ -47,13 +47,13 @@ msgstr "Proxya erabilita: {0}:{1}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:384
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
-msgstr ""
+msgstr "{0}, {1} atakarekin konektatzen..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:398
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:549
 #, csharp-format
 msgid "Connection to {0} established"
-msgstr ""
+msgstr "Konexioa ezarri da honekin: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:407
 msgid "Logging in..."
@@ -78,12 +78,12 @@ msgstr "Deskonektatzen..."
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:479
 #, csharp-format
 msgid "Disconnecting from {0}..."
-msgstr ""
+msgstr "Deskonektatzen honetatik: {0}..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:486
 #, csharp-format
 msgid "Disconnected from {0}"
-msgstr ""
+msgstr "Deskonektatua honetatik:{0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:492
 msgid "Connection closed"
@@ -101,7 +101,7 @@ msgstr "Birkonektatzen..."
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:543
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr ""
+msgstr "Birkonektatzen honekin: {0}..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:562
 msgid "Reconnect Error"
@@ -110,13 +110,13 @@ msgstr "Birkonexio-errorea"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:960
 #, csharp-format
 msgid "Sleeping for {0} milliseconds"
-msgstr ""
+msgstr "Lotan {0} milisegundoz"
 
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1045
 msgid "IrcProtocolManager Commands"
-msgstr ""
+msgstr "IrcProtocolManager komandoak"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1128
 #, csharp-format
@@ -133,12 +133,12 @@ msgstr "Elkartzeak ilaran jartzen: {0}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1244
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
-msgstr ""
+msgstr "Dagoeneko elkartuta {0} kanalarekin. Idatzi '/window {0}' horretara joateko."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1278
 #, csharp-format
 msgid "Active joins: {0} - Queued joins: {1}"
-msgstr ""
+msgstr "Elkartze aktiboak: {0} - Ilarako elkartzeak: {1}"
 
 #. TRANSLATORS: final message will look like this:
 #. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
@@ -164,7 +164,7 @@ msgstr "ilarako elkartzeak: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1773
 msgid "IRC Op"
-msgstr "IRC auk."
+msgstr "IRC operadorea"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1775
 msgid "Owner"
@@ -172,15 +172,15 @@ msgstr "Jabea"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1777
 msgid "ChanAdmin"
-msgstr ""
+msgstr "Kanal-administratzailea"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1779
 msgid "Op"
-msgstr "Auk."
+msgstr "Operadorea"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1781
 msgid "Halfop"
-msgstr ""
+msgstr "Sasioperadores"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1783
 msgid "Voice"
@@ -189,12 +189,12 @@ msgstr "Ahotsa"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1846
 #, csharp-format
 msgid "Topic for {0}: {1}"
-msgstr ""
+msgstr "{0} kanalaren gaia: {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1848
 #, csharp-format
 msgid "No topic set for {0}"
-msgstr ""
+msgstr "Ez da gairik ezarri {0} kanalerako"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2013
 msgid "ban"
@@ -228,12 +228,12 @@ msgstr "Zure erabiltzaile-modua {0} da"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2260
 #, csharp-format
 msgid "{0} is already on {1}"
-msgstr ""
+msgstr "{0} is already on {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2268
 #, csharp-format
 msgid "Inviting {0} to {1}"
-msgstr ""
+msgstr "{0} erabiltzailea honetara gonbidatzen: {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2291
 msgid "Users"
@@ -242,7 +242,7 @@ msgstr "Erabiltzaileak"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2342
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
-msgstr ""
+msgstr "Guztira {0} erabiltzaile [{1} operadore, {2} ahots, {3} normal]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2480
 msgid "Connection error! Reason: "
@@ -266,7 +266,7 @@ msgstr "{0}: Ez dago halako goitizenik/kanalik"
 #, csharp-format
 msgid ""
 "Increased send delay to {0}ms to avoid being flooded off the server again."
-msgstr ""
+msgstr "Bidaltze-atzerapena {0}ms-tara handitu da zerbitzariak berriro gainezka egin dezan saihesteko."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2879
 #, csharp-format
@@ -288,17 +288,17 @@ msgstr "Debekatuta zaude"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2980
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
-msgstr ""
+msgstr "{0} [eskatutako {1}] CTCP {2} hemendik: {3}: {4}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3007
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
-msgstr ""
+msgstr "CTCP PING erantzuna hemendik: {0}: {1} segundo"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3016
 #, csharp-format
 msgid "CTCP {0} reply from {1}: {2}"
-msgstr ""
+msgstr "CTCP {0} erantzuna hemendik: {1}: {2}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3268
 #, csharp-format
@@ -313,12 +313,12 @@ msgstr "{0} [{1}] erabiltzaileak {2} utzi du"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3442
 #, csharp-format
 msgid "You were kicked from {0} by {1}"
-msgstr ""
+msgstr "{0} kanaletik bota zaitu {1} erabiltzaileak"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3450
 #, csharp-format
 msgid "{0} was kicked from {1} by {2}"
-msgstr ""
+msgstr "{0} erabiltzailea bota du {1} kanaletik {2} erabiltzaileak"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3468
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3500
@@ -329,17 +329,17 @@ msgstr "Orain {0} da zure izena"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3503
 #, csharp-format
 msgid "{0} is now known as {1}"
-msgstr ""
+msgstr "{0} orain {1} da"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3537
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
-msgstr ""
+msgstr "{0} erabiltzaileak {1} gaia aldatu du honetara: {2}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3697
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
-msgstr ""
+msgstr "Modu-aldaketa [{0}] {1} erabiltzailearentzako"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3728
 #, csharp-format
@@ -356,7 +356,7 @@ msgstr "{0} [{1}] irten egin da"
 msgid ""
 "Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
 "seconds..."
-msgstr ""
+msgstr "{0}, {1} atakarako konexioak huts egin du ({2}. saialdia), {3} segundotan berriro saiatuko da..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3917
 #, csharp-format

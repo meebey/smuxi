@@ -8,119 +8,125 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-11 21:40+0000\n"
-"PO-Revision-Date: 2016-03-11 22:56+0100\n"
-"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-07-11 15:37+0000\n"
+"PO-Revision-Date: 2023-02-12 17:15+0100\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 "
-"|| n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: ../src/Engine-MessageBuffer/Main.cs:49
 msgid "Enable debug output"
-msgstr ""
+msgstr "Omogoči izhod razhroščevanja"
 
 #: ../src/Engine-MessageBuffer/Main.cs:55
-#: ../src/Engine-MessageBuffer/Main.cs:131
-#: ../src/Engine-MessageBuffer/Main.cs:195
+#: ../src/Engine-MessageBuffer/Main.cs:141
+#: ../src/Engine-MessageBuffer/Main.cs:205
 msgid "Show this help"
 msgstr "Pokaže to pomoč"
 
-#: ../src/Engine-MessageBuffer/Main.cs:57
-msgid "Usage: smuxi-message-buffer [options] action action-options"
-msgstr ""
+#: ../src/Engine-MessageBuffer/Main.cs:88
+#, csharp-format
+msgid "Unknown action: '{0}'"
+msgstr "Neznano dejanje: »{0}«"
 
-#: ../src/Engine-MessageBuffer/Main.cs:59
+#: ../src/Engine-MessageBuffer/Main.cs:95
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Napaka ukazne vrstice: {0}"
+
+#: ../src/Engine-MessageBuffer/Main.cs:104
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr "Raba: smuxi-message-buffer [možnosti] dejanje možnosti-dejanja"
+
+#: ../src/Engine-MessageBuffer/Main.cs:106
 msgid "Actions:"
 msgstr "Dejanja:"
 
-#: ../src/Engine-MessageBuffer/Main.cs:63
-#: ../src/Engine-MessageBuffer/Main.cs:142
-#: ../src/Engine-MessageBuffer/Main.cs:207
+#: ../src/Engine-MessageBuffer/Main.cs:110
+#: ../src/Engine-MessageBuffer/Main.cs:152
+#: ../src/Engine-MessageBuffer/Main.cs:217
 msgid "Options:"
 msgstr "Možnosti:"
 
-#: ../src/Engine-MessageBuffer/Main.cs:90
-#, csharp-format
-msgid "Unknown action: '{0}'"
-msgstr ""
-
-#: ../src/Engine-MessageBuffer/Main.cs:97
-#, csharp-format
-msgid "Command line error: {0}"
-msgstr ""
-
-#: ../src/Engine-MessageBuffer/Main.cs:109
+#: ../src/Engine-MessageBuffer/Main.cs:119
 msgid "Database format (valid values: auto, db4o, sqlite)"
-msgstr ""
+msgstr "Oblika zbirke podatkov (veljavne vrednosti: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:124
-#: ../src/Engine-MessageBuffer/Main.cs:188
+#: ../src/Engine-MessageBuffer/Main.cs:134
+#: ../src/Engine-MessageBuffer/Main.cs:198
 #, csharp-format
 msgid "Unknown {0} option: '{1}'"
-msgstr ""
+msgstr "Neznana možnost {0}: »{1}«"
 
-#: ../src/Engine-MessageBuffer/Main.cs:135
+#: ../src/Engine-MessageBuffer/Main.cs:145
 #, csharp-format
 msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
-msgstr ""
+msgstr "Raba: smuxi-message-buffer {0} [možnosti-dejanja] pot_zbirke_podatkov"
 
-#: ../src/Engine-MessageBuffer/Main.cs:140
-msgid "Database path"
-msgstr ""
+#: ../src/Engine-MessageBuffer/Main.cs:150
+msgid "Database path(s)"
+msgstr "Pot(i) zbirke podatkov"
 
-#: ../src/Engine-MessageBuffer/Main.cs:151
+#: ../src/Engine-MessageBuffer/Main.cs:161
 msgid "db_path is required"
-msgstr ""
+msgstr "pot_zbirke_podatkov je obvezna"
 
-#: ../src/Engine-MessageBuffer/Main.cs:165
+#: ../src/Engine-MessageBuffer/Main.cs:175
 msgid "Source format (valid values: auto, db4o, sqlite)"
-msgstr ""
+msgstr "Izvorna oblika (veljavne vrednosti: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:173
+#: ../src/Engine-MessageBuffer/Main.cs:183
 msgid "Destination format (valid values: auto, db4o, sqlite)"
-msgstr ""
+msgstr "Ciljna oblika (veljavne vrednosti: auto, db4o, sqlite)"
 
-#: ../src/Engine-MessageBuffer/Main.cs:199
+#: ../src/Engine-MessageBuffer/Main.cs:209
 #, csharp-format
 msgid ""
-"Usage: smuxi-message-buffer {0} [action-options] source_db destination_db"
+"Usage: smuxi-message-buffer {0} [action-options] source_db(s)... "
+"destination_db"
 msgstr ""
+"Raba: smuxi-message-buffer {0} [možnosti-dejanja] izvorna_zbirka(-e)... "
+"ciljna_zbirka"
 
-#: ../src/Engine-MessageBuffer/Main.cs:204
-msgid "Source file path"
-msgstr ""
+#: ../src/Engine-MessageBuffer/Main.cs:214
+msgid "Source file path(s)"
+msgstr "Pot(i) izvorne datoteke"
 
-#: ../src/Engine-MessageBuffer/Main.cs:205
+#: ../src/Engine-MessageBuffer/Main.cs:215
 msgid "Destination file path or -/empty for stdout"
-msgstr ""
+msgstr "Pot ciljne datoteke ali -/empty za stdout"
 
-#: ../src/Engine-MessageBuffer/Main.cs:216
+#: ../src/Engine-MessageBuffer/Main.cs:226
 msgid "source_db and destination_db are required"
-msgstr ""
+msgstr "izvorna_zbirka in ciljna_zbirka sta obvezni"
 
-#: ../src/Engine-MessageBuffer/Main.cs:232
+#: ../src/Engine-MessageBuffer/Main.cs:242
 msgid "sourceFile must not be empty."
-msgstr ""
+msgstr "izvornaDatoteka ne sme biti prazen."
 
-#: ../src/Engine-MessageBuffer/Main.cs:248
+#: ../src/Engine-MessageBuffer/Main.cs:251
+msgid "sourceFiles must not be empty."
+msgstr "izvorneDatoteke ne sme biti prazen."
+
+#: ../src/Engine-MessageBuffer/Main.cs:271
 #, csharp-format
 msgid "Destination database {0} must be empty!"
-msgstr ""
+msgstr "Ciljna zbirka podatkov {0} mora biti prazna!"
 
-#: ../src/Engine-MessageBuffer/Main.cs:298
+#: ../src/Engine-MessageBuffer/Main.cs:340
 #, csharp-format
 msgid "Unknown file format: '{0}'"
-msgstr ""
+msgstr "Neznana oblika zapisa datoteke: »{0}«"
 
-#: ../src/Engine-MessageBuffer/Main.cs:320
+#: ../src/Engine-MessageBuffer/Main.cs:362
 #, csharp-format
 msgid "Unsupported buffer type: '{0}'"
-msgstr ""
+msgstr "Nepodprta vrsta medpomnilnika: »{0}«"

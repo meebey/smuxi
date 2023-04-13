@@ -4,295 +4,323 @@
 # This file is distributed under the same license as the smuxi package.
 #
 # Matej Urbančič <mateju@svn.gnome.org>, 2016.
+# Martin Srebotnjak <miles@filmsi.net>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-11 21:38+0000\n"
-"PO-Revision-Date: 2016-03-11 22:56+0100\n"
-"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-07-11 15:36+0000\n"
+"PO-Revision-Date: 2022-09-27 19:05+0200\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
-"n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
-msgstr ""
+msgstr "Brez omrežnih povezav"
 
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
 #, csharp-format
 msgid "Optimizing: {0}..."
-msgstr ""
+msgstr "Optimizacija: {0}..."
 
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
 #, csharp-format
 msgid "Failed to optimize: {0}. Reason: {1}"
-msgstr ""
+msgstr "Optimizacija je spodletela: {0}. Razlog: {1}"
 
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:315
 msgid ""
 "Your chat history is no longer available because of an error but will be "
 "preserved from now on."
 msgstr ""
+"Zgodovina klepeta ni več na voljo zaradi napake, bo pa ohranjena od zdaj "
+"naprej."
 
-#: ../src/Engine/Messages/MessageBuilder.cs:771
+#: ../src/Engine/Messages/MessageBuilder.cs:789
 #, csharp-format
 msgid "{0} is typing..."
-msgstr ""
+msgstr "{0} tipka ..."
 
-#: ../src/Engine/Messages/MessageBuilder.cs:777
-#, csharp-format
+#: ../src/Engine/Messages/MessageBuilder.cs:795
+#, fuzzy, csharp-format
 msgid "{0} has stopped typing..."
-msgstr ""
+msgstr "{0} je prenehal tipkati ..."
 
-#: ../src/Engine/Messages/MessageBuilder.cs:822
-#, csharp-format
+#: ../src/Engine/Messages/MessageBuilder.cs:840
+#, fuzzy, csharp-format
 msgid "{0} is away"
-msgstr ""
+msgstr "{0} je odsoten"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:828
-#, csharp-format
+#: ../src/Engine/Messages/MessageBuilder.cs:846
+#, fuzzy, csharp-format
 msgid "{0} is offline"
-msgstr ""
+msgstr "{0} je brez povezave"
 
-#: ../src/Engine/Messages/MessageBuilder.cs:834
-#, csharp-format
+#: ../src/Engine/Messages/MessageBuilder.cs:852
+#, fuzzy, csharp-format
 msgid "{0} is online"
-msgstr ""
+msgstr "{0} je povezan"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:162
+#, fuzzy
 msgid "not connected"
-msgstr ""
+msgstr "povezani"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:193
+#, fuzzy
 msgid "Not connected to server"
-msgstr ""
+msgstr "FileZilla je že povezan s strežnikom."
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
-#: ../src/Engine/Session.cs:1067
+#: ../src/Engine/Session.cs:1083
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr ""
+msgstr "Ni dovolj parametrov za ukaz {0}"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:212
-#, csharp-format
+#, fuzzy, csharp-format
 msgid "Connected to {0}"
-msgstr ""
+msgstr "Povezani z {0}"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:242
-#, csharp-format
+#, fuzzy, csharp-format
 msgid "Disconnected from {0}"
-msgstr ""
+msgstr "Povezava z {0}"
 
-#: ../src/Engine/Session.cs:247
+#: ../src/Engine/Session.cs:213
 #, csharp-format
 msgid "Automatically connecting to {0}..."
-msgstr ""
+msgstr "Samodejno vzpostavljanje povezave s/z {0} ..."
 
-#: ../src/Engine/Session.cs:278
+#: ../src/Engine/Session.cs:248
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
-msgstr ""
+msgstr "Samodejna povezava s/z {0} ni uspela!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:505
+#: ../src/Engine/Session.cs:521
+#, fuzzy
 msgid "Engine Commands"
-msgstr ""
+msgstr "Ukazi pogona"
 
-#: ../src/Engine/Session.cs:634
+#: ../src/Engine/Session.cs:650
 msgid "Connect failed!"
-msgstr ""
+msgstr "Povezava je spodletela!"
 
-#: ../src/Engine/Session.cs:657
+#: ../src/Engine/Session.cs:673
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr ""
+msgstr "Prekinitev povezave ni uspela - strežnika ni bilo mogoče najti: {0}"
 
-#: ../src/Engine/Session.cs:699
+#: ../src/Engine/Session.cs:715
 msgid "Reconnect failed!"
-msgstr ""
+msgstr "Ponovna povezava je spodletela!"
 
-#: ../src/Engine/Session.cs:723
+#: ../src/Engine/Session.cs:739
+#, fuzzy
 msgid "Configuration reloaded"
-msgstr ""
+msgstr "Konfiguracija ponovno naložena"
 
-#: ../src/Engine/Session.cs:727
+#: ../src/Engine/Session.cs:743
+#, fuzzy
 msgid "Configuration saved"
-msgstr ""
+msgstr "Konfiguracija shranjena"
 
-#: ../src/Engine/Session.cs:754
+#: ../src/Engine/Session.cs:770
+#, fuzzy
 msgid "Invalid key/value format."
-msgstr ""
+msgstr "Neveljavna oblika ključa/vrednosti."
 
-#: ../src/Engine/Session.cs:778
-#, csharp-format
+#: ../src/Engine/Session.cs:794
+#, fuzzy, csharp-format
 msgid "Invalid config key: '{0}'"
-msgstr ""
+msgstr "Neveljaven config ključ: \"{0}\""
 
-#: ../src/Engine/Session.cs:794 ../src/Engine/Session.cs:800
-#, csharp-format
+#: ../src/Engine/Session.cs:810 ../src/Engine/Session.cs:816
+#, fuzzy, csharp-format
 msgid "Could not convert config value: '{0}' to type: {1}"
 msgstr ""
+"Vrednosti konfiguracije ni bilo mogoče pretvoriti: \"{0}\" v vrsto: {1}"
 
-#: ../src/Engine/Session.cs:814
-#, csharp-format
+#: ../src/Engine/Session.cs:830
+#, fuzzy, csharp-format
 msgid ""
 "Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
 msgstr ""
+"Neveljaven ključ za odstranjevanje konfiguracije: \"{0}\". Veljavne tipke za "
+"odstranjevanje: MessagePatterns/{{ID}}."
 
-#: ../src/Engine/Session.cs:827
-#, csharp-format
+#: ../src/Engine/Session.cs:843
+#, fuzzy, csharp-format
 msgid "Message pattern with ID: '{0}' does not exist."
-msgstr ""
+msgstr "Vzorec sporočila z ID-jem: \"{0}\" ne obstaja."
 
-#: ../src/Engine/Session.cs:834
-#, csharp-format
+#: ../src/Engine/Session.cs:850
+#, fuzzy, csharp-format
 msgid "Message pattern with ID: '{0}' removed."
-msgstr ""
+msgstr "Vzorec sporočila z ID-jem: \"{0}\" odstranjen."
 
-#: ../src/Engine/Session.cs:842
+#: ../src/Engine/Session.cs:858
+#, fuzzy
 msgid "Invalid parameter for config; use load, save, get or set."
 msgstr ""
+"Neveljaven parameter za konfiguracijo; uporabite nalaganje, shranjevanje, "
+"shranjevanje ali nastavitev."
 
-#: ../src/Engine/Session.cs:919
+#: ../src/Engine/Session.cs:935
+#, fuzzy
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr ""
+"Neveljaven parameter za omrežje; uporaba seznama, stikala ali zapiranje"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:949
+#: ../src/Engine/Session.cs:965
 msgid "Connected Networks"
-msgstr ""
+msgstr "Povezana omrežja"
 
-#: ../src/Engine/Session.cs:954 ../src/Engine/Session.cs:978
+#: ../src/Engine/Session.cs:970 ../src/Engine/Session.cs:994
 msgid "Network"
 msgstr "Omrežje"
 
-#: ../src/Engine/Session.cs:955
+#: ../src/Engine/Session.cs:971
 msgid "Protocol"
 msgstr "Protokol"
 
-#: ../src/Engine/Session.cs:956
+#: ../src/Engine/Session.cs:972
 msgid "Host"
 msgstr "Gostitelj"
 
-#: ../src/Engine/Session.cs:957
+#: ../src/Engine/Session.cs:973
 msgid "Port"
 msgstr "Vrata"
 
 #. TRANSLATOR: no connected networks
 #. TRANSLATOR: no available networks
-#: ../src/Engine/Session.cs:963 ../src/Engine/Session.cs:984
+#: ../src/Engine/Session.cs:979 ../src/Engine/Session.cs:1000
 msgid "None"
 msgstr "brez"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:970
+#: ../src/Engine/Session.cs:986
 msgid "Available Networks"
-msgstr ""
+msgstr "Razpoložljiva omrežja"
 
-#: ../src/Engine/Session.cs:998
-#, csharp-format
+#: ../src/Engine/Session.cs:1014
+#, fuzzy, csharp-format
 msgid "Network close failed - could not find network: {0}"
-msgstr ""
+msgstr "Zapiranje omrežja ni uspelo - ni bilo mogoče najti omrežja: {0}"
 
-#: ../src/Engine/Session.cs:1042
-#, csharp-format
+#: ../src/Engine/Session.cs:1058
+#, fuzzy, csharp-format
 msgid "Network switch failed - could not find network: {0}"
-msgstr ""
+msgstr "Omrežno stikalo ni uspelo - ni bilo mogoče najti omrežja: {0}"
 
-#: ../src/Engine/Session.cs:1060
+#: ../src/Engine/Session.cs:1076
+#, fuzzy
 msgid "Not connected to any network"
-msgstr ""
+msgstr "Ni vzpostavljena povezava z nobenim omrežjem"
 
-#: ../src/Engine/Session.cs:1317
-#, csharp-format
+#: ../src/Engine/Session.cs:1333
+#, fuzzy, csharp-format
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
 msgstr ""
+"Pisanje zgodovine klepeta ni uspelo. Zgodovina klepeta se ne bo ohranila. "
+"Razlog: {0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1550
+#: ../src/Engine/Session.cs:1563
 msgid "Connect failed."
-msgstr ""
+msgstr "Povezava ni uspela."
 
-#: ../src/Engine/Session.cs:1564
-#, csharp-format
+#: ../src/Engine/Session.cs:1577
+#, fuzzy, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
-msgstr ""
+msgstr "Za protokol ni najdenega upravitelja protokola: {0}"
 
-#: ../src/Engine/Session.cs:1896
+#: ../src/Engine/Session.cs:1916
 msgid "Welcome to Smuxi"
-msgstr ""
+msgstr "Dobrodošli v Smuxi"
 
-#: ../src/Engine/Session.cs:1903
+#: ../src/Engine/Session.cs:1923
+#, fuzzy
 msgid "Type /help to get a list of available commands."
-msgstr ""
+msgstr "Vnesite /pomoč, če želite dobiti seznam razpoložljivih ukazov."
 
-#: ../src/Engine/Session.cs:1909
+#: ../src/Engine/Session.cs:1929
+#, fuzzy
 msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
 "the extended command list."
 msgstr ""
+"Ko vzpostavite povezavo, se spremeni seznam razpoložljivih ukazov. Pojdite "
+"na novo odprt zavihek povezave in znova uporabite ukaz /help za ogled "
+"razširjenega ukaznega seznama."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
-msgstr ""
+msgstr "Uporabniško ime ne sme biti prazno."
 
 #: ../src/Engine/Config/UserListController.cs:127
 msgid "Password must not be empty."
-msgstr ""
+msgstr "Geslo ne sme biti prazno."
 
 #: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr ""
+msgstr "Uporabnik »{0}« ne obstaja."
 
 #: ../src/Engine/Config/UserListController.cs:145
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr ""
+msgstr "Uporabnik »{0}« že obstaja."
 
 #: ../src/Engine/Config/ServerListController.cs:118
 msgid "Network must not be empty."
-msgstr ""
+msgstr "Omrežje ne sme biti prazno."
 
 #: ../src/Engine/Config/ServerListController.cs:138
 msgid "Server hostname must not be empty."
-msgstr ""
+msgstr "Ime gostitelja strežnika ne sme biti prazno."
 
 #: ../src/Engine/Config/ServerListController.cs:141
 msgid "Server hostname contains invalid characters (newline)."
-msgstr ""
+msgstr "Ime gostitelja strežnika vsebuje neveljavne znake (nova vrstica)."
 
 #: ../src/Engine/Config/ServerListController.cs:148
 #, csharp-format
 msgid "Server ID '{0}' already exists."
-msgstr ""
+msgstr "ID strežnika »{0}« že obstaja."
 
 #: ../src/Engine/Chats/ChatModel.cs:106
-#, csharp-format
+#, fuzzy, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
 msgstr ""
+"Nalaganje zgodovine klepeta ni uspelo. Zgodovina klepeta se ne bo ohranila. "
+"Razlog: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:322
-#, csharp-format
+#: ../src/Engine/Chats/ChatModel.cs:344
+#, fuzzy, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
 msgstr ""
+"Odpiranje zgodovine klepeta za pisanje ni uspelo. Zgodovina klepeta se ne bo "
+"ohranila. Razlog: {0}"

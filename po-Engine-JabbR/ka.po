@@ -1,62 +1,56 @@
-# 'smuxi/po-Engine-JabbR/
-# Slovenian translation for smuxi.
-# Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
+# Georgian translation for smuxi.
+# Copyright (C) 2022 smuxi's COPYRIGHT HOLDER
 # This file is distributed under the same license as the smuxi package.
-#
-# Matej Urbančič <mateju@svn.gnome.org>, 2016.
-# Martin Srebotnjak <miles@filmsi.net>, 2022.
+# Ekaterine Papava <papava.e@gtu.ge>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:37+0000\n"
-"PO-Revision-Date: 2022-10-15 10:57+0200\n"
-"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
-"Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
-"Language: sl\n"
+"POT-Creation-Date: 2022-11-23 20:30+0000\n"
+"PO-Revision-Date: 2022-11-27 18:17+0100\n"
+"Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:103
 msgid "JabbR Commands"
-msgstr "Ukazi JabbeR"
+msgstr "JabbR -ის ბრძანებები"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:136
 #, csharp-format
 msgid "Joining room failed. Reason: {0}"
-msgstr "Vstop v sobo ni uspel. Razlog: {0}"
+msgstr "ოთახში შესვლის შეცდომა. მიზეზი: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:162
 #, csharp-format
 msgid "Sending message failed. Reason: {0}"
-msgstr "Pošiljanje sporočila ni uspelo. Razlog: {0}"
+msgstr "შეტყობინების გაგზავნის შეცდომა. მიზეზი: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:230
 #, csharp-format
 msgid "Connection failed! Reason: {0}"
-msgstr "Povezava ni uspela! Razlog: {0}"
+msgstr "მიერთების შეცდომა. მიზეზი: {0}"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
 #, csharp-format
 msgid "Connecting to {0}..."
-msgstr "Povezovanje z {0} ..."
+msgstr "{0}-თან მიერთება..."
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr "Ponovno povezovanje z {0} …"
+msgstr "{0} ხელახლა დაკავშირება..."
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
 msgid "not connected"
-msgstr "brez povezave"
+msgstr "არაა დაკავშირებული"
 
 #: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
 #, csharp-format
 msgid "Retrieving chat information failed. Reason: {0}"
-msgstr "Pridobivanje informacij o klepetu ni uspelo. Razlog: {0}"
+msgstr "საუბრის ინფორმაციის მიღების შეცდომა. მიზეზი: {0}"

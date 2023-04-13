@@ -1,23 +1,24 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
+# Turkish translation for smuxi.
+# Copyright (C) 2011-2022 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+#
 # Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
 # U, 2011,2013
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:33+0200\n"
-"PO-Revision-Date: 2015-05-14 21:03+0000\n"
-"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/tr/)\n"
+"Project-Id-Version: Smuxi - Server\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2022-11-02 06:19+0000\n"
+"PO-Revision-Date: 2023-02-23 07:08+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Language-Team: Turkish <gnome-turk@gnome.org>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: ../src/Server/Main.cs:65
 msgid "Add user to Server"
@@ -50,7 +51,9 @@ msgstr "Hata ayıklama çıktısını etkinleştir"
 #: ../src/Server/Main.cs:127
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
-msgstr "İleti arabelleklerini en iyi hale getir ve çık (geçerli değerler: none, defrag, index, all)"
+msgstr ""
+"İleti arabelleklerini en iyi hale getir ve çık (geçerli değerler: none, "
+"defrag, index, all)"
 
 #: ../src/Server/Main.cs:140
 msgid "Show this help"
@@ -80,9 +83,11 @@ msgstr "Komut satırı hatası: '{0}'"
 
 #: ../src/Server/Main.cs:236
 msgid ""
-"At most one of --add-user, --modify-user, and --delete-user may be used at a"
-" time."
-msgstr "Tek seferde --add-user, --modify-user ve --delete-user tercihlerinden en fazla biri kullanılabilir."
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
+msgstr ""
+"Tek seferde --add-user, --modify-user ve --delete-user tercihlerinden en "
+"fazla biri kullanılabilir."
 
 #: ../src/Server/Main.cs:246
 msgid "You must specify a username with the --username option."
@@ -103,9 +108,11 @@ msgstr "Şifre boş olmamalı"
 #: ../src/Server/Main.cs:287
 #, csharp-format
 msgid ""
-"Invalid optimization value passed to --optimize-message-buffer, valid values"
-" are: {0}"
-msgstr "--optimize-message-buffer tercihine geçersiz iyileştirme değeri geçildi, geçerli değerler: {0}"
+"Invalid optimization value passed to --optimize-message-buffer, valid values "
+"are: {0}"
+msgstr ""
+"--optimize-message-buffer tercihine geçersiz iyileştirme değeri geçildi, "
+"geçerli değerler: {0}"
 
 #: ../src/Server/Main.cs:307
 #, csharp-format
@@ -134,4 +141,4 @@ msgstr "{0} ileti arabelleği başarılı bir şekilde iyileştirildi."
 #: ../src/Server/Main.cs:393
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
-msgstr "İleti arabelleği iyileştirmesi başarısız oldu: {0}"
+msgstr "İleti arabellekleri eniyilenemedi: {0}"
