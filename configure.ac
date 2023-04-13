@@ -242,11 +242,15 @@ fi
 AC_SUBST(XBUILD_FLAGS)
 
 # Required Libraries	
-
 if test "x$(uname)" != "xDarwin"; then
+	PKG_CHECK_MODULES(MONO_ADDINS, mono-addins >= 1.0)
+	AC_SUBST(MONO_ADDINS_LIBS)
+	AM_CONDITIONAL([BUNDLE_MONO_ADDINS], false)
+
 	PKG_CHECK_MODULES([LOG4NET], [log4net])
 	AM_CONDITIONAL([BUNDLE_LOG4NET], false)
 else
+	AM_CONDITIONAL([BUNDLE_MONO_ADDINS], true)
 	AM_CONDITIONAL([BUNDLE_LOG4NET], true)
 fi
 

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Addin
+    id="smuxi-engine-jabbr"
+    version="1.1"
+    compatVersion="1.1"
+    copyright="© 2012-2014 Mirco Bauer. Licensed under the GPL license."
+    name="IRC"
+    category="Engines"
+    description="Support for JabbR protocol."
+    author="Mirco Bauer"
+    url="http://smuxi.im/"
+    defaultEnabled="true">
+
+  <Dependencies>
+    <!-- not depending on other addin, just the addinRoot -->
+    <Addin id="smuxi-engine" version="1.1"/>
+  </Dependencies>
+
+  <Extension path="/Smuxi/Server/Engine">
+    <Engine class="Smuxi.Engine.JabbrProtocolManager"/>
+  </Extension>
+</Addin>

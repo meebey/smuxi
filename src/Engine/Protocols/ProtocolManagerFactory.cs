@@ -8,6 +8,7 @@
  * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2016 Andrés G. Aragoneses <knocte@gmail.com>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -30,6 +31,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
+
+using Mono.Addins;
+
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -50,80 +54,41 @@ namespace Smuxi.Engine
         public ProtocolManagerFactory()
         {
         }
-        
-        public void LoadProtocolManager(string filename)
+
+        public void LoadAllProtocolManagers(string path)
         {
-            Trace.Call(filename);
-            
-            Assembly asm = Assembly.LoadFile(filename);
-            Type[] types;
-            try {
-                types = asm.GetTypes();
-            } catch (ReflectionTypeLoadException ex) {
+            Trace.Call(path);
+
+            AddinManager.AddinLoadError += (o, a) => {
+                //try {
+                //    AddinManager.Registry.DisableAddin (a.AddinId);
+                //} catch {}
+                throw new Exception(a.Message, a.Exception);
+            };
+
+            AddinManager.Initialize(path);
+
+            var engineAddinNodes = AddinManager.GetExtensionNodes("/Smuxi/Server/Engine");
+
+            foreach(TypeExtensionNode protocolManagerNode in engineAddinNodes) {
+                Type foundType = protocolManagerNode.Type;
 #if LOG4NET
-                _Logger.WarnFormat(
-                    "LoadProtocolManager(): GetTypes() on {0} threw exceptions",
-                    filename
-                );
-                foreach (var loaderEx in ex.LoaderExceptions) {
-                    _Logger.Warn(
-                        "LoadProtocolManager(): LoaderException: ",
-                        loaderEx
-                    );
-                    _Logger.Warn(
-                        "LoadProtocolManager(): LoaderException.InnerException: ",
-                        loaderEx.InnerException
-                    );
-                }
+                _Logger.Debug("LoadAllProtocolManagers(): found " + foundType);
 #endif
-                types = ex.Types;
-            }
-            
-            foreach (Type type in types) {
-                if (type.IsAbstract) {
-                    continue;
-                }
-                
-                Type foundType = null;
-                Type[] interfaceTypes = type.GetInterfaces();
-                foreach (Type interfaceType in interfaceTypes) {
-                    if (interfaceType == typeof(IProtocolManager)) {
-#if LOG4NET
-                        _Logger.Debug("LoadProtocolManager(): found " + type);
-#endif
-                        foundType = type;
-                        break;
-                    }
-                }
-                
-                if (foundType == null) {
-                    continue;
-                }
-                
                 // let's get the info attribute
                 object[] attrs = foundType.GetCustomAttributes(typeof(ProtocolManagerInfoAttribute), true);
                 if (attrs == null || attrs.Length == 0) {
                     throw new ArgumentException("Assembly contains IProtocolManager but misses ProtocolManagerInfoAttribute", "filename");
                     //continue;
                 }
-                
+
                 ProtocolManagerInfoAttribute attr = (ProtocolManagerInfoAttribute) attrs[0];
                 ProtocolManagerInfoModel info = new ProtocolManagerInfoModel(attr.Name, attr.Description, attr.Alias);
-                
+
                 _ProtocolManagerTypes.Add(info, foundType);
             }
         }
 
-        public void LoadAllProtocolManagers(string path)
-        {
-            Trace.Call(path);
-            
-            string[] filenames = Directory.GetFiles(path, "smuxi-engine*.dll");
-            foreach (string filename in filenames) {
-                LoadProtocolManager(filename);
-            }
-        }
-        
         public ProtocolManagerInfoModel GetProtocolManagerInfoByAlias(string alias)
         {
             foreach (ProtocolManagerInfoModel info in _ProtocolManagerTypes.Keys) {
@@ -155,7 +120,7 @@ namespace Smuxi.Engine
             if (session == null) {
                 throw new ArgumentNullException("session");
             }
-            
+
             Type type = _ProtocolManagerTypes[info];
             return (IProtocolManager) Activator.CreateInstance(type, session);
         }

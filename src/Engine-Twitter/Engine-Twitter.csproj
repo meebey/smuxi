@@ -69,4 +69,9 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Include="Engine-Twitter.addin.xml">
+      <LogicalName>Engine-Twitter.addin.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

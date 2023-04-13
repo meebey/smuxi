@@ -69,4 +69,9 @@
       <Name>ServiceStack.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Engine-Campfire.addin.xml">
+      <LogicalName>Enging-Campfire.addin.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

@@ -74,4 +74,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Include="Engine-XMPP.addin.xml">
+      <LogicalName>Engine-XMPP.addin.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
