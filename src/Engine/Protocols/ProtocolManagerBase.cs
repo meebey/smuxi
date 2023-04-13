@@ -216,8 +216,9 @@ namespace Smuxi.Engine
 
             Session.UpdateNetworkStatus();
 
-            if (Connected != null) {
-                Connected(this, e);
+            var handler = Connected;
+            if (handler != null) {
+                handler(this, e);
             }
 
             var hooks = new HookRunner("engine", "protocol-manager", "on-connected");
@@ -245,9 +246,10 @@ namespace Smuxi.Engine
             _PresenceStatus = PresenceStatus.Offline;
 
             Session.UpdateNetworkStatus();
-            
-            if (Disconnected != null) {
-                Disconnected(this, e);
+
+            var handler = Disconnected;
+            if (handler != null) {
+                handler(this, e);
             }
 
             var hooks = new HookRunner("engine", "protocol-manager", "on-disconnected");
@@ -267,8 +269,9 @@ namespace Smuxi.Engine
         {
             Trace.Call(e);
 
-            if (MessageSent != null) {
-                MessageSent(this, e);
+            var handler = MessageSent;
+            if (handler != null) {
+                handler(this, e);
             }
 
             var hooks = new HookRunner("engine", "protocol-manager", "on-message-sent");
@@ -294,8 +297,9 @@ namespace Smuxi.Engine
         {
             Trace.Call(e);
 
-            if (MessageReceived != null) {
-                MessageReceived(this, e);
+            var handler = MessageReceived;
+            if (handler != null) {
+                handler(this, e);
             }
 
             var hooks = new HookRunner("engine", "protocol-manager", "on-message-received");
@@ -321,8 +325,9 @@ namespace Smuxi.Engine
         {
             Trace.Call(e);
 
-            if (PresenceStatusChanged != null) {
-                PresenceStatusChanged(this, e);
+            var handler = PresenceStatusChanged;
+            if (handler != null) {
+                handler(this, e);
             }
 
             var hooks = new HookRunner("engine", "protocol-manager", "on-presence-status-changed");
