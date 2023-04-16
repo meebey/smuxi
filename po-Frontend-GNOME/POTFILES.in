@@ -1,4 +1,3 @@
-glade/smuxi-frontend-gnome.glade
 src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in
 src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in
 src/Frontend-GNOME/AboutDialog.cs

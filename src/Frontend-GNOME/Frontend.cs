@@ -41,7 +41,6 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string    _Name = "Smuxi";
-        private static readonly string    _GladeFilename = "smuxi-frontend-gnome.glade";
         private static readonly string    _UIName = "GNOME";
         private static int                _UIThreadID;
         private static Version            _Version;
@@ -77,12 +76,6 @@ namespace Smuxi.Frontend.Gnome
         public static string Name {
             get {
                 return _Name;
-            }
-        }
-        
-        public static string GladeFilename {
-            get {
-                return _GladeFilename;
             }
         }
         

@@ -226,7 +226,6 @@ DATA_FILES = \
 
 RESOURCES = \
 	gtk-gui/gui.stetic \
-	$(top_builddir)/glade/smuxi-frontend-gnome.glade \
 	$(top_builddir)/images/icon_256x256.png \
 	$(top_builddir)/images/group-chat_256x256.png \
 	$(top_builddir)/images/person-chat_256x256.png \
@@ -246,7 +245,6 @@ REFERENCES =  \
 	System.Web \
 	Mono.Posix \
 	$(GLIB_SHARP_20_LIBS) \
-	$(GLADE_SHARP_20_LIBS) \
 	$(GTK_SHARP_20_LIBS) \
 	$(GIO_SHARP_LIBS) \
 	$(LOG4NET_REF_LIBS) \

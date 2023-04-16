@@ -20,7 +20,7 @@ the listed applications varies.
 
 For Debian based distributions it's just a matter of the following commands:
 
-    apt-get install build-essential git autoconf automake intltool mono-devel mono-xbuild libnini-cil-dev liblog4net-cil-dev libgtk2.0-cil-dev libglade2.0-cil-dev libnotify-cil-dev libdbus2.0-cil-dev libdbus-glib2.0-cil-dev lsb-release
+    apt-get install build-essential git autoconf automake intltool mono-devel mono-xbuild libnini-cil-dev liblog4net-cil-dev libgtk2.0-cil-dev libnotify-cil-dev libdbus2.0-cil-dev libdbus-glib2.0-cil-dev lsb-release
 
 Compiling Source
 ================
