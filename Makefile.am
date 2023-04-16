@@ -49,6 +49,9 @@ DISTCLEANFILES = \
 		po/Makefile \
 		po/stamp-it \
 		po/Makefile.in
+CLEANFILES = \
+		po/.intltool-merge-cache.lock \
+		po-Frontend-GNOME/.intltool-merge-cache.lock
 
 PODIRS =	po \
 		po-Engine \
