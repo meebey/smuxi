@@ -204,7 +204,14 @@ if test "$MCS_BASENAME" = "dmcs"; then
 	CLI_RUNTIME=4.0
 fi
 if test "$MCS_BASENAME" = "mcs"; then
-	CLI_RUNTIME=4.5
+	CLI_RUNTIME=4.7.2
+fi
+if test "$CLI_RUNTIME" = "4.7.2"; then
+	if test ! -e "$($PKG_CONFIG --variable=libdir mono)/mono/4.7.2-api/mscorlib.dll" -a \
+			! -e "$($PKG_CONFIG --variable=prefix mono)/lib/mono/4.7.2-api/mscorlib.dll"; then
+		# Mono without 4.7.2 support -> downgrade to 4.5
+		CLI_RUNTIME=4.5
+	fi
 fi
 if test "$CLI_RUNTIME" = "4.5"; then
 	if test ! -e "$($PKG_CONFIG --variable=libdir mono)/mono/4.5/mscorlib.dll" -a \
@@ -220,6 +227,14 @@ if test "$CLI_RUNTIME" = "4.0"; then
 		CLI_RUNTIME=3.5
 	fi
 fi
+AC_SUBST(DOTNET_FRAMEWORK_VERSION, "$CLI_RUNTIME")
+
+# ToolsVersion and .NET Framework values:
+#  Visual Studio 2010 uses ToolsVersion 4.0 == .NET Framework 4.0
+#  Visual Studio 2012 uses ToolsVersion 4.0 == .NET Framework 4.5
+#  Visual Studio 2013 uses ToolsVersion 12.0 == .NET Framework 4.5.1
+#  Visual Studio 2015 uses ToolsVersion 14.0 == .NET Framework 4.6
+#  Visual Studio 2017 uses ToolsVersion 15.0 (not supported by mono-xbuild 6.8) == .NET Framework 4.6.1
 if test "$CLI_RUNTIME" = "3.5"; then
 	CSC_FLAGS+=" -sdk:3.5"
 	XBUILD_FLAGS="/toolsversion:3.5 /p:TargetFrameworkVersion=v3.5 /property:DefineConstants=MONO_3_5"
@@ -231,6 +246,10 @@ fi
 if test "$CLI_RUNTIME" = "4.5"; then
 	CSC_FLAGS+=" -sdk:4.5"
 	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.5 /property:DefineConstants=MONO_4_5"
+fi
+if test "$CLI_RUNTIME" = "4.7.2"; then
+	CSC_FLAGS+=" -sdk:4.7.2"
+	XBUILD_FLAGS="/toolsversion:14.0 /p:TargetFrameworkVersion=v4.7.2 /property:DefineConstants=MONO_4_5"
 fi
 # Mono's xbuild >= 5.0 no longer defaults to mcs as compiler but csc which will
 # generate debug symbol files named .pdb instead of .mdb. Since we are

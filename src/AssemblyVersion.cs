@@ -28,6 +28,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Versioning;
 
 [assembly: AssemblyDescription("Smart MUltipleXed Irc")]
 [assembly: AssemblyConfiguration("")]
@@ -38,3 +39,11 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyVersion("1.2")]
 
+// The TargetFramework attribute is used and needed by the Microsoft .NET runtime on Windows.
+// The value determines which framework version will be used at runtime.
+// On the Mono runtime this attribute has no effect.
+//
+// From https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-target-framework-and-target-platform?source=recommendations&view=vs-2022
+// The available values for TargetFrameworkVersion are:
+// v2.0, v3.0, v3.5, v4.5.2, v4.6, v4.6.1, v4.6.2, v4.7, v4.7.1, v4.7.2, and v4.8.
+[assembly: TargetFramework(".NETFramework,Version=v4.7.2", FrameworkDisplayName = ".NET Framework, Version 4.7.2")]
