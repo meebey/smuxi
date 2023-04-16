@@ -806,6 +806,8 @@ namespace Smuxi.Frontend.Gnome
             }
 
             // supported:
+            // smuxi://<network name>/#smuxi
+            // smuxi://<server host>/#smuxi
             // smuxi://freenode/#smuxi
             // smuxi://freenode/#%23csharp (##csharp)
             // irc://#smuxi
@@ -836,8 +838,10 @@ namespace Smuxi.Frontend.Gnome
             var linkProtocol = link.Scheme;
             var linkHost = link.Host;
             string linkNetwork = null;
-            if (!linkHost.Contains(".")) {
-                // this seems to be a network name
+            var serverSettings = new ServerListController(UserConfig);
+            // find server model by network name
+            if (serverSettings.GetServerByNetwork(linkHost) != null) {
+                // found a server, thus the host part in "link" is a network name
                 linkNetwork = linkHost;
             }
 
@@ -880,7 +884,6 @@ namespace Smuxi.Frontend.Gnome
                 ServerModel server = null;
                 if (!String.IsNullOrEmpty(linkNetwork)) {
                     // try to find a server with this network name and connect to it
-                    var serverSettings = new ServerListController(UserConfig);
                     server = serverSettings.GetServerByNetwork(linkNetwork);
                     if (server == null) {
                         // in case someone tried an unknown network
@@ -895,16 +898,18 @@ namespace Smuxi.Frontend.Gnome
                         Port = linkPort
                     };
                 }
-                if (server != null) {
+                if (server != null && server.Protocol != "smuxi") {
+                    // connect to server, except the protocol is "smuxi" thus not known
                     manager = Session.Connect(server, FrontendManager);
                 }
             }
 
             if (String.IsNullOrEmpty(linkChat)) {
+                // no chat name was supplied, e.g. irc://freenode/, so we are done here
                 return true;
             }
 
-            // switch to existing chat
+            // find and switch to open chat view
             foreach (var chatView in MainWindow.ChatViewManager.Chats) {
                 if (manager != null && chatView.ProtocolManager != manager) {
                     continue;
