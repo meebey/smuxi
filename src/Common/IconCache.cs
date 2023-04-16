@@ -126,7 +126,7 @@ namespace Smuxi.Common
                     onSuccess(iconPath);
                 } catch (Exception ex) {
 #if LOG4NET
-                    f_Logger.Error("IconCache: Exception", ex);
+                    f_Logger.Error("EnqueueDownload(): Exception", ex);
 #endif
                     if (onError != null) {
                         onError(ex);
