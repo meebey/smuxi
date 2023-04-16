@@ -196,6 +196,8 @@ namespace Smuxi.Frontend.Gnome
 
 #if LOG4NET
             _Logger.Info(_VersionString + " starting");
+            var runtimeDescription = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
+            _Logger.Info($"using .NET runtime: {runtimeDescription}");
 #endif
 
             InitSignalHandlers();
