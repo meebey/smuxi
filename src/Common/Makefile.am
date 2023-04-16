@@ -1,11 +1,12 @@
 
 EXTRA_DIST =  
+ASSEMBLY_COMPILER_COMMAND = @CSC@
+ASSEMBLY_COMPILER_FLAGS = @CSC_FLAGS@
 
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_RELEASE
-ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:NET_2_0,NDESK_OPTIONS,MONO_UNIX"
+ASSEMBLY_COMPILER_FLAGS +=  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:NET_2_0,NDESK_OPTIONS,MONO_UNIX"
 
 ASSEMBLY = ../../bin/release/smuxi-common.dll
 ASSEMBLY_MDB = 
@@ -16,8 +17,7 @@ BUILD_DIR = ../../bin/release
 endif
 
 if ENABLE_DEBUG
-ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -debug -optimize+ "-define:DEBUG,TRACE,LOG4NET,NET_2_0,NDESK_OPTIONS,MONO_UNIX"
+ASSEMBLY_COMPILER_FLAGS +=  -noconfig -codepage:utf8 -warn:4 -debug -optimize+ "-define:DEBUG,TRACE,LOG4NET,NET_2_0,NDESK_OPTIONS,MONO_UNIX"
 
 ASSEMBLY = ../../bin/debug/smuxi-common.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb

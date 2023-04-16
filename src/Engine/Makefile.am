@@ -1,11 +1,12 @@
 TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
 EXTRA_DIST =  
+ASSEMBLY_COMPILER_COMMAND = @CSC@
+ASSEMBLY_COMPILER_FLAGS = @CSC_FLAGS@
 
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_RELEASE
-ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:CONFIG_NINI" -define:DB4O,DB4O_8_0
+ASSEMBLY_COMPILER_FLAGS +=  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:CONFIG_NINI" -define:DB4O,DB4O_8_0
 
 ASSEMBLY = ../../bin/release/smuxi-engine.dll
 ASSEMBLY_MDB = 
@@ -19,8 +20,7 @@ SMUXI_COMMON_DLL_SOURCE=../../bin/release/smuxi-common.dll
 endif
 
 if ENABLE_DEBUG
-ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET,CONFIG_NINI" -define:DB4O,DB4O_8_0
+ASSEMBLY_COMPILER_FLAGS +=  -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET,CONFIG_NINI" -define:DB4O,DB4O_8_0
 
 ASSEMBLY = ../../bin/debug/smuxi-engine.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb

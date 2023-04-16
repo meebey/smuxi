@@ -1,11 +1,12 @@
 
 EXTRA_DIST =  
+ASSEMBLY_COMPILER_COMMAND = @CSC@
+ASSEMBLY_COMPILER_FLAGS = @CSC_FLAGS@
 
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_RELEASE
-ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+
+ASSEMBLY_COMPILER_FLAGS +=  -noconfig -codepage:utf8 -warn:4 -optimize+
 ASSEMBLY = ../../bin/release/smuxi-frontend-gnome-xmpp.dll
 ASSEMBLY_MDB = 
 COMPILE_TARGET = library
@@ -32,8 +33,7 @@ SMUXI_ENGINE_DLL_SOURCE=../../bin/release/smuxi-engine.dll
 endif
 
 if ENABLE_DEBUG
-ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET"
+ASSEMBLY_COMPILER_FLAGS +=  -noconfig -codepage:utf8 -warn:4 -optimize+ -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET"
 
 ASSEMBLY = ../../bin/debug/smuxi-frontend-gnome-xmpp.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb

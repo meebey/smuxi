@@ -57,7 +57,7 @@ appdata_in_files = smuxi-frontend-gnome.appdata.xml.in
 FRONTEND_GNOME_EXE_CONFIG_SOURCE = smuxi-frontend-gnome.exe.config
 FRONTEND_GNOME_EXE_CONFIG = $(BUILD_DIR)/smuxi-frontend-gnome.exe.config
 
-ASSEMBLY_COMPILER_COMMAND = @MCS@
+ASSEMBLY_COMPILER_COMMAND = @CSC@
 ASSEMBLY_COMPILER_FLAGS =  @CSC_FLAGS@ -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" -win32icon:$(WIN_ICON) @FRONTEND_GNOME_COMPILER_FLAGS@
 
 ASSEMBLY = ../../bin/debug/smuxi-frontend-gnome.exe
