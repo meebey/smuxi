@@ -202,7 +202,34 @@ namespace Smuxi.Common
             var webClient = new WebClient();
             webClient.Proxy = Proxy;
 
-            var content = webClient.DownloadString(websiteUrl);
+            string content;
+            try {
+                content = webClient.DownloadString(websiteUrl);
+            } catch (WebException wex) {
+#if LOG4NET
+                f_Logger.Error("DownloadServerIcon(): failed to download website content, exception", wex);
+                var enabledEncryptionProtocols = "";
+                var encryptionProtocolBitmap = ServicePointManager.SecurityProtocol;
+                if (encryptionProtocolBitmap.HasFlag((SecurityProtocolType) 48 /* SecurityProtocolType.Ssl3 */)) {
+                    enabledEncryptionProtocols += " SSLv3";
+                }
+                if (encryptionProtocolBitmap.HasFlag((SecurityProtocolType) 192 /* SecurityProtocolType.Tls10 */)) {
+                    enabledEncryptionProtocols += " TLSv1.0";
+                }
+                if (encryptionProtocolBitmap.HasFlag((SecurityProtocolType) 768 /* SecurityProtocolType.Tls11 */)) {
+                    enabledEncryptionProtocols += " TLSv1.1";
+                }
+                if (encryptionProtocolBitmap.HasFlag((SecurityProtocolType) 3072 /* SecurityProtocolType.Tls12 */)) {
+                    enabledEncryptionProtocols += " TLSv1.2";
+                }
+                if (encryptionProtocolBitmap.HasFlag((SecurityProtocolType) 12288 /* SecurityProtocolType.Tls13 */)) {
+                    enabledEncryptionProtocols += " TLSv1.3";
+                }
+                f_Logger.Debug("DownloadServerIcon(): ServicePointManager.SecurityProtocol raw value: " + (Int32) encryptionProtocolBitmap);
+                f_Logger.Info("DownloadServerIcon(): enabled transport encryption protocols: " + enabledEncryptionProtocols);
+#endif
+                throw;
+            }
             var links = new List<Dictionary<string, string>>();
             foreach (Match linkMatch in Regex.Matches(content, @"<link[\s]+([^>]*?)/?>")) {
                 var attributes = new Dictionary<string, string>();
