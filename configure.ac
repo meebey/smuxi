@@ -150,7 +150,6 @@ AC_SUBST([dist_version], "$DIST_VERSION")
 SHAMROCK_EXPAND_LIBDIR
 SHAMROCK_CHECK_MONO_MODULE(4.6.2)
 SHAMROCK_FIND_MONO_RUNTIME
-SHAMROCK_FIND_MONO_2_0_COMPILER_OR_HIGHER
 SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES([
 	System
 	System.Core
@@ -184,6 +183,9 @@ if test "x$enable_debug" = "xyes" ; then
 fi
 AC_SUBST(PROFILE)
 
+SHAMROCK_FIND_MONO_2_0_COMPILER_OR_HIGHER
+# SHAMROCK_FIND_MONO_2_0_COMPILER_OR_HIGHER sets MCS to the found mono compiler
+# supporting the highest .NET version (mcs >> dmcs >> gmcs)
 AC_SUBST(CSC, "$MCS")
 CSC_FLAGS=
 if test "x$PROFILE" = "xdebug"; then
@@ -192,7 +194,6 @@ if test "x$PROFILE" = "xdebug"; then
 else
 	AM_CONDITIONAL(ENABLE_RELEASE, true)
 fi
-AC_SUBST(CSC_FLAGS)
 
 MCS_BASENAME=$(basename $MCS)
 CLI_RUNTIME=4.5
@@ -220,12 +221,15 @@ if test "$CLI_RUNTIME" = "4.0"; then
 	fi
 fi
 if test "$CLI_RUNTIME" = "3.5"; then
+	CSC_FLAGS+=" -sdk:3.5"
 	XBUILD_FLAGS="/toolsversion:3.5 /p:TargetFrameworkVersion=v3.5 /property:DefineConstants=MONO_3_5"
 fi
 if test "$CLI_RUNTIME" = "4.0"; then
+	CSC_FLAGS+=" -sdk:4.0"
 	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.0 /property:DefineConstants=MONO_4_0"
 fi
 if test "$CLI_RUNTIME" = "4.5"; then
+	CSC_FLAGS+=" -sdk:4.5"
 	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.5 /property:DefineConstants=MONO_4_5"
 fi
 # Mono's xbuild >= 5.0 no longer defaults to mcs as compiler but csc which will
@@ -239,6 +243,7 @@ if $PKG_CONFIG 'mono >= 5.0'; then
 else
 	AC_MSG_RESULT(no)
 fi
+AC_SUBST(CSC_FLAGS)
 AC_SUBST(XBUILD_FLAGS)
 
 # Required Libraries	
