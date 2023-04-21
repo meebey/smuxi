@@ -37,7 +37,7 @@ using System.Runtime.Versioning;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("1.2")]
+[assembly: AssemblyVersion("1.2.1")]
 
 // The TargetFramework attribute is used and needed by the Microsoft .NET runtime on Windows.
 // The value determines which framework version will be used at runtime.
