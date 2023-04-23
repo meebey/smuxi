@@ -1,3 +1,14 @@
+Smuxi
+=====
+[![License](https://img.shields.io/github/license/meebey/smuxi.svg)](https://github.com/meebey/smuxi/blob/master/LICENSE) [![GitHubCI pipeline status badge](https://github.com/meebey/smuxi/workflows/auto-ci-builds/badge.svg?branch=master)](https://github.com/meebey/smuxi/commits/master) ![GitHub contributors](https://img.shields.io/github/contributors-anon/meebey/smuxi)
+
+![Twitter Follow](https://img.shields.io/twitter/follow/smuxi?style=social)
+
+![GitHub Release Date](https://img.shields.io/github/release-date/meebey/smuxi)
+![Debian package](https://img.shields.io/debian/v/smuxi)
+![Ubuntu package](https://img.shields.io/ubuntu/v/smuxi)
+![AUR version](https://img.shields.io/aur/version/smuxi?label=AUR)
+
 Software Requirements
 =====================
 First you will need to install a few libraries to compile the source
