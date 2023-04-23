@@ -1,18 +1,26 @@
-name: macOS
+name: auto-ci-builds
 
 on:
   - push
   - pull_request
 
 jobs:
-  macOS_build:
+  build_macOS-latest:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Build only
+    - name: install build dependencies
       run: |
         ./build/install-deps-macos.sh
-        ./autogen.sh && make
+    - name: check mono version
+      run: |
+        mono --version
+    - name: run autogen
+      run: |
+        ./autogen.sh
+    - name: build
+      run: |
+        make
 
 # TODO:
 #  macOS_tests_unit:
@@ -23,3 +31,24 @@ jobs:
 #      run: |
 #        ./build/install-deps-macos.sh
 #        ./autogen.sh && make && make check
+#
+
+  build_Ubuntu-latest:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: install build dependencies from debian/control
+      run: |
+        sudo apt update > /dev/null
+        sudo apt install --yes devscripts equivs > /dev/null
+        sudo mk-build-deps --install debian/control > /dev/null
+        sudo apt install --yes ./smuxi-build-deps_*.deb
+    - name: check mono version
+      run: |
+        mono --version
+    - name: autogen and configure
+      run: |
+        ./autogen.sh
+    - name: build
+      run: |
+        make
