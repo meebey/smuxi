@@ -52,3 +52,36 @@ jobs:
     - name: build
       run: |
         make
+
+  build_Mono-5_18: # lowest supported Mono version as defined in configure.ac
+    runs-on: ubuntu-latest
+    container: mono:5.18
+    steps:
+    - uses: actions/checkout@v1
+    # the official Mono container doesn't have sudo and https support for
+    # APT pre-installed
+    - name: install apt-transport-https and sudo
+      run: |
+        apt update > /dev/null || true # ignore exit code so mixed HTTP and
+          # HTTPS source lines won't fail before https support is intalled below
+        apt install --yes apt-transport-https > /dev/null
+        apt update > /dev/null
+        apt install --yes sudo > /dev/null
+    - name: install build dependencies from debian/control
+      run: |
+        sudo apt install --yes devscripts equivs > /dev/null
+        #sudo mk-build-deps --install debian/control
+        # "mk-build-deps --install" fails to install all packages, while apt can
+        # install all packages without issues, so we skip "--install" here
+        sudo mk-build-deps debian/control
+        dpkg --info ./smuxi-build-deps_*.deb
+        sudo apt install --yes ./smuxi-build-deps_*.deb
+    - name: check mono version
+      run: |
+        mono --version
+    - name: autogen and configure
+      run: |
+        ./autogen.sh
+    - name: build
+      run: |
+        make
