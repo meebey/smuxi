@@ -140,7 +140,7 @@ namespace Smuxi.Frontend.Gnome
                         System.Diagnostics.Process.Start(
                             String.Format(
                                 "https://github.com/meebey/smuxi/issues/new" +
-                                    "&title={0}" +
+                                    "?title={0}" +
                                     "&body={1}",
                                 ReportSubject,
                                 ReportDescription
