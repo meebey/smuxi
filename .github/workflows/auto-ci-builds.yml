@@ -39,6 +39,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: install build dependencies from debian/control
       run: |
+        echo "Detected APT sources:"
+        grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#
         sudo apt update > /dev/null
         sudo apt install --yes devscripts equivs > /dev/null
         sudo mk-build-deps --install debian/control > /dev/null
@@ -62,6 +64,8 @@ jobs:
     # APT pre-installed
     - name: install apt-transport-https and sudo
       run: |
+        echo "Detected APT sources:"
+        grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#
         apt update > /dev/null || true # ignore exit code so mixed HTTP and
           # HTTPS source lines won't fail before https support is intalled below
         apt install --yes apt-transport-https > /dev/null
@@ -95,6 +99,8 @@ jobs:
     # APT pre-installed
     - name: install apt-transport-https and sudo
       run: |
+        echo "Detected APT sources:"
+        grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#
         apt update > /dev/null || true # ignore exit code so mixed HTTP and
           # HTTPS source lines won't fail before https support is intalled below
         apt install --yes apt-transport-https > /dev/null
@@ -133,6 +139,8 @@ jobs:
     # APT pre-installed
     - name: install apt-transport-https and sudo
       run: |
+        echo "Detected APT sources:"
+        grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#
         apt update > /dev/null || true # ignore exit code so mixed HTTP and
           # HTTPS source lines won't fail before https support is intalled below
         apt install --yes apt-transport-https > /dev/null
