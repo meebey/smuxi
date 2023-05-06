@@ -64,11 +64,25 @@ jobs:
     # APT pre-installed
     - name: install apt-transport-https and sudo
       run: |
-        echo "Detected APT sources:"
+        echo "Current APT sources:"
+        grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#"
+        echo "The Debian stretch archived was moved to archive.debian.org, patching sources.list..."
+        sed 's/deb.debian.org/archive.debian.org/' -i /etc/apt/sources.list
+        echo "Removing security.debian.org..."
+        grep -v 'security.debian.org' /etc/apt/sources.list > /etc/apt/sources.list.new
+        cp /etc/apt/sources.list.new /etc/apt/sources.list
+        echo "Removing stretch/updates and stretch-updates..."
+        grep -v 'stretch/updates' /etc/apt/sources.list > /etc/apt/sources.list.new
+        cp /etc/apt/sources.list.new /etc/apt/sources.list
+        grep -v 'stretch-updates' /etc/apt/sources.list > /etc/apt/sources.list.new
+        cp /etc/apt/sources.list.new /etc/apt/sources.list
+        echo "New APT sources:"
         grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#"
         apt update > /dev/null || true # ignore exit code so mixed HTTP and
           # HTTPS source lines won't fail before https support is intalled below
-        apt install --yes sudo > /dev/null
+        apt install --yes apt-transport-https
+        apt update
+        apt install --yes sudo
     - name: install build dependencies from debian/control
       run: |
         sudo apt install --yes devscripts equivs > /dev/null
