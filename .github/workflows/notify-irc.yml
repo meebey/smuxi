@@ -9,6 +9,7 @@ on:
 jobs:
   notify:
     runs-on: ubuntu-latest
+    if: ${{ github.repository == 'meebey/smuxi' }}
     steps:
       - name: irc push
         uses: vmiklos/notify-irc@a52a197c9507ad7a81c1a9295c9ed24786e396b3
