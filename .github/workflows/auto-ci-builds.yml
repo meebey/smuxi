@@ -200,4 +200,4 @@ jobs:
         ./autogen.sh
     - name: build debs
       run: |
-        chronic dpkg-buildpackage -us -uc -rfakeroot --build=binary
+        dpkg-buildpackage -us -uc -rfakeroot --build=binary
