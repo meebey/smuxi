@@ -141,6 +141,7 @@ $(top_builddir)/images/256/$(PERSON_CHAT_ICON_NAME).png:
 
 FILES = \
 	../AssemblyVersion.cs \
+	../AssemblyTargetFramework.cs \
 	AssemblyInfo.cs \
 	AboutDialog.cs \
 	CrashDialog.cs \

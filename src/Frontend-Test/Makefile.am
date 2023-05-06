@@ -62,6 +62,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES)
 
 FILES = \
 	../AssemblyVersion.cs \
+	../AssemblyTargetFramework.cs \
 	AssemblyInfo.cs \
 	Frontend.cs \
 	Main.cs \

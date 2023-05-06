@@ -72,6 +72,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES)
 FILES = \
 	NotImplementedMessageDialog.cs \
 	../AssemblyVersion.cs \
+	../AssemblyTargetFramework.cs \
 	AssemblyInfo.cs \
 	MainWindow.Designer.cs \
 	MainWindow.cs \

@@ -15,6 +15,7 @@ ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
 
 SOURCES = \
 	../AssemblyVersion.cs \
+	../AssemblyTargetFramework.cs \
 	AssemblyInfo.cs \
 	Main.cs
 
