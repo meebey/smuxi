@@ -164,8 +164,8 @@ namespace Smuxi.Frontend.Gnome
                     f_SmuxiAction.Visible = false;
                     // About item is already shown in app menu
                     f_AboutAction.Visible = false;
-                } catch (EntryPointNotFoundException ex) {
-                    f_Logger.Error("Failed to initialize mac menu integration, disabling mac menu integration", ex);
+                } catch (Exception ex) when (ex is DllNotFoundException || ex is EntryPointNotFoundException) {
+                    f_Logger.Error("Failed to initialize macOS menu integration, disabling integration...", ex);
                 }
             }
         }
