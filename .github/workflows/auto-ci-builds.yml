@@ -59,6 +59,8 @@ jobs:
         make clean
     - name: compile with xbuild
       run: |
+        # reduce the compiler warning level for less noisy builds (xbuild is the 2nd pass anyway)
+        find . -name "*.csproj" -exec sed 's!<WarningLevel>[0-9]</WarningLevel>!<WarningLevel>0</WarningLevel>!' -i {} \;
         xbuild src/smuxi.sln
     - name: clean with xbuild
       run: |
