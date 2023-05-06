@@ -51,9 +51,18 @@ jobs:
     - name: autogen and configure
       run: |
         ./autogen.sh
-    - name: build
+    - name: compile with make
       run: |
         make
+    - name: clean with make
+      run: |
+        make clean
+    - name: compile with xbuild
+      run: |
+        xbuild src/smuxi.sln
+    - name: clean with xbuild
+      run: |
+        xbuild /t:Clean src/smuxi.sln
 
   build_Mono-5_18: # lowest supported Mono version as defined in configure.ac
     runs-on: ubuntu-latest
