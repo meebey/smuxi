@@ -196,7 +196,7 @@ else
 fi
 
 MCS_BASENAME=$(basename $MCS)
-CLI_RUNTIME=4.5
+CLI_RUNTIME=4.7.2
 if test "$MCS_BASENAME" = "gmcs"; then
 	CLI_RUNTIME=3.5
 fi
