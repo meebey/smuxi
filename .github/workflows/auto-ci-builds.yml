@@ -68,8 +68,6 @@ jobs:
         grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#"
         apt update > /dev/null || true # ignore exit code so mixed HTTP and
           # HTTPS source lines won't fail before https support is intalled below
-        apt install --yes apt-transport-https > /dev/null
-        apt update > /dev/null
         apt install --yes sudo > /dev/null
     - name: install build dependencies from debian/control
       run: |
