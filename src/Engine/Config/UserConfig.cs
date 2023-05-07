@@ -181,6 +181,10 @@ namespace Smuxi.Engine
                 if (IsCaching) {
                     _Cache[setting.Key] = setting.Value;
                 }
+
+#if LOG4NET && CONFIG_DEBUG
+                _Logger.Debug($"SetAll(): new setting; key: {setting.Key} value: '{setting.Value ?? "(null)"}'");
+#endif
             }
 
             // REMOTING CALL

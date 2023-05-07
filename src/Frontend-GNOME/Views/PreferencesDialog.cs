@@ -31,6 +31,9 @@ namespace Smuxi.Frontend.Gnome
 {
     public class PreferencesDialog : Gtk.Dialog
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         [UI("CategoryNotebook")] Gtk.Notebook f_CategoryNotebook;
         [UI("ConnectionToggleButton")] Gtk.ToggleButton f_ConnectionToggleButton;
         [UI("InterfaceToggleButton")] Gtk.ToggleButton f_InterfaceToggleButton;
@@ -163,6 +166,8 @@ namespace Smuxi.Frontend.Gnome
 
         void Init()
         {
+            Trace.Call();
+
             ConfigKeyToWidgetNameMap = new Dictionary<string, string>();
             var map = ConfigKeyToWidgetNameMap;
 
@@ -177,6 +182,7 @@ namespace Smuxi.Frontend.Gnome
             // Interface/Messages
             map.Add("Interface/Notebook/TimestampFormat", "TimestampFormatEntry");
             map.Add("Interface/Notebook/BufferLines", "BufferLinesSpinButton");
+            // manually handled:
             // "Interface/Notebook/StripColors"
             // "Interface/Notebook/StripFormattings"
 
@@ -212,6 +218,16 @@ namespace Smuxi.Frontend.Gnome
             // Logging
             map.Add("Logging/Enabled", "LoggingSwitch");
             map.Add("Logging/LogFilteredMessages", "LoggingLogFilteredMessagesCheckButton");
+
+            // safety check, do all widgets exist in the interface definition?
+            foreach (var widgetId in map.Values) {
+                var widget = Builder.GetObject(widgetId);
+                if (widget == null) {
+#if LOG4NET
+                    f_Logger.Error($"Init(): Builder.GetObject({widgetId}) returned null! (typo or missing UI definition?!)");
+#endif
+                }
+            }
 
             // init widgets
             f_ProxyTypeComboBox.Clear();
@@ -322,6 +338,9 @@ namespace Smuxi.Frontend.Gnome
                 var confKey = confEntry.Key;
                 var confValue = conf[confKey];
                 var widgetId = confEntry.Value;
+#if LOG4NET
+                f_Logger.Debug($"ReadFromConfig(): loading setting key: {confKey} with value: '{confValue}' for widget id: {widgetId}");
+#endif
                 var widget = Builder.GetObject(widgetId);
                 if (widget is Gtk.SpinButton) {
                     var spinButton = (Gtk.SpinButton) widget;
@@ -360,6 +379,13 @@ namespace Smuxi.Frontend.Gnome
                     } else {
                         entry.Text = (string) confValue;
                     }
+                } else {
+#if LOG4NET
+                    f_Logger.Error("ReadFromConfig(): unsuppported " +
+                                   $"widget type: {widget?.GetType()} for " + 
+                                   $"config key: {confKey} " +
+                                   $"widget id: {widgetId}, ignoring...");
+#endif
                 }
             }
         }
@@ -407,22 +433,50 @@ namespace Smuxi.Frontend.Gnome
                     var spinButton = (Gtk.SpinButton) widget;
                     if (confValue is Int32) {
                         conf[confKey] = spinButton.ValueAsInt;
+                    } else {
+#if LOG4NET
+                        f_Logger.Error("WriteToConfig(): unsuppported " +
+                                   $"type: {confValue?.GetType()} for " + 
+                                   $"config key: {confKey} " +
+                                   $"widget id: {widgetId}, ignoring...");
+#endif
                     }
                 } else if (widget is Gtk.ColorButton) {
                     var colorButton = (Gtk.ColorButton) widget;
                     if (confValue is string) {
                         conf[confKey] = ColorConverter.GetHexCode(colorButton.Color);
+                    } else {
+#if LOG4NET
+                        f_Logger.Error("WriteToConfig(): unsuppported " +
+                                   $"type: {confValue?.GetType()} for " + 
+                                   $"config key: {confKey} " +
+                                   $"widget id: {widgetId}, ignoring...");
+#endif
                     }
                 } else if (widget is Gtk.CheckButton) {
                     var checkButton = (Gtk.CheckButton) widget;
                     if (confValue is bool) {
                         conf[confKey] = checkButton.Active;
+                    } else {
+#if LOG4NET
+                        f_Logger.Error("WriteToConfig(): unsuppported " +
+                                   $"type: {confValue?.GetType()} for " + 
+                                   $"config key: {confKey} " +
+                                   $"widget id: {widgetId}, ignoring...");
+#endif
                     }
 #if GTK_SHARP_3
                 } else if (widget is Gtk.Switch) {
                     var @switch = (Gtk.Switch) widget;
                     if (confValue is bool) {
                         conf[confKey] = @switch.Active;
+                    } else {
+    #if LOG4NET
+                        f_Logger.Error("WriteToConfig(): unsuppported " +
+                                   $"type: {confValue?.GetType()} for " + 
+                                   $"config key: {confKey} " +
+                                   $"widget id: {widgetId}, ignoring...");
+    #endif
                     }
 #endif
                 } else if (widget is Gtk.TextView) {
@@ -439,6 +493,13 @@ namespace Smuxi.Frontend.Gnome
                     } else {
                         conf[confKey] = entry.Text;
                     }
+                } else {
+#if LOG4NET
+                    f_Logger.Error("WriteToConfig(): unsuppported " +
+                                   $"widget type: {widget?.GetType()} for " + 
+                                   $"config key: {confKey} " +
+                                   $"widget id: {widgetId}, ignoring...");
+#endif
                 }
             }
 
