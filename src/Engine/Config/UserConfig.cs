@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2010-2011, 2013, 2015, 2017 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2010-2011, 2013, 2015, 2017, 2021, 2023 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -176,7 +176,7 @@ namespace Smuxi.Engine
                     continue;
                 }
 
-                filteredSettings.Add(setting.Key, setting.Value);
+                filteredSettings.Add(_UserPrefix + setting.Key, setting.Value);
                 // update entry in cache
                 if (IsCaching) {
                     _Cache[setting.Key] = setting.Value;
