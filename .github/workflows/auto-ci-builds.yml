@@ -75,6 +75,7 @@ jobs:
         xbuild /p:Configuration=Release /t:Clean src/smuxi.sln
     - name: run tests
       run: |
+        sudo apt install --yes nunit-console
         make test
 
   # Mono 5.18.x ships with:
