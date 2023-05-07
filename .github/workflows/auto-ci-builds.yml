@@ -66,6 +66,8 @@ jobs:
       run: |
         xbuild /t:Clean src/smuxi.sln
 
+  # Mono 5.18.x ships with:
+  # - Debian 10 (buster)
   build_Mono-5_18: # lowest supported Mono version as defined in configure.ac
     runs-on: ubuntu-latest
     container: mono:5.18
@@ -113,6 +115,53 @@ jobs:
       run: |
         make
 
+  # Mono 6.8.0.105 ships with:
+  # - Ubuntu 20.04 LTS (focal)
+  # - Ubuntu 22.04 LTS (jammy)
+  # - Ubuntu 23.04 LTS (lunar)
+  # - Debian 11 (bullseye)
+  # - Debian 12 (bookworm)
+  build_Mono-6_8_0_105:
+    # Upstream's docker repo does not contain 6.8.105, just 6.8.0.96 and 6.8.0.123,
+    # thus we rely on the Mono version shipped with Ubuntu 22.04 instead
+    runs-on: ubuntu-22.04
+    # GitHub installs/ships Mono 6.12.x as part of their ubuntu-22.04 VM images,
+    # thus we have to use a container to use the Mono version that is actually from the Ubuntu archive
+    container: ubuntu:22.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: detect APT sources
+      run: |
+        echo "Detected APT sources:"
+        grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#"
+    - name: install sudo
+      run: |
+        apt update
+        apt install --yes sudo
+    # workaround for https://github.com/actions/runner/issues/2033
+    - name: workaround failing git ownership check
+      run: |
+        sudo apt install --yes git > /dev/null
+        git config --global --add safe.directory '*'
+    - name: install build dependencies from debian/control
+      run: |
+        DEBIAN_FRONTEND=noninteractive # prevent that package configuration waits for user input
+        export DEBIAN_FRONTEND
+        sudo -E apt install --yes devscripts equivs > /dev/null
+        sudo mk-build-deps debian/control
+        dpkg --info ./smuxi-build-deps_*.deb
+        sudo -E apt install --yes ./smuxi-build-deps_*.deb
+    - name: check mono version
+      run: |
+        mono --version
+    - name: autogen and configure
+      run: |
+        ./autogen.sh
+    - name: build
+      run: |
+        make
+
+  # Mono 6.12.x does not ship with any known Ubuntu or Debian versions
   build_Mono-6_12: # latest Mono stable LTS version
     runs-on: ubuntu-latest
     container: mono:6.12.0.182
