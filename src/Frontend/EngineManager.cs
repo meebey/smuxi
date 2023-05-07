@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2008-2013, 2015 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008-2013, 2015, 2023 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -236,6 +236,10 @@ namespace Smuxi.Frontend
                     sprovider.TypeFilterLevel = TypeFilterLevel.Full;
                     
                     if (bindAddress != null) {
+#if LOG4NET
+                        f_Logger.Info($"Connect(): binding local backward address to: {bindAddress}...");
+#endif
+                        props["bindTo"] = bindAddress; // hint .NET remoting to only listen on this bind address
                         props["machineName"] = bindAddress;
                     }
                     var tcpChannel = new TcpChannel(props, cprovider, sprovider);
