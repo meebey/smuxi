@@ -57,14 +57,22 @@ jobs:
     - name: clean with make
       run: |
         make clean
-    - name: compile with xbuild
+    - name: reduce compiler warning level
       run: |
         # reduce the compiler warning level for less noisy builds (xbuild is the 2nd pass anyway)
         find . -name "*.csproj" -exec sed 's!<WarningLevel>[0-9]</WarningLevel>!<WarningLevel>0</WarningLevel>!' -i {} \;
-        xbuild src/smuxi.sln
-    - name: clean with xbuild
+    - name: compile with xbuild (debug profile)
       run: |
-        xbuild /t:Clean src/smuxi.sln
+        xbuild /p:Configuration=Debug src/smuxi.sln
+    - name: clean with xbuild (debug profile)
+      run: |
+        xbuild /p:Configuration=Debug /t:Clean src/smuxi.sln
+    - name: compile with xbuild (release profile)
+      run: |
+        xbuild /p:Configuration=Release src/smuxi.sln
+    - name: clean with xbuild (release profile)
+      run: |
+        xbuild /p:Configuration=Release /t:Clean src/smuxi.sln
 
   # Mono 5.18.x ships with:
   # - Debian 10 (buster)
