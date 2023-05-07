@@ -73,6 +73,9 @@ jobs:
     - name: clean with xbuild (release profile)
       run: |
         xbuild /p:Configuration=Release /t:Clean src/smuxi.sln
+    - name: run tests
+      run: |
+        make test
 
   # Mono 5.18.x ships with:
   # - Debian 10 (buster)
