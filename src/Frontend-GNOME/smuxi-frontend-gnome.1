@@ -10,6 +10,7 @@
 .Op Fl e Ar engine
 .Op Fl \-new-instance
 .Op Fl \-open Ar uri
+.Op Fl \-execute-command Ar command
 .Sh DESCRIPTION
 .Nm
 is a GNOME frontend for the Smuxi chat client, powered by the GTK# library. It can operate standalone or attached to a remote Smuxi engine.
@@ -29,6 +30,9 @@ Starts a new Smuxi instance and ignores any existing sessions.a
 .It Fl \-open Ar uri , Fl \-open-link Ar uri
 Opens a URL to an IRC channel, in the following form:
 .Ql irc://irc.example.com/examplechannel
+.It Fl \-execute Ar command , Fl \-execute-command Ar command
+Executes the specified command in Smuxi. For example:
+ --execute-command '/say hi all from the command line'
 .El
 .Sh FILES
 .Bl -tag -width -compact

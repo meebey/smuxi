@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008, 2012-2013, 2015 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008, 2012-2013, 2015, 2023 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -41,6 +41,7 @@ namespace Smuxi.Frontend.Gnome
         {
             var debug = false;
             var link = String.Empty;
+            var command = String.Empty;
             var engine = String.Empty;
             var newInstance = false;
             var options = new OptionSet();
@@ -77,6 +78,13 @@ namespace Smuxi.Frontend.Gnome
                 }
             );
             options.Add(
+                "execute|execute-command=",
+                _("Executes the specified command in Smuxi"),
+                v => {
+                    command = v;
+                }
+            );
+            options.Add(
                 "new-instance",
                 _("Starts a new Smuxi instance and ignores an existing one"),
                 v => {
@@ -103,6 +111,8 @@ namespace Smuxi.Frontend.Gnome
                         Instance.FirstInstance = new CommandLineInterface();
                         if (!String.IsNullOrEmpty(link)) {
                             Instance.FirstInstance.OpenLink(link);
+                        } else if (!String.IsNullOrEmpty(command)) {
+                            Instance.FirstInstance.ExecuteCommand(command);
                         }
                     } else {
                         if (!String.IsNullOrEmpty(link)) {
@@ -113,6 +123,14 @@ namespace Smuxi.Frontend.Gnome
                             Console.WriteLine(msg);
 #endif
                             Instance.FirstInstance.OpenLink(link);
+                        } else if (!String.IsNullOrEmpty(command)) {
+                            var msg = _("Passing command to already running Smuxi instance...");
+#if LOG4NET
+                            _Logger.Info(msg);
+#else
+                            Console.WriteLine(msg);
+#endif
+                            Instance.FirstInstance.ExecuteCommand(command);
                         } else if (!newInstance) {
                             var msg = _("Bringing already running Smuxi instance to foreground...");
 #if LOG4NET
@@ -207,6 +225,22 @@ namespace Smuxi.Frontend.Gnome
                     Frontend.OpenLink(new Uri(link));
                 });
             }
+        }
+
+        public void ExecuteCommand(string cmd)
+        {
+            if (Frontend.Session == null) {
+#if LOG4NET
+                Logger.Warn($"Can't execute '{cmd}' as session isn't ready, ignoring...");
+#endif
+                return;
+            }
+            Gtk.Application.Invoke((o, e) => {
+#if LOG4NET
+                Logger.Info($"Executing '{cmd}'...");
+#endif
+                Frontend.MainWindow.Entry.ExecuteCommand(cmd);
+            });
         }
 
         public override object InitializeLifetimeService()
