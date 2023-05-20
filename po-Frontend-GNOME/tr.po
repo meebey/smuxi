@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - GNOME Frontend\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:38+0000\n"
+"POT-Creation-Date: 2023-04-16 12:45+0000\n"
 "PO-Revision-Date: 2019-05-07 09:36+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -21,425 +21,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.0.1\n"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:1
-msgid "Smuxi Preferences"
-msgstr "Smuxi Tercihler"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:2
-msgid ""
-"The nickname to use. You can specify extra nicknames (separated by spaces) "
-"which will be used as fallbacks when the first choice is not available. By "
-"default $nick_ and $nick__ will be used as fallbacks."
-msgstr ""
-"Kullanılacak takma ad. Ek takma adlar ekleyebilirsiniz (boşlukla ayırarak). "
-"Bu takma adlar ilk seçim kullanılamadığında yedek olarak kullanılacaktır. "
-"Varsayılan olarak $takmaad_ ve $takmaad__ yedek olarak kullanılacaktır."
-
-#: ../glade/smuxi-frontend-gnome.glade.h:3
-msgid "Nickname(s):"
-msgstr "Takma Ad(lar):"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:4
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
-msgid "Username:"
-msgstr "Kullanıcı Adı:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:5
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
-msgid "Realname:"
-msgstr "Gerçek Ad:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:6
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
-msgid "Encoding:"
-msgstr "Kodlama:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:7
-msgid "Automatically convert UTF-8 characters"
-msgstr "UTF-8 karakterler kendiliğinden çevrilsin"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:8
-msgid "<b>General</b>"
-msgstr "<b>Genel</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:9
-msgid "Type:"
-msgstr "Tür:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:10
-msgid "Host:"
-msgstr "Makine:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:11
-msgid "Password:"
-msgstr "Parola:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:12
-msgid "Port:"
-msgstr "Port:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:13
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
-msgid "Show Password"
-msgstr "Parolayı Göster"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:14
-msgid "<b>Network Proxy</b>"
-msgstr "<b>Vekil Sunucu</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:15
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
-msgid "On Connect Commands:"
-msgstr "Bağlanma Anı Komutları:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:16
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
-msgid "On Startup Commands:"
-msgstr "Başlatma Anı Komutları:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:17
-msgid "<b>Global Commands</b>"
-msgstr "<b>Genelgeçer Komutlar</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:18
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
-msgid "C_onnection"
-msgstr "_Bağlantı"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:19
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
-msgid "Timestamp Format:"
-msgstr "Zaman Kodu Biçimi:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:20
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
-msgid "Buffer Lines:"
-msgstr "Arabellek Satırları:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:21
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
-msgid "Engine Buffer Lines:"
-msgstr "Motor Arabellek Satırları:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:22
-msgid ""
-"ss = seconds\n"
-"mm = minutes\n"
-"hh = hours (01 - 12)\n"
-"HH = hours (00 - 23)\n"
-"tt = AM/PM\n"
-"\n"
-"dd = day\n"
-"MM = month\n"
-"yy/yyyy = year"
-msgstr ""
-"ss = saniye\n"
-"mm = dakika\n"
-"hh = saat (01 - 12)\n"
-"HH = saat (00 - 23)\n"
-"tt = AM/PM\n"
-"\n"
-"dd = gün\n"
-"MM = ay\n"
-"yy/yyyy = yıl"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:31
-msgid "Persistency Type:"
-msgstr "Kalıcılık Türü:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:32
-msgid "Volatile Buffer Lines:"
-msgstr "Geçici Arabellek Satırları:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:33
-msgid "Persistent Buffer Lines:"
-msgstr "Kalıcı Arabellek Satırları:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:34
-msgid "<b>Message Buffer</b>"
-msgstr "<b>İleti Arabelleği</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:35
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
-msgid "Strip Colors"
-msgstr "Renkleri Çıkar"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:36
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
-msgid "Strip Formattings"
-msgstr "Biçimlendirmeleri Çıkar"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:37
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
-msgid "Strip UTF-8"
-msgstr "UTF-8 Kodlamaları Çıkar"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:38
-msgid "Show Advanced Settings"
-msgstr "Gelişmiş Ayarları Göster"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:39
-msgid "<b>Advanced</b>"
-msgstr "<b>Gelişmiş</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:40
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
-msgid "General"
-msgstr "Genel"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:41
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
-msgid "Top"
-msgstr "Üst"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:42
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
-msgid "Bottom"
-msgstr "Alt"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:43
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
-msgid "Left"
-msgstr "Sol"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:44
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
-msgid "Right"
-msgstr "Sağ"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:45
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
-msgid "None"
-msgstr "Yok"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:46
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
-msgid "<b> Tabs Position </b>"
-msgstr "<b> Sekmeler Konumu </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:47
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
-msgid "Highlight"
-msgstr "Vurgulama"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:48
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
-msgid "Activity"
-msgstr "Etkinlik"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:49
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
-msgid "No Activity"
-msgstr "Durgunluk"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:50
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
-msgid "Join/Part/Mode"
-msgstr "Katılma/Ayrılma/Mod"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:51
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
-msgid "<b> Tab Colors </b>"
-msgstr "<b> Sekme Renkleri </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:52
-msgid "Automatically switch to newly opened person chats"
-msgstr "Yeni açılan kişi sohbetlerine kendiliğinden geç"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:53
-msgid "Automatically switch to newly opened group chats"
-msgstr "Yeni açılan toplu sohbetlere kendiliğinden geç"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:54
-msgid "Tree"
-msgstr "Gezinti Bölmesi"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:55
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
-msgid "Completion Character:"
-msgstr "Tamamlayıcı Simge:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:56
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
-msgid "Command Character:"
-msgstr "Komut Simgesi:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:57
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
-msgid "Command History Size:"
-msgstr "Komut Geçmişi Boyutu:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:58
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
-msgid "Bash-Style Completion"
-msgstr "Bash Tipi Tamamlama"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:59
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
-msgid "<b> Entry Field </b>"
-msgstr "<b> Girdi Alanı </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:60
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
-msgid "Input"
-msgstr "Metin Girişi"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:61
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
-msgid "Nick Colors"
-msgstr "Takma Ad Renkleri"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:62
-msgid "<b> Person List Position </b>"
-msgstr "<b> Kişi Listesi Konumu </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:63
-msgid "Override"
-msgstr "Yeni Etkin Ayar"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:64
-msgid "<b> Font </b>"
-msgstr "<b> Yazı Tipi </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:65
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
-msgid "<b> Topic Position </b>"
-msgstr "<b> Konu Konumu </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:66
-msgid "Foreground"
-msgstr "Ön plan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:67
-msgid "Background"
-msgstr "Arka plan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:68
-msgid "<b> Color </b>"
-msgstr "<b> Renk </b>"
-
-#. This is a setting for character based line wrapping vs word based when showing messages
-#: ../glade/smuxi-frontend-gnome.glade.h:70
-msgid "_Wrap Mode:"
-msgstr "_Kaydırma Yöntemi:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:71
-msgid "<b> Chat </b>"
-msgstr "<b> Sohbet </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:72
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
-msgid "Highlight words:"
-msgstr "Vurgulanacak sözcükler:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:73
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
-msgid "Beep on highlight"
-msgstr "Vurgulamada uyarı sesi"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:74
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
-msgid "<b> Highlighting </b>"
-msgstr "<b> Vurgulama </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:75
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
-msgid "Output"
-msgstr "Metin Görünümü"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:76
-msgid "Enable"
-msgstr "Etkinleştir"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:77
-msgid "Show always"
-msgstr "Sürekli göster"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:78
-msgid "Show when window is minimized"
-msgstr "Pencere simge durumundayken göster"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:79
-msgid "Show when window is closed"
-msgstr "Pencere kapalıyken göster"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:80
-msgid "<b> Notification Area Icon </b>"
-msgstr "<b> Bildirim Alanı Simgesi </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:81
-msgid "Show Smuxi in the messaging menu"
-msgstr "Smuxi'yi sohbet menüsünde göster"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:82
-msgid "<b>Messaging Menu</b>"
-msgstr "<b>Sohbet Menüsü</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:83
-msgid "Show notification popups"
-msgstr "Bildirim baloncuklarını göster"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:84
-msgid "<b>Notification Popups</b>"
-msgstr "<b>Bildirim Baloncukları</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:85
-msgid "Notification"
-msgstr "Bildirim"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:86
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
-msgid "_Interface"
-msgstr "_Arayüz"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:87
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
-msgid "_Servers"
-msgstr "_Sunucular"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:88
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
-msgid "_Filters"
-msgstr "Sü_zgeçler"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:89
-msgid "Enabled"
-msgstr "Etkin"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:90
-msgid "Log Filtered Messages"
-msgstr "Süzülen İletileri Günlüğe Kaydet"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:91
-msgid "_Logging"
-msgstr "_Günlük Tutma"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
@@ -487,8 +68,8 @@ msgid ""
 msgstr ""
 "Screen ve irssi kombinasyonundan esinlenerek, Smuxi, siz bağlı değilken "
 "bağlı kalan, birden çok ön ucun bağlı ve senkronize kalmasına olanak veren "
-"ayrılabilir sunucuya (\"normal\" bir istemci benzeri) sahiptir. Bu screen"
-"+irssi ya da IRC bouncer yazılımlarına benzerdir, ancak daha zarif ve "
+"ayrılabilir sunucuya (\"normal\" bir istemci benzeri) sahiptir. Bu "
+"screen+irssi ya da IRC bouncer yazılımlarına benzerdir, ancak daha zarif ve "
 "güçlüdür."
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:5
@@ -657,21 +238,21 @@ msgstr ""
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Sunucudan toplu sohbet listesi getirilirken hata oluştu."
 
-#: ../src/Frontend-GNOME/Frontend.cs:390
+#: ../src/Frontend-GNOME/Frontend.cs:385
 msgid "Disconnected from engine."
 msgstr "Motor ile bağlantı kesildi."
 
-#: ../src/Frontend-GNOME/Frontend.cs:433
+#: ../src/Frontend-GNOME/Frontend.cs:428
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
 msgstr "Motora yeniden bağlanılıyor... ({0}. girişim)"
 
-#: ../src/Frontend-GNOME/Frontend.cs:546
+#: ../src/Frontend-GNOME/Frontend.cs:541
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Neden: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:637
+#: ../src/Frontend-GNOME/Frontend.cs:632
 msgid ""
 "A fatal error has been detected because of a protocol incompatibility with "
 "the smuxi-server!\n"
@@ -688,7 +269,7 @@ msgstr ""
 "Bu konuda ayrıntılı bilgiyi şurada bulabilirsiniz:\n"
 "https://smuxi.im/issues/show/589"
 
-#: ../src/Frontend-GNOME/Frontend.cs:704
+#: ../src/Frontend-GNOME/Frontend.cs:699
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -696,7 +277,7 @@ msgstr ""
 "Ön ucun sunucuyla bağlantısı koptu.\n"
 "Şimdi yeniden bağlanmak istiyor musunuz?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:723
+#: ../src/Frontend-GNOME/Frontend.cs:718
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
@@ -1118,9 +699,163 @@ msgstr "Smuxi - Tercihler"
 msgid "Nicknames:"
 msgstr "Takma Adlar:"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
+msgid "Username:"
+msgstr "Kullanıcı Adı:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
+msgid "Realname:"
+msgstr "Gerçek Ad:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
+msgid "Encoding:"
+msgstr "Kodlama:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
+msgid "On Connect Commands:"
+msgstr "Bağlanma Anı Komutları:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
+msgid "On Startup Commands:"
+msgstr "Başlatma Anı Komutları:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
+msgid "C_onnection"
+msgstr "_Bağlantı"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
+msgid "Timestamp Format:"
+msgstr "Zaman Kodu Biçimi:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
+msgid "Buffer Lines:"
+msgstr "Arabellek Satırları:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
+msgid "Engine Buffer Lines:"
+msgstr "Motor Arabellek Satırları:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
+msgid "Strip Colors"
+msgstr "Renkleri Çıkar"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
+msgid "Strip Formattings"
+msgstr "Biçimlendirmeleri Çıkar"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
+msgid "Strip UTF-8"
+msgstr "UTF-8 Kodlamaları Çıkar"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
+msgid "General"
+msgstr "Genel"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
+msgid "Top"
+msgstr "Üst"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
+msgid "Bottom"
+msgstr "Alt"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
+msgid "Left"
+msgstr "Sol"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
+msgid "Right"
+msgstr "Sağ"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
+msgid "None"
+msgstr "Yok"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
+msgid "<b> Tabs Position </b>"
+msgstr "<b> Sekmeler Konumu </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
+msgid "No Activity"
+msgstr "Durgunluk"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
+msgid "Activity"
+msgstr "Etkinlik"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
+msgid "Join/Part/Mode"
+msgstr "Katılma/Ayrılma/Mod"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
+msgid "Highlight"
+msgstr "Vurgulama"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
+msgid "<b> Tab Colors </b>"
+msgstr "<b> Sekme Renkleri </b>"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
 msgid "Tabs"
 msgstr "Sekmeler"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
+msgid "Completion Character:"
+msgstr "Tamamlayıcı Simge:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
+msgid "Command Character:"
+msgstr "Komut Simgesi:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
+msgid "Command History Size:"
+msgstr "Komut Geçmişi Boyutu:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
+msgid "Bash-Style Completion"
+msgstr "Bash Tipi Tamamlama"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
+msgid "<b> Entry Field </b>"
+msgstr "<b> Girdi Alanı </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
+msgid "Input"
+msgstr "Metin Girişi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
+msgid "Nick Colors"
+msgstr "Takma Ad Renkleri"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
+msgid "<b> Topic Position </b>"
+msgstr "<b> Konu Konumu </b>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
 msgid "<b> User List Position </b>"
@@ -1130,6 +865,30 @@ msgstr "<b> Kullanıcı Listesi Konumu </b>"
 msgid "<b> Channel </b>"
 msgstr "<b> Kanal </b>"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
+msgid "Highlight words:"
+msgstr "Vurgulanacak sözcükler:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
+msgid "Beep on highlight"
+msgstr "Vurgulamada uyarı sesi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
+msgid "<b> Highlighting </b>"
+msgstr "<b> Vurgulama </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
+msgid "Output"
+msgstr "Metin Görünümü"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
+msgid "_Interface"
+msgstr "_Arayüz"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
+msgid "_Servers"
+msgstr "_Sunucular"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1652
 msgid "<b>Channel Filters</b>"
 msgstr "<b>Kanal Süzgeçleri</b>"
@@ -1137,6 +896,10 @@ msgstr "<b>Kanal Süzgeçleri</b>"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1669
 msgid "<b>User Filters</b>"
 msgstr "<b>Kullanıcı Süzgeçleri</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
+msgid "_Filters"
+msgstr "Sü_zgeçler"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:42
 msgid "Use _SSH Tunnel"
@@ -1309,6 +1072,10 @@ msgstr "A_ğ:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:105
 msgid "Nickname:"
 msgstr "Takma Ad:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
+msgid "Show Password"
+msgstr "Parolayı Göster"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:252
 msgid "_Protocol:"
