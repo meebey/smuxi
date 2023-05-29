@@ -26,6 +26,13 @@ SMUXI_FRONTEND_DLL_MDB=$(BUILD_DIR)/smuxi-frontend.dll.mdb
 SMUXI_FRONTEND_DLL_SOURCE=../../bin/debug/smuxi-frontend.dll
 SMUXI_COMMON_DLL_SOURCE=../../bin/debug/smuxi-common.dll
 
+if BUNDLE_LOG4NET
+LOG4NET_DLL_SOURCE=../../lib/log4net.dll
+LOG4NET_REF_LIBS=-r:$(LOG4NET_DLL_SOURCE)
+else
+LOG4NET_REF_LIBS=$(LOG4NET_LIBS)
+endif
+
 AL=al2
 SATELLITE_ASSEMBLY_NAME=.resources.dll
 
@@ -122,4 +129,4 @@ $(build_resx_resources) : %.resources: %.resx
 
 $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafiles) $(DLL_REFERENCES) $(PROJECT_REFERENCES) $(build_xamlg_list) $(build_satellite_assembly_list)
 	mkdir -p $(dir $(ASSEMBLY))
-	$(CSC) $(CSC_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref)
+	$(CSC) $(CSC_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref) $(LOG4NET_REF_LIBS)
