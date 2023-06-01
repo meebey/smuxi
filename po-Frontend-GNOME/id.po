@@ -2,441 +2,21 @@
 # Copyright (C) 2016 smuxi's COPYRIGHT HOLDER
 # This file is distributed under the same license as the smuxi package.
 # Andika Triwidada <atriwidada@gnome.org>, 2016.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi frontend-GNOME master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-11-04 05:46+0000\n"
-"PO-Revision-Date: 2017-11-30 14:01+0700\n"
-"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2023-05-18 01:23+0000\n"
+"PO-Revision-Date: 2023-05-18 13:12+0700\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:1
-msgid "Smuxi Preferences"
-msgstr "Preferensi Smuxi"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:2
-msgid ""
-"The nickname to use. You can specify extra nicknames (separated by spaces) "
-"which will be used as fallbacks when the first choice is not available. By "
-"default $nick_ and $nick__ will be used as fallbacks."
-msgstr ""
-"Nama panggilan yang akan dipakai. Anda dapat menyatakan nama panggilan "
-"ekstra (dipisahkan dengan spasi) yang akan dipakai sebagai cadangan ketika "
-"pilihan pertama tidak tersedia. Setelan baku adalah cadangan memakai $nick_ "
-"dan $nick__."
-
-#: ../glade/smuxi-frontend-gnome.glade.h:3
-msgid "Nickname(s):"
-msgstr "Nama alias:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:4
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
-msgid "Username:"
-msgstr "Nama pengguna:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:5
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
-msgid "Realname:"
-msgstr "Nama sebenarnya:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:6
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
-msgid "Encoding:"
-msgstr "Pengkodean:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:7
-msgid "Automatically convert UTF-8 characters"
-msgstr "Otomatis konversikan karakter UTF-8"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:8
-msgid "<b>General</b>"
-msgstr "<b>Umum</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:9
-msgid "Type:"
-msgstr "Tipe:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:10
-msgid "Host:"
-msgstr "Host:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:11
-msgid "Password:"
-msgstr "Kata Sandi:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:12
-msgid "Port:"
-msgstr "Port:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:13
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
-msgid "Show Password"
-msgstr "Tampilkan Kata Sandi"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:14
-msgid "<b>Network Proxy</b>"
-msgstr "<b>Proksi Jaringan</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:15
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
-msgid "On Connect Commands:"
-msgstr "Perintah Saat Tersambung:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:16
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
-msgid "On Startup Commands:"
-msgstr "Perintah Saat Awal Mula:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:17
-msgid "<b>Global Commands</b>"
-msgstr "<b>Perintah Global</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:18
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
-msgid "C_onnection"
-msgstr "K_oneksi"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:19
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
-msgid "Timestamp Format:"
-msgstr "Format Stempel Waktu:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:20
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
-msgid "Buffer Lines:"
-msgstr "Baris Penyangga:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:21
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
-msgid "Engine Buffer Lines:"
-msgstr "Baris Penyangga Mesin:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:22
-msgid ""
-"ss = seconds\n"
-"mm = minutes\n"
-"hh = hours (01 - 12)\n"
-"HH = hours (00 - 23)\n"
-"tt = AM/PM\n"
-"\n"
-"dd = day\n"
-"MM = month\n"
-"yy/yyyy = year"
-msgstr ""
-"ss = detik\n"
-"mm = menit\n"
-"hh = jam (01 - 12)\n"
-"HH = jam (00 - 23)\n"
-"tt = AM/PM\n"
-"\n"
-"dd = tanggal\n"
-"MM = bulan\n"
-"yy/yyyy = tahun"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:31
-msgid "Persistency Type:"
-msgstr "Tipe Persistensi:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:32
-msgid "Volatile Buffer Lines:"
-msgstr "Baris Penyangga Volatil:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:33
-msgid "Persistent Buffer Lines:"
-msgstr "Baris Penyangga Persisten:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:34
-msgid "<b>Message Buffer</b>"
-msgstr "<b>Penyangga Pesan</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:35
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
-msgid "Strip Colors"
-msgstr "Buang Warna"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:36
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
-msgid "Strip Formattings"
-msgstr "Buang Pemformatan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:37
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
-msgid "Strip UTF-8"
-msgstr "Buang UTF-8"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:38
-msgid "Show Advanced Settings"
-msgstr "Tampilkan Pengaturan Tingkat Lanjut"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:39
-msgid "<b>Advanced</b>"
-msgstr "<b>Tingkat Lanjut</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:40
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
-msgid "General"
-msgstr "Umum"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:41
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
-msgid "Top"
-msgstr "Puncak"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:42
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
-msgid "Bottom"
-msgstr "Dasar"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:43
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
-msgid "Left"
-msgstr "Kiri"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:44
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
-msgid "Right"
-msgstr "Kanan"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:45
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
-msgid "None"
-msgstr "Nihil"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:46
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
-msgid "<b> Tabs Position </b>"
-msgstr "<b> Posisi Tab </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:47
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
-msgid "Highlight"
-msgstr "Penyorotan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:48
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
-msgid "Activity"
-msgstr "Aktivitas"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:49
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
-msgid "No Activity"
-msgstr "Tidak Ada Aktivitas"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:50
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
-msgid "Join/Part/Mode"
-msgstr "Join/Part/Mode"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:51
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
-msgid "<b> Tab Colors </b>"
-msgstr "<b> Warna Tab </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:52
-msgid "Automatically switch to newly opened person chats"
-msgstr "Secara otomatis beralih ke obrolan orang yang baru dibuka"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:53
-msgid "Automatically switch to newly opened group chats"
-msgstr "Secara otomatis beralih ke obrolan grup yang baru dibuka"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:54
-msgid "Tree"
-msgstr "Pohon"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:55
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
-msgid "Completion Character:"
-msgstr "Karakter Pelengkapan:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:56
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
-msgid "Command Character:"
-msgstr "Karakter Perintah:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:57
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
-msgid "Command History Size:"
-msgstr "Ukuran Riwayat Perintah:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:58
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
-msgid "Bash-Style Completion"
-msgstr "Pelengkapan Gaya Bash"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:59
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
-msgid "<b> Entry Field </b>"
-msgstr "<b> Ruas Entri </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:60
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
-msgid "Input"
-msgstr "Masukan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:61
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
-msgid "Nick Colors"
-msgstr "Warna Panggilan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:62
-msgid "<b> Person List Position </b>"
-msgstr "<b> Posisi  Daftar Orang </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:63
-msgid "Override"
-msgstr "Timpa"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:64
-msgid "<b> Font </b>"
-msgstr "<b> Fonta </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:65
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
-msgid "<b> Topic Position </b>"
-msgstr "<b> Posisi Topik </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:66
-msgid "Foreground"
-msgstr "Latar depan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:67
-msgid "Background"
-msgstr "Latar belakang"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:68
-msgid "<b> Color </b>"
-msgstr "<b> Warna </b>"
-
-#. This is a setting for character based line wrapping vs word based when showing messages
-#: ../glade/smuxi-frontend-gnome.glade.h:70
-msgid "_Wrap Mode:"
-msgstr "Mode _Lipat:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:71
-msgid "<b> Chat </b>"
-msgstr "<b> Obrolan </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:72
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
-msgid "Highlight words:"
-msgstr "Sorot kata:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:73
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
-msgid "Beep on highlight"
-msgstr "Bunyi bip saat penyorotan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:74
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
-msgid "<b> Highlighting </b>"
-msgstr "<b> Penyorotan </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:75
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
-msgid "Output"
-msgstr "Keluaran"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:76
-msgid "Enable"
-msgstr "Memfungsikan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:77
-msgid "Show always"
-msgstr "Selalu tampilkan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:78
-msgid "Show when window is minimized"
-msgstr "Tampilkan saat jendela diminimalkan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:79
-msgid "Show when window is closed"
-msgstr "Tampilkan saat jendela ditutup"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:80
-msgid "<b> Notification Area Icon </b>"
-msgstr "<b> Ikon Area Pemberitahuan </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:81
-msgid "Show Smuxi in the messaging menu"
-msgstr "Tampilkan Smuxi pada menu perpesanan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:82
-msgid "<b>Messaging Menu</b>"
-msgstr "<b>Menu Perpesanan</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:83
-msgid "Show notification popups"
-msgstr "Tampilkan popup pemberitahuan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:84
-msgid "<b>Notification Popups</b>"
-msgstr "<b>Popup pemberitahuan</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:85
-msgid "Notification"
-msgstr "Pemberitahuan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:86
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
-msgid "_Interface"
-msgstr "_Antarmuka"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:87
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
-msgid "_Servers"
-msgstr "_Server"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:88
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
-msgid "_Filters"
-msgstr "_Penyaring"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:89
-msgid "Enabled"
-msgstr "Diaktifkan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:90
-msgid "Log Filtered Messages"
-msgstr "Pesan Log yang Disaring"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:91
-msgid "_Logging"
-msgstr "_Logging"
+"X-Generator: Poedit 3.2.2\n"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
@@ -492,13 +72,13 @@ msgstr ""
 msgid "The main window showing an IRC channel"
 msgstr "Jendela utama menampilkan kanal IRC"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:70
+#: ../src/Frontend-GNOME/AboutDialog.cs:71
 msgid "translator-credits"
 msgstr ""
 "Andika Triwidada <andika@gmail.com>, 2016.\n"
-"Kukuh Syafaat <syafaatkukuh@gmail.com>, 2017."
+"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2023."
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:83
+#: ../src/Frontend-GNOME/AboutDialog.cs:84
 msgid "Smuxi Website"
 msgstr "Situs Web Smuxi"
 
@@ -589,35 +169,43 @@ msgstr "Anda akan menempelkan {0} baris. Apakah Anda ingin melanjutkan?"
 msgid "Frontend Commands"
 msgstr "Perintah Frontend"
 
-#: ../src/Frontend-GNOME/Main.cs:49
+#: ../src/Frontend-GNOME/Main.cs:50
 msgid "Enable debug output"
 msgstr "Aktifkan keluaran awakutu"
 
-#: ../src/Frontend-GNOME/Main.cs:56
+#: ../src/Frontend-GNOME/Main.cs:57
 msgid "Show this help"
 msgstr "Tampilkan bantuan ini"
 
-#: ../src/Frontend-GNOME/Main.cs:60
+#: ../src/Frontend-GNOME/Main.cs:61
 msgid "Options:"
 msgstr "Opsi:"
 
-#: ../src/Frontend-GNOME/Main.cs:67
+#: ../src/Frontend-GNOME/Main.cs:68
 msgid "Connect to engine"
 msgstr "Sambungkan ke mesin"
 
-#: ../src/Frontend-GNOME/Main.cs:74
+#: ../src/Frontend-GNOME/Main.cs:75
 msgid "Opens the specified link in Smuxi"
 msgstr "Buka tautan yang ditentukan di Smuxi"
 
-#: ../src/Frontend-GNOME/Main.cs:81
+#: ../src/Frontend-GNOME/Main.cs:82
+msgid "Executes the specified command in Smuxi"
+msgstr "Menjalankan perintah yang ditentukan di Smuxi"
+
+#: ../src/Frontend-GNOME/Main.cs:89
 msgid "Starts a new Smuxi instance and ignores an existing one"
 msgstr "Mulai instance Smuxi baru dan abaikan yang sudah ada"
 
-#: ../src/Frontend-GNOME/Main.cs:109
+#: ../src/Frontend-GNOME/Main.cs:119
 msgid "Passing link to already running Smuxi instance..."
 msgstr "Melewati tautan yang sudah menjalankan instance Smuxi..."
 
-#: ../src/Frontend-GNOME/Main.cs:117
+#: ../src/Frontend-GNOME/Main.cs:127
+msgid "Passing command to already running Smuxi instance..."
+msgstr "Meneruskan perintah ke instance Smuxi yang sudah berjalan..."
+
+#: ../src/Frontend-GNOME/Main.cs:135
 msgid "Bringing already running Smuxi instance to foreground..."
 msgstr "Membawa instance Smuxi yang sudah berjalan ke latar depan..."
 
@@ -654,21 +242,21 @@ msgstr ""
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Kesalahan saat mengambil daftar obrolan grup dari server."
 
-#: ../src/Frontend-GNOME/Frontend.cs:390
+#: ../src/Frontend-GNOME/Frontend.cs:385
 msgid "Disconnected from engine."
 msgstr "Terputus dari mesin."
 
-#: ../src/Frontend-GNOME/Frontend.cs:433
+#: ../src/Frontend-GNOME/Frontend.cs:428
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
 msgstr "Menyambungkan kembali ke mesin... (percobaan {0})"
 
-#: ../src/Frontend-GNOME/Frontend.cs:546
+#: ../src/Frontend-GNOME/Frontend.cs:541
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Penyebab: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:638
+#: ../src/Frontend-GNOME/Frontend.cs:632
 msgid ""
 "A fatal error has been detected because of a protocol incompatibility with "
 "the smuxi-server!\n"
@@ -686,7 +274,7 @@ msgstr ""
 "Rincian lebih lanjut tentang masalah ini dapat ditemukan di sini:\n"
 "https://smuxi.im/issues/show/589"
 
-#: ../src/Frontend-GNOME/Frontend.cs:705
+#: ../src/Frontend-GNOME/Frontend.cs:699
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -694,7 +282,7 @@ msgstr ""
 "Frontend telah kehilangan sambungan ke server.\n"
 "Apakah Anda ingin menyambungkan kembali sekarang?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:724
+#: ../src/Frontend-GNOME/Frontend.cs:718
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
@@ -702,7 +290,7 @@ msgstr ""
 "Menyambungkan kembali ke server telah gagal.\n"
 "Apakah Anda ingin mencoba lagi?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:1038
+#: ../src/Frontend-GNOME/Frontend.cs:1053
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -776,21 +364,21 @@ msgstr "Mesin dengan nama ini sudah ada! Harap tentukan yang berbeda."
 msgid "Enter which chat to join"
 msgstr "Masukkan obrolan mana yang akan bergabung"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:155
 msgid "About Smuxi"
 msgstr "Tentang Smuxi"
 
 #. TODO: add cmd+, accelerator
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:159
 msgid "Preferences"
 msgstr "Preferensi"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:266
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:276
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:240
 msgid "Unable to add server: "
 msgstr "Tidak dapat menambahkan server: "
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:391
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:401
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -798,7 +386,7 @@ msgstr ""
 "Beralih ke mesin lokal akan melepaskan Anda dari mesin saat ini!\n"
 "Apakah Anda yakin ingin melakukan ini?"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:435
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:445
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -854,11 +442,11 @@ msgstr "Tipe"
 msgid "Pattern"
 msgstr "Pola"
 
-#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:224
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:240
 msgid "No Proxy"
 msgstr "Tidak Ada Proksi"
 
-#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:226
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:242
 msgid "System Default"
 msgstr "Bawaan Sistem"
 
@@ -894,11 +482,11 @@ msgstr "Mengambil daftar pengguna untuk {0}..."
 msgid "done."
 msgstr "selesai."
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:130
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:131
 msgid "Reconnect"
 msgstr "Sambungkan kembali"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:177
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:178
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
@@ -1117,9 +705,163 @@ msgstr "Smuxi - Preferensi"
 msgid "Nicknames:"
 msgstr "Nama Panggilan:"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
+msgid "Username:"
+msgstr "Nama pengguna:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
+msgid "Realname:"
+msgstr "Nama sebenarnya:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
+msgid "Encoding:"
+msgstr "Pengkodean:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
+msgid "On Connect Commands:"
+msgstr "Perintah Saat Tersambung:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
+msgid "On Startup Commands:"
+msgstr "Perintah Saat Awal Mula:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
+msgid "C_onnection"
+msgstr "K_oneksi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
+msgid "Timestamp Format:"
+msgstr "Format Stempel Waktu:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
+msgid "Buffer Lines:"
+msgstr "Baris Penyangga:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
+msgid "Engine Buffer Lines:"
+msgstr "Baris Penyangga Mesin:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
+msgid "Strip Colors"
+msgstr "Buang Warna"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
+msgid "Strip Formattings"
+msgstr "Buang Pemformatan"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
+msgid "Strip UTF-8"
+msgstr "Buang UTF-8"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
+msgid "General"
+msgstr "Umum"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
+msgid "Top"
+msgstr "Puncak"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
+msgid "Bottom"
+msgstr "Dasar"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
+msgid "Left"
+msgstr "Kiri"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
+msgid "Right"
+msgstr "Kanan"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
+msgid "None"
+msgstr "Nihil"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
+msgid "<b> Tabs Position </b>"
+msgstr "<b> Posisi Tab </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
+msgid "No Activity"
+msgstr "Tidak Ada Aktivitas"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
+msgid "Activity"
+msgstr "Aktivitas"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
+msgid "Join/Part/Mode"
+msgstr "Join/Part/Mode"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
+msgid "Highlight"
+msgstr "Penyorotan"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
+msgid "<b> Tab Colors </b>"
+msgstr "<b> Warna Tab </b>"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
 msgid "Tabs"
 msgstr "Tab"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
+msgid "Completion Character:"
+msgstr "Karakter Pelengkapan:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
+msgid "Command Character:"
+msgstr "Karakter Perintah:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
+msgid "Command History Size:"
+msgstr "Ukuran Riwayat Perintah:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
+msgid "Bash-Style Completion"
+msgstr "Pelengkapan Gaya Bash"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
+msgid "<b> Entry Field </b>"
+msgstr "<b> Ruas Entri </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
+msgid "Input"
+msgstr "Masukan"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
+msgid "Nick Colors"
+msgstr "Warna Panggilan"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
+msgid "<b> Topic Position </b>"
+msgstr "<b> Posisi Topik </b>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
 msgid "<b> User List Position </b>"
@@ -1129,6 +871,30 @@ msgstr "<b> Posisi Daftar Pengguna </b>"
 msgid "<b> Channel </b>"
 msgstr "<b> Kanal </b>"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
+msgid "Highlight words:"
+msgstr "Sorot kata:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
+msgid "Beep on highlight"
+msgstr "Bunyi bip saat penyorotan"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
+msgid "<b> Highlighting </b>"
+msgstr "<b> Penyorotan </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
+msgid "Output"
+msgstr "Keluaran"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
+msgid "_Interface"
+msgstr "_Antarmuka"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
+msgid "_Servers"
+msgstr "_Server"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1652
 msgid "<b>Channel Filters</b>"
 msgstr "<b>Penyaring Kanal</b>"
@@ -1136,6 +902,10 @@ msgstr "<b>Penyaring Kanal</b>"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1669
 msgid "<b>User Filters</b>"
 msgstr "<b>Penyaring Pengguna</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
+msgid "_Filters"
+msgstr "_Penyaring"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:42
 msgid "Use _SSH Tunnel"
@@ -1308,6 +1078,10 @@ msgstr "Jaringa_n:"
 msgid "Nickname:"
 msgstr "Nama panggilan:"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
+msgid "Show Password"
+msgstr "Tampilkan Kata Sandi"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:252
 msgid "_Protocol:"
 msgstr "_Protokol:"
@@ -1331,6 +1105,157 @@ msgstr "Perintah Saat Tersamb_ung:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
 msgid "_Ignore Commands"
 msgstr "Aba_ikan Perintah"
+
+#~ msgid "Smuxi Preferences"
+#~ msgstr "Preferensi Smuxi"
+
+#~ msgid ""
+#~ "The nickname to use. You can specify extra nicknames (separated by "
+#~ "spaces) which will be used as fallbacks when the first choice is not "
+#~ "available. By default $nick_ and $nick__ will be used as fallbacks."
+#~ msgstr ""
+#~ "Nama panggilan yang akan dipakai. Anda dapat menyatakan nama panggilan "
+#~ "ekstra (dipisahkan dengan spasi) yang akan dipakai sebagai cadangan "
+#~ "ketika pilihan pertama tidak tersedia. Setelan baku adalah cadangan "
+#~ "memakai $nick_ dan $nick__."
+
+#~ msgid "Nickname(s):"
+#~ msgstr "Nama alias:"
+
+#~ msgid "Automatically convert UTF-8 characters"
+#~ msgstr "Otomatis konversikan karakter UTF-8"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Umum</b>"
+
+#~ msgid "Type:"
+#~ msgstr "Tipe:"
+
+#~ msgid "Host:"
+#~ msgstr "Host:"
+
+#~ msgid "Password:"
+#~ msgstr "Kata Sandi:"
+
+#~ msgid "Port:"
+#~ msgstr "Port:"
+
+#~ msgid "<b>Network Proxy</b>"
+#~ msgstr "<b>Proksi Jaringan</b>"
+
+#~ msgid "<b>Global Commands</b>"
+#~ msgstr "<b>Perintah Global</b>"
+
+#~ msgid ""
+#~ "ss = seconds\n"
+#~ "mm = minutes\n"
+#~ "hh = hours (01 - 12)\n"
+#~ "HH = hours (00 - 23)\n"
+#~ "tt = AM/PM\n"
+#~ "\n"
+#~ "dd = day\n"
+#~ "MM = month\n"
+#~ "yy/yyyy = year"
+#~ msgstr ""
+#~ "ss = detik\n"
+#~ "mm = menit\n"
+#~ "hh = jam (01 - 12)\n"
+#~ "HH = jam (00 - 23)\n"
+#~ "tt = AM/PM\n"
+#~ "\n"
+#~ "dd = tanggal\n"
+#~ "MM = bulan\n"
+#~ "yy/yyyy = tahun"
+
+#~ msgid "Persistency Type:"
+#~ msgstr "Tipe Persistensi:"
+
+#~ msgid "Volatile Buffer Lines:"
+#~ msgstr "Baris Penyangga Volatil:"
+
+#~ msgid "Persistent Buffer Lines:"
+#~ msgstr "Baris Penyangga Persisten:"
+
+#~ msgid "<b>Message Buffer</b>"
+#~ msgstr "<b>Penyangga Pesan</b>"
+
+#~ msgid "Show Advanced Settings"
+#~ msgstr "Tampilkan Pengaturan Tingkat Lanjut"
+
+#~ msgid "<b>Advanced</b>"
+#~ msgstr "<b>Tingkat Lanjut</b>"
+
+#~ msgid "Automatically switch to newly opened person chats"
+#~ msgstr "Secara otomatis beralih ke obrolan orang yang baru dibuka"
+
+#~ msgid "Automatically switch to newly opened group chats"
+#~ msgstr "Secara otomatis beralih ke obrolan grup yang baru dibuka"
+
+#~ msgid "Tree"
+#~ msgstr "Pohon"
+
+#~ msgid "<b> Person List Position </b>"
+#~ msgstr "<b> Posisi  Daftar Orang </b>"
+
+#~ msgid "Override"
+#~ msgstr "Timpa"
+
+#~ msgid "<b> Font </b>"
+#~ msgstr "<b> Fonta </b>"
+
+#~ msgid "Foreground"
+#~ msgstr "Latar depan"
+
+#~ msgid "Background"
+#~ msgstr "Latar belakang"
+
+#~ msgid "<b> Color </b>"
+#~ msgstr "<b> Warna </b>"
+
+#~ msgid "_Wrap Mode:"
+#~ msgstr "Mode _Lipat:"
+
+#~ msgid "<b> Chat </b>"
+#~ msgstr "<b> Obrolan </b>"
+
+#~ msgid "Enable"
+#~ msgstr "Memfungsikan"
+
+#~ msgid "Show always"
+#~ msgstr "Selalu tampilkan"
+
+#~ msgid "Show when window is minimized"
+#~ msgstr "Tampilkan saat jendela diminimalkan"
+
+#~ msgid "Show when window is closed"
+#~ msgstr "Tampilkan saat jendela ditutup"
+
+#~ msgid "<b> Notification Area Icon </b>"
+#~ msgstr "<b> Ikon Area Pemberitahuan </b>"
+
+#~ msgid "Show Smuxi in the messaging menu"
+#~ msgstr "Tampilkan Smuxi pada menu perpesanan"
+
+#~ msgid "<b>Messaging Menu</b>"
+#~ msgstr "<b>Menu Perpesanan</b>"
+
+#~ msgid "Show notification popups"
+#~ msgstr "Tampilkan popup pemberitahuan"
+
+#~ msgid "<b>Notification Popups</b>"
+#~ msgstr "<b>Popup pemberitahuan</b>"
+
+#~ msgid "Notification"
+#~ msgstr "Pemberitahuan"
+
+#~ msgid "Enabled"
+#~ msgstr "Diaktifkan"
+
+#~ msgid "Log Filtered Messages"
+#~ msgstr "Pesan Log yang Disaring"
+
+#~ msgid "_Logging"
+#~ msgstr "_Logging"
 
 #~ msgid "Character"
 #~ msgstr "Karakter"
