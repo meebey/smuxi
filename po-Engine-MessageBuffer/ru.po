@@ -1,0 +1,137 @@
+# Russian translation for smuxi.
+# Copyright (C) 2023 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Sergej A. <asvmail.as@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/"
+"issues\n"
+"POT-Creation-Date: 2023-05-23 13:16+0000\n"
+"PO-Revision-Date: 2023-05-26 06:51+1000\n"
+"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: ../src/Engine-MessageBuffer/Main.cs:49
+msgid "Enable debug output"
+msgstr "Включить вывод отладочной информации"
+
+#: ../src/Engine-MessageBuffer/Main.cs:55
+#: ../src/Engine-MessageBuffer/Main.cs:141
+#: ../src/Engine-MessageBuffer/Main.cs:205
+msgid "Show this help"
+msgstr "Показать эту справку"
+
+#: ../src/Engine-MessageBuffer/Main.cs:88
+#, csharp-format
+msgid "Unknown action: '{0}'"
+msgstr "Неизвестное действие: «{0}»"
+
+#: ../src/Engine-MessageBuffer/Main.cs:95
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Ошибка командной строки: {0}"
+
+#: ../src/Engine-MessageBuffer/Main.cs:104
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr ""
+"Использование: smuxi-message-buffer [параметры] действие "
+"параметры-действия"
+
+#: ../src/Engine-MessageBuffer/Main.cs:106
+msgid "Actions:"
+msgstr "Действия:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:110
+#: ../src/Engine-MessageBuffer/Main.cs:152
+#: ../src/Engine-MessageBuffer/Main.cs:217
+msgid "Options:"
+msgstr "Параметры:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:119
+msgid "Database format (valid values: auto, db4o, sqlite)"
+msgstr ""
+"Формат базы данных (допустимые значения: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:134
+#: ../src/Engine-MessageBuffer/Main.cs:198
+#, csharp-format
+msgid "Unknown {0} option: '{1}'"
+msgstr "Неизвестный {0} параметр: «{1}»"
+
+#: ../src/Engine-MessageBuffer/Main.cs:145
+#, csharp-format
+msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
+msgstr ""
+"Использование: smuxi-message-buffer {0} [параметры-действия] "
+"путь_к_базе_данных"
+
+#: ../src/Engine-MessageBuffer/Main.cs:150
+msgid "Database path(s)"
+msgstr "Путь к базе данных"
+
+#: ../src/Engine-MessageBuffer/Main.cs:161
+msgid "db_path is required"
+msgstr "требуется путь к базе данных"
+
+#: ../src/Engine-MessageBuffer/Main.cs:175
+msgid "Source format (valid values: auto, db4o, sqlite)"
+msgstr "Формат источника (допустимые значения: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:183
+msgid "Destination format (valid values: auto, db4o, sqlite)"
+msgstr "Целевой формат (допустимые значения: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:209
+#, csharp-format
+msgid ""
+"Usage: smuxi-message-buffer {0} [action-options] source_db(s)... "
+"destination_db"
+msgstr ""
+"Использование: smuxi-message-buffer {0} [параметры-действия] "
+"исходная(ые)_база(ы)... целевая_база"
+
+#: ../src/Engine-MessageBuffer/Main.cs:214
+msgid "Source file path(s)"
+msgstr "Путь(и) к исходным файлам"
+
+#: ../src/Engine-MessageBuffer/Main.cs:215
+msgid "Destination file path or -/empty for stdout"
+msgstr ""
+"Путь к файлу назначения (или оставить пустым) для стандартного "
+"вывода"
+
+#: ../src/Engine-MessageBuffer/Main.cs:226
+msgid "source_db and destination_db are required"
+msgstr "Требуется исходная_бд и целевая_бд."
+
+#: ../src/Engine-MessageBuffer/Main.cs:242
+msgid "sourceFile must not be empty."
+msgstr "Исходный файл не может быть пустым."
+
+#: ../src/Engine-MessageBuffer/Main.cs:251
+msgid "sourceFiles must not be empty."
+msgstr "Исходные файлы не могут быть пустыми."
+
+#: ../src/Engine-MessageBuffer/Main.cs:271
+#, csharp-format
+msgid "Destination database {0} must be empty!"
+msgstr "Целевая база данных {0} должна быть пустой!"
+
+#: ../src/Engine-MessageBuffer/Main.cs:340
+#, csharp-format
+msgid "Unknown file format: '{0}'"
+msgstr "Неизвестный формат файла: «{0}»"
+
+#: ../src/Engine-MessageBuffer/Main.cs:362
+#, csharp-format
+msgid "Unsupported buffer type: '{0}'"
+msgstr "Неподдерживаемый тип буфера: «{0}»"
