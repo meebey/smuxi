@@ -296,4 +296,4 @@ jobs:
     - uses: actions/checkout@v1
     - name: build nix pkg
       run: |
-        nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./nix/default.nix { }'
+        nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./nix/default.nix { gitBranch = "${{ github.ref_name }}"; }'
