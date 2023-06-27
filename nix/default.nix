@@ -1,5 +1,5 @@
 # build with:
-# nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./default.nix { }'
+# nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./default.nix { gitBranch = "BRANCH_REF" }'
 { stdenv, pkgs
 , autoconf, automake, itstool, intltool, pkg-config
 , glib
@@ -10,6 +10,7 @@
 , guiSupport ? true
 , gtk-sharp-2_0
 , gdk-pixbuf, gnome2 # these libraries are loaded/needed at runtime
+, gitBranch ? "master"
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
 
   src = fetchGit {
     url = "https://github.com/meebey/smuxi.git";
-    ref = "master";
+    ref = gitBranch;
     submodules = true;
   };
 
