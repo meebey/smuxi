@@ -287,3 +287,13 @@ jobs:
     - name: build debs
       run: |
         dpkg-buildpackage -us -uc -rfakeroot --build=binary
+
+
+  build_nix_NixOS-stable:
+    runs-on: ubuntu-latest
+    container: nixos/nix
+    steps:
+    - uses: actions/checkout@v1
+    - name: build nix pkg
+      run: |
+        nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./nix/default.nix { }'
