@@ -267,7 +267,7 @@ AC_SUBST(XBUILD_FLAGS)
 
 # Required Libraries	
 
-if test "x$(uname)" != "xDarwin"; then
+if test "x$(uname)" != "xDarwin" -a ! -e lib/log4net.dll; then
 	PKG_CHECK_MODULES([LOG4NET], [log4net])
 	AM_CONDITIONAL([BUNDLE_LOG4NET], false)
 else
@@ -286,7 +286,7 @@ else
 fi
 
 nini_files=
-if test "x$(uname)" != "xDarwin"; then
+if test "x$(uname)" != "xDarwin" -a ! -e lib/Nini.dll; then
 	PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
 	if test "x$FOUND_NINI" = "xyes"; then
 		nini_files=`pkg-config --variable=Libraries nini-1.1`
