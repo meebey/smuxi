@@ -268,12 +268,18 @@ jobs:
         grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#"
         apt update
         apt install --yes sudo moreutils
-    - name: install build dependencies from debian/control
+    # we can't use debian/control to satisfy the build dependencies on Debian
+    # 12 (bookwarm) as log4net was removed from the archive. Thus we rely on the
+    # bundled libraries instead.
+    #- name: install build dependencies from debian/control
+    #  run: |
+    #    sudo apt install --yes devscripts equivs
+    #    sudo mk-build-deps debian/control
+    #    dpkg --info ./smuxi-build-deps_*.deb
+    #    sudo apt install --yes ./smuxi-build-deps_*.deb
+    - name: install build dependencies
       run: |
-        sudo apt install --yes devscripts equivs
-        sudo mk-build-deps debian/control
-        dpkg --info ./smuxi-build-deps_*.deb
-        sudo apt install --yes ./smuxi-build-deps_*.deb
+        sudo apt install --yes build-essential git autoconf automake intltool mono-devel mono-xbuild libnini-cil-dev libgtk2.0-cil-dev libdbus2.0-cil-dev libdbus-glib2.0-cil-dev libstfl-dev lsb-release
     - name: check mono version
       run: |
         mono --version
@@ -284,9 +290,12 @@ jobs:
     - name: prepare build
       run: |
         ./autogen.sh
+    - name: install tools for building debs
+      run: |
+        sudo apt install --yes build-essential debhelper cli-common-dev
     - name: build debs
       run: |
-        dpkg-buildpackage -us -uc -rfakeroot --build=binary
+        dpkg-buildpackage -us -uc -rfakeroot --build=binary --no-check-builddeps
 
   build_debs_Debian-unstable:
     runs-on: ubuntu-latest

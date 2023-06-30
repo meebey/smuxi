@@ -22,10 +22,10 @@ override_dh_auto_configure:
 	  --enable-frontend-gnome \
 	  --enable-frontend-stfl \
 	  --with-db4o=included \
-	  --with-notify \
 	  --with-dbus \
 	  $(DISABLE_JABBR) \
 	  GMCS=/usr/bin/mono-csc MCS=/usr/bin/mono-csc
+	# --with-notif \ # Debian 12 (bookworm) does not ship with notify-sharp
 
 # disable "make check"
 override_dh_auto_test:
