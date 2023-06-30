@@ -288,6 +288,39 @@ jobs:
       run: |
         dpkg-buildpackage -us -uc -rfakeroot --build=binary
 
+  build_debs_Debian-unstable:
+    runs-on: ubuntu-latest
+    container: debian:unstable
+    steps:
+    - uses: actions/checkout@v1
+    - name: check Debian version
+      run: |
+        cat /etc/debian_version
+    - name: install sudo and moreutils (for chronic)
+      run: |
+        echo "Detected APT sources:"
+        grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#"
+        apt update
+        apt install --yes sudo moreutils
+    - name: install build dependencies from debian/control
+      run: |
+        sudo apt install --yes devscripts equivs
+        sudo mk-build-deps debian/control
+        dpkg --info ./smuxi-build-deps_*.deb
+        sudo apt install --yes ./smuxi-build-deps_*.deb
+    - name: check mono version
+      run: |
+        mono --version
+    - name: workaround failing git ownership check
+      run: |
+        sudo apt install --yes git > /dev/null
+        git config --global --add safe.directory '*'
+    - name: prepare build
+      run: |
+        ./autogen.sh
+    - name: build debs
+      run: |
+        dpkg-buildpackage -us -uc -rfakeroot --build=binary
 
   build_nix_NixOS-stable:
     runs-on: ubuntu-latest
