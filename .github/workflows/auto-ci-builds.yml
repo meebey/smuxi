@@ -254,7 +254,7 @@ jobs:
       run: |
         make
 
-  build_debs_Debian_stable:
+  build_debs_Debian-stable:
     runs-on: ubuntu-latest
     container: debian:stable
     steps:
