@@ -11,16 +11,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - GNOME Frontend\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2023-04-16 12:45+0000\n"
-"PO-Revision-Date: 2019-05-07 09:36+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2023-05-20 06:33+0000\n"
+"PO-Revision-Date: 2023-05-29 23:47+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
@@ -173,37 +173,45 @@ msgstr "{0} satır yapıştıracaksınız. Devam etmek istiyor musunuz?"
 msgid "Frontend Commands"
 msgstr "Ön uç Komutları"
 
-#: ../src/Frontend-GNOME/Main.cs:49
+#: ../src/Frontend-GNOME/Main.cs:50
 msgid "Enable debug output"
 msgstr "Hata ayıklama çıktısını etkinleştir"
 
-#: ../src/Frontend-GNOME/Main.cs:56
+#: ../src/Frontend-GNOME/Main.cs:57
 msgid "Show this help"
 msgstr "Bu yardımı göster"
 
-#: ../src/Frontend-GNOME/Main.cs:60
+#: ../src/Frontend-GNOME/Main.cs:61
 msgid "Options:"
 msgstr "Tercihler:"
 
-#: ../src/Frontend-GNOME/Main.cs:67
+#: ../src/Frontend-GNOME/Main.cs:68
 msgid "Connect to engine"
 msgstr "Motora bağlan"
 
-#: ../src/Frontend-GNOME/Main.cs:74
+#: ../src/Frontend-GNOME/Main.cs:75
 msgid "Opens the specified link in Smuxi"
 msgstr "Belirtilen bağlantıyı Smuxi içinde açar"
 
-#: ../src/Frontend-GNOME/Main.cs:81
+#: ../src/Frontend-GNOME/Main.cs:82
+msgid "Executes the specified command in Smuxi"
+msgstr "Belirtilen komutu Smuxiʼde yürütür"
+
+#: ../src/Frontend-GNOME/Main.cs:89
 msgid "Starts a new Smuxi instance and ignores an existing one"
-msgstr "Yeni bir Smuxi süreci başlatır ve varolan süreci yok sayar"
+msgstr "Yeni bir Smuxi örneği başlatır ve varolan süreci yok sayar"
 
-#: ../src/Frontend-GNOME/Main.cs:109
+#: ../src/Frontend-GNOME/Main.cs:119
 msgid "Passing link to already running Smuxi instance..."
-msgstr "Çalışmakta olan Smuxi sürecine bağlantı gönderiliyor..."
+msgstr "Çalışmakta olan Smuxi örneğine bağlantı gönderiliyor..."
 
-#: ../src/Frontend-GNOME/Main.cs:117
+#: ../src/Frontend-GNOME/Main.cs:127
+msgid "Passing command to already running Smuxi instance..."
+msgstr "Çalışmakta olan Smuxi örneğine komut gönderiliyor..."
+
+#: ../src/Frontend-GNOME/Main.cs:135
 msgid "Bringing already running Smuxi instance to foreground..."
-msgstr "Çalışmakta olan Smuxi süreci ön plana getiriliyor..."
+msgstr "Çalışmakta olan Smuxi örneği ön plana getiriliyor..."
 
 #: ../src/Frontend-GNOME/MainWindow.cs:374
 #, csharp-format
@@ -437,11 +445,11 @@ msgstr "Tür"
 msgid "Pattern"
 msgstr "Kalıp"
 
-#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:224
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:240
 msgid "No Proxy"
 msgstr "Vekil Sunucu Yok"
 
-#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:226
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:242
 msgid "System Default"
 msgstr "Sistem Varsayılanı"
 
