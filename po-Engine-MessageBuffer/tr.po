@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - Engine-MessageBuffer\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:37+0000\n"
-"PO-Revision-Date: 2019-07-21 17:28+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2022-11-02 06:18+0000\n"
+"PO-Revision-Date: 2023-05-31 03:55+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 3.32.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: ../src/Engine-MessageBuffer/Main.cs:49
 msgid "Enable debug output"
@@ -56,7 +56,7 @@ msgstr "Seçenekler:"
 
 #: ../src/Engine-MessageBuffer/Main.cs:119
 msgid "Database format (valid values: auto, db4o, sqlite)"
-msgstr "Veritabanı biçimi (geçerli değerler: auto, db4o, sqlite)"
+msgstr "Veri tabanı biçimi (geçerli değerler: auto, db4o, sqlite)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:134
 #: ../src/Engine-MessageBuffer/Main.cs:198
@@ -71,7 +71,7 @@ msgstr "Kullanım: smuxi-message-buffer {0} [eylem-seçenekleri] db_path"
 
 #: ../src/Engine-MessageBuffer/Main.cs:150
 msgid "Database path(s)"
-msgstr "Veritabanı yolu"
+msgstr "Veri tabanı yolu"
 
 #: ../src/Engine-MessageBuffer/Main.cs:161
 msgid "db_path is required"
@@ -117,7 +117,7 @@ msgstr "kaynakDosyalar boş olamaz."
 #: ../src/Engine-MessageBuffer/Main.cs:271
 #, csharp-format
 msgid "Destination database {0} must be empty!"
-msgstr "Hedef veritabanı {0} boş olmalıdır!"
+msgstr "Hedef veri tabanı {0} boş olmalıdır!"
 
 #: ../src/Engine-MessageBuffer/Main.cs:340
 #, csharp-format
