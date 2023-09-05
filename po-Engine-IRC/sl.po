@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:36+0000\n"
-"PO-Revision-Date: 2022-11-22 20:32+0100\n"
+"POT-Creation-Date: 2022-11-22 19:35+0000\n"
+"PO-Revision-Date: 2023-09-05 23:02+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:256
 #, csharp-format
@@ -170,7 +170,6 @@ msgid "queued joins: {0}"
 msgstr "pridružitve na čakanju: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1773
-#, fuzzy
 msgid "IRC Op"
 msgstr "Op IRC"
 
@@ -179,17 +178,14 @@ msgid "Owner"
 msgstr "Lastnik"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1777
-#, fuzzy
 msgid "ChanAdmin"
 msgstr "AdminKanala"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1779
-#, fuzzy
 msgid "Op"
 msgstr "Op"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1781
-#, fuzzy
 msgid "Halfop"
 msgstr "Pol_op"
 
@@ -224,12 +220,10 @@ msgid "No ban exceptions in channel"
 msgstr "V kanalu ni izjem prepovedi"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2109
-#, fuzzy
 msgid "invite exception"
 msgstr "izjema povabila"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2120
-#, fuzzy
 msgid "No invite exceptions in channel"
 msgstr "V kanalu ni izjem povabil"
 
@@ -253,9 +247,9 @@ msgid "Users"
 msgstr "Uporabniki"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2342
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
-msgstr "Skupaj {0} uporabnikov [{1} ops, {2} glasov, {3} navadnih]"
+msgstr "Skupaj {0} uporabnikov [{1} op-ov, {2} glasov, {3} navadnih]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2480
 msgid "Connection error! Reason: "
@@ -276,7 +270,7 @@ msgid "{0}: No such nick/channel"
 msgstr "{0}: ni takšnega vzdevka/kanala"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2864
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "Increased send delay to {0}ms to avoid being flooded off the server again."
 msgstr ""
@@ -293,7 +287,6 @@ msgid "Cannot join to channel:"
 msgstr "Ni se mogoče pridružiti kanalu:"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2897
-#, fuzzy
 msgid "You are banned"
 msgstr "Imate prepoved"
 
@@ -327,14 +320,14 @@ msgid "{0} [{1}] has left {2}"
 msgstr "{0} [{1}] je zapustil {2}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3442
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "You were kicked from {0} by {1}"
-msgstr "Iz {0} vas je brcnil {1}"
+msgstr "Iz {0} vas je brcnil_a {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3450
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "{0} was kicked from {1} by {2}"
-msgstr "{0} je {2} vrgel iz {1}"
+msgstr "{0} je {2} vrgel_a iz {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3468
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3500
@@ -358,7 +351,7 @@ msgid "Mode change [{0}] for user {1}"
 msgstr "Sprememba načina [{0}] za uporabnika {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3728
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "mode/{0} [{1}] by {2}"
 msgstr "mode/{0} [{1}] s strani {2}"
 
