@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - GNOME Frontend\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2023-05-20 06:33+0000\n"
-"PO-Revision-Date: 2023-05-29 23:47+0300\n"
+"POT-Creation-Date: 2023-07-15 15:22+0000\n"
+"PO-Revision-Date: 2023-10-17 17:48+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
@@ -638,7 +638,7 @@ msgstr "_Önceki Sohbet"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
 msgid "_Close"
-msgstr "Ka_pat"
+msgstr "_Kapat"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
