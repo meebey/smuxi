@@ -6,10 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=smuxi&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2018-03-10 16:20+0000\n"
-"PO-Revision-Date: 2018-04-18 21:36+0300\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2023-05-18 01:23+0000\n"
+"PO-Revision-Date: 2023-10-21 16:14+0300\n"
+"Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
+"gmail [dot] com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -17,427 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);;\n"
-"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
-"X-Generator: Poedit 2.0.6\n"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:1
-msgid "Smuxi Preferences"
-msgstr "Preferințe Smuxi"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:2
-msgid ""
-"The nickname to use. You can specify extra nicknames (separated by spaces) "
-"which will be used as fallbacks when the first choice is not available. By "
-"default $nick_ and $nick__ will be used as fallbacks."
-msgstr ""
-"Pseudonimul de utilizat. Puteți specifica pseudonime extra (separate prin "
-"spații) care vor fi utilizate ca rezerve când prima alegere nu este "
-"disponibilă. Implicit $nick_ și $nick__ vor fi utilizate ca rezerve."
-
-#: ../glade/smuxi-frontend-gnome.glade.h:3
-msgid "Nickname(s):"
-msgstr "Pseudonim(e):"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:4
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
-msgid "Username:"
-msgstr "Nume de utilizator:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:5
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
-msgid "Realname:"
-msgstr "Nume real:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:6
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
-msgid "Encoding:"
-msgstr "Codare:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:7
-msgid "Automatically convert UTF-8 characters"
-msgstr "Convertește automat caracterele UTF-8"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:8
-msgid "<b>General</b>"
-msgstr "<b>Generale</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:9
-msgid "Type:"
-msgstr "Tip:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:10
-msgid "Host:"
-msgstr "Gazdă:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:11
-msgid "Password:"
-msgstr "Parolă:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:12
-msgid "Port:"
-msgstr "Port:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:13
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
-msgid "Show Password"
-msgstr "Afișează parola"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:14
-msgid "<b>Network Proxy</b>"
-msgstr "<b>Proxy rețea</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:15
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
-msgid "On Connect Commands:"
-msgstr "Comenzi la conectare:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:16
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
-msgid "On Startup Commands:"
-msgstr "Comenzi la lansare:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:17
-msgid "<b>Global Commands</b>"
-msgstr "<b>Comenzi globale</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:18
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
-msgid "C_onnection"
-msgstr "C_onexiune"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:19
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
-msgid "Timestamp Format:"
-msgstr "Format datare:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:20
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
-msgid "Buffer Lines:"
-msgstr "Linii de preîncărcare:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:21
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
-msgid "Engine Buffer Lines:"
-msgstr "Linii de preîncărcare de motor:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:22
-msgid ""
-"ss = seconds\n"
-"mm = minutes\n"
-"hh = hours (01 - 12)\n"
-"HH = hours (00 - 23)\n"
-"tt = AM/PM\n"
-"\n"
-"dd = day\n"
-"MM = month\n"
-"yy/yyyy = year"
-msgstr ""
-"ss = secunde\n"
-"mm = minute\n"
-"hh = ore (01 - 12)\n"
-"HH = ore (00 - 23)\n"
-"tt = AM/PM\n"
-"\n"
-"dd = zi\n"
-"MM = lună\n"
-"yy/yyyy = an"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:31
-msgid "Persistency Type:"
-msgstr "Tip de persistență:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:32
-msgid "Volatile Buffer Lines:"
-msgstr "Linii de preîncărcare volatile:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:33
-msgid "Persistent Buffer Lines:"
-msgstr "Linii de preîncărcare persistente:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:34
-msgid "<b>Message Buffer</b>"
-msgstr "<b>Preîncărcare de mesaj</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:35
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
-msgid "Strip Colors"
-msgstr "Elimină culorile"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:36
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
-msgid "Strip Formattings"
-msgstr "Elimină formatările"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:37
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
-msgid "Strip UTF-8"
-msgstr "Elimină UTF-8"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:38
-msgid "Show Advanced Settings"
-msgstr "Arată configurările avansate"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:39
-msgid "<b>Advanced</b>"
-msgstr "<b>Avansate</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:40
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
-msgid "General"
-msgstr "Generale"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:41
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
-msgid "Top"
-msgstr "Sus"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:42
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
-msgid "Bottom"
-msgstr "Jos"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:43
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
-msgid "Left"
-msgstr "Stânga"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:44
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
-msgid "Right"
-msgstr "Dreapta"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:45
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
-msgid "None"
-msgstr "Nimic"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:46
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
-msgid "<b> Tabs Position </b>"
-msgstr "<b> Poziție taburi </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:47
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
-msgid "Highlight"
-msgstr "Evidențiază"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:48
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
-msgid "Activity"
-msgstr "Activitate"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:49
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
-msgid "No Activity"
-msgstr "Nicio activitate"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:50
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
-msgid "Join/Part/Mode"
-msgstr "Alăturare/Despărțire/Mod"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:51
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
-msgid "<b> Tab Colors </b>"
-msgstr "<b> Culori tab </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:52
-msgid "Automatically switch to newly opened person chats"
-msgstr "Comută automat la discuțiile de persoană deschise recent"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:53
-msgid "Automatically switch to newly opened group chats"
-msgstr "Comută automat la discuțiile de grup deschise recent"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:54
-msgid "Tree"
-msgstr "Arbore"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:55
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
-msgid "Completion Character:"
-msgstr "Caracter de completare:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:56
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
-msgid "Command Character:"
-msgstr "Caracter de comandă:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:57
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
-msgid "Command History Size:"
-msgstr "Dimensiunea istoricului de comandă:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:58
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
-msgid "Bash-Style Completion"
-msgstr "Completare în stil Bash"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:59
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
-msgid "<b> Entry Field </b>"
-msgstr "<b> Câmp intrare </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:60
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
-msgid "Input"
-msgstr "Intrare"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:61
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
-msgid "Nick Colors"
-msgstr "Culori pseudonim"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:62
-msgid "<b> Person List Position </b>"
-msgstr "<b> Poziția în lista de persoane </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:63
-msgid "Override"
-msgstr "Suprascrie"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:64
-msgid "<b> Font </b>"
-msgstr "<b> Font </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:65
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
-msgid "<b> Topic Position </b>"
-msgstr "<b> Poziție subiect </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:66
-msgid "Foreground"
-msgstr "Prim plan"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:67
-msgid "Background"
-msgstr "Plan secund"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:68
-msgid "<b> Color </b>"
-msgstr "<b> Culoare </b>"
-
-#. This is a setting for character based line wrapping vs word based when showing messages
-#: ../glade/smuxi-frontend-gnome.glade.h:70
-msgid "_Wrap Mode:"
-msgstr "Mod de î_ncadrare:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:71
-msgid "<b> Chat </b>"
-msgstr "<b> Discuție </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:72
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
-msgid "Highlight words:"
-msgstr "Evidențiază cuvintele:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:73
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
-msgid "Beep on highlight"
-msgstr "Bip la evidențiere"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:74
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
-msgid "<b> Highlighting </b>"
-msgstr "<b> Evidențiere </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:75
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
-msgid "Output"
-msgstr "Rezultat"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:76
-msgid "Enable"
-msgstr "Activează"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:77
-msgid "Show always"
-msgstr "Arată întotdeauna"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:78
-msgid "Show when window is minimized"
-msgstr "Arată când fereastra este minimizată"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:79
-msgid "Show when window is closed"
-msgstr "Arată când fereastra este închisă"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:80
-msgid "<b> Notification Area Icon </b>"
-msgstr "<b> Iconiță zonă de notificare </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:81
-msgid "Show Smuxi in the messaging menu"
-msgstr "Arată Smuxi în meniul de mesagerie"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:82
-msgid "<b>Messaging Menu</b>"
-msgstr "<b>Meniu de mesagerie</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:83
-msgid "Show notification popups"
-msgstr "Afișează meniurile contextuale de notificare"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:84
-msgid "<b>Notification Popups</b>"
-msgstr "<b>Meniuri contextuale de notificare</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:85
-msgid "Notification"
-msgstr "Notificare"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:86
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
-msgid "_Interface"
-msgstr "_Interfață"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:87
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
-msgid "_Servers"
-msgstr "_Servere"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:88
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
-msgid "_Filters"
-msgstr "_Filtre"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:89
-msgid "Enabled"
-msgstr "Activat"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:90
-msgid "Log Filtered Messages"
-msgstr "Adaugă la istoric mesajele filtrate"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:91
-msgid "_Logging"
-msgstr "Juna_lizare"
+"X-Generator: Poedit 3.4\n"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
@@ -493,11 +74,11 @@ msgstr ""
 msgid "The main window showing an IRC channel"
 msgstr "Fereastra principală care arată un canal de IRC"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:70
+#: ../src/Frontend-GNOME/AboutDialog.cs:71
 msgid "translator-credits"
-msgstr "Florentina Mușat <florentina.musat.28@gmail.com>, 2018"
+msgstr "Florentina Mușat <florentina.musat.28@gmail.com>, 2018, 2023"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:83
+#: ../src/Frontend-GNOME/AboutDialog.cs:84
 msgid "Smuxi Website"
 msgstr "Pagină web Smuxi"
 
@@ -588,35 +169,43 @@ msgstr "Veți lipi {0} linii. Doriți să continuați?"
 msgid "Frontend Commands"
 msgstr "Comenzi de interfață"
 
-#: ../src/Frontend-GNOME/Main.cs:49
+#: ../src/Frontend-GNOME/Main.cs:50
 msgid "Enable debug output"
 msgstr "Activează rezultatul depanării"
 
-#: ../src/Frontend-GNOME/Main.cs:56
+#: ../src/Frontend-GNOME/Main.cs:57
 msgid "Show this help"
 msgstr "Afișează acest ajutor"
 
-#: ../src/Frontend-GNOME/Main.cs:60
+#: ../src/Frontend-GNOME/Main.cs:61
 msgid "Options:"
 msgstr "Opțiuni:"
 
-#: ../src/Frontend-GNOME/Main.cs:67
+#: ../src/Frontend-GNOME/Main.cs:68
 msgid "Connect to engine"
 msgstr "Conectează la motor"
 
-#: ../src/Frontend-GNOME/Main.cs:74
+#: ../src/Frontend-GNOME/Main.cs:75
 msgid "Opens the specified link in Smuxi"
 msgstr "Deschide legătura specificată în Smuxi"
 
-#: ../src/Frontend-GNOME/Main.cs:81
+#: ../src/Frontend-GNOME/Main.cs:82
+msgid "Executes the specified command in Smuxi"
+msgstr "Execută comanda specificată în Smuxi"
+
+#: ../src/Frontend-GNOME/Main.cs:89
 msgid "Starts a new Smuxi instance and ignores an existing one"
 msgstr "Începe o instanță Smuxi nouă și ignoră una existentă"
 
-#: ../src/Frontend-GNOME/Main.cs:109
+#: ../src/Frontend-GNOME/Main.cs:119
 msgid "Passing link to already running Smuxi instance..."
 msgstr "Se transmite legătura la instanța Smuxi care rulează deja..."
 
-#: ../src/Frontend-GNOME/Main.cs:117
+#: ../src/Frontend-GNOME/Main.cs:127
+msgid "Passing command to already running Smuxi instance..."
+msgstr "Se transmite comanda la instanța Smuxi care rulează deja..."
+
+#: ../src/Frontend-GNOME/Main.cs:135
 msgid "Bringing already running Smuxi instance to foreground..."
 msgstr "Se aduce instanța Smuxi care rulează deja în prim plan..."
 
@@ -653,21 +242,21 @@ msgstr ""
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Eroare la aducerea listei de discuții de grup de pe server."
 
-#: ../src/Frontend-GNOME/Frontend.cs:390
+#: ../src/Frontend-GNOME/Frontend.cs:385
 msgid "Disconnected from engine."
 msgstr "Deconectat de la motor."
 
-#: ../src/Frontend-GNOME/Frontend.cs:433
+#: ../src/Frontend-GNOME/Frontend.cs:428
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
 msgstr "Se reconectează la motor... (încercarea {0})"
 
-#: ../src/Frontend-GNOME/Frontend.cs:546
+#: ../src/Frontend-GNOME/Frontend.cs:541
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Cauză: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:638
+#: ../src/Frontend-GNOME/Frontend.cs:632
 msgid ""
 "A fatal error has been detected because of a protocol incompatibility with "
 "the smuxi-server!\n"
@@ -685,7 +274,7 @@ msgstr ""
 "Mai multe detalii despre această problemă pot fi găsite aici:\n"
 "https://smuxi.im/issues/show/589"
 
-#: ../src/Frontend-GNOME/Frontend.cs:705
+#: ../src/Frontend-GNOME/Frontend.cs:699
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -693,7 +282,7 @@ msgstr ""
 "Interfața a pierdut conexiunea la server.\n"
 "Sigur doriți să faceți asta?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:724
+#: ../src/Frontend-GNOME/Frontend.cs:718
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
@@ -701,7 +290,7 @@ msgstr ""
 "Reconectarea la server a eșuat.\n"
 "Doriți să încercați din nou?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:1038
+#: ../src/Frontend-GNOME/Frontend.cs:1053
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -775,21 +364,21 @@ msgstr "Un motor cu acest nume există deja! Specificați unul diferit."
 msgid "Enter which chat to join"
 msgstr "Introduceți la care discuție se alătură"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:155
 msgid "About Smuxi"
 msgstr "Despre Smuxi"
 
 #. TODO: add cmd+, accelerator
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:159
 msgid "Preferences"
 msgstr "Preferințe"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:266
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:276
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:240
 msgid "Unable to add server: "
 msgstr "Nu s-a putut adăuga serverul: "
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:391
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:401
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -797,7 +386,7 @@ msgstr ""
 "Comutarea la motorul local va deconecta motorul curent!\n"
 "Sigur doriți să faceți asta?"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:435
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:445
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -853,11 +442,11 @@ msgstr "Tip"
 msgid "Pattern"
 msgstr "Mostră"
 
-#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:224
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:240
 msgid "No Proxy"
 msgstr "Niciun proxy"
 
-#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:226
+#: ../src/Frontend-GNOME/Views/PreferencesDialog.cs:242
 msgid "System Default"
 msgstr "Implicit de sistem"
 
@@ -893,11 +482,11 @@ msgstr "Se obține lista de utilizatori pentru {0}..."
 msgid "done."
 msgstr "gata."
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:130
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:131
 msgid "Reconnect"
 msgstr "Reconectează"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:177
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:178
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
@@ -1116,9 +705,163 @@ msgstr "Smuxi - preferințe"
 msgid "Nicknames:"
 msgstr "Pseudonime:"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
+msgid "Username:"
+msgstr "Nume de utilizator:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
+msgid "Realname:"
+msgstr "Nume real:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
+msgid "Encoding:"
+msgstr "Codare:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
+msgid "On Connect Commands:"
+msgstr "Comenzi la conectare:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
+msgid "On Startup Commands:"
+msgstr "Comenzi la lansare:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
+msgid "C_onnection"
+msgstr "C_onexiune"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
+msgid "Timestamp Format:"
+msgstr "Format datare:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
+msgid "Buffer Lines:"
+msgstr "Linii de preîncărcare:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
+msgid "Engine Buffer Lines:"
+msgstr "Linii de preîncărcare de motor:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
+msgid "Strip Colors"
+msgstr "Elimină culorile"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
+msgid "Strip Formattings"
+msgstr "Elimină formatările"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
+msgid "Strip UTF-8"
+msgstr "Elimină UTF-8"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
+msgid "General"
+msgstr "Generale"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
+msgid "Top"
+msgstr "Sus"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
+msgid "Bottom"
+msgstr "Jos"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
+msgid "Left"
+msgstr "Stânga"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
+msgid "Right"
+msgstr "Dreapta"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
+msgid "None"
+msgstr "Nimic"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
+msgid "<b> Tabs Position </b>"
+msgstr "<b> Poziție taburi </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
+msgid "No Activity"
+msgstr "Nicio activitate"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
+msgid "Activity"
+msgstr "Activitate"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
+msgid "Join/Part/Mode"
+msgstr "Alăturare/Despărțire/Mod"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
+msgid "Highlight"
+msgstr "Evidențiază"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
+msgid "<b> Tab Colors </b>"
+msgstr "<b> Culori tab </b>"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
 msgid "Tabs"
 msgstr "Taburi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
+msgid "Completion Character:"
+msgstr "Caracter de completare:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
+msgid "Command Character:"
+msgstr "Caracter de comandă:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
+msgid "Command History Size:"
+msgstr "Dimensiunea istoricului de comandă:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
+msgid "Bash-Style Completion"
+msgstr "Completare în stil Bash"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
+msgid "<b> Entry Field </b>"
+msgstr "<b> Câmp intrare </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
+msgid "Input"
+msgstr "Intrare"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
+msgid "Nick Colors"
+msgstr "Culori pseudonim"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
+msgid "<b> Topic Position </b>"
+msgstr "<b> Poziție subiect </b>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
 msgid "<b> User List Position </b>"
@@ -1128,6 +871,30 @@ msgstr "<b> Poziția în listă a utilizatorului </b>"
 msgid "<b> Channel </b>"
 msgstr "<b> Canal </b>"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
+msgid "Highlight words:"
+msgstr "Evidențiază cuvintele:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
+msgid "Beep on highlight"
+msgstr "Bip la evidențiere"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
+msgid "<b> Highlighting </b>"
+msgstr "<b> Evidențiere </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
+msgid "Output"
+msgstr "Rezultat"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
+msgid "_Interface"
+msgstr "_Interfață"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
+msgid "_Servers"
+msgstr "_Servere"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1652
 msgid "<b>Channel Filters</b>"
 msgstr "<b>Filtre canal</b>"
@@ -1135,6 +902,10 @@ msgstr "<b>Filtre canal</b>"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1669
 msgid "<b>User Filters</b>"
 msgstr "<b>Filtre utilizator</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
+msgid "_Filters"
+msgstr "_Filtre"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:42
 msgid "Use _SSH Tunnel"
@@ -1308,6 +1079,10 @@ msgstr "_Rețea:"
 msgid "Nickname:"
 msgstr "Pseudonim:"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
+msgid "Show Password"
+msgstr "Afișează parola"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:252
 msgid "_Protocol:"
 msgstr "_Protocol:"
@@ -1331,3 +1106,153 @@ msgstr "Comenzi la c_onectare:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
 msgid "_Ignore Commands"
 msgstr "Comenzile de _ignorare"
+
+#~ msgid "Smuxi Preferences"
+#~ msgstr "Preferințe Smuxi"
+
+#~ msgid ""
+#~ "The nickname to use. You can specify extra nicknames (separated by "
+#~ "spaces) which will be used as fallbacks when the first choice is not "
+#~ "available. By default $nick_ and $nick__ will be used as fallbacks."
+#~ msgstr ""
+#~ "Pseudonimul de utilizat. Puteți specifica pseudonime extra (separate prin "
+#~ "spații) care vor fi utilizate ca rezerve când prima alegere nu este "
+#~ "disponibilă. Implicit $nick_ și $nick__ vor fi utilizate ca rezerve."
+
+#~ msgid "Nickname(s):"
+#~ msgstr "Pseudonim(e):"
+
+#~ msgid "Automatically convert UTF-8 characters"
+#~ msgstr "Convertește automat caracterele UTF-8"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Generale</b>"
+
+#~ msgid "Type:"
+#~ msgstr "Tip:"
+
+#~ msgid "Host:"
+#~ msgstr "Gazdă:"
+
+#~ msgid "Password:"
+#~ msgstr "Parolă:"
+
+#~ msgid "Port:"
+#~ msgstr "Port:"
+
+#~ msgid "<b>Network Proxy</b>"
+#~ msgstr "<b>Proxy rețea</b>"
+
+#~ msgid "<b>Global Commands</b>"
+#~ msgstr "<b>Comenzi globale</b>"
+
+#~ msgid ""
+#~ "ss = seconds\n"
+#~ "mm = minutes\n"
+#~ "hh = hours (01 - 12)\n"
+#~ "HH = hours (00 - 23)\n"
+#~ "tt = AM/PM\n"
+#~ "\n"
+#~ "dd = day\n"
+#~ "MM = month\n"
+#~ "yy/yyyy = year"
+#~ msgstr ""
+#~ "ss = secunde\n"
+#~ "mm = minute\n"
+#~ "hh = ore (01 - 12)\n"
+#~ "HH = ore (00 - 23)\n"
+#~ "tt = AM/PM\n"
+#~ "\n"
+#~ "dd = zi\n"
+#~ "MM = lună\n"
+#~ "yy/yyyy = an"
+
+#~ msgid "Persistency Type:"
+#~ msgstr "Tip de persistență:"
+
+#~ msgid "Volatile Buffer Lines:"
+#~ msgstr "Linii de preîncărcare volatile:"
+
+#~ msgid "Persistent Buffer Lines:"
+#~ msgstr "Linii de preîncărcare persistente:"
+
+#~ msgid "<b>Message Buffer</b>"
+#~ msgstr "<b>Preîncărcare de mesaj</b>"
+
+#~ msgid "Show Advanced Settings"
+#~ msgstr "Arată configurările avansate"
+
+#~ msgid "<b>Advanced</b>"
+#~ msgstr "<b>Avansate</b>"
+
+#~ msgid "Automatically switch to newly opened person chats"
+#~ msgstr "Comută automat la discuțiile de persoană deschise recent"
+
+#~ msgid "Automatically switch to newly opened group chats"
+#~ msgstr "Comută automat la discuțiile de grup deschise recent"
+
+#~ msgid "Tree"
+#~ msgstr "Arbore"
+
+#~ msgid "<b> Person List Position </b>"
+#~ msgstr "<b> Poziția în lista de persoane </b>"
+
+#~ msgid "Override"
+#~ msgstr "Suprascrie"
+
+#~ msgid "<b> Font </b>"
+#~ msgstr "<b> Font </b>"
+
+#~ msgid "Foreground"
+#~ msgstr "Prim plan"
+
+#~ msgid "Background"
+#~ msgstr "Plan secund"
+
+#~ msgid "<b> Color </b>"
+#~ msgstr "<b> Culoare </b>"
+
+#~ msgid "_Wrap Mode:"
+#~ msgstr "Mod de î_ncadrare:"
+
+#~ msgid "<b> Chat </b>"
+#~ msgstr "<b> Discuție </b>"
+
+#~ msgid "Enable"
+#~ msgstr "Activează"
+
+#~ msgid "Show always"
+#~ msgstr "Arată întotdeauna"
+
+#~ msgid "Show when window is minimized"
+#~ msgstr "Arată când fereastra este minimizată"
+
+#~ msgid "Show when window is closed"
+#~ msgstr "Arată când fereastra este închisă"
+
+#~ msgid "<b> Notification Area Icon </b>"
+#~ msgstr "<b> Iconiță zonă de notificare </b>"
+
+#~ msgid "Show Smuxi in the messaging menu"
+#~ msgstr "Arată Smuxi în meniul de mesagerie"
+
+#~ msgid "<b>Messaging Menu</b>"
+#~ msgstr "<b>Meniu de mesagerie</b>"
+
+#~ msgid "Show notification popups"
+#~ msgstr "Afișează meniurile contextuale de notificare"
+
+#~ msgid "<b>Notification Popups</b>"
+#~ msgstr "<b>Meniuri contextuale de notificare</b>"
+
+#~ msgid "Notification"
+#~ msgstr "Notificare"
+
+#~ msgid "Enabled"
+#~ msgstr "Activat"
+
+#~ msgid "Log Filtered Messages"
+#~ msgstr "Adaugă la istoric mesajele filtrate"
+
+#~ msgid "_Logging"
+#~ msgstr "Juna_lizare"
