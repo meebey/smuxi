@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - Xmpp\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:37+0000\n"
-"PO-Revision-Date: 2017-09-19 22:25+0000\n"
-"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
+"POT-Creation-Date: 2022-11-02 06:16+0000\n"
+"PO-Revision-Date: 2023-10-24 02:38+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4\n"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
 msgid "The server has shut down"
@@ -154,7 +154,7 @@ msgstr "{0}{1} sohbet etmek istiyor"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1659
 #, csharp-format
 msgid "{0}{1} is offline"
-msgstr "{0}{1} çevrimdışı"
+msgstr "{0}{1} çevrim dışı"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1665
 #, csharp-format
