@@ -49,7 +49,7 @@ DIE=0
 if test "$DIE" -eq 1; then
         exit 1
 fi
-                                                                                
+
 #test $TEST_TYPE $FILE || {
 #        echo "You must run this script in the top-level $PROJECT directory"
 #        exit 1
@@ -84,7 +84,17 @@ echo "Running $AUTOCONF ..."
 $AUTOCONF
 
 if test x$NOGIT = x; then
-    git submodule update --init --recursive || exit 1
+
+    # if parent is shallow, assume user also wants shallow submodules
+    if [ -f .git/shallow ]; then
+
+        # use depth=1 as it's not easy to determine the depth of parent, see
+        # http://stackoverflow.com/questions/37182919/how-to-know-the-depth-of-a-gits-shallow-clone
+        git submodule update --init --recursive --depth=1 || exit 1
+
+    else
+        git submodule update --init --recursive || exit 1
+    fi
 else
     echo Skipping git submodule initialization.
 fi
