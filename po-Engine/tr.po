@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - Engine\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-11-02 06:17+0000\n"
-"PO-Revision-Date: 2023-02-23 07:05+0300\n"
+"POT-Creation-Date: 2023-03-06 18:21+0000\n"
+"PO-Revision-Date: 2023-10-24 02:32+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4\n"
 
 #: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
@@ -60,12 +60,12 @@ msgstr "{0} uzakta"
 #: ../src/Engine/Messages/MessageBuilder.cs:846
 #, csharp-format
 msgid "{0} is offline"
-msgstr "{0} çevrimdışı"
+msgstr "{0} çevrim dışı"
 
 #: ../src/Engine/Messages/MessageBuilder.cs:852
 #, csharp-format
 msgid "{0} is online"
-msgstr "{0} çevrimiçi"
+msgstr "{0} çevrim içi"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:162
 msgid "not connected"

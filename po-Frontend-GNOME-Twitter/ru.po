@@ -1,0 +1,35 @@
+# Russian translation for smuxi.
+# Copyright (C) 2023 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Sergej A. <asvmail.as@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2023-05-23 13:17+0000\n"
+"PO-Revision-Date: 2023-05-23 23:39+1000\n"
+"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:57
+msgid "Direct Message"
+msgstr "Прямое сообщение"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:65
+msgid "Timeline"
+msgstr "История сообщений"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:70
+msgid "Unfollow"
+msgstr "Отписаться"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:74
+msgid "Follow"
+msgstr "Подписаться"

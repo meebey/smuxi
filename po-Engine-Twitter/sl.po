@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:37+0000\n"
-"PO-Revision-Date: 2022-11-18 13:45+0100\n"
+"POT-Creation-Date: 2022-11-18 12:49+0000\n"
+"PO-Revision-Date: 2023-09-05 22:57+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:124
 msgid "Home Timeline"
@@ -174,19 +174,19 @@ msgid "Search {0}"
 msgstr "Iskanje {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Successfully deleted tweet {0}."
-msgstr "Uspešno izbrisani tvit/čivk {0}."
+msgstr "Uspešno izbrisani čivk {0}."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1277
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Successfully favorited tweet {0}."
-msgstr "Tvit/čivk {0} uspešno označen za priljubljenega."
+msgstr "Čivk {0} uspešno označen za priljubljenega."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1309
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Successfully unfavorited tweet {0}."
-msgstr "Tvit/čivk {0} uspešno ni več označen za priljubljenega."
+msgstr "Čivk {0} uspešno ni več označen za priljubljenega."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1371
 #, csharp-format

@@ -10,18 +10,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-10-04 15:33+0000\n"
-"PO-Revision-Date: 2023-01-05 19:42+0100\n"
+"POT-Creation-Date: 2023-01-25 22:06+0000\n"
+"PO-Revision-Date: 2023-09-05 22:55+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
-"n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../src/Server/Main.cs:65
 msgid "Add user to Server"
@@ -40,7 +40,6 @@ msgid "List all existing users of Server"
 msgstr "Izpiši vse uporabnike strežnika"
 
 #: ../src/Server/Main.cs:101
-#, fuzzy
 msgid "User to create, modify or delete"
 msgstr "Uporabnik za ustvarjanje, spreminjanje ali brisanje"
 
@@ -53,12 +52,11 @@ msgid "Enable debug output"
 msgstr "Omogoči izhod razhroščevanja"
 
 #: ../src/Server/Main.cs:127
-#, fuzzy
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
 msgstr ""
-"Optimiziraj medpomnilnik sporočil in končaj (veljavne vrednosti: none, "
-"defrag, index, all)"
+"Optimiziraj medpomnilnik sporočil in izklopi program (veljavne vrednosti: "
+"none, defrag, index, all)"
 
 #: ../src/Server/Main.cs:140
 msgid "Show this help"

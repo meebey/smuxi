@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
-"POT-Creation-Date: 2022-07-11 15:38+0000\n"
-"PO-Revision-Date: 2023-02-18 19:35+0100\n"
+"POT-Creation-Date: 2023-02-18 18:39+0000\n"
+"PO-Revision-Date: 2023-09-05 22:54+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
@@ -19,29 +19,25 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:390
 msgid "Query"
 msgstr "Poizvedba"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
-#, fuzzy
 msgid "Op"
 msgstr "Op"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
-#, fuzzy
 msgid "Deop"
 msgstr "Deop"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
-#, fuzzy
 msgid "Voice"
 msgstr "Glas"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
-#, fuzzy
 msgid "Devoice"
 msgstr "Brez glasu"
 
@@ -77,9 +73,8 @@ msgid "Invite to"
 msgstr "Povabi"
 
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:73
-#, fuzzy
 msgid "Ping"
-msgstr "Pingaj"
+msgstr "Pingni"
 
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:78
 msgid "Version"

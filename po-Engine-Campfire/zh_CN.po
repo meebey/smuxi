@@ -1,22 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Dean Lee <xslidian@gmail.com>, 2013
+# lumingzh <lumingzh@qq.com>, 2022.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:31+0200\n"
-"PO-Revision-Date: 2013-12-13 08:10+0000\n"
-"Last-Translator: Dean Lee <xslidian@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/smuxi/issues\n"
+"POT-Creation-Date: 2020-09-04 11:24+0000\n"
+"PO-Revision-Date: 2022-04-18 19:24+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 42.0\n"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
 msgid "Connecting to campfire... "
@@ -52,38 +55,43 @@ msgid "has uploaded '{0}' ({1} B) {2}"
 msgstr "已上传 '{0}' ({1} 字节) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:415
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:420
 #, csharp-format
 msgid "has joined {0}"
 msgstr "已加入 {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:424
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:429
 #, csharp-format
 msgid "has left {0}"
 msgstr "已离开 {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:432
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:437
 #, csharp-format
 msgid "has locked {0}"
 msgstr "已锁定 {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
 #, csharp-format
 msgid "has unlocked {0}"
 msgstr "已解锁 {0}"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:446
 msgid "has changed the topic"
 msgstr "已更改主题"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:451
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:458
+#, csharp-format
+msgid "has pasted a tweet by {0}: {1}"
+msgstr "已由 {0} 发布了微博：{1}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:465
 msgid "has performed an unknown action"
 msgstr "已执行未知操作"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:492
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:504
 #, csharp-format
 msgid "Error reading from stream: {0}"
 msgstr "流读取错误: {0}"
