@@ -179,28 +179,31 @@ namespace Smuxi.Engine
             _Config.Save();
 
             // config overrides
-            // we only scan all config keys so we can convert the override
-            // value into the right type
-            foreach (var kvp in _Config.GetAll()) {
-                var configKey = kvp.Key;
-                var configValue = kvp.Value;
+            if (ConfigOverrides != null) {
+                // we only scan all config keys here so we can convert the override
+                // string value into the actual type
+                foreach (var kvp in _Config.GetAll()) {
+                    var configKey = kvp.Key;
+                    var configValue = kvp.Value;
 
-                foreach (var @override in ConfigOverrides) {
-                    var keyPattern = @override.Key;
+                    foreach (var @override in ConfigOverrides) {
+                        var keyPattern = @override.Key;
+                        if (!Pattern.IsMatch(configKey, keyPattern)) {
+                            continue;
+                        }
 
-                    if (!Pattern.IsMatch(configKey, keyPattern)) {
-                        continue;
+                        // convert string to actual type
+                        var overridenValue = Convert.ChangeType(@override.Value,
+                                                                configValue.GetType());
+
+                        // as a patttern could match many keys we only need one
+                        // override entry in _Config.Overrides with the right type and value
+                        if (_Config.Overrides.ContainsKey(keyPattern)) {
+                            // config key pattern exist already
+                            continue;
+                        }
+                        _Config.Overrides.Add(keyPattern, overridenValue);
                     }
-
-                    // convert string to type
-                    var overridenValue = Convert.ChangeType(@override.Value,
-                                                            configValue.GetType());
-                    // as the patttern could match many keys we only need one
-                    // override with the right value type
-                    if (_Config.Overrides.ContainsKey(keyPattern)) {
-                        continue;
-                    }
-                    _Config.Overrides.Add(keyPattern, overridenValue);
                 }
             }
 

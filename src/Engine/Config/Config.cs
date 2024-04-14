@@ -51,20 +51,25 @@ namespace Smuxi.Engine
 #endif
         protected bool          m_IsCleanConfig;
         protected Hashtable     m_Preferences = Hashtable.Synchronized(new Hashtable());
+        private Dictionary<string, object> m_Overrides;
         public Version PreviousVersion { get; private set; }
         public Version CurrentVersion { get; private set; }
-        internal Dictionary<string, object> Overrides { get; private set; }
+
         public event EventHandler<ConfigChangedEventArgs> Changed;
         
         public object this[string key] {
             get {
-                // config overrides
-                lock (Overrides) {
-                    foreach (var @override in Overrides) {
-                        var pattern = @override.Key;
-                        var value = @override.Value;
-                        if (Pattern.IsMatch(key, pattern)) {
-                            return value;
+                // config overrides hook
+                if (m_Overrides != null) {
+                    lock (m_Overrides) {
+                        foreach (var @override in m_Overrides) {
+                            var pattern = @override.Key;
+                            var value = @override.Value;
+                            if (Pattern.IsMatch(key, pattern)) {
+                                // honor config overrides by returning the
+                                // overridden value instead
+                                return value;
+                            }
                         }
                     }
                 }
@@ -79,15 +84,19 @@ namespace Smuxi.Engine
                     return;
                 }
 
-                // config overrides
-                lock (Overrides) {
-                    foreach (var @override in Overrides) {
-                        var pattern = @override.Key;
-                        if (Pattern.IsMatch(key, pattern)) {
-#if LOG4NET
-                            _Logger.Debug("set[]: ignoring setting an overridden config key " + key + ".");
-#endif
-                            return;
+                // config overrides hook
+                if (m_Overrides != null) {
+                    lock (m_Overrides) {
+                        foreach (var @override in m_Overrides) {
+                            var pattern = @override.Key;
+                            if (Pattern.IsMatch(key, pattern)) {
+                                // honor config overrides by ignoring sets (writes) to 
+                                // overridden keys
+    #if LOG4NET
+                                _Logger.Debug("set[]: ignoring setting an overridden config key " + key + ".");
+    #endif
+                                return;
+                            }
                         }
                     }
                 }
@@ -103,6 +112,16 @@ namespace Smuxi.Engine
                 }
             }
         }
+
+        internal Dictionary<string, object> Overrides {
+            get {
+                var overrides = m_Overrides;
+                if (overrides == null) {
+                    m_Overrides = new Dictionary<string, object>();
+                }
+                return m_Overrides;
+            }
+        }
         
         public bool IsCleanConfig {
             get {
@@ -112,7 +131,6 @@ namespace Smuxi.Engine
 
         public Config()
         {
-            Overrides = new Dictionary<string, object>();
 #if CONFIG_NINI
             m_ConfigPath = Path.Combine(Environment.GetFolderPath(
                 Environment.SpecialFolder.ApplicationData), "smuxi");
