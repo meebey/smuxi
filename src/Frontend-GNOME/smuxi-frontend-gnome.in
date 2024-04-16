@@ -32,4 +32,4 @@ chmod 700 $SMUXI_TMP
 TMP=$SMUXI_TMP
 export TMP
 
-exec mono --debug "@expanded_libdir@/@PACKAGE@/smuxi-frontend-gnome.exe" "$@"
+exec mono "@expanded_libdir@/@PACKAGE@/smuxi-frontend-gnome.exe" "$@"
