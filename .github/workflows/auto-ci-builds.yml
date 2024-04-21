@@ -331,11 +331,41 @@ jobs:
       run: |
         dpkg-buildpackage -us -uc -rfakeroot --build=binary
 
-  build_nix_NixOS-stable:
+  build_nix_NixOS-stable-23_11:
     runs-on: ubuntu-latest
     container: nixos/nix
     steps:
     - uses: actions/checkout@v1
+    - name: check Nix version
+      run: |
+        nix --version
+        nix-channel --list
+    - name: switch to NixOS stable channel
+      run: |
+        nix-channel --remove nixos
+        nix-channel --remove nixpkgs
+        nix-channel --add https://nixos.org/channels/nixos-23.11 nixos
+        nix-channel --add https://nixos.org/channels/nixos-23.11 nixpkgs
+    - name: list and update channel
+      run: |
+        nix-channel --list
+        nix-channel --update
+    - name: build nix pkg
+      run: |
+        nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./nix/default.nix { gitBranch = "${{ github.ref_name }}"; }'
+
+  build_nix_NixOS-unstable:
+    runs-on: ubuntu-latest
+    container: nixos/nix
+    steps:
+    - uses: actions/checkout@v1
+    - name: check Nix version
+      run: |
+        nix --version
+        nix-channel --list
+    - name: update channel
+      run: |
+        nix-channel --update
     - name: build nix pkg
       run: |
         nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./nix/default.nix { gitBranch = "${{ github.ref_name }}"; }'
