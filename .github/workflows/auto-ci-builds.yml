@@ -331,7 +331,7 @@ jobs:
       run: |
         dpkg-buildpackage -us -uc -rfakeroot --build=binary
 
-  build_nix_NixOS-stable:
+  build_nix_NixOS-unstable:
     runs-on: ubuntu-latest
     container: nixos/nix
     steps:
