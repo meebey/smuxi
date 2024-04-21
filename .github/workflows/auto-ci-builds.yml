@@ -336,6 +336,13 @@ jobs:
     container: nixos/nix
     steps:
     - uses: actions/checkout@v1
+    - name: check Nix version
+      run: |
+        nix --version
+        nix-channel --list
+    - name: update channel
+      run: |
+        nix-channel --update
     - name: build nix pkg
       run: |
         nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./nix/default.nix { gitBranch = "${{ github.ref_name }}"; }'
