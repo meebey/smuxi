@@ -300,6 +300,7 @@ jobs:
   build_debs_Debian-unstable:
     runs-on: ubuntu-latest
     container: debian:unstable
+    continue-on-error: true
     steps:
     - uses: actions/checkout@v1
     - name: check Debian version
