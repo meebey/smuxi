@@ -297,41 +297,6 @@ jobs:
       run: |
         dpkg-buildpackage -us -uc -rfakeroot --build=binary --no-check-builddeps
 
-  build_debs_Debian-unstable:
-    runs-on: ubuntu-latest
-    container: debian:unstable
-    continue-on-error: true
-    steps:
-    - uses: actions/checkout@v1
-    - name: check Debian version
-      run: |
-        cat /etc/debian_version
-    - name: install sudo and moreutils (for chronic)
-      run: |
-        echo "Detected APT sources:"
-        grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#"
-        apt update
-        apt install --yes sudo moreutils
-    - name: install build dependencies from debian/control
-      run: |
-        sudo apt install --yes devscripts equivs
-        sudo mk-build-deps debian/control
-        dpkg --info ./smuxi-build-deps_*.deb
-        sudo apt install --yes ./smuxi-build-deps_*.deb
-    - name: check mono version
-      run: |
-        mono --version
-    - name: workaround failing git ownership check
-      run: |
-        sudo apt install --yes git > /dev/null
-        git config --global --add safe.directory '*'
-    - name: prepare build
-      run: |
-        ./autogen.sh
-    - name: build debs
-      run: |
-        dpkg-buildpackage -us -uc -rfakeroot --build=binary
-
   build_nix_NixOS-stable-23_11:
     runs-on: ubuntu-latest
     container: nixos/nix
@@ -370,3 +335,25 @@ jobs:
     - name: build nix pkg
       run: |
         nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./nix/default.nix { gitBranch = "${{ github.ref_name }}"; }'
+
+  snap_build:
+    needs: build_Mono-6_8_0_105
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install snap tools
+      run: |
+        sudo apt update --yes
+        ./build/install-snapcraft.sh
+    - name: Generate snap package
+      run: |
+        sudo ./build/snap-build.sh
+    - name: Test snap package
+      run: |
+        sudo snap install --dangerous *.snap
+        #TODO: test with `smuxi --version`?
+    - uses: actions/upload-artifact@v3
+      name: Upload snap package as artifact
+      with:
+        name: snap
+        path: ./*.snap

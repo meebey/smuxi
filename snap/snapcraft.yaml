@@ -1,0 +1,99 @@
+name: smuxi
+base: core22 # the base snap is the execution environment for this snap
+version: '1.2.1' # just for humans, typically '1.2+git' or '1.3.2'
+summary: User-friendly and free IRC client for Linux/Windows/macOS based on GNOME/GTK+ # 79 char long summary
+description: |
+  Smuxi is an irssi-inspired, flexible, user-friendly and
+  cross-platform IRC client for sophisticated users, targeting the GNOME desktop.
+
+  Smuxi is based on the client-server model: The core application (engine) can be
+  placed onto a server which is connected to the Internet around-the-clock; one
+  or more frontends then connect to the core. This way, the connection to IRC can
+  be kept up even when all frontends have been closed. The combination of screen
+  and irssi served as example for this architecture.
+
+  Smuxi also supports the regular single application mode. This behaves like a
+  typical IRC client; it doesn't need separate core management and utilizes a
+  local engine that is used by the local frontend client.
+
+  Smuxi's GNOME homepage: https://wiki.gnome.org/Apps/Smuxi
+license: GPL-2.0
+icon: ./images/icon.svg
+
+# grade must be 'stable' (without the quotes) to release into candidate/stable channels
+grade: stable
+confinement: strict
+
+layout:
+  /usr/share/.mono:
+    symlink: $SNAP/etc/mono/certstore
+  /usr/lib/cli:
+    symlink: $SNAP/usr/lib/cli
+
+apps:
+  smuxi:
+    command: bin/desktop-launch $SNAP/bin/smuxi-frontend-gnome
+    plugs:
+      - network
+      - desktop
+      - desktop-legacy
+      - wayland
+      - unity7
+
+parts:
+  smuxi:
+    plugin: dump
+    source: ./staging
+    stage-packages:
+      - mono-devel
+      - libgtk2.0-cil
+      - liblog4net-cil-dev
+      - libnini-cil-dev
+
+  certs:
+    plugin: dump
+    source: /etc/mono
+    organize:
+      certstore: etc/mono/certstore
+
+  gtk2:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: gtk
+    plugin: make
+    make-parameters: ["FLAVOR=gtk2"]
+    build-packages:
+      - libgtk2.0-dev
+    stage-packages:
+      - libxkbcommon0  # XKB_CONFIG_ROOT
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libgtk2.0-0
+      - libgdk-pixbuf2.0-0
+      - libglib2.0-bin
+      - libgtk2.0-bin
+      - unity-gtk2-module
+      - libappindicator1
+      - locales-all
+      - ibus-gtk
+      - libibus-1.0-5
+
+plugs:
+  gtk-2-engines:
+    interface: content
+    target: $SNAP/lib/gtk-2.0
+    default-provider: gtk2-common-themes
+  gtk-2-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
