@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # workaround TLS/SSL negotiation caching issues of Mono, see:
 # https://smuxi.im/issues/show/802
@@ -17,7 +17,7 @@ if ! mono -V | grep -q -e "version [4-9]\."; then
 fi
 
 # needed for getting mono to work inside snap's sandbox
-if [[ $SNAP ]]; then
+if [ -n "${SNAP}" ]; then
     PKG_DIR=$SNAP/usr
     export MONO_PATH=$PKG_DIR/lib/mono/4.5:$PKG_DIR/lib/cli/log4net-1.2:$PKG_DIR/lib/cli/Nini-1.1:$PKG_DIR/lib/cli/gtk-sharp-2.0:$PKG_DIR/lib/cli/glib-sharp-2.0:$PKG_DIR/lib/cli/atk-sharp-2.0:$PKG_DIR/lib/cli/gdk-sharp-2.0:$PKG_DIR/lib/cli/pango-sharp-2.0:$MONO_PATH
     export MONO_CONFIG=$SNAP/etc/mono/config
@@ -45,7 +45,7 @@ export TMP
 EXE_FILENAME=smuxi-frontend-gnome.exe
 UNIX_NAME=smuxi
 
-if [[ $SNAP ]]; then
+if [ -n "${SNAP}" ]; then
     DIR_OF_THIS_SCRIPT=$(dirname "$(realpath "$0")")
     FRONTEND_PATH="$DIR_OF_THIS_SCRIPT/../lib/$UNIX_NAME/$EXE_FILENAME"
     exec mono "$FRONTEND_PATH" "$@"
