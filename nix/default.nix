@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     makeWrapper ] ++ lib.optionals (guiSupport) [
       gtk-sharp-2_0
       # loaded at runtime by GTK#
-      gdk-pixbuf gnome2.pango 
+      gdk-pixbuf pango
     ];
 
   preConfigure = ''
