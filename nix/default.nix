@@ -9,7 +9,7 @@
 , makeWrapper, lib
 , guiSupport ? true
 , gtk-sharp-2_0
-, gdk-pixbuf, gnome2 # these libraries are loaded/needed at runtime
+, gdk-pixbuf, pango # these libraries are loaded/needed at runtime
 , gitBranch ? "master"
 }:
 
@@ -63,13 +63,14 @@ stdenv.mkDerivation rec {
                                                   gettext stfl
                                                  ]}
 
+    # TODO: put into guiSupport block?
     makeWrapper "${mono}/bin/mono" "$out/bin/smuxi-frontend-gnome" \
       --add-flags "$out/lib/smuxi/smuxi-frontend-gnome.exe" \
       --prefix MONO_GAC_PREFIX : ${if guiSupport then gtk-sharp-2_0 else ""} \
       --prefix ${runtimeLoaderEnvVariableName} : ${lib.makeLibraryPath [
                                                    gettext
                                                    glib
-                                                   gtk-sharp-2_0 gtk-sharp-2_0.gtk gdk-pixbuf gnome2.pango
+                                                   gtk-sharp-2_0 gtk-sharp-2_0.gtk gdk-pixbuf pango
                                                   ]}
 
     # install log4net and nini libraries
