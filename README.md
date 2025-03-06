@@ -1,6 +1,6 @@
 Smuxi
 =====
-[![License](https://img.shields.io/github/license/meebey/smuxi.svg)](https://github.com/meebey/smuxi/blob/master/LICENSE) [![GitHubCI pipeline status badge](https://github.com/meebey/smuxi/workflows/auto-ci-builds/badge.svg?branch=master)](https://github.com/meebey/smuxi/commits/master) ![GitHub contributors](https://img.shields.io/github/contributors-anon/meebey/smuxi)
+[![License](https://img.shields.io/github/license/meebey/smuxi.svg)](https://github.com/meebey/smuxi/blob/master/LICENSE) [![GitHubCI pipeline status badge](https://github.com/meebey/smuxi/workflows/auto-ci-builds/badge.svg)](https://github.com/meebey/smuxi/commits/master) ![GitHub contributors](https://img.shields.io/github/contributors-anon/meebey/smuxi)
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/meebey/smuxi?style=social) [![Twitter Follow](https://img.shields.io/twitter/follow/smuxi?style=social)](https://twitter.com/intent/follow?screen_name=smuxi)
 
