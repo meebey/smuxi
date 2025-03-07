@@ -370,3 +370,19 @@ jobs:
     - name: build nix pkg
       run: |
         nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./nix/default.nix { gitBranch = "${{ github.ref_name }}"; }'
+
+  build_AppImage_NixOS-unstable:
+    runs-on: ubuntu-latest
+    container: nixos/nix
+    steps:
+    - uses: actions/checkout@v1
+    - name: check Nix version
+      run: |
+        nix --version
+        nix-channel --list
+    - name: update channel
+      run: |
+        nix-channel --update
+    - name: create AppImage via nix bundle
+      run: |
+        nix --extra-experimental-features 'nix-command flakes' bundle --bundler github:ralismark/nix-appimage nixpkgs#smuxi
