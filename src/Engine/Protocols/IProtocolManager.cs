@@ -67,6 +67,10 @@ namespace Smuxi.Engine
             get;
         }
 
+        bool HiddenPresenceStatus {
+            get;
+        }
+
         void Connect(FrontendManager frontendManager, ServerModel server);
         void Disconnect(FrontendManager frontendManager);
         void Reconnect(FrontendManager frontendManager);
