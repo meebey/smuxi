@@ -16,6 +16,16 @@ if ! mono -V | grep -q -e "version [4-9]\."; then
     export MONO_ENV_OPTIONS
 fi
 
+# needed for getting mono to work inside snap's sandbox
+if [ -n "${SNAP}" ]; then
+    PKG_DIR=$SNAP/usr
+    export MONO_PATH=$PKG_DIR/lib/mono/4.5:$PKG_DIR/lib/cli/log4net-1.2:$PKG_DIR/lib/cli/Nini-1.1:$PKG_DIR/lib/cli/gtk-sharp-2.0:$PKG_DIR/lib/cli/glib-sharp-2.0:$PKG_DIR/lib/cli/atk-sharp-2.0:$PKG_DIR/lib/cli/gdk-sharp-2.0:$PKG_DIR/lib/cli/pango-sharp-2.0:$MONO_PATH
+    export MONO_CONFIG=$SNAP/etc/mono/config
+    export MONO_CFG_DIR=$SNAP/etc
+    export MONO_REGISTRY_PATH=~/.mono/registry
+    export MONO_GAC_PREFIX=$PKG_DIR/lib/mono/gac/
+fi
+
 # Smuxi uses an IPC channel for the single application instance feature and it
 # also allows to pass links from commandline to an existing Smuxi instance. This
 # IPC channel must be private to the user that executes Smuxi, else other system
@@ -32,4 +42,13 @@ chmod 700 $SMUXI_TMP
 TMP=$SMUXI_TMP
 export TMP
 
-exec mono "@expanded_libdir@/@PACKAGE@/smuxi-frontend-gnome.exe" "$@"
+EXE_FILENAME=smuxi-frontend-gnome.exe
+UNIX_NAME=smuxi
+
+if [ -n "${SNAP}" ]; then
+    DIR_OF_THIS_SCRIPT=$(dirname "$(realpath "$0")")
+    FRONTEND_PATH="$DIR_OF_THIS_SCRIPT/../lib/$UNIX_NAME/$EXE_FILENAME"
+    exec mono "$FRONTEND_PATH" "$@"
+fi
+
+exec mono "@expanded_libdir@/@PACKAGE@/$EXE_FILENAME" "$@"
