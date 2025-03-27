@@ -370,3 +370,14 @@ jobs:
     - name: build nix pkg
       run: |
         nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./nix/default.nix { gitBranch = "${{ github.ref_name }}"; }'
+
+   build_docker_Ubuntu-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: check Debian version
+        run: |
+          cat /etc/debian_version
+      - name: build Docker image
+        run: |
+          docker build -f docker/release/Dockerfile
