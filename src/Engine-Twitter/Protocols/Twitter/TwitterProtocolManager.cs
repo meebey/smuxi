@@ -115,6 +115,12 @@ namespace Smuxi.Engine
             }
         }
 
+        public override bool HiddenPresenceStatus {
+            get {
+                return true;
+            }
+        }
+
         public TwitterProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);

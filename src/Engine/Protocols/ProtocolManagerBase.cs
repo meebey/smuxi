@@ -86,6 +86,12 @@ namespace Smuxi.Engine
             }
         }
 
+        public virtual bool HiddenPresenceStatus {
+            get {
+                return false;
+            }
+        }
+
         public abstract string NetworkID {
             get;
         }

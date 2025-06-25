@@ -35,6 +35,12 @@ namespace Smuxi.Frontend
             }
         }
 
+        public bool HiddenPresenceStatus {
+            get {
+                return false;
+            }
+        }
+
         public string NetworkID {
             get {
                 return "MockProtocolManagerNetwork";

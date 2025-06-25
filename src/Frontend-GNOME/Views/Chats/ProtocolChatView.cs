@@ -169,7 +169,7 @@ namespace Smuxi.Frontend.Gnome
                     ownedChats++;
                 }
             }
-            if (ownedChats > 1) {
+            if (!ProtocolManager.HiddenPresenceStatus && ownedChats > 1) {
                 Gtk.MessageDialog md = new Gtk.MessageDialog(
                     Frontend.MainWindow,
                     Gtk.DialogFlags.Modal,
