@@ -403,4 +403,5 @@ jobs:
           cat /etc/debian_version
       - name: build Docker image
         run: |
-          docker build -f docker/release/Dockerfile
+          cd docker/release/
+          docker build -f ./Dockerfile .
