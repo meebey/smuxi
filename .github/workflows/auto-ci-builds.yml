@@ -332,7 +332,7 @@ jobs:
       run: |
         dpkg-buildpackage -us -uc -rfakeroot --build=binary
 
-  build_nix_NixOS-stable-23_11:
+  build_nix_NixOS-oldstable-25_05:
     runs-on: ubuntu-latest
     container: nixos/nix
     steps:
@@ -345,8 +345,8 @@ jobs:
       run: |
         nix-channel --remove nixos
         nix-channel --remove nixpkgs
-        nix-channel --add https://nixos.org/channels/nixos-23.11 nixos
-        nix-channel --add https://nixos.org/channels/nixos-23.11 nixpkgs
+        nix-channel --add https://nixos.org/channels/nixos-25.05 nixos
+        nix-channel --add https://nixos.org/channels/nixos-25.05 nixpkgs
     - name: list and update channel
       run: |
         nix-channel --list
