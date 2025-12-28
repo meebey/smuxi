@@ -1,13 +1,13 @@
 Smuxi
 =====
-[![License](https://img.shields.io/github/license/meebey/smuxi.svg)](https://github.com/meebey/smuxi/blob/master/LICENSE) [![GitHubCI pipeline status badge](https://github.com/meebey/smuxi/workflows/auto-ci-builds/badge.svg)](https://github.com/meebey/smuxi/commits/master) ![GitHub contributors](https://img.shields.io/github/contributors-anon/meebey/smuxi)
+[![License](https://img.shields.io/github/license/meebey/smuxi.svg)](https://github.com/meebey/smuxi/blob/master/LICENSE) [![GitHubCI pipeline status badge](https://github.com/meebey/smuxi/workflows/auto-ci-builds/badge.svg)](https://github.com/meebey/smuxi/commits/master) ![GitHub contributors](https://img.shields.io/github/contributors-anon/meebey/smuxi) ![GitHub Release Date](https://img.shields.io/github/release-date/meebey/smuxi)
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/meebey/smuxi?style=social) [![Twitter Follow](https://img.shields.io/twitter/follow/smuxi?style=social)](https://twitter.com/intent/follow?screen_name=smuxi)
 
-![GitHub Release Date](https://img.shields.io/github/release-date/meebey/smuxi)
-![Debian package](https://img.shields.io/debian/v/smuxi)
-![Ubuntu package](https://img.shields.io/ubuntu/v/smuxi)
-![AUR version](https://img.shields.io/aur/version/smuxi?label=AUR)
+
+Linux and BSD packages
+======================
+[![Linux packages](https://repology.org/badge/vertical-allrepos/smuxi.svg?columns=4&exclude_unsupported=1)](https://repology.org/project/smuxi/versions)
 
 Software Requirements
 =====================
