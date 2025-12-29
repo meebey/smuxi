@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
     url = "https://github.com/meebey/smuxi.git";
     ref = gitBranch;
     submodules = true;
+    name = "${pname}-source-${version}-${gitBranch}";
   };
 
   nativeBuildInputs = [ pkg-config ];
