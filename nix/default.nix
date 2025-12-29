@@ -27,10 +27,12 @@ stdenv.mkDerivation rec {
     submodules = true;
     name = "${pname}-source-${version}-${gitBranch}";
   };
-
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ autoconf automake itstool intltool gettext
+  # build-time tools/macros
+  nativeBuildInputs = [ autoconf automake itstool intltool gettext pkg-config ];
+  # runtime/library dependencies
+  buildInputs = [
     mono
+    gettext
     stfl
     makeWrapper ] ++ lib.optionals (guiSupport) [
       gtk-sharp-2_0
