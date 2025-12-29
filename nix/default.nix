@@ -46,6 +46,11 @@ stdenv.mkDerivation rec {
       ACLOCAL_FLAGS="-I ${gettext}/share/gettext/m4"
     fi
     NOCONFIGURE=1 NOGIT=1 ACLOCAL_FLAGS="$ACLOCAL_FLAGS" ./autogen.sh
+
+    # TODO: include $(git describe) in package version, but how?
+    configureFlagsArray+=(
+      "--with-vendor-package-version=dist-nix ${version}+${gitBranch}"
+    )
   '';
   configureFlags = [
     "--disable-frontend-gnome"
