@@ -1,5 +1,5 @@
 # build with:
-# nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./default.nix { gitBranch = "BRANCH_REF" }'
+# nix-build --expr 'let pkgs = import <nixpkgs> { }; in pkgs.callPackage ./default.nix { gitBranch = "BRANCH_REF"; }'
 { stdenv, pkgs
 , autoconf, automake, itstool, intltool, pkg-config
 , glib
