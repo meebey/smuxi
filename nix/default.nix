@@ -38,7 +38,11 @@ stdenv.mkDerivation rec {
     ];
 
   preConfigure = ''
-    NOCONFIGURE=1 NOGIT=1 ACLOCAL_FLAGS=" -I ${gettext}/share/gettext/m4" ./autogen.sh
+    GETTEXT_MACRO_PATH=${gettext}/share/gettext/m4
+    if [ -d "$GETTEXT_MACRO_PATH" ]; then
+      ACLOCAL_FLAGS="-I ${gettext}/share/gettext/m4"
+    fi
+    NOCONFIGURE=1 NOGIT=1 ACLOCAL_FLAGS="$ACLOCAL_FLAGS" ./autogen.sh
   '';
   configureFlags = [
     "--disable-frontend-gnome"
